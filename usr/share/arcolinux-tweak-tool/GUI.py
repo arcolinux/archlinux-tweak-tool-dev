@@ -355,7 +355,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # hbox1.pack_start(self.lbl_desktop, False, False, 0)
 
     hbox3.pack_start(pE, False, False, 0)
-    hbox2.pack_start(version, False, False, 0)
+    #hbox2.pack_start(version, False, False, 0)
 
     ivbox.pack_start(image, False, False, 0)
     ivbox.pack_start(stack_switcher, True, True, 0)
