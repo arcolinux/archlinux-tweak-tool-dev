@@ -759,7 +759,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "cinnamon":
         command = cinnamon
     elif desktop == "cwm":
-        command = list(np.append(cwm)
+        command = list(np.append(cwm))
         src.append("/etc/skel/.config/cwm")
         src.append("/etc/skel/.cwmrc")
         src.append("/etc/skel/.xprofile")
@@ -769,37 +769,37 @@ def install_desktop(self, desktop, state):
         check_package(self, "/usr/bin", "qt5ct")
         command = deepin
     elif desktop == "dwm":
-        command = list(np.append(dwm)
+        command = list(np.append(dwm))
         src.append("/etc/skel/.config/arco-dwm")
         twm = True
     elif desktop == "fvwm3":
-        command = list(np.append(fvwm3)
+        command = list(np.append(fvwm3))
         src.append("/etc/skel/.config/fvwm3")
         src.append("/etc/skel/.fvwm")
         twm = True
     elif desktop == "gnome":
         command = gnome
     elif desktop == "herbstluftwm":
-        command = list(np.append(hlwm)
+        command = list(np.append(hlwm))
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "i3":
-        command = list(np.append(i3)
+        command = list(np.append(i3))
         src.append("/etc/skel/.config/i3")
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "icewm":
-        command = list(np.append(icewm)
+        command = list(np.append(icewm))
         src.append("/etc/skel/.config/icewm")
         twm = True
     elif desktop == "jwm":
-        command = list(np.append(jwm)
+        command = list(np.append(jwm))
         src.append("/etc/skel/.config/jwm")
         src.append("/etc/skel/.jwmrc")
         twm = True
     elif desktop == "lxqt":
-        command = list(np.append(lxqt)
+        command = list(np.append(lxqt))
         src.append("/etc/skel/.config/lxqt")
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/pcmanfm-qt")
@@ -809,7 +809,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "mate":
         command = mate
     elif desktop == "openbox":
-        command = list(np.append(openbox)
+        command = list(np.append(openbox))
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/obmenu-generator")
         src.append("/etc/skel/.config/tint2")
@@ -822,23 +822,23 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.local/share")
         twm = True
     elif desktop == "qtile":
-        command = list(np.append(qtile)
+        command = list(np.append(qtile))
         src.append("/etc/skel/.config/qtile")
         twm = True
     elif desktop == "spectrwm":
-        command = list(np.append(spectrwm)
+        command = list(np.append(spectrwm))
         src.append("/etc/skel/.config/spectrwm")
         src.append("/etc/skel/.spectrwm.conf")
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "ukui":
-        command = list(np.append(ukui)
+        command = list(np.append(ukui))
         src.append("/etc/skel/.config/")
         twm = True
     elif desktop == "xfce":
-        command = list(np.append(xfce)
+        command = list(np.append(xfce))
     elif desktop == "xmonad":
-        command = list(np.append(xmonad)
+        command = list(np.append(xmonad))
         src.append("/etc/skel/.xmonad")
         src.append("/etc/skel/.config/polybar")
         twm = True
