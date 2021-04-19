@@ -218,6 +218,7 @@ fvwm3 = [
     "arcolinux-gtk3-surfn-arc-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-meta-logout",
+    "arcolinux-polybar-git",    
     "arcolinux-rofi-git",
     "arcolinux-rofi-themes-git",
     "arcolinux-root-git",
