@@ -212,10 +212,10 @@ dwm = [
     "xfce4-terminal",
 ]
 fvwm3 = [
-     "arcolinux-config-all-desktops-git",
+    "arcolinux-config-all-desktops-git",
     "arcolinux-dconf-all-desktops-git",
     "arcolinux-fvwm3-git",
-    "arcolinux-gtk3-sardi-arc-git",
+    "arcolinux-gtk3-surfn-arc-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-meta-logout",
     "arcolinux-rofi-git",
@@ -225,11 +225,15 @@ fvwm3 = [
     "arcolinux-volumeicon-git",
     "arcolinux-wallpapers-git",
     "arcolinux-xfce-git",
+    "autorandr",
     "dmenu",
     "feh",
+    "fvwm3-git"
     "gmrun",
     "gsimplecal",
+    "lxappearance",
     "picom",
+    "polybar",
     "polkit-gnome",
     "rofi",
     "sxhkd",
