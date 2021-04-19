@@ -228,7 +228,7 @@ fvwm3 = [
     "autorandr",
     "dmenu",
     "feh",
-    "fvwm3-git"
+    "fvwm3-git",
     "gmrun",
     "gsimplecal",
     "lxappearance",
