@@ -301,7 +301,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
     # if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
-    stack.add_titled(vboxStack10, "stack11", "Theme")  # Theme changer
+    stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
 
     # if output == "/bin/zsh":
     stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
