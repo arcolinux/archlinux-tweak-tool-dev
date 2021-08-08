@@ -16,6 +16,7 @@ from gi.repository import GLib, Gtk  # noqa
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
+arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
@@ -37,6 +38,8 @@ zsh_config = home + "/.zshrc"
 
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
+
+seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 
 arepo_test = "[arcolinux_repo_testing]\n\
 SigLevel = Required DatabaseOptional\n\

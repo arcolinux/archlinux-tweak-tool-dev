@@ -27,7 +27,7 @@ from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
 # from Settings import settings, configparser
 
 #                #=======================================================
-#                #=                  Author: Brad Heffernan             =
+#                #=     Author: Brad Heffernan - Erik Dubois            =
 #                #=======================================================
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
@@ -136,6 +136,9 @@ class Main(Gtk.Window):
         multi_3p = pmf.check_repo("[arcolinux_repo_3party]")
         arch_xl = pmf.check_repo("[arcolinux_repo_xlarge]")
 
+#       #========================ARCO MIRROR=============================
+        arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
+
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
@@ -144,6 +147,9 @@ class Main(Gtk.Window):
         self.arepo_button.set_active(arco_base)
         self.a3prepo_button.set_active(multi_3p)
         self.axlrepo_button.set_active(arch_xl)
+
+#       #========================ARCO MIRROR SET TOGGLE=====================
+        self.aseed_button.set_active(arco_mirror_seed)
 
 #       #========================TESTING REPO SET TOGGLE==================
         self.checkbutton.set_active(arco_testing)
@@ -259,6 +265,14 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_base")
+
+    def on_mirror_seed_repo_toggle(self, widget, active):
+        if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
+            pmf.append_mirror(self, Functions.seedhostmirror)
+        else:
+            if self.opened is False:
+                pmf.toggle_mirrorlist(self, widget.get_active(),
+                                      "arco_mirror_seed")                
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):

@@ -33,6 +33,7 @@ import desktopr_GUI
 import autostart_GUI
 import polybar_GUI
 import zsh_theme_GUI
+import Arcolinuxmirrors_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
@@ -95,12 +96,19 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
     if Functions.file_check(Functions.pacman):
         Pacman_GUI.GUI(self, Gtk, vboxStack1, Functions)
+
+    # ==========================================================
+    #                   TAB MIRRORLIST ARCOLINUX
+    # ==========================================================
+
+    Arcolinuxmirrors_GUI.GUI(self, Gtk, vboxStack16, Functions)
 
     # ==========================================================
     #                 TAB #2 GTK THEMES
@@ -273,10 +281,11 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
 
-    stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
-
     # if Functions.file_check(Functions.lightdm_conf):
     stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config
+
+    # arcolinux mirrors
+    stack.add_titled(vboxStack16, "stack16", "Mirrors")  # mirrors
 
     # if Functions.file_check(Functions.neofetch_config):
     stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
@@ -289,6 +298,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     # if Functions.path_check(Functions.polybar):
     #     stack.add_titled(vboxStack14, "stack14", "Polybar changer")
+
+    stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
 
     # if Functions.file_check(Functions.slimlock_conf):
     #     stack.add_titled(vboxStack5, "stack7", "") # Slimlock
