@@ -16,6 +16,7 @@ import desktopr
 import autostart
 import polybar
 import zsh_theme
+import sddm
 
 # =============GUI=================
 import Termite_GUI
@@ -28,6 +29,7 @@ import Pacman_GUI
 # import GTK_GUI
 import SkelApp_GUI
 import Lightdm_GUI
+import Sddm_GUI
 import Themer_GUI
 import desktopr_GUI
 import autostart_GUI
@@ -91,12 +93,13 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack8 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack9 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack10 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack11 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #lightdm
     vboxStack12 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack13 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #sddm
 
     # ==========================================================
     #                   TAB #1 PACMAN
@@ -205,6 +208,27 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         ls = Gtk.Label()
         ls.set_markup("If you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
         vboxStack11.pack_start(ls, True, False, 0)
+        
+     # # ==========================================================
+    # #                     SDDM
+    # # ==========================================================
+    if Functions.file_check(Functions.sddm_conf):
+        Sddm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack17, sddm, Functions)
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("Sddm Autologin")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack17.pack_start(hbox31, False, False, 0)
+        vboxStack17.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("If you install <b>sddm</b> you can toggle autologin and set your default desktop session")
+        vboxStack17.pack_start(ls, True, False, 0)       
+        
     # # ==========================================================
     # #                     Skelapp
     # # ==========================================================
@@ -303,6 +327,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     # if Functions.file_check(Functions.slimlock_conf):
     #     stack.add_titled(vboxStack5, "stack7", "") # Slimlock
+
+    # if Functions.file_check(Functions.lightdm_conf):
+    stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
 
     # if Functions.file_check(Functions.termite_config):
     stack.add_titled(vboxStack7, "stack8", "Termite")  # Termite themes

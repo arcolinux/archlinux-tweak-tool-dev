@@ -12,6 +12,7 @@ import oblogout
 import termite
 import neofetch
 import skelapp
+import sddm
 import lightdm
 import themer
 import desktopr
@@ -169,6 +170,14 @@ class Main(Gtk.Window):
             else:
                 self.autologin.set_active(True)
                 self.sessions.set_sensitive(True)
+
+        if Functions.os.path.isfile(Functions.sddm_conf):
+            if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf),"User="):
+                self.autologin_sddm.set_active(False)
+                self.sessions_sddm.set_sensitive(False)
+            else:
+                self.autologin_sddm.set_active(True)
+                self.sessions_sddm.set_sensitive(True)
 
         # autostart.add_autostart()
 
@@ -985,6 +994,46 @@ class Main(Gtk.Window):
             self.sessions.set_sensitive(True)
         else:
             self.sessions.set_sensitive(False)
+            
+    # ====================================================================
+    #                       SDDM
+    # ====================================================================
+
+    def on_click_sddm_apply(self, widget):
+        if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
+            Functions.shutil.copy(Functions.sddm_conf,
+                                  Functions.sddm_conf + ".bak")
+
+        if (self.sessions_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin.get_active() is False:
+            t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
+                                            args=(self,
+                                                sddm.get_sddm_lines(Functions.sddm_conf),  # noqa
+                                                Functions.sudo_username,
+                                                self.sessions_sddm.get_active_text(),
+                                                self.autologin_sddm.get_active()))
+            t1.daemon = True
+            t1.start()
+        else:
+            Functions.show_in_app_notification(self, "Need to select desktop first")
+
+    def on_click_sddm_reset(self, widget):
+        if Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
+            Functions.shutil.copy(Functions.sddm_conf + ".bak",
+                                  Functions.sddm_conf)
+
+        if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
+            self.autologin_sddm.set_active(False)
+        else:
+            self.autologin_sddm.set_active(True)
+
+        Functions.show_in_app_notification(self, "Default Settings Applied")
+
+    def on_autologin_sddm_activated(self, widget, gparam):
+        if widget.get_active():
+            self.sessions_sddm.set_sensitive(True)
+        else:
+            self.sessions_sddm.set_sensitive(False)
+                        
 #    #====================================================================
 #    #                       DESKTOPR
 #    #====================================================================

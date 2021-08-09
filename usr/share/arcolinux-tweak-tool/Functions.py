@@ -28,6 +28,7 @@ slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
+sddm_conf = "/etc/sddm.conf"
 bd = ".att_backups"
 config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 config_dir = home + "/.config/arcolinux-tweak-tool/"
@@ -214,7 +215,6 @@ def _get_position(lists, value):
     position = lists.index(data[0])
     return position
 
-
 def _get_variable(lists, value):
     data = [string for string in lists if value in string]
 
@@ -313,6 +313,18 @@ def get_commands(conflist):
 
 
 def check_lightdm_value(list, value):
+    data = [string for string in list if value in string]
+    # if len(data) >= 1:
+    #     data1 = [string for string in data if "#" in string]
+
+    return data
+
+# =====================================================
+#               SDDM CONF
+# =====================================================
+
+
+def check_sddm_value(list, value):
     data = [string for string in list if value in string]
     # if len(data) >= 1:
     #     data1 = [string for string in data if "#" in string]

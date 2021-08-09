@@ -1,17 +1,17 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =                  Author: Erik Dubois                          =
 # =================================================================
 
 import Functions
 from Functions import GLib
 
 
-def check_lightdm(lists, value):
+def check_sddm(lists, value):
     pos = Functions._get_position(lists, value)
     val = lists[pos].strip()
     return val
 
-def set_lightdm_value(self, lists, value, session, state):
+def set_sddm_value(self, lists, value, session, state):
     try:
         com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
         groups = com.stdout.decode().strip().split(" ")
@@ -19,18 +19,20 @@ def set_lightdm_value(self, lists, value, session, state):
         if "autologin" not in groups:
             Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)            
         
-        pos = Functions._get_position(lists, "autologin-user=")
-        pos_session = Functions._get_position(lists, "autologin-session=")
+        pos = Functions._get_position(lists, "Session=")
+        pos_session = Functions._get_position(lists, "User=")
+        print(pos)
+        print(pos_session)
 
         if state:
-            lists[pos] = "autologin-user=" + value + "\n"
-            lists[pos_session] = "autologin-session=" + session + "\n"
+            lists[pos_session] = "User=" + value + "\n"
+            lists[pos] = "Session=" + session + "\n"
         else:
             if "#" not in lists[pos]:
                 lists[pos] = "#" + lists[pos]
                 lists[pos_session] = "#" + lists[pos_session]
 
-        with open(Functions.lightdm_conf, "w") as f:
+        with open(Functions.sddm_conf, "w") as f:
             f.writelines(lists)
             f.close()
 
@@ -39,10 +41,10 @@ def set_lightdm_value(self, lists, value, session, state):
         # GLib.idle_add(Functions.MessageBox,self, "Success!!", "Settings applied successfully")
     except Exception as e:
         print(e)
-        Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_lightdm_value\"")
+        Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
 
 
-def get_lines(files):
+def get_sddm_lines(files):
     if Functions.os.path.isfile(files):
         with open(files, "r") as f:
             lines = f.readlines()
@@ -56,13 +58,13 @@ def pop_box(self, combo):
 
     for items in Functions.os.listdir("/usr/share/xsessions/"):
         coms.append(items.split(".")[0].lower())
-    lines = get_lines(Functions.lightdm_conf)
+    lines = get_sddm_lines(Functions.sddm_conf)
 
-    # pos = Functions._get_position(lines, "user-session=")
-    name = check_lightdm(lines, "autologin-session=").split("=")[1]
+    # pos = Functions._get_position(lines, "Session=")
+    name = check_sddm(lines, "Session=").split("=")[1]
 
     # if name == "":
-    #     name = check_lightdm(lines, "user-session=").split("=")[1]
+    #     name = check_sddm(lines, "User=").split("=")[1]
     
     coms.sort()
     for i in range(len(coms)):
