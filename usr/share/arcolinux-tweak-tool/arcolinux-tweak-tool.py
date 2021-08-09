@@ -1004,7 +1004,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.sddm_conf,
                                   Functions.sddm_conf + ".bak")
 
-        if (self.sessions_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin.get_active() is False:
+        if (self.sessions_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin_sddm.get_active() is False:
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                             args=(self,
                                                 sddm.get_sddm_lines(Functions.sddm_conf),  # noqa

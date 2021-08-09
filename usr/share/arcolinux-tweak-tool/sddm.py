@@ -21,8 +21,6 @@ def set_sddm_value(self, lists, value, session, state):
         
         pos = Functions._get_position(lists, "Session=")
         pos_session = Functions._get_position(lists, "User=")
-        print(pos)
-        print(pos_session)
 
         if state:
             lists[pos_session] = "User=" + value + "\n"
