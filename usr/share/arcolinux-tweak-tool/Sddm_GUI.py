@@ -17,11 +17,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)   
 
     label = Gtk.Label(xalign=0)
     label.set_text("Autologin")
@@ -76,18 +77,18 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     
     hbox8.pack_start(label_empty2, False, False, 10)
     
-    hbox4.pack_start(label2, False, False, 10)
-    hbox4.pack_end(self.theme_sddm, True, True, 10) 
+    hbox9.pack_start(label2, False, False, 10)
+    hbox9.pack_end(self.theme_sddm, True, True, 10) 
 
     hbox2.pack_end(apply_sddm, False, False, 0)
     hbox2.pack_end(reset_sddm, False, False, 0)
 
-    vboxStack10.pack_start(hbox5, False, False, 10)
+    vboxStack10.pack_start(hbox4, False, False, 10)
     vboxStack10.pack_start(hbox, False, False, 0)
     vboxStack10.pack_start(hbox7, False, False, 0)
     vboxStack10.pack_start(hbox3, False, False, 0)
     vboxStack10.pack_start(hbox1, False, False, 0)
     vboxStack10.pack_start(hbox8, False, False, 0)
     vboxStack10.pack_start(hbox6, False, False, 0)
-    vboxStack10.pack_start(hbox4, False, False, 0)
+    vboxStack10.pack_start(hbox9, False, False, 0)
     vboxStack10.pack_end(hbox2, False, False, 0)
