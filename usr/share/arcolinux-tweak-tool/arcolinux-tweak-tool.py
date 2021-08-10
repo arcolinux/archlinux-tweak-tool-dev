@@ -1010,7 +1010,8 @@ class Main(Gtk.Window):
                                                 sddm.get_sddm_lines(Functions.sddm_conf),  # noqa
                                                 Functions.sudo_username,
                                                 self.sessions_sddm.get_active_text(),
-                                                self.autologin_sddm.get_active()))
+                                                self.autologin_sddm.get_active(),
+                                                self.theme_sddm.get_active_text()))
             t1.daemon = True
             t1.start()
         else:

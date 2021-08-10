@@ -11,7 +11,7 @@ def check_sddm(lists, value):
     val = lists[pos].strip()
     return val
 
-def set_sddm_value(self, lists, value, session, state):
+def set_sddm_value(self, lists, value, session, state, theme):
     try:
         com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
         groups = com.stdout.decode().strip().split(" ")
@@ -29,6 +29,9 @@ def set_sddm_value(self, lists, value, session, state):
             if "#" not in lists[pos]:
                 lists[pos] = "#" + lists[pos]
                 lists[pos_session] = "#" + lists[pos_session]
+        
+        pos_theme = Functions._get_position(lists, "Current=")
+        lists[pos_theme] = "Current=" + theme + "\n" 
 
         with open(Functions.sddm_conf, "w") as f:
             f.writelines(lists)
@@ -67,6 +70,29 @@ def pop_box(self, combo):
     coms.sort()
     for i in range(len(coms)):
         excludes = ['gnome-classic', 'gnome-xorg', 'i3-with-shmlog', 'openbox-kde', 'cinnamon2d', '']
+        if not coms[i] in excludes:
+            combo.append_text(coms[i])
+            if name.lower() == coms[i].lower():
+                # print("Name = " + name)
+                combo.set_active(i)
+
+def pop_theme_box(self, combo):
+    coms = []
+    combo.get_model().clear()
+
+    for items in Functions.os.listdir("/usr/share/sddm/themes/"):
+        coms.append(items.split(".")[0].lower())
+    lines = get_sddm_lines(Functions.sddm_conf)
+
+    # pos = Functions._get_position(lines, "Session=")
+    name = check_sddm(lines, "Current=").split("=")[1]
+
+    # if name == "":
+    #     name = check_sddm(lines, "User=").split("=")[1]
+    
+    coms.sort()
+    for i in range(len(coms)):
+        excludes = ['maya', 'maldives', 'elarun', '']
         if not coms[i] in excludes:
             combo.append_text(coms[i])
             if name.lower() == coms[i].lower():

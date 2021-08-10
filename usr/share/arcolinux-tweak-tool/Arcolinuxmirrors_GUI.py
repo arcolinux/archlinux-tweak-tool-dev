@@ -40,7 +40,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.aseed_button = Gtk.Switch()
     self.aseed_button.connect("notify::active", self.on_mirror_seed_repo_toggle)
     label5 = Gtk.Label(xalign=0)
-    label5.set_markup("Enable Seedhost repo \nDo not enable it and save us bandwidth")
+    label5.set_markup("Enable Seedhost repo - Do not enable it and save us bandwidth")
 
     # self.a3prepo_button = Gtk.Switch()
     # self.a3prepo_button.connect("notify::active", self.on_pacman_a3p_toggle)
