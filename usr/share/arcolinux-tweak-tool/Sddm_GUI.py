@@ -22,7 +22,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)   
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10) 
 
     label = Gtk.Label(xalign=0)
     label.set_text("Autologin")
@@ -50,11 +52,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     
     label_empty2 = Gtk.Label(xalign=0)
     label_empty2.set_text("")
+    
+    label_empty3 = Gtk.Label(xalign=0)
+    label_empty3.set_text("")
 
     self.theme_sddm = Gtk.ComboBoxText()
 
     sddm.pop_theme_box(self, self.theme_sddm)
 
+    install_sddm_themes = Gtk.Button(label="Install Missing ArcoLinux Sddm Themes")
+    install_sddm_themes.connect("clicked", self.on_click_install_sddm_themes)
 
     apply_sddm = Gtk.Button(label="Apply settings")
     apply_sddm.connect("clicked", self.on_click_sddm_apply)
@@ -77,6 +84,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     
     hbox8.pack_start(label_empty2, False, False, 10)
     
+    hbox10.pack_start(label_empty3, False, False, 10)
+    hbox11.pack_start(install_sddm_themes, False, False, 10)
+    
     hbox9.pack_start(label2, False, False, 10)
     hbox9.pack_end(self.theme_sddm, True, True, 10) 
 
@@ -91,4 +101,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     vboxStack10.pack_start(hbox8, False, False, 0)
     vboxStack10.pack_start(hbox6, False, False, 0)
     vboxStack10.pack_start(hbox9, False, False, 0)
+    vboxStack10.pack_start(hbox10, False, False, 0)
+    vboxStack10.pack_start(hbox11, False, False, 0)
     vboxStack10.pack_end(hbox2, False, False, 0)

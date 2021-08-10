@@ -845,6 +845,15 @@ class Main(Gtk.Window):
         GLib.idle_add(ll.set_text, "Install Termite themes")
         GLib.idle_add(self.ls2.set_markup, "Please restart the <b>ArcoLinux Tweak Tool</b>")
 
+    def on_click_install_sddm_themes(self,widget):
+        install = 'pacman -S arcolinux-meta-sddm-themes --needed --noconfirm'
+        GLib.idle_add(self.label7.set_text, "Installing...")
+        Functions.subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
+
     def on_term_apply(self, widget):
         if self.term_themes.get_active_text() is not None:
             widget.set_sensitive(False)
