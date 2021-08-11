@@ -19,6 +19,7 @@ import desktopr
 import autostart
 import polybar
 import zsh_theme
+import user
 import GUI
 from Functions import os, pacman
 from subprocess import PIPE, STDOUT
@@ -1043,6 +1044,13 @@ class Main(Gtk.Window):
             self.sessions_sddm.set_sensitive(True)
         else:
             self.sessions_sddm.set_sensitive(False)
+
+    # ====================================================================
+    #                       USER
+    # ====================================================================
+
+    def on_click_user_apply(self, widget):
+        user.create_user(self)
                         
 #    #====================================================================
 #    #                       DESKTOPR

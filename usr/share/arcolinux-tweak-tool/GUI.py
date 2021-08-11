@@ -17,6 +17,7 @@ import autostart
 import polybar
 import zsh_theme
 import sddm
+import user
 
 # =============GUI=================
 import Termite_GUI
@@ -36,6 +37,7 @@ import autostart_GUI
 import polybar_GUI
 import zsh_theme_GUI
 import Arcolinuxmirrors_GUI
+import User_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
@@ -100,7 +102,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack15 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #sddm
-
+    vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #user
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
@@ -209,7 +211,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         ls.set_markup("If you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
         vboxStack11.pack_start(ls, True, False, 0)
         
-     # # ==========================================================
+    # # ==========================================================
     # #                     SDDM
     # # ==========================================================
     if Functions.file_check(Functions.sddm_conf):
@@ -228,6 +230,14 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         ls = Gtk.Label()
         ls.set_markup("If you install <b>sddm</b> you can toggle autologin and set your default desktop session")
         vboxStack17.pack_start(ls, True, False, 0)       
+
+    # # ==========================================================
+    # #                     USER
+    # # ==========================================================
+    User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
+    ls = Gtk.Label()
+    ls.set_markup("Fill in the fields and create your account")
+    vboxStack18.pack_start(ls, True, False, 0) 
         
     # # ==========================================================
     # #                     Skelapp
@@ -328,7 +338,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # if Functions.file_check(Functions.slimlock_conf):
     #     stack.add_titled(vboxStack5, "stack7", "") # Slimlock
 
-    # if Functions.file_check(Functions.lightdm_conf):
     stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
 
     # if Functions.file_check(Functions.termite_config):
@@ -340,6 +349,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     # if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
     stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
+
+    stack.add_titled(vboxStack18, "stack18", "User")  # Sddm config
 
     # if output == "/bin/zsh":
     stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
