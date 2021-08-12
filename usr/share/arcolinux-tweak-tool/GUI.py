@@ -228,7 +228,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack17.pack_start(hbox31, False, False, 0)
         vboxStack17.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("If you install <b>sddm</b> you can toggle autologin and set your default desktop session")
+        ls.set_markup("No /etc/sddm.conf configuration file found. Install <b>Sddm</b> to use this tab.")
         vboxStack17.pack_start(ls, True, False, 0)       
 
     # # ==========================================================
