@@ -92,9 +92,8 @@ def pop_theme_box(self, combo):
     
     coms.sort()
     for i in range(len(coms)):
-        excludes = ['maya', 'maldives', 'elarun', '']
-        if not coms[i] in excludes:
-            combo.append_text(coms[i])
-            if name.lower() == coms[i].lower():
-                # print("Name = " + name)
-                combo.set_active(i)
+        #excludes = ['maya', 'maldives', 'elarun', '']
+        #if not coms[i] in excludes:
+        combo.append_text(coms[i])
+        if name.lower() == coms[i].lower():
+            combo.set_active(i)
