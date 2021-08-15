@@ -1087,7 +1087,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")        
 
     def on_click_fix_osbeck(self,widget):
-        command = 'arcolinux-osbeck-as-mirror'
+        command = '/usr/local/bin/arcolinux-osbeck-as-mirror'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,

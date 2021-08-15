@@ -13,7 +13,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2_label = Gtk.Label(xalign=0)
-    hbox2_label.set_text("ArcoLinux fix pacman keys  (takes a while)")   
+    hbox2_label.set_text("ArcoLinux fix pacman keys")   
     button_Apply_Pacman_Key_Fix = Gtk.Button(label="Fix keys")
     button_Apply_Pacman_Key_Fix.connect ("clicked", self.on_click_fix_pacman_keys)
     hbox2.pack_start(hbox2_label, False, False, 10)
