@@ -18,6 +18,7 @@ import polybar
 import zsh_theme
 import sddm
 import user
+import fixes
 
 # =============GUI=================
 import Termite_GUI
@@ -38,6 +39,7 @@ import polybar_GUI
 import zsh_theme_GUI
 import Arcolinuxmirrors_GUI
 import User_GUI
+import Fixes_GUI
 
 
 def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
@@ -103,6 +105,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     vboxStack16 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack17 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #sddm
     vboxStack18 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #user
+    vboxStack19 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10) #user    
     # ==========================================================
     #                   TAB #1 PACMAN
     # ==========================================================
@@ -237,7 +240,16 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     User_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack18, user, Functions)
     ls = Gtk.Label()
     ls.set_markup("Fill in the fields and create your account")
-    vboxStack18.pack_start(ls, True, False, 0) 
+    vboxStack18.pack_start(ls, True, False, 0)
+    
+    
+    # # ==========================================================
+    # #                     FIXES
+    # # ==========================================================
+    Fixes_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack19, user, Functions)
+    #ls = Gtk.Label()
+    #ls.set_markup("Fill in the fields and create your account")
+    #vboxStack19.pack_start(ls, True, False, 0)     
         
     # # ==========================================================
     # #                     Skelapp
@@ -314,6 +326,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
 
     stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
+
+    stack.add_titled(vboxStack19, "stack19", "Fixes")  # Fixes
 
     # if Functions.file_check(Functions.lightdm_conf):
     stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config

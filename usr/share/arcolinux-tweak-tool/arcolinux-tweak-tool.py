@@ -20,8 +20,9 @@ import autostart
 import polybar
 import zsh_theme
 import user
+import fixes
 import GUI
-from Functions import os, pacman
+from Functions import install_alacritty, os, pacman
 from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
@@ -43,7 +44,7 @@ class Main(Gtk.Window):
         self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
-        self.set_default_size(800, 650)
+        self.set_default_size(800, 700)
 
         self.opened = True
         self.firstrun = True
@@ -1072,6 +1073,34 @@ class Main(Gtk.Window):
 
     def on_click_user_apply(self, widget):
         user.create_user(self)
+
+    # ====================================================================
+    #                       FIXES
+    # ====================================================================
+        
+    def on_click_fix_pacman_keys(self,widget):
+        install_alacritty(self)
+        Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-fix-pacman-databases-and-keys",
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")        
+
+    def on_click_fix_osbeck(self,widget):
+        command = 'arcolinux-osbeck-as-mirror'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT) 
+        GLib.idle_add(Functions.show_in_app_notification, self, "Osbeck set as Arch Linux")   
+
+    def on_click_fix_mirrors(self,widget):
+        install_alacritty(self)
+        Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-get-mirrors",
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT) 
+        GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
                         
 #    #====================================================================
 #    #                       DESKTOPR

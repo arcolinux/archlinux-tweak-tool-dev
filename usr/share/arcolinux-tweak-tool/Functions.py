@@ -407,6 +407,22 @@ def set_hblock(self, toggle, state):
         MessageBox(self, "ERROR!!", str(e))
         print(e)
 
+# =====================================================
+#               ALACRITTY
+# =====================================================
+
+def install_alacritty(self):
+    install = 'pacman -S alacritty --needed --noconfirm'
+    
+    if os.path.exists("/usr/local/bin/alacritty"):
+        #do nothing
+        print("Alacritty is installed")
+    else:
+        print("Alacritty is not installed... installing now")
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
 
 # =====================================================
 #               GRUB CONF
