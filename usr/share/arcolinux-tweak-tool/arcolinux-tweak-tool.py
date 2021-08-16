@@ -70,6 +70,14 @@ class Main(Gtk.Window):
         sleep(2)
         splScr.destroy()
 
+        if not Functions.os.path.exists(Functions.sddm_conf):
+            Functions.shutil.copy(Functions.sddm_conf_original,
+                                  Functions.sddm_conf)
+
+        if  os.path.getsize(Functions.sddm_conf) == 0:
+            Functions.shutil.copy(Functions.sddm_conf_original,
+                                  Functions.sddm_conf)
+
         if not Functions.os.path.exists(Functions.home + "/.config/autostart"):
             # Functions.MessageBox(self, "oops!",
             #                      "some directories are missing. run 'skel' in terminal and try starting again.")
@@ -1029,7 +1037,19 @@ class Main(Gtk.Window):
         else:
             self.autologin_sddm.set_active(True)
 
-        Functions.show_in_app_notification(self, "Default Settings Applied")
+        Functions.show_in_app_notification(self, "Your sddm.conf backup has been saved")
+
+    def on_click_sddm_reset_original(self, widget):
+        if Functions.os.path.isfile(Functions.sddm_conf_original):
+            Functions.shutil.copy(Functions.sddm_conf_original,
+                                  Functions.sddm_conf)
+
+        if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
+            self.autologin_sddm.set_active(False)
+        else:
+            self.autologin_sddm.set_active(True)
+
+        Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf has been saved")
 
     def on_autologin_sddm_activated(self, widget, gparam):
         if widget.get_active():

@@ -30,6 +30,7 @@ termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
 sddm_conf = "/etc/sddm.conf"
+sddm_conf_original = "/usr/local/share/arcolinux/sddm.conf"
 bd = ".att_backups"
 config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 config_dir = home + "/.config/arcolinux-tweak-tool/"
@@ -324,12 +325,8 @@ def check_lightdm_value(list, value):
 #               SDDM CONF
 # =====================================================
 
-
 def check_sddm_value(list, value):
     data = [string for string in list if value in string]
-    # if len(data) >= 1:
-    #     data1 = [string for string in data if "#" in string]
-
     return data
 
 # =====================================================
