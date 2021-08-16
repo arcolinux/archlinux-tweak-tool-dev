@@ -18,6 +18,7 @@ sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
+arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"

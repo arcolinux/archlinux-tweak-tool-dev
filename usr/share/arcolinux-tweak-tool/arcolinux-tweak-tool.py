@@ -523,6 +523,8 @@ class Main(Gtk.Window):
     def reset_settings(self, widget, filez):  # noqa
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)
+            Functions.show_in_app_notification(self,
+                                               "Default Settings Applied")            
 
         if filez == pacman:
             arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
@@ -885,6 +887,21 @@ class Main(Gtk.Window):
                                   Functions.zsh_config)
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
+
+#    #====================================================================
+#    #                       ARCOLINUX MIRRORLIST
+#    #===================================================================
+
+    def on_click_reset_arcolinux_mirrorlist(self, widget):
+        if not Functions.os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
+            Functions.shutil.copy(Functions.arcolinux_mirrorlist,
+                                  Functions.arcolinux_mirrorlist + ".bak")
+            
+        if Functions.os.path.isfile(Functions.arcolinux_mirrorlist_original):
+            Functions.shutil.copy(Functions.arcolinux_mirrorlist_original,
+                                  Functions.arcolinux_mirrorlist)
+            Functions.show_in_app_notification(self, "Original ArcoLinux mirrorlist is applied")
+
 
 #    #====================================================================
 #    #                       NEOFETCH CONFIG
