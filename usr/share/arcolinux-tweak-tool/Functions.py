@@ -411,11 +411,9 @@ def set_hblock(self, toggle, state):
 def install_alacritty(self):
     install = 'pacman -S alacritty --needed --noconfirm'
     
-    if os.path.exists("/usr/local/bin/alacritty"):
-        #do nothing
-        print("Alacritty is installed")
+    if os.path.exists("/usr/bin/alacritty"):
+        pass
     else:
-        print("Alacritty is not installed... installing now")
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
