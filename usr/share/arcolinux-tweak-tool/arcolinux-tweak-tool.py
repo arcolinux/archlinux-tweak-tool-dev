@@ -70,13 +70,17 @@ class Main(Gtk.Window):
         sleep(2)
         splScr.destroy()
 
-        if not Functions.os.path.exists(Functions.sddm_conf):
-            Functions.shutil.copy(Functions.sddm_conf_original,
-                                  Functions.sddm_conf)
+        #if not Functions.os.path.exists(Functions.sddm_conf):
+        #    Functions.shutil.copy(Functions.sddm_conf_original,
+        #                          Functions.sddm_conf)
 
-        if  os.path.getsize(Functions.sddm_conf) == 0:
-            Functions.shutil.copy(Functions.sddm_conf_original,
-                                  Functions.sddm_conf)
+        if os.path.exists("/usr/bin/sddm"):
+            if not Functions.os.path.exists(Functions.sddm_conf):
+                Functions.shutil.copy(Functions.sddm_conf_original,
+                                      Functions.sddm_conf)   
+            if  os.path.getsize(Functions.sddm_conf) == 0:
+                Functions.shutil.copy(Functions.sddm_conf_original,
+                                      Functions.sddm_conf)
 
         if not Functions.os.path.exists(Functions.home + "/.config/autostart"):
             # Functions.MessageBox(self, "oops!",
@@ -1057,7 +1061,7 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
     def on_click_sddm_reset_original(self, widget):
-        if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
+        if not Functions.os.path.isfile(Functions.sddm_conf + ".bak") and Functions.os.path.isfile(Functions.sddm_conf) == True:
             Functions.shutil.copy(Functions.sddm_conf,
                                   Functions.sddm_conf + ".bak")
             
@@ -1070,6 +1074,12 @@ class Main(Gtk.Window):
         else:
             self.autologin_sddm.set_active(True)
 
+        Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
+
+    def on_click_no_sddm_reset_original(self, widget):           
+        if Functions.os.path.isfile(Functions.sddm_conf_original):
+            Functions.shutil.copyfile(Functions.sddm_conf_original,
+                                  Functions.sddm_conf)
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_autologin_sddm_activated(self, widget, gparam):
@@ -1103,7 +1113,15 @@ class Main(Gtk.Window):
                             stderr=Functions.subprocess.STDOUT)     
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
-    def on_refresh_themes_clicked(self, desktop):
+    def on_click_att_sddm_clicked(self, desktop):
+        command = 'pacman -S sddm --noconfirm --needed'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed")
+
+    def on_refresh_att_clicked(self, desktop):
         os.unlink("/tmp/att.lock")
         Functions.restart_program()
 

@@ -113,8 +113,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     # ======================================================================
     #                       REFRESH THEMES
     # ======================================================================
-    btnRefreshThemes = Gtk.Button(label="Refresh the list of Sddm themes")
-    btnRefreshThemes.connect('clicked', self.on_refresh_themes_clicked)
+    btnRefreshAtt = Gtk.Button(label="Refresh the list of Sddm themes")
+    btnRefreshAtt.connect('clicked', self.on_refresh_att_clicked)
 
 
     
@@ -127,7 +127,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox13.pack_end(reset_sddm, False, False, 10)
 
     hbox2.pack_end(apply_sddm, False, False, 0)
-    hbox2.pack_start(btnRefreshThemes, False, False, 0)
+    hbox2.pack_start(btnRefreshAtt, False, False, 0)
     
     vboxStack10.pack_start(hbox4, False, False, 10)
     vboxStack10.pack_start(hbox, False, False, 0)
