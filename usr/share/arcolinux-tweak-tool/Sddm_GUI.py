@@ -116,7 +116,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     btnRefreshAtt = Gtk.Button(label="Refresh the list of Sddm themes")
     btnRefreshAtt.connect('clicked', self.on_refresh_att_clicked)
 
-
     
     hbox9.pack_start(label2, False, False, 10)
     hbox9.pack_end(self.theme_sddm, True, True, 10) 
