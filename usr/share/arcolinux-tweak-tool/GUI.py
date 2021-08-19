@@ -230,7 +230,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack17.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
         ls.set_markup("Use the Plasma settings manager to set Sddm")
-        vboxStack17.pack_start(ls, False, False, 0)
+        vboxStack17.pack_start(ls, True, False, 0)
         
     else:
             
