@@ -17,6 +17,15 @@ from gi.repository import GLib, Gtk  # noqa
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
+
+sddm_conf_original = "/usr/local/share/arcolinux/sddm.conf"
+
+if os.path.exists("/etc/sddm.conf.d/kde_settings.conf"):
+    sddm_conf = "/etc/sddm.conf.d/kde_settings.conf"
+else:
+    sddm_conf = "/etc/sddm.conf"
+
+
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
@@ -30,8 +39,6 @@ slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
-sddm_conf = "/etc/sddm.conf"
-sddm_conf_original = "/usr/local/share/arcolinux/sddm.conf"
 bd = ".att_backups"
 config = home + "/.config/arcolinux-tweak-tool/settings.ini"
 config_dir = home + "/.config/arcolinux-tweak-tool/"
