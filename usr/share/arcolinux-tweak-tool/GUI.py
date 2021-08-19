@@ -230,6 +230,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack17.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
         ls.set_markup("Use the Plasma settings manager to set Sddm")
+        reset_sddm_original = Gtk.Button(label="Apply the sddm.conf from ArcoLinux")
+        reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
+        
+        vboxStack17.pack_end(reset_sddm_original, False, False, 0)
         vboxStack17.pack_start(ls, True, False, 0)
         
     else:
