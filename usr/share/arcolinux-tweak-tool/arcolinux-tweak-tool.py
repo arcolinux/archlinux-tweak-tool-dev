@@ -1060,14 +1060,15 @@ class Main(Gtk.Window):
         else:
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
-    def on_click_sddm_reset_original(self, widget):
-        #if not Functions.os.path.isfile(Functions.sddm_conf + ".bak") and Functions.os.path.isfile(Functions.sddm_conf) == True:
-        #    Functions.shutil.copy(Functions.sddm_conf,
-        #                          Functions.sddm_conf + ".bak")
-            
-        if Functions.os.path.isfile(Functions.sddm_conf_original):
-            Functions.shutil.copy(Functions.sddm_conf_original,
-                                  Functions.sddm_conf)
+    def on_click_sddm_reset_original(self, widget):     
+        if Functions.sddm_conf == "/etc/sddm.conf.d/kde_settings.conf":
+            Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                  Functions.sddm_default_d1)
+            Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                  Functions.sddm_default_d2)
+        else:
+            Functions.shutil.copy(Functions.sddm_default_original,
+                                  Functions.sddm_default)
 
         if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
             self.autologin_sddm.set_active(False)

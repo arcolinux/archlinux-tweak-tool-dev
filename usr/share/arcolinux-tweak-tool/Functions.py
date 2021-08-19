@@ -17,8 +17,13 @@ from gi.repository import GLib, Gtk  # noqa
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
+sddm_default = "/etc/sddm.conf"
+sddm_default_original = "/usr/local/share/arcolinux/sddm/sddm.conf"
 
-sddm_conf_original = "/usr/local/share/arcolinux/sddm.conf"
+sddm_default_d1 = "/etc/sddm.conf"
+sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
+sddm_default_d_sddm_original_1 = "/usr/local/share/arcolinux/sddm.conf.d/sddm.conf"
+sddm_default_d_sddm_original_2 = "/usr/local/share/arcolinux/sddm.conf.d/kde_settings.conf"
 
 if os.path.exists("/etc/sddm.conf.d/kde_settings.conf"):
     sddm_conf = "/etc/sddm.conf.d/kde_settings.conf"
