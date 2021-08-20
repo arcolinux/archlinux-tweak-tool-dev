@@ -86,6 +86,8 @@ def pop_box(self, combos):
         comss.remove('openbox-kde')
     if 'cinnamon2d' in comss:
         comss.remove('cinnamon2d')
+    if 'icewm-session' in comss:
+        comss.remove('icewm-session')
 
     for i in range(len(comss)):
         combos.append_text(comss[i])
