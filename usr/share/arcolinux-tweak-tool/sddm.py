@@ -80,9 +80,12 @@ def pop_box(self, combos):
 
     
     comss.sort()
-    comss.remove('i3-with-shmlog')
-    comss.remove('openbox-kde')
-    comss.remove('cinnamon2d')
+    if 'i3-with-shmlog' in comss:
+        comss.remove('i3-with-shmlog')
+    if 'openbox-kde' in comss:
+        comss.remove('openbox-kde')
+    if 'cinnamon2d' in comss:
+        comss.remove('cinnamon2d')
 
     for i in range(len(comss)):
         combos.append_text(comss[i])
