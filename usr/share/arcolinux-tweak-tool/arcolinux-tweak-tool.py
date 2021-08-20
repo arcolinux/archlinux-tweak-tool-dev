@@ -195,7 +195,7 @@ class Main(Gtk.Window):
                     self.sessions_sddm.set_sensitive(True)
             if Functions.os.path.isfile(Functions.sddm_default):
                 read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default),"CursorTheme=").split("=")[1]
-                self.entry_cursor_name.set_text( read_cursor_name)
+                self.entry_cursor_name.set_text(read_cursor_name)
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:

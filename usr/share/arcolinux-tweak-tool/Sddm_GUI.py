@@ -44,9 +44,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     self.autologin_sddm = Gtk.Switch()
     self.autologin_sddm.connect("notify::active", self.on_autologin_sddm_activated)
 
-    self.sessions_sddm = Gtk.ComboBoxText()
-    sddm.pop_box(self, self.sessions_sddm)
-
     label_theme = Gtk.Label(xalign=0)
     label_theme.set_text("Choose the Sddm theme")
     
@@ -76,12 +73,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
 
     self.entry_cursor_name = Gtk.Entry()
 
+    self.sessions_sddm = Gtk.ComboBoxText()
+    sddm.pop_box(self, self.sessions_sddm)
+
     self.theme_sddm = Gtk.ComboBoxText()
+    sddm.pop_theme_box(self, self.theme_sddm)
 
     self.keep_default_theme = Gtk.Switch()
     #self.keep_default_theme.connect("notify::active", self.on_keep_default_theme_activated)
 
-    sddm.pop_theme_box(self, self.theme_sddm)
+
 
     install_sddm_themes = Gtk.Button(label="Install Missing ArcoLinux Sddm Themes")
     install_sddm_themes.connect("clicked", self.on_click_install_sddm_themes)
