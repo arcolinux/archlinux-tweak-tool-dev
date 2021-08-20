@@ -39,10 +39,25 @@ def set_sddm_value(self, lists, value, session, state, theme):
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
 
-        # GLib.idle_add(Functions.MessageBox,self, "Success!!", "Settings applied successfully")
     except Exception as e:
         print(e)
         Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
+ 
+def set_sddm_cursor(self, lists, cursor):    
+    try:                    
+
+        pos_theme = Functions._get_position(lists, "CursorTheme=")
+        lists[pos_theme] = "CursorTheme=" + cursor + "\n" 
+
+        with open(Functions.sddm_default, "w") as f:
+            f.writelines(lists)
+            f.close()
+
+        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
+
+    except Exception as e:
+            print(e)
+            Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
 
 
 def get_sddm_lines(files):

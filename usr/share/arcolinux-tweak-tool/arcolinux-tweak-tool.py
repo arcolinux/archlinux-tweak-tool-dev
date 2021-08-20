@@ -193,6 +193,9 @@ class Main(Gtk.Window):
                 else:
                     self.autologin_sddm.set_active(True)
                     self.sessions_sddm.set_sensitive(True)
+            if Functions.os.path.isfile(Functions.sddm_default):
+                read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default),"CursorTheme=").split("=")[1]
+                self.entry_cursor_name.set_text( read_cursor_name)
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
@@ -1034,6 +1037,13 @@ class Main(Gtk.Window):
         #    Functions.shutil.copy(Functions.sddm_conf,
         #                          Functions.sddm_conf + ".bak")
 
+        t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
+                                        args=(self,
+                                        sddm.get_sddm_lines(Functions.sddm_default),  # noqa
+                                        self.entry_cursor_name.get_text()))
+        t1.daemon = True
+        t1.start()
+      
         if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                             args=(self,
