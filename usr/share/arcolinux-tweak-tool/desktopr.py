@@ -651,8 +651,10 @@ ukui = [
 xfce = [
     "xfce4",
     "xfce4-goodies",
+    "catfish",
     "dmenu",
     "gvfs",
+    "mugshot",
     "polkit-gnome",
     "rofi",
     "rxvt-unicode",
