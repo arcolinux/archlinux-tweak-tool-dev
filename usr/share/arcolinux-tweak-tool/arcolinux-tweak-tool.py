@@ -74,6 +74,18 @@ class Main(Gtk.Window):
         #    Functions.shutil.copy(Functions.sddm_conf_original,
         #                          Functions.sddm_conf)
 
+        if not os.path.isdir(Functions.log_dir):
+            try:
+                os.mkdir(Functions.log_dir)
+            except Exception as e:
+                print(e)
+        
+        if not os.path.isdir(Functions.att_log_dir):
+            try:
+                os.mkdir(Functions.att_log_dir)
+            except Exception as e:
+                print(e)
+                       
         if os.path.exists("/usr/bin/sddm"):
             if not Functions.os.path.exists(Functions.sddm_conf):
                 Functions.shutil.copy(Functions.sddm_conf_original,
@@ -1239,6 +1251,7 @@ class Main(Gtk.Window):
                                                "You Must Set Default First")
 
     def on_install_clicked(self, widget, state):
+        Functions.create_log(self)
         # if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
         print("installing {}".format(self.d_combo.get_active_text()))
         desktopr.check_lock(self,self.d_combo.get_active_text(),state)
@@ -1246,6 +1259,7 @@ class Main(Gtk.Window):
         # desktopr.install_desktop(self, self.d_combo.get_active_text())
 
     def on_default_clicked(self, widget):
+        Functions.create_log(self)
         if desktopr.check_desktop(self.d_combo.get_active_text()) is True:
             secs = Settings.read_section()
             if "DESKTOP" in secs:
