@@ -841,7 +841,38 @@ class Main(Gtk.Window):
             print(e)
 
 #    #====================================================================
-#    #                       TERMITE THEMES
+#    #                       TERMINALS
+#    #====================================================================
+
+    def on_clicked_install_alacritty_themes(self,widget):
+        command = 'pacman -S alacritty alacritty-themes base16-alacritty-git --needed --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
+
+    def on_clicked_install_xfce4_themes(self,widget):
+        command = 'pacman -S xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)     
+        GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
+
+    def on_clicked_install_termite_themes(self,widget):
+        command = 'pacman -S termite arcolinux-termite-themes-git --needed --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
+        Functions.permissions(Functions.home + "/.config/termite")    
+        GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
+
+
+#    #====================================================================
+#    #                       TERMITE
 #    #====================================================================
 
     def on_install_termite_themes(self, widget):
@@ -1101,7 +1132,6 @@ class Main(Gtk.Window):
 
     def on_click_install_sddm_themes(self,widget):
         command = 'pacman -S arcolinux-meta-sddm-themes --needed --noconfirm'
-        GLib.idle_add(self.label7.set_text, "Installing...")
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
