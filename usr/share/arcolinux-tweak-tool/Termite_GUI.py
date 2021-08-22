@@ -17,22 +17,22 @@ def GUI(self, Gtk, vboxStack7, termite, GdkPixbuf, base_dir):
     hbox3.pack_start(lbl1, False, False, 0)
     
     label25 = Gtk.Label()
-    label25.set_text("Termite themes :             install 'arcolinux-termite-themes-git and select the theme'")
+    label25.set_text("Termite themes :\n     Use the button to install - select the theme here'")
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)    
     hbox25.pack_start(label25, False, False, 10)   
 
     label21 = Gtk.Label()
-    label21.set_text("Alacritty themes :            install 'alacritty-themes' 'base16-alacritty-git' - Run 'alacritty-themes' in a terminal.")
+    label21.set_text("Alacritty themes :\n     Use the button to install - Run 'alacritty-themes' in a terminal")
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)    
     hbox21.pack_start(label21, False, False, 10)
 
     label22 = Gtk.Label()
-    label22.set_text("Xfce4-terminal themes : install 'tempus-themes-xfce4-terminal-git' 'prot16-xfce4-terminal' - Change colors \n                                          in Xfce4-terminal settings.")
+    label22.set_text("Xfce4-terminal themes :\n     Use the button to install  - Change colors in Xfce4-terminal settings")
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)    
     hbox22.pack_start(label22, False, False, 10)
 
     label23 = Gtk.Label()
-    label23.set_text("Urxvt themes :                 change the settings of ~/.Xresources manually")
+    label23.set_text("Urxvt themes :\n     Change the settings of ~/.Xresources manually")
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)    
     hbox23.pack_start(label23, False, False, 10)        
     
