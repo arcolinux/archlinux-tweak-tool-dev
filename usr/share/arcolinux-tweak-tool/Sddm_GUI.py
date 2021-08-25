@@ -82,8 +82,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     self.keep_default_theme = Gtk.Switch()
     #self.keep_default_theme.connect("notify::active", self.on_keep_default_theme_activated)
 
-
-
     install_sddm_themes = Gtk.Button(label="Install Missing ArcoLinux Sddm Themes")
     install_sddm_themes.connect("clicked", self.on_click_install_sddm_themes)
 
