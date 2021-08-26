@@ -1080,14 +1080,8 @@ class Main(Gtk.Window):
         #    Functions.shutil.copy(Functions.sddm_conf,
         #                          Functions.sddm_conf + ".bak")
 
-        t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
-                                        args=(self,
-                                        sddm.get_sddm_lines(Functions.sddm_default),  # noqa
-                                        self.entry_cursor_name.get_text()))
-        t1.daemon = True
-        t1.start()
       
-        if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None :
+        if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or (self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None) :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                             args=(self,
                                                 sddm.get_sddm_lines(Functions.sddm_conf),  # noqa
@@ -1097,8 +1091,18 @@ class Main(Gtk.Window):
                                                 self.theme_sddm.get_active_text()))
             t1.daemon = True
             t1.start()
+                        
+            t1 = Functions.threading.Thread(target=sddm.set_sddm_cursor,
+                                            args=(self,
+                                            sddm.get_sddm_lines(Functions.sddm_default),  # noqa
+                                            self.entry_cursor_name.get_text()))
+            t1.daemon = True
+            t1.start()
+
+            GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
+            
         else:
-            Functions.show_in_app_notification(self, "Need to select desktop and/or theme first")
+            Functions.show_in_app_notification(self, "You need to select desktop and/or theme first")
 
     def on_click_sddm_reset(self, widget):
         #if Functions.os.path.isfile(Functions.sddm_conf + ".bak"):

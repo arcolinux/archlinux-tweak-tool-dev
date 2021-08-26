@@ -37,7 +37,7 @@ def set_sddm_value(self, lists, value, session, state, theme):
             f.writelines(lists)
             f.close()
 
-        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
+#        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
 
     except Exception as e:
         print(e)
