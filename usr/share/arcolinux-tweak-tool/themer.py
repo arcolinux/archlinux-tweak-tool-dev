@@ -139,3 +139,39 @@ def get_value(lists, types):
         return color
     except Exception as e:
         print(e)
+
+def get_qtile_themes(combo, lines):
+    combo.get_model().clear()
+    try:
+        menu = [x for x in fn.os.listdir(fn.home + "/.config/qtile/themes/") if ".theme" in x]
+
+        current_theme = fn._get_position(lines, "Theme name :")
+        theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
+        print(theme_name)
+        active = 0
+        for i in range(len(menu)):
+            if theme_name in menu[i]:
+                active = i
+            combo.append_text(menu[i].replace(".theme", ""))
+        combo.set_active(active)
+    except Exception as e:
+        print(e)
+
+def set_qtile_themes(lines, theme):
+    try:
+        pos1 = fn._get_position(lines, "# COLORS FOR THE BAR")
+        pos2 = fn._get_position(lines, "colors = init_colors()")
+        name = theme.lower().replace(" ", "-")
+        with open(fn.home + "/.config/qtile/themes/" + name + ".theme", "r") as f:
+            theme_lines = f.readlines()
+            f.close()
+        pos3 = fn._get_position(theme_lines, "# COLORS FOR THE BAR")
+        pos4 = fn._get_position(theme_lines, "colors = init_colors()")
+
+        lines[pos1:pos2 + 1] = theme_lines[pos3:pos4 + 1]
+
+        with open(fn.qtile_config, "w") as f:
+            f.writelines(lines)
+            f.close()
+    except Exception as e:
+        print(e)

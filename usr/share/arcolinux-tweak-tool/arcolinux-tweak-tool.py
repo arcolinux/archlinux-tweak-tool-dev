@@ -453,6 +453,27 @@ class Main(Gtk.Window):
 
             themer.get_i3_themes(self.i3_combo, i3_list)
 
+    def qtile_apply_clicked(self, widget):
+        if os.path.isfile(Functions.qtile_config):
+            Functions.shutil.copy(Functions.qtile_config,
+                                  Functions.qtile_config + ".bak")
+
+        themer.set_qtile_themes(themer.get_list(Functions.qtile_config),
+                             self.qtile_combo.get_active_text())
+        Functions.show_in_app_notification(self,
+                                           "Theme applied successfully")
+
+    def qtile_reset_clicked(self, widget):
+        if os.path.isfile(Functions.qtile_config + ".bak"):
+            Functions.shutil.copy(Functions.qtile_config + ".bak",
+                                  Functions.qtile_config)
+            Functions.show_in_app_notification(self,
+                                               "Config reset successfully")
+
+            qtile_list = themer.get_list(Functions.qtile_config)
+
+            themer.get_qtile_themes(self.qtile_combo, qtile_list)
+
 # =====================================================
 #               OBLOGOUT FUNCTIONS
 # =====================================================

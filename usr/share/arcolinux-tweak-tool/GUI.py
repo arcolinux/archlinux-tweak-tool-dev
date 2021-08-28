@@ -290,7 +290,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #                       Themer
     # ==========================================================
-    if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
+    if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower() or "qtile" in self.desktop.lower():
         Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -304,7 +304,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack10.pack_start(hbox31, False, False, 0)
         vboxStack10.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("Change your themes on <b>I3</b> or <b>Awesome</b>")
+        ls.set_markup("Change your themes on <b>I3</b>, <b>Awesome</b> or <b>Qtile</b>")
         vboxStack10.pack_start(ls, True, False, 0)
     # ==========================================================
     #                       Themer
