@@ -88,7 +88,7 @@ class Main(Gtk.Window):
                     os.mkdir(Functions.sddm_default_d2_dir)
                 except Exception as e:
                     print(e)
-                        
+            
             if not Functions.os.path.exists(Functions.sddm_conf):
                 Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                       Functions.sddm_default_d1)   
