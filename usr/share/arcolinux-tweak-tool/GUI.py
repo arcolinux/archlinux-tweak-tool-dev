@@ -243,7 +243,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         
     else:
             
-        if Functions.file_check(Functions.sddm_conf):
+        if Functions.file_check(Functions.sddm_conf) and Functions.path_check("/usr/bin/sddm"):
             Sddm_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack17, sddm, Functions)
         else:
             hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
