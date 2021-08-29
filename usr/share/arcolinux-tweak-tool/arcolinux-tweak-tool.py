@@ -83,6 +83,12 @@ class Main(Gtk.Window):
                 print(e)
                        
         if os.path.exists("/usr/bin/sddm"):
+            if not os.path.isdir(Functions.sddm_default_d2_dir):
+                try:
+                    os.mkdir(Functions.sddm_default_d2_dir)
+                except Exception as e:
+                    print(e)
+                        
             if not Functions.os.path.exists(Functions.sddm_conf):
                 Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                       Functions.sddm_default_d1)   
@@ -1141,13 +1147,7 @@ class Main(Gtk.Window):
         else:
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
-    def on_click_sddm_reset_original(self, widget):
-        if not os.path.isdir(Functions.sddm_default_d2_dir):
-            try:
-                os.mkdir(Functions.sddm_default_d2_dir)
-            except Exception as e:
-                print(e)
-                
+    def on_click_sddm_reset_original(self, widget):               
         if Functions.sddm_conf == "/etc/sddm.conf.d/kde_settings.conf":
             Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
