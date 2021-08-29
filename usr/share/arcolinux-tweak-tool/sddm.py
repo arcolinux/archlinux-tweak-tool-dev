@@ -5,6 +5,30 @@
 import Functions, os
 from Functions import GLib
 
+def check_sddmk_session(value):
+    with open(Functions.sddm_conf, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+
+    for line in lines:
+        if value in line:          
+            return True
+    return False
+
+def insert_session(text):
+    with open(Functions.sddm_conf, "r") as f:
+        lines = f.readlines()
+        f.close()
+    pos = Functions._get_position(lines, "[Autologin]")
+    num = pos+2
+
+    lines.insert(num, text + "\n")
+
+    with open(Functions.sddm_conf, "w") as f:
+        f.writelines(lines)
+        f.close() 
+
+
 def check_sddmk_user(value):
     with open(Functions.sddm_conf, "r") as myfile:
         lines = myfile.readlines()

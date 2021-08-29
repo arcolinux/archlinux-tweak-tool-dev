@@ -93,6 +93,10 @@ class Main(Gtk.Window):
                                       Functions.sddm_default_d1)
                 Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
                                       Functions.sddm_default_d2)
+        if Functions.os.path.isfile(Functions.sddm_conf):
+            session_exists = sddm.check_sddmk_session("Session=")
+            if session_exists is False:
+                sddm.insert_session("#Session=")
 
         if Functions.os.path.isfile(Functions.sddm_conf):
             user_exists = sddm.check_sddmk_user("User=")
