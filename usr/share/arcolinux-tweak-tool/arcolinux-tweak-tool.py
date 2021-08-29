@@ -1159,9 +1159,12 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_click_no_sddm_reset_original(self, widget):           
-        if Functions.os.path.isfile(Functions.sddm_conf_original):
-            Functions.shutil.copyfile(Functions.sddm_conf_original,
-                                  Functions.sddm_conf)
+        if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
+            Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
+                                  Functions.sddm_default_d1)
+            Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_2,
+                                  Functions.sddm_default_d2)
+                        
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_autologin_sddm_activated(self, widget, gparam):
