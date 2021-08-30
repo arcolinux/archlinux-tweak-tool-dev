@@ -953,6 +953,21 @@ class Main(Gtk.Window):
                                   Functions.zsh_config)
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
+    def tozsh_apply(self,widget):
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/zsh'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+            
+    def tobash_apply(self,widget):
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
 
 #    #====================================================================
 #    #                       ARCOLINUX MIRRORLIST
@@ -1218,10 +1233,18 @@ class Main(Gtk.Window):
         
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed and enabled - reboot")
 
+    def on_click_sddm_enable(self, desktop):
+        command = 'systemctl enable sddm.service -f'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
+
+
     def on_refresh_att_clicked(self, desktop):
         os.unlink("/tmp/att.lock")
         Functions.restart_program()
-
 
     # ====================================================================
     #                       USER
