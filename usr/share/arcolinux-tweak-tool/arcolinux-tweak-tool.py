@@ -657,17 +657,21 @@ class Main(Gtk.Window):
                                                "Default Settings Applied")
 
 #   #====================================================================
-#   #                       HBlock
+#   #                       HBLOCK SECURITY PRIVACY
 #   #====================================================================
+
     def set_hblock(self, widget, state):
         if self.firstrun is not True:
             t = Functions.threading.Thread(target=Functions.set_hblock, args=(
                 self, widget, widget.get_active()))
-            # t.daemon = True
             t.start()
-            # Functions.set_hblock(self, widget, widget.get_active())
         else:
             self.firstrun = False
+
+    def set_ublock_firefox(self, widget, state):
+        t = Functions.threading.Thread(target=Functions.set_firefox_ublock, args=(
+                self, widget, widget.get_active()))
+        t.start()
 
 #   #====================================================================
 #   #                       GRUB
@@ -902,7 +906,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
 
     def on_clicked_install_xfce4_themes(self,widget):
-        command = 'pacman -S xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
+        command = 'pacman -S xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
@@ -1329,6 +1333,16 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT) 
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.conf")
+
+    def on_click_fix_pacman_gpg_conf(self,widget):
+        command = '/usr/local/bin/arcolinux-fix-pacman-gpg-conf'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT) 
+        GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.d/gnupg/gpg.conf")
+
+
                                 
 #    #====================================================================
 #    #                       DESKTOPR
