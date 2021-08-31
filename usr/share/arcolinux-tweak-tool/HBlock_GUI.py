@@ -4,13 +4,14 @@
 
 def GUI(self, Gtk, vboxStack3, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Privacy/Security")
     lbl1.set_name("title")
+    hbox3.pack_start(lbl1, False, False, 0)
+    
+    hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
-    hbox3.pack_start(lbl1, False, False, 0)
     
     # ==========================================================
     #                       HBLOCK
@@ -56,7 +57,7 @@ def GUI(self, Gtk, vboxStack3, Functions):
     hbox9.pack_start(label_firefox, False, False, 10)
 
     label_firefox_ublock = Gtk.Label()
-    label_firefox_ublock.set_markup("Install uBlock Origin")
+    label_firefox_ublock.set_markup("Install/remove uBlock Origin")
     label_firefox_ublock.set_margin_left(30)
     
     state = Functions.ublock_get_state(self)
@@ -79,9 +80,9 @@ def GUI(self, Gtk, vboxStack3, Functions):
 
 
     vboxStack3.pack_start(hbox3, False, False, 0)
+    vboxStack3.pack_start(hbox4, False, False, 0)
     vboxStack3.pack_start(hbox8, False, False, 0)
     vboxStack3.pack_start(hbox7, False, False, 0)
-    vboxStack3.pack_start(hbox4, False, False, 0)
     vboxStack3.pack_start(hbox9, False, False, 0)
     vboxStack3.pack_start(hbox10, False, False, 0)
     
