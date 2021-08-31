@@ -44,10 +44,9 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     
     hbox20.pack_start(tobash, False, False, 0)
-    hbox20.pack_start(tozsh, False, False, 0)
-
     hbox20.pack_end(termset, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
+    hbox20.pack_end(tozsh, False, False, 0)
 
     termset.connect("clicked", self.on_zsh_apply)
     termreset.connect("clicked", self.on_zsh_reset)

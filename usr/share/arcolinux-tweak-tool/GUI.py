@@ -211,7 +211,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack11.pack_start(hbox31, False, False, 0)
         vboxStack11.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("If you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
+        ls.set_markup("We did not find an <b>/etc/lightdm/lightdm.conf</b> file\nIf you install <b>lightdm</b> you can toggle autologin and set your default desktop session")
         
         install_lightdm = Gtk.Button(label="Install Lightdm and enable it")
         install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked) 
