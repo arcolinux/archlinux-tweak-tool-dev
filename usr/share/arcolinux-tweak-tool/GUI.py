@@ -297,20 +297,20 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # ==========================================================
     #if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower() or "qtile" in self.desktop.lower():
     Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
-    #else:
-        # hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        # hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        # lbl1 = Gtk.Label(xalign=0)
-        # lbl1.set_text("Theme Switcher")
-        # lbl1.set_name("title")
-        # hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
-        # hbox41.pack_start(hseparator, True, True, 0)
-        # hbox31.pack_start(lbl1, False, False, 0)
-        # vboxStack10.pack_start(hbox31, False, False, 0)
-        # vboxStack10.pack_start(hbox41, False, False, 0)
-        # ls = Gtk.Label()
-        # ls.set_markup("Change your themes on <b>I3</b>, <b>Awesome</b> or <b>Qtile</b>")
-        # vboxStack10.pack_start(ls, True, False, 0)
+    # else:
+    #     hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     lbl1 = Gtk.Label(xalign=0)
+    #     lbl1.set_text("Theme Switcher")
+    #     lbl1.set_name("title")
+    #     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+    #     hbox41.pack_start(hseparator, True, True, 0)
+    #     hbox31.pack_start(lbl1, False, False, 0)
+    #     vboxStack10.pack_start(hbox31, False, False, 0)
+    #     vboxStack10.pack_start(hbox41, False, False, 0)
+    #     ls = Gtk.Label()
+    #     ls.set_markup("Change your themes on <b>Awesome</b>, <b>I3</b> or <b>Qtile</b>")
+    #     vboxStack10.pack_start(ls, True, False, 0)
     # ==========================================================
     #                       Themer
     # ==========================================================
@@ -445,6 +445,9 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
+    #btnReStartAtt.set_property("has-tooltip", True)
+    #btnReStartAtt.connect("query-tooltip", self.tooltip_callback,
+    #           "Restart the ArcoLinux Tweak Tool")
 
     # =====================================================
     #                      PACKS

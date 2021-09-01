@@ -1,5 +1,5 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =                  Author: Erik Dubois
 # =================================================================
 
 
@@ -90,6 +90,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
     #                       AWESOMEWM TAB
     # ==================================================================
+ 
     label4 = Gtk.Label()
     label4.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
 
