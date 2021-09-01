@@ -1,5 +1,5 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =                  Author: Erik Dubois
 # =================================================================
 
 
@@ -90,6 +90,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
     #                       AWESOMEWM TAB
     # ==================================================================
+ 
     label4 = Gtk.Label()
     label4.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
 
@@ -203,17 +204,43 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox8.pack_start(labelqt, False, False, 10)
     hbox8.pack_end(vbox4, False, False, 10)
 
-    qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/qtile-sample.jpg", 645, 645)
-    qtile_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
+    #qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/qtile-sample.jpg", 645, 645)
+    #qtile_test_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
 
-    hbox9.pack_end(applyqtile, False, False, 0)
-    hbox9.pack_end(resetqtile, False, False, 0)
+    self.qtile_combo.pack_start(renderer_text, False)
+    self.qtile_combo.add_attribute(renderer_text, "text", 1)
+    self.qtile_combo.connect("changed", self.on_qtile_change)
+    self.qtile_combo.set_entry_text_column(1)
 
+    tree_iter = self.qtile_combo.get_active_iter()
+    if tree_iter is not None:
+        model = self.qtile_combo.get_model()
+        row_id, name = model[tree_iter][:2]
+    
+    self.qtile_image = Gtk.Image()
+
+    if Functions.os.path.isfile(Functions.qtile_config):
+        try:
+            qt_image = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/qtile/" + name + ".jpg", 598, 598)  # noqa
+            self.qtile_image.set_from_pixbuf(qt_image)
+        except:  # noqa
+            pass
+        
+    frameq = Gtk.Frame(label="")
+    frmlbl = frameq.get_label_widget()
+    frmlbl.set_markup("<b>Preview</b>")    
+    frameq.set_name("qtile")
+    frameq.add(self.qtile_image)
+
+    hbox9.pack_start(frameq, True, False, 10)
+
+    hbox10.pack_end(applyqtile, False, False, 0)
+    hbox10.pack_end(resetqtile, False, False, 0)
 
     vboxStack3.pack_start(hbox8, False, False, 10)
-    vboxStack3.pack_start(qtile_image, False, False, 0)
-    vboxStack3.pack_start(label5, True, False, 0)
-    vboxStack3.pack_end(hbox9, False, False, 0)
+    vboxStack3.pack_start(hbox10, False, False, 0)
+    vboxStack3.pack_start(frameq, False, False, 0)
+    vboxStack3.pack_end(label5, True, False, 0)
 
     # ==================================================================
     #                       PACK TO STACK

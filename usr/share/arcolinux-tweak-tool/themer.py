@@ -1,11 +1,8 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =                  Author: Erik Dubois
 # =================================================================
 
 import Functions as fn
-# import numpy as np
-# from Functions import os
-
 
 def get_list(fle):
     with open(fle, "r") as f:
@@ -13,6 +10,14 @@ def get_list(fle):
         f.close()
     return lines
 
+def get_value(lists, types):
+    try:
+        pos = fn._get_position(lists, types)
+        color = lists[pos].split("=")[-1].strip()
+
+        return color
+    except Exception as e:
+        print(e)
 
 def move_file(self, state):
     if state:
@@ -26,7 +31,6 @@ def move_file(self, state):
         fn.subprocess.run(["mv", fn.home + "/.config/i3/config", fn.home + "/.config/i3/config-polybar"])
         fn.subprocess.run(["mv", fn.home + "/.config/i3/config-bar", fn.home + "/.config/i3/config"])
 
-
 def toggle_polybar(self, lines, state):
     if state:
         if not check_polybar(lines):
@@ -34,7 +38,6 @@ def toggle_polybar(self, lines, state):
     else:
         if check_polybar(lines):
             move_file(self, False)
-
 
 def check_polybar(lines):
     try:
@@ -47,6 +50,26 @@ def check_polybar(lines):
         print(e)
         return False
 
+# =================================================================
+# =                  I3WM
+# =================================================================
+
+def get_i3_themes(combo, lines):
+    combo.get_model().clear()
+    try:
+        menu = [x for x in fn.os.listdir(fn.home + "/.config/i3") if ".theme" in x]
+
+        current_theme = fn._get_position(lines, "Theme name :")
+        theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
+        #print(theme_name)
+        active = 0
+        for i in range(len(menu)):
+            if theme_name in menu[i]:
+                active = i
+            combo.append_text(menu[i].replace(".theme", ""))
+        combo.set_active(active)
+    except Exception as e:
+        print(e)
 
 def set_i3_themes(lines, theme):
     try:
@@ -88,24 +111,9 @@ def set_i3_themes_bar(lines, theme):
     except Exception as e:
         print(e)
 
-
-def get_i3_themes(combo, lines):
-    combo.get_model().clear()
-    try:
-        menu = [x for x in fn.os.listdir(fn.home + "/.config/i3") if ".theme" in x]
-
-        current_theme = fn._get_position(lines, "Theme name :")
-        theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
-        #print(theme_name)
-        active = 0
-        for i in range(len(menu)):
-            if theme_name in menu[i]:
-                active = i
-            combo.append_text(menu[i].replace(".theme", ""))
-        combo.set_active(active)
-    except Exception as e:
-        print(e)
-
+# =================================================================
+# =                  AWESOME
+# =================================================================
 
 def get_awesome_themes(lines):
 
@@ -118,7 +126,6 @@ def get_awesome_themes(lines):
         return_list.append(x.split("\"")[1].strip())
     return return_list
 
-
 def set_awesome_theme(lines, val):
     theme_pos = fn._get_position(lines, "local chosen_theme")
     lst = lines[theme_pos].split("=")[1].replace("themes[",
@@ -130,15 +137,9 @@ def set_awesome_theme(lines, val):
         f.writelines(lines)
         f.close()
 
-
-def get_value(lists, types):
-    try:
-        pos = fn._get_position(lists, types)
-        color = lists[pos].split("=")[-1].strip()
-
-        return color
-    except Exception as e:
-        print(e)
+# =================================================================
+# =                  QTILE
+# =================================================================
 
 def get_qtile_themes(combo, lines):
     combo.get_model().clear()
@@ -147,7 +148,7 @@ def get_qtile_themes(combo, lines):
 
         current_theme = fn._get_position(lines, "Theme name :")
         theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
-        print(theme_name)
+        #print(theme_name)
         active = 0
         for i in range(len(menu)):
             if theme_name in menu[i]:
