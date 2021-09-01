@@ -9,7 +9,7 @@
 # Website	:	https://www.arcolinuxforum.com
 ##################################################################################################################
 #
-#   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
+#   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK. 
 #
 ##################################################################################################################
 
