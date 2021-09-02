@@ -29,7 +29,7 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     label13.set_text("Restart your terminal to apply the new Zsh theme\nIf you switch shell, log-out first")
     label13.set_margin_top(30)
     hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox21.pack_start(label13, True, False, 10)
+    hbox21.pack_start(label13, False, False, 10)
 
     tobash = Gtk.Button(label="Apply bash")
     tozsh = Gtk.Button(label="Apply zsh")
@@ -51,8 +51,9 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     termset.connect("clicked", self.on_zsh_apply)
     termreset.connect("clicked", self.on_zsh_reset)
 
-    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", 480, 360)
+    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", 600, 480)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
+    image.set_margin_top(30)
 
     self.zsh_themes.connect("changed", self.update_zsh_image, image, base_dir)
 
