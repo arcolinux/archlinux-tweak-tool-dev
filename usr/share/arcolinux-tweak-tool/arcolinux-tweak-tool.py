@@ -1354,7 +1354,6 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT) 
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.d/gnupg/gpg.conf")
 
-
                                 
 #    #====================================================================
 #    #                       DESKTOPR
