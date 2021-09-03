@@ -58,7 +58,7 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     image = Gtk.Image().new_from_pixbuf(pixbuf)
     image.set_margin_top(30)
 
-    self.zsh_themes.connect("changed", self.update_zsh_image, image, base_dir, image_width, image_height)
+    self.zsh_themes.connect("changed", self.update_image, image, "zsh", base_dir, image_width, image_height)
 
     vboxStack15.pack_start(hbox3, False, False, 0)  # Combobox
     vboxStack15.pack_start(hbox4, False, False, 0)  # Combobox
