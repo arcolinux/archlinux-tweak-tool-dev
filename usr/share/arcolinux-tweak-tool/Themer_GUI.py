@@ -77,7 +77,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox1.pack_end(vbox2, False, False, 10)
 
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg", image_width, image_height)
-    if Functions.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
+    if self.i3_combo.get_active_text() is None:
+        pass
+    elif Functions.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
         pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/i3/"+self.i3_combo.get_active_text()+".jpg", image_width, image_height)
     i3_image = Gtk.Image().new_from_pixbuf(pixbuf)
 
@@ -212,7 +214,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox8.pack_end(vbox4, False, False, 10)
 
     qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/qtile-sample.jpg", image_width, image_height)
-    if Functions.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
+    if self.qtile_combo.get_active_text() is None:
+        pass
+    elif Functions.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
         qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg", image_width, image_height)
     qtile_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
 

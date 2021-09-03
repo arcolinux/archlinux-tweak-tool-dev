@@ -468,17 +468,6 @@ class Main(Gtk.Window):
 
             themer.get_i3_themes(self.i3_combo, i3_list)
 
-    def on_qtile_change(self, widget):
-        tree_iter = self.qtile_combo.get_active_iter()
-        if tree_iter is not None:
-            model = self.qtile_combo.get_model()
-            row_id, name = model[tree_iter][:2]
-        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/qtile/" +  # noqa
-                                                          name +
-                                                          ".jpg",
-                                                          598, 598)
-        self.image.set_from_pixbuf(pimage)
-
     def qtile_apply_clicked(self, widget):
         if os.path.isfile(Functions.qtile_config):
             Functions.shutil.copy(Functions.qtile_config,
@@ -1017,6 +1006,9 @@ class Main(Gtk.Window):
         elif theme_type == "i3":
             sample_path = att_base+"/images/i3-sample.jpg"
             preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "awesome":
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
         else:
             #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
                 print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
