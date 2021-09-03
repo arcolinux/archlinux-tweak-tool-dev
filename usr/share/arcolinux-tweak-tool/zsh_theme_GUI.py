@@ -1,6 +1,6 @@
-# =================================================================
-# =            Authors: Erik Dubois, Cameron Percival             =
-# =================================================================
+#      #============================================================
+#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #============================================================
 import Functions
 
 def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
