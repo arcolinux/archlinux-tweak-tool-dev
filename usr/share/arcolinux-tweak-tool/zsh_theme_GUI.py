@@ -1,6 +1,7 @@
-# =================================================================
-# =                  Author: Erik Dubois                          =
-# =================================================================
+#      #============================================================
+#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #============================================================
+
 
 def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -51,11 +52,14 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     termset.connect("clicked", self.on_zsh_apply)
     termreset.connect("clicked", self.on_zsh_reset)
 
-    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", 600, 480)
+    #image dimensions - this will (in time) allow the image changing function to be re-usable by other parts of the app
+    image_width = 600
+    image_height = 480
+    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", image_width, image_height)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
     image.set_margin_top(30)
 
-    self.zsh_themes.connect("changed", self.update_zsh_image, image, base_dir)
+    self.zsh_themes.connect("changed", self.update_zsh_image, image, base_dir, image_width, image_height)
 
     vboxStack15.pack_start(hbox3, False, False, 0)  # Combobox
     vboxStack15.pack_start(hbox4, False, False, 0)  # Combobox

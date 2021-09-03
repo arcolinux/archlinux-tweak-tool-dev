@@ -30,9 +30,9 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
 # from Settings import settings, configparser
 
-#                #=======================================================
-#                #=     Author: Brad Heffernan - Erik Dubois            =
-#                #=======================================================
+#      #============================================================
+#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #============================================================
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 pmf = pacman_functions
@@ -995,11 +995,12 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
 
-    def update_zsh_image(self, widget, image, att_base):
-        if os.path.isfile(att_base+"/images/zsh_previews/"+widget.get_active_text()+".jpg"):
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg", 480, 360)
+    def update_zsh_image(self, widget, image, att_base, image_width, image_height):
+        source_pixbuf = image.get_pixbuf()
+        if os.path.isfile(att_base+"/images/zsh_previews/"+widget.get_active_text()+".jpg") and widget.get_active_text() != "random":
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg", image_width, image_height)
         else:
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(att_base+"/images/zsh-sample.jpg", 480, 360)
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(att_base+"/images/zsh-sample.jpg", image_width, image_height)
         image.set_from_pixbuf(pixbuf)
 #    #====================================================================
 #    #                       ARCOLINUX MIRRORLIST
