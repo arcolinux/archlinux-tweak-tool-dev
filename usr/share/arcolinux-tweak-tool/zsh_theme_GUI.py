@@ -1,6 +1,7 @@
 # =================================================================
 # =            Authors: Erik Dubois, Cameron Percival             =
 # =================================================================
+import Functions
 
 def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
