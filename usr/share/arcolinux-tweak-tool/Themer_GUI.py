@@ -1,5 +1,5 @@
 # =================================================================
-# =          Author: Erik Dubois - Cameron Percival
+# =          Author: Brad Heffernan - Erik Dubois - Cameron Percival
 # =================================================================
 
 
@@ -178,6 +178,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
     #                       Qtile TAB
     # ==================================================================
+
     label5 = Gtk.Label()
     label5.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
 
