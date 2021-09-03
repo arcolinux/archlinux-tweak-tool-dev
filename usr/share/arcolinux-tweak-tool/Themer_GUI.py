@@ -77,9 +77,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox1.pack_end(vbox2, False, False, 10)
 
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg", image_width, image_height)
+    if Functions.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
+        pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/i3/"+self.i3_combo.get_active_text()+".jpg", image_width, image_height)
     i3_image = Gtk.Image().new_from_pixbuf(pixbuf)
 
-    self.i3_combo.connect("changed", self.update_image, i3_image, "qtile", base_dir, image_width, image_height)
+    self.i3_combo.connect("changed", self.update_image, i3_image, "i3", base_dir, image_width, image_height)
 
     hbox2.pack_end(applyi3, False, False, 0)
     hbox2.pack_end(reseti3, False, False, 0)
@@ -176,7 +178,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
     #                       Qtile TAB
     # ==================================================================
-
     label5 = Gtk.Label()
     label5.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
 
@@ -198,58 +199,32 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     resetqtile = Gtk.Button(label="Reset")
     resetqtile.connect("clicked", self.qtile_reset_clicked)
 
-    # Commented out for now. TODO: implement theming for polybar under Qtile
-    # same as i3
-    #lbls = Gtk.Label(label="Toggle polybar")
-    #self.poly = Gtk.Switch()
-    #if Functions.os.path.isfile(Functions.qtile_config):
-    #    if themer.check_polybar(themer.get_list(Functions.qtile_config)):
-    #        self.poly.set_active(True)
-    #self.poly.connect("notify::active", self.on_polybar_toggle)
+#   Commented out for now. TODO: implement theming for polybar under Qtile
+#   lbls = Gtk.Label(label="Toggle polybar")
+#   self.poly = Gtk.Switch()
+#   if Functions.os.path.isfile(Functions.i3wm_config):
+#       if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
+#           self.poly.set_active(True)
+#   self.poly.connect("notify::active", self.on_polybar_toggle)
 
     hbox8.pack_start(labelqt, False, False, 10)
     hbox8.pack_end(vbox4, False, False, 10)
 
     qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/qtile-sample.jpg", image_width, image_height)
-    qtile_test_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
+    if Functions.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
+        qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg", image_width, image_height)
+    qtile_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
 
-    self.qtile_combo.connect("changed", self.update_image, qtile_test_image, "qtile", base_dir, image_width, image_height)
+    self.qtile_combo.connect("changed", self.update_image, qtile_image, "qtile", base_dir, image_width, image_height)
 
-    self.qtile_combo.pack_start(renderer_text, False)
-    self.qtile_combo.add_attribute(renderer_text, "text", 1)
-    self.qtile_combo.connect("changed", self.on_qtile_change)
-    self.qtile_combo.set_entry_text_column(1)
+    hbox9.pack_end(applyqtile, False, False, 0)
+    hbox9.pack_end(resetqtile, False, False, 0)
 
-    tree_iter = self.qtile_combo.get_active_iter()
-    if tree_iter is not None:
-        model = self.qtile_combo.get_model()
-        row_id, name = model[tree_iter][:2]
-
-    # Awesome way. Deprecated
-        #self.qtile_image = Gtk.Image()
-
-        #if Functions.os.path.isfile(Functions.qtile_config):
-        #    try:
-        #        qt_image = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/qtile/" + name + ".jpg", 598, 598)  # noqa
-        #        self.qtile_image.set_from_pixbuf(qt_image)
-        #    except:  # noqa
-        #        pass
-
-        #frameq = Gtk.Frame(label="")
-        #frmlbl = frameq.get_label_widget()
-        #frmlbl.set_markup("<b>Preview</b>")
-        #frameq.set_name("qtile")
-        #frameq.add(self.qtile_image)
-
-    hbox9.pack_start(qtile_test_image, True, False, 10)
-
-    hbox10.pack_end(applyqtile, False, False, 0)
-    hbox10.pack_end(resetqtile, False, False, 0)
-
-    vboxStack3.pack_start(hbox8, False, False, 10)
+    vboxStack3.pack_start(hbox8, False, False, 0)
     vboxStack3.pack_start(hbox10, False, False, 0)
-    vboxStack3.pack_start(qtile_test_image, False, False, 0)
-    vboxStack3.pack_end(label5, True, False, 0)
+    vboxStack3.pack_start(qtile_image, False, False, 0)
+    vboxStack3.pack_start(label5, True, False, 0)
+    vboxStack3.pack_end(hbox9, False, False, 0)
 
     # ==================================================================
     #                       PACK TO STACK
