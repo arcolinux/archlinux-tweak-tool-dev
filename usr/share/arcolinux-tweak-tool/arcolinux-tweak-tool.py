@@ -454,7 +454,6 @@ class Main(Gtk.Window):
         if not themer.check_polybar(themer.get_list(Functions.i3wm_config)):
             themer.set_i3_themes_bar(themer.get_list(Functions.i3wm_config),
                                      self.i3_combo.get_active_text())
-            print("BAR CHANGED THEME")
         Functions.show_in_app_notification(self,
                                            "Theme applied successfully")
 
@@ -468,6 +467,17 @@ class Main(Gtk.Window):
             i3_list = themer.get_list(Functions.i3wm_config)
 
             themer.get_i3_themes(self.i3_combo, i3_list)
+
+    def on_qtile_change(self, widget):
+        tree_iter = self.qtile_combo.get_active_iter()
+        if tree_iter is not None:
+            model = self.qtile_combo.get_model()
+            row_id, name = model[tree_iter][:2]
+        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/qtile/" +  # noqa
+                                                          name +
+                                                          ".jpg",
+                                                          598, 598)
+        self.image.set_from_pixbuf(pimage)
 
     def qtile_apply_clicked(self, widget):
         if os.path.isfile(Functions.qtile_config):
@@ -995,12 +1005,27 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
 
-    def update_zsh_image(self, widget, image, att_base, image_width, image_height):
-        source_pixbuf = image.get_pixbuf()
-        if os.path.isfile(att_base+"/images/zsh_previews/"+widget.get_active_text()+".jpg") and widget.get_active_text() != "random":
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg", image_width, image_height)
+    def update_image(self, widget, image, theme_type, att_base, image_width, image_height):
+        sample_path = ""
+        preview_path = ""
+        if theme_type == "zsh":
+            sample_path = att_base+"/images/zsh-sample.jpg"
+            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "qtile":
+            sample_path = att_base+"/images/qtile-sample.jpg"
+            preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "i3":
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
         else:
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(att_base+"/images/zsh-sample.jpg", image_width, image_height)
+            #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
+                print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+                print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+        source_pixbuf = image.get_pixbuf()
+        if os.path.isfile(preview_path) and widget.get_active_text() != "random":
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
+        else:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
         image.set_from_pixbuf(pixbuf)
 #    #====================================================================
 #    #                       ARCOLINUX MIRRORLIST
