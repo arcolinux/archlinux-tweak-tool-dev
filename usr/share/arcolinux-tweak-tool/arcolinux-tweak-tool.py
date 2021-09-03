@@ -30,9 +30,9 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
 # from Settings import settings, configparser
 
-#                #=======================================================
-#                #=     Author: Brad Heffernan - Erik Dubois            =
-#                #=======================================================
+#      #============================================================
+#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #============================================================
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 pmf = pacman_functions
