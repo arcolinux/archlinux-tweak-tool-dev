@@ -472,17 +472,6 @@ class Main(Gtk.Window):
 
             themer.get_i3_themes(self.i3_combo, i3_list)
 
-    def on_qtile_change(self, widget):
-        tree_iter = self.qtile_combo.get_active_iter()
-        if tree_iter is not None:
-            model = self.qtile_combo.get_model()
-            row_id, name = model[tree_iter][:2]
-        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/qtile/" +  # noqa
-                                                          name +
-                                                          ".jpg",
-                                                          598, 598)
-        self.image.set_from_pixbuf(pimage)
-
     def qtile_apply_clicked(self, widget):
         if os.path.isfile(Functions.qtile_config):
             Functions.shutil.copy(Functions.qtile_config,

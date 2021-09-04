@@ -63,10 +63,11 @@ def get_i3_themes(combo, lines):
         theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
         #print(theme_name)
         active = 0
-        for i in range(len(menu)):
-            if theme_name in menu[i]:
+        sorted_menu = sorted(menu)
+        for i in range(len(sorted_menu)):
+            if theme_name in sorted_menu[i]:
                 active = i
-            combo.append_text(menu[i].replace(".theme", ""))
+            combo.append_text(sorted_menu[i].replace(".theme", ""))
         combo.set_active(active)
     except Exception as e:
         print(e)
@@ -120,9 +121,10 @@ def get_awesome_themes(lines):
     end_theme_pos = fn._get_position(lines, "local chosen_theme")
 
     coms = [x for x in lines[theme_pos:end_theme_pos] if "\"," in x]
-    return_list = []
+    list = []
     for x in coms:
-        return_list.append(x.split("\"")[1].strip())
+        list.append(x.split("\"")[1].strip())
+    return_list = sorted(list)
     return return_list
 
 def set_awesome_theme(lines, val):
@@ -148,10 +150,11 @@ def get_qtile_themes(combo, lines):
         current_theme = fn._get_position(lines, "Theme name :")
         theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
         active = 0
-        for i in range(len(menu)):
-            if theme_name in menu[i]:
+        sorted_menu = sorted(menu)
+        for i in range(len(sorted_menu)):
+            if theme_name in sorted_menu[i]:
                 active = i
-            combo.append_text(menu[i].replace(".theme", ""))
+            combo.append_text(sorted_menu[i].replace(".theme", ""))
         combo.set_active(active)
     except Exception as e:
         print(e)
