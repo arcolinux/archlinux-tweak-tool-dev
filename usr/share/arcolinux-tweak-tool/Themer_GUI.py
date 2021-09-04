@@ -46,7 +46,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
 
     label3 = Gtk.Label()
-    label3.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
+    label3.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes..\nInstall the desktop with ATT to theme it.")
 
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
@@ -72,6 +72,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
         if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
             self.poly.set_active(True)
     self.poly.connect("notify::active", self.on_polybar_toggle)
+
+    if not Functions.os.path.isfile(Functions.i3wm_config):
+        applyi3.set_sensitive(False)
+        reseti3.set_sensitive(False)
+        self.poly.set_sensitive(False)   
 
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_end(vbox2, False, False, 10)
@@ -102,7 +107,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
 
     label4 = Gtk.Label()
-    label4.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
+    label4.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes..\nInstall the desktop with ATT to theme it.")
 
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
@@ -159,6 +164,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
             self.image.set_from_pixbuf(pimage)
         except:  # noqa
             pass
+    else:
+            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/multicolor.jpg", 598, 598)  # noqa
+            self.image.set_from_pixbuf(pimage)
+    
     frame.set_name("awesome")
     frame.add(self.image)
 
@@ -168,6 +177,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     apply.connect("clicked", self.awesome_apply_clicked)
     reset = Gtk.Button(label="Reset")
     reset.connect("clicked", self.awesome_reset_clicked)
+    
+    if not Functions.os.path.isfile(Functions.awesome_config):
+            apply.set_sensitive(False)
+            reset.set_sensitive(False)    
 
     hbox4.pack_end(apply, False, False, 0)
     hbox4.pack_end(reset, False, False, 0)
@@ -182,7 +195,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     # ==================================================================
 
     label5 = Gtk.Label()
-    label5.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.")
+    label5.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.\nInstall the desktop with ATT to theme it.")
 
     labelqt = Gtk.Label("Select theme")
     self.qtile_combo = Gtk.ComboBoxText()
@@ -201,6 +214,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     applyqtile.connect("clicked", self.qtile_apply_clicked)
     resetqtile = Gtk.Button(label="Reset")
     resetqtile.connect("clicked", self.qtile_reset_clicked)
+    
+    if not Functions.os.path.isfile(Functions.qtile_config):
+            applyqtile.set_sensitive(False)
+            resetqtile.set_sensitive(False)
 
 #   Commented out for now. TODO: implement theming for polybar under Qtile
 #   lbls = Gtk.Label(label="Toggle polybar")
@@ -235,12 +252,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     #                       PACK TO STACK
     # ==================================================================
 
-    if Functions.os.path.isfile(Functions.i3wm_config):
-        stack.add_titled(vboxStack1, "stack1", "I3WM")
-    if Functions.os.path.isfile(Functions.awesome_config):
-        stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
-    if Functions.os.path.isfile(Functions.qtile_config):
-        stack.add_titled(vboxStack3, "stack3", "Qtile")
+    stack.add_titled(vboxStack1, "stack1", "I3WM")
+    stack.add_titled(vboxStack2, "stack2", "AwesomeWM")
+    stack.add_titled(vboxStack3, "stack3", "Qtile")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)
