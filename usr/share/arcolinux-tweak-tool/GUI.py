@@ -296,7 +296,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                       Themer
     # ==========================================================
     #if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower() or "qtile" in self.desktop.lower():
-        Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
+    Themer_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir)
     # else:
     #      hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     #      hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
