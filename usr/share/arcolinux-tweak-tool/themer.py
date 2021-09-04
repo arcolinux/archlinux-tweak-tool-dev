@@ -1,5 +1,5 @@
 # =================================================================
-# =                  Author: Erik Dubois
+# =          Authors: Erik Dubois - Cameron Percival
 # =================================================================
 
 import Functions as fn
@@ -116,7 +116,6 @@ def set_i3_themes_bar(lines, theme):
 # =================================================================
 
 def get_awesome_themes(lines):
-
     theme_pos = fn._get_position(lines, "local themes = {")
     end_theme_pos = fn._get_position(lines, "local chosen_theme")
 
@@ -148,7 +147,6 @@ def get_qtile_themes(combo, lines):
 
         current_theme = fn._get_position(lines, "Theme name :")
         theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
-        #print(theme_name)
         active = 0
         for i in range(len(menu)):
             if theme_name in menu[i]:
