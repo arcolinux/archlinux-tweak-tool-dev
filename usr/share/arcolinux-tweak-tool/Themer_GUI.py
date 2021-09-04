@@ -128,7 +128,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     self.awesome_combo.pack_start(renderer_text, False)
     self.awesome_combo.add_attribute(renderer_text, "text", 1)
-    self.awesome_combo.connect("changed", self.on_awsome_change)
+    self.awesome_combo.connect("changed", self.on_awesome_change)
     self.awesome_combo.set_entry_text_column(1)
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)

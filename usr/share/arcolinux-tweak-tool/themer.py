@@ -116,7 +116,6 @@ def set_i3_themes_bar(lines, theme):
 # =================================================================
 
 def get_awesome_themes(lines):
-    combo.get_model().clear()
     theme_pos = fn._get_position(lines, "local themes = {")
     end_theme_pos = fn._get_position(lines, "local chosen_theme")
 
