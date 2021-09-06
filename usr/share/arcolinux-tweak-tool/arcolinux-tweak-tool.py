@@ -1013,6 +1013,9 @@ class Main(Gtk.Window):
         #elif theme_type == "awesome":
         #    sample_path = att_base+"/images/i3-sample.jpg"
         #    preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "neofetch":
+            sample_path = att_base + widget.get_active_text()
+            preview_path = att_base + widget.get_active_text()
         else:
             #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
                 print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
@@ -1084,11 +1087,11 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
 
-    def on_elmblem_changed(self, widget):
-        path = Functions.home + "/.config/neofetch/" + widget.get_active_text()
-
-        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
-        self.image4.set_from_pixbuf(pixbuf6)
+    #def on_emblem_changed(self, widget):
+    #    path = Functions.home + "/.config/neofetch/" + widget.get_active_text()
+    #
+    #    pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
+    #    self.image4.set_from_pixbuf(pixbuf6)
 
     def radio_toggled(self, widget):
         if self.w3m.get_active():

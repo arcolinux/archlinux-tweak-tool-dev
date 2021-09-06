@@ -39,7 +39,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     self.emblem = Gtk.ComboBoxText()
     neofetch.pop_neofetch_box(self.emblem)
-    self.emblem.connect("changed", self.on_elmblem_changed)
+    #moved lower to take advantage of a more generalised function
+    #self.emblem.connect("changed", self.on_emblem_changed)
 
     applyneofetch = Gtk.Button(label="Apply")
     resetneofetch = Gtk.Button(label="Reset")
@@ -49,13 +50,21 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     self.image4 = Gtk.Image()
 
-    try:
-        path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
+    image_width = 145
+    image_height = 145
 
-        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, 145, 145)
-        self.image4.set_from_pixbuf(pixbuf6)
-    except:
+    #try:
+    #    path = Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()
+    #    pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(path, image_width, image_height)
+    #    self.image4.set_from_pixbuf(pixbuf6)
+    #except:
+    #    pass
+    if self.emblem.get_active_text() is None:
         pass
+    elif Functions.os.path.isfile(Functions.home + "/.config/neofetch/" + self.emblem.get_active_text()):
+        pixbuf6 = GdkPixbuf.Pixbuf().new_from_file_at_size(Functions.home + "/.config/neofetch/" + self.emblem.get_active_text(), image_width, image_height)
+    self.image4.set_from_pixbuf(pixbuf6)
+    self.emblem.connect("changed", self.update_image, self.image4, "neofetch", Functions.home + "/.config/neofetch/", image_width, image_height)
 
     self.frame3 = Gtk.Frame(label="Preview")
     self.frame3.set_no_show_all(True)
