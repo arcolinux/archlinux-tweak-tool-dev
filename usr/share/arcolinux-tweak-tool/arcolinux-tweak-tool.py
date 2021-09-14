@@ -1027,15 +1027,18 @@ class Main(Gtk.Window):
     #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
         if theme_type == "zsh":
             sample_path = att_base+"/images/zsh-sample.jpg"
-            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+            if widget.get_active_text() is not None:
+                preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
             if widget.get_active_text() == "random":
                 random_option = True
         elif theme_type == "qtile":
             sample_path = att_base+"/images/qtile-sample.jpg"
-            preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+            if widget.get_active_text() is not None:
+                preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
         elif theme_type == "i3":
             sample_path = att_base+"/images/i3-sample.jpg"
-            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+            if widget.get_active_text() is not None:
+                preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
         elif theme_type == "awesome":
         #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
             tree_iter = self.awesome_combo.get_active_iter()
@@ -1046,8 +1049,9 @@ class Main(Gtk.Window):
             sample_path = att_base+"/images/i3-sample.jpg"
             preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
         elif theme_type == "neofetch":
-            sample_path = att_base + widget.get_active_text()
-            preview_path = att_base + widget.get_active_text()
+            if widget.get_active_text() is not None:
+                sample_path = att_base + widget.get_active_text()
+                preview_path = att_base + widget.get_active_text()
         else:
         #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
                 print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
