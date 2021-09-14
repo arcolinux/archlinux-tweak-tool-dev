@@ -194,7 +194,8 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR=============================
         arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
-
+        arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
+        arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
@@ -206,6 +207,8 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
         self.aseed_button.set_active(arco_mirror_seed)
+        #self.abelnet_button.set_active(arco_mirror_belnet)
+        #self.agithub_button.set_active(arco_mirror_github)
 
 #       #========================TESTING REPO SET TOGGLE==================
         self.checkbutton.set_active(arco_testing)
@@ -324,14 +327,6 @@ class Main(Gtk.Window):
 #               PACMAN FUNCTIONS
 # =====================================================
 
-    def on_pacman_arepo_toggle(self, widget, active):
-        if not pmf.repo_exist("[arcolinux_repo]"):
-            pmf.append_repo(self, Functions.arepo)
-        else:
-            if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(),
-                                      "arco_base")
-
     def on_mirror_seed_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
             pmf.append_mirror(self, Functions.seedhostmirror)
@@ -339,6 +334,30 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_seed")
+
+    def on_mirror_belnet_repo_toggle(self, widget, active):
+        if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
+            pmf.append_mirror(self, Functions.seedhostmirror)
+        else:
+            if self.opened is False:
+                pmf.toggle_mirrorlist(self, widget.get_active(),
+                                      "arco_mirror_belnet")
+
+    def on_mirror_github_repo_toggle(self, widget, active):
+        if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
+            pmf.append_mirror(self, Functions.seedhostmirror)
+        else:
+            if self.opened is False:
+                pmf.toggle_mirrorlist(self, widget.get_active(),
+                                      "arco_mirror_github")
+
+    def on_pacman_arepo_toggle(self, widget, active):
+        if not pmf.repo_exist("[arcolinux_repo]"):
+            pmf.append_repo(self, Functions.arepo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "arco_base")
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
@@ -1027,18 +1046,15 @@ class Main(Gtk.Window):
     #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
         if theme_type == "zsh":
             sample_path = att_base+"/images/zsh-sample.jpg"
-            if widget.get_active_text() is not None:
-                preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
             if widget.get_active_text() == "random":
                 random_option = True
         elif theme_type == "qtile":
             sample_path = att_base+"/images/qtile-sample.jpg"
-            if widget.get_active_text() is not None:
-                preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+            preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
         elif theme_type == "i3":
             sample_path = att_base+"/images/i3-sample.jpg"
-            if widget.get_active_text() is not None:
-                preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
         elif theme_type == "awesome":
         #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
             tree_iter = self.awesome_combo.get_active_iter()
@@ -1049,9 +1065,8 @@ class Main(Gtk.Window):
             sample_path = att_base+"/images/i3-sample.jpg"
             preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
         elif theme_type == "neofetch":
-            if widget.get_active_text() is not None:
-                sample_path = att_base + widget.get_active_text()
-                preview_path = att_base + widget.get_active_text()
+            sample_path = att_base + widget.get_active_text()
+            preview_path = att_base + widget.get_active_text()
         else:
         #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
                 print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)

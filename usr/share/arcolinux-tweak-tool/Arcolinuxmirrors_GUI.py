@@ -1,5 +1,5 @@
 # =================================================================
-# =                  Author: Brad Heffernan                       =
+# =                  Author: Erik Dubois                          =
 # =================================================================
 
 # import pacman_functions
@@ -14,9 +14,11 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
+    
     # ==========================================================
     #                   GLOBALS
     # ==========================================================
+    
     hboxStack1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
@@ -33,6 +35,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     #               ARCO REPOS
     # ========================================================
+    
     frame3 = Gtk.Frame(label="")
     frame3lbl = frame3.get_label_widget()
     frame3lbl.set_markup("<b>ArcoLinux Mirrorlist</b>")
@@ -41,28 +44,25 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.aseed_button.connect("notify::active", self.on_mirror_seed_repo_toggle)
     label5 = Gtk.Label(xalign=0)
     label5.set_markup("Enable Seedhost repo - Do not enable it and save us bandwidth")
+    hboxStack7.pack_start(label5, False, True, 10)
+    hboxStack7.pack_end(self.aseed_button, False, False, 20)    
 
-    # self.a3prepo_button = Gtk.Switch()
-    # self.a3prepo_button.connect("notify::active", self.on_pacman_a3p_toggle)
+    # self.abelnet_button = Gtk.Switch()
+    # self.abelnet_button.connect("notify::active", self.on_mirror_belnet_repo_toggle)
     # label6 = Gtk.Label(xalign=0)
-    # label6.set_markup("Enable ArcoLinux 3rd-party repo")
+    # label6.set_markup("Enable Belnet repo - free bandwidth")
+    # hboxStack8.pack_start(label6, False, True, 10)
+    # hboxStack8.pack_end(self.abelnet_button, False, False, 20)
 
-    # self.axlrepo_button = Gtk.Switch()
-    # self.axlrepo_button.connect("notify::active", self.on_pacman_axl_toggle)
+    # self.agithub_button = Gtk.Switch()
+    # self.agithub_button.connect("notify::active", self.on_mirror_github_repo_toggle)
     # label7 = Gtk.Label(xalign=0)
-    # label7.set_markup("Enable ArcoLinux x-large repo")
-
-    # frame4 = Gtk.Frame(label="")
-    # frame4lbl = frame4.get_label_widget()
-    # frame4lbl.set_markup("<b>ArcoLinux test repo</b>")
-
-    # self.checkbutton = Gtk.Switch()
-    # self.checkbutton.connect("notify::active", self.on_pacman_toggle)
-    # label1 = Gtk.Label(xalign=0)
-    # label1.set_markup("Enable ArcoLinux test repo")
-
+    # label7.set_markup("Enable Github repo - free bandwidth")
+    # hboxStack9.pack_start(label7, False, True, 10)
+    # hboxStack9.pack_end(self.agithub_button, False, False, 20)
+    
     # ========================================================
-    #               ARCHLINUX REPOS
+    #               FOOTER
     # ========================================================
     # frame = Gtk.Frame(label="")
     # framelbl = frame.get_label_widget()
@@ -177,7 +177,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack4.pack_end(reset_mirror, False, False, 0)
 
     # ========================================================
-    #               TESTING REPOS PACKING TO FRAME
+    #               ARCOLINUX MIRRORS
     # ========================================================
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vbox.pack_start(hboxStack5, False, False, 10)
@@ -194,32 +194,16 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #frame2.add(vbox2)
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vbox3.pack_start(hboxStack7, False, False, 0)
-    vbox3.pack_start(hboxStack8, False, False, 0)
-    vbox3.pack_start(hboxStack9, False, False, 0)
-    #vbox3.pack_start(frame4, False, False, 0)
-    #frame4.add(vboxStack2)
+    vbox3.pack_start(hboxStack7, False, False, 10)
+    #vbox3.pack_start(hboxStack8, False, False, 10)
+    #vbox3.pack_start(hboxStack9, False, False, 10)
     frame3.add(vbox3)
+    
     # ========================================================
     #               PACK TO WINDOW
     # ========================================================
-    # =================ARCO REPO========================
-    # vboxStack1.pack_start(hboxStack7, False, False, 0)
-    # vboxStack1.pack_start(hboxStack8, False, False, 0)
-    # vboxStack1.pack_start(hboxStack9, False, False, 0)
+
     vboxStack1.pack_start(hbox3, False, False, 0)
     vboxStack1.pack_start(hbox4, False, False, 0)
-    vboxStack1.pack_start(frame3, False, False, 5)
-    # frame4.add(hboxStack1)
-    # =================TESTING REPO========================
-    #vboxStack1.pack_start(frame, False, False, 5)
-
-    # =================SPINOFF REPO========================
-    #vboxStack1.pack_start(frame2, False, False, 0)
-
-    # =================CUSTOM REPO========================
-    #vboxStack1.pack_start(hboxStack2, False, False, 0)
-    #vboxStack1.pack_start(hboxStack3, True, True, 0)
-
-    # =================FOOTER========================
+    vboxStack1.pack_start(frame3, False, False, 10)
     vboxStack1.pack_end(hboxStack4, False, False, 0)
