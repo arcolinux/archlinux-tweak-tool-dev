@@ -91,10 +91,23 @@ class Main(Gtk.Window):
                     print(e)
 
             if not Functions.os.path.exists(Functions.sddm_conf):
-                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-                                      Functions.sddm_default_d1)
-                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-                                      Functions.sddm_default_d2)
+                try:
+                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                          Functions.sddm_default_d1)
+                    Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                          Functions.sddm_default_d2)
+                except OSError as e:
+                    #This will ONLY execute if the sddm files and the underlying sddm files do not exist
+                    if e.errno == 2:
+                        command = '/usr/local/bin/arcolinux-fix-sddm-config'
+                        Functions.subprocess.call(command,
+                                        shell=True,
+                                        stdout=Functions.subprocess.PIPE,
+                                        stderr=Functions.subprocess.STDOUT)
+                        print("The SDDM files in your installation either did not exist, or were corrupted.")
+                        print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
+
+
             if  os.path.getsize(Functions.sddm_conf) == 0:
                 Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                       Functions.sddm_default_d1)
