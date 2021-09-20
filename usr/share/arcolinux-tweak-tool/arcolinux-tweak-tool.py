@@ -221,6 +221,9 @@ class Main(Gtk.Window):
 
         self.opened = False
 
+#       #========================NEOFETCH LOLCAT TOGGLE===================
+        self.lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat"))
+
         if Functions.os.path.isfile(Functions.lightdm_conf):
             if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
                 self.autologin.set_active(False)
@@ -1101,6 +1104,8 @@ class Main(Gtk.Window):
         if not os.path.isfile(Functions.neofetch_config + ".bak"):
             Functions.shutil.copy(Functions.neofetch_config,
                                   Functions.neofetch_config + ".bak")
+            Functions.shutil.copy(Functions.bash_config, Functions.bash_config + ".bak")
+            Functions.shutil.copy(Functions.zsh_config, Functions.zsh_config + ".bak")
 
         small_ascii = "auto"
 
@@ -1164,6 +1169,48 @@ class Main(Gtk.Window):
             self.image4.set_from_pixbuf(None)
             self.frame3.hide()
             self.emblem.set_sensitive(False)
+
+    #When using this function to toggle a lolcat: utility = name of tool, e.g. neofetch 
+    def lolcat_toggle(self, widget, active, utility):
+        #If set to active:
+        util_str = utility
+        if widget.get_active():
+            util_str = utility + " | lolcat" #The space here is CRITICAL
+        configs = [Functions.bash_config, Functions.zsh_config]
+        for config in configs:
+            with open(config, "r") as f:
+                lines = f.readlines()
+                f.close()
+                try:
+                    pos = Functions._get_position(lines, utility)
+                    lines[pos] = util_str
+                #this will cover use cases where the util for lolcatting is not in the rc files
+                except:
+                    lines.append("\n"+util_str)
+            with open(config, "w") as f:
+                f.writelines(lines)
+                f.close()
+
+
+        #MASSAGE THE SHIT OUT OF THIS FOR ACTIVATING LOLCAT IN BASHRC/ZSHRC:
+        #_get_position
+        #with open(Functions.bash_config, "r") as f:
+        #    lines = f.readlines()
+        #    f.close()
+        #try:
+        #    pos = Functions._get_position(lines, "neofetch")
+        #    pos_commented = Functions._get_position(lines, "#neofetch")
+        #except:
+        #    with open(Functions.home + "/.config/autostart/" + text + ".desktop", "a") as f:
+        #        f.write("Hidden=" + str(bools))
+        #        f.close()
+        #if not failed:
+        #    val = lines[pos].split("=")[1].strip()
+        #    lines[pos] = lines[pos].replace(val, str(bools).lower())
+        #    with open(Functions.home + "/.config/autostart/" + text + ".desktop", "w") as f:
+        #        f.writelines(lines)
+        #        f.close()
+
 
     # ====================================================================
     #                       Lightdm

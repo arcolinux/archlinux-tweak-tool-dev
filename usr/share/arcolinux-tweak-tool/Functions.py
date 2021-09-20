@@ -52,6 +52,7 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 zsh_config = home + "/.zshrc"
+bash_config = home + "/.bashrc"
 account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
@@ -250,6 +251,13 @@ def clamp(x):
 def _get_position(lists, value):
     data = [string for string in lists if value in string]
     position = lists.index(data[0])
+    return position
+
+def _get_positions(lists, value):
+    data = [string for string in lists if value in string]
+    position = []
+    for d in data:
+        position.append(lists.index(d))
     return position
 
 def _get_variable(lists, value):

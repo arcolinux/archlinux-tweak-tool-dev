@@ -255,3 +255,18 @@ def get_checkboxes(self):
         self.cblocks.set_active(True)
     else:
         self.cblocks.set_active(False)
+
+# We only read the bashrc here,as this is used to turn on/off the lolcat option.
+# Assumption; both .bashrc and .zshrc are set identically.
+def get_term_rc(value):
+    with open(Functions.bash_config, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+
+    for line in lines:
+        if value in line:
+            if "#" + value in line:
+                return False
+            else:
+                return True
+    return False
