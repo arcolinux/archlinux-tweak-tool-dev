@@ -1219,6 +1219,7 @@ class Main(Gtk.Window):
         #If set to active:
         util_str = utility
         if widget.get_active():
+            self.install_util("lolcat")
             util_str = utility + " | lolcat" #The space here is CRITICAL
             self.set_util_state(utility, True, True)
         #The below is to ensure that the check box on Neofetch always toggles to match correctly
@@ -1243,6 +1244,7 @@ class Main(Gtk.Window):
         util_str = utility
         if widget.get_active():
             util_str = utility
+            self.install_util(utility)
         else:
             util_str = "#" + utility
             self.set_util_state(utility, False, False)
@@ -1300,6 +1302,41 @@ class Main(Gtk.Window):
         else:
             print("You should not be here. Something has been input incorrectly.")
 
+    def install_util(self, util):
+        command = ""
+        if util == "neofetch":
+            command = 'pacman -S neofetch arcolinux-neofetch-git --noconfirm --needed'
+        elif util == "screenfetch":
+            command = 'pacman -S screenfetch --noconfirm --needed'
+        elif util == "ufetch":
+            command = 'pacman -S ufetch-git --noconfirm --needed'
+        elif util == "ufetch-arco":
+            command = 'pacman -S ufetch-arco-git --noconfirm --needed'
+        elif util == "pfetch":
+            command = 'pacman -S pfetch --noconfirm --needed'
+        elif util == "paleofetch":
+            command = 'pacman -S arcolinux-paleofetch-git --noconfirm --needed'
+        elif util == "alsi":
+            command = 'pacman -S alsi --noconfirm --needed'
+        #elif util == "hfetch":
+        #    command = 'pacman -S sddm --noconfirm --needed'
+        #elif util == "sfetch":
+        #    command = 'pacman -S sddm --noconfirm --needed'
+        #elif util == "sysinfo":
+        #    command = 'pacman -S sddm --noconfirm --needed'
+        #elif util == "sysinfo-retro":
+        #    command = 'pacman -S sddm --noconfirm --needed'
+        elif util == "lolcat":
+            command = 'pacman -S lolcat --noconfirm --needed'
+        else:
+            pass
+
+        #This is just protection to avoid unneeded errors.
+        if len(command)>0:
+            Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
 
     # ====================================================================
     #                       Lightdm

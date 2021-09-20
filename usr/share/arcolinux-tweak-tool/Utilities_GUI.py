@@ -15,7 +15,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
 
     vbox14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     #Every util needs to have a util switch, and a lolcat switch.
-    utils = [ "neofetch", "screenfetch", "ufetch", "ufetch_arco", "pfetch", "paleofetch", "alsi", "hfetch", "sfetch", "sysinfo", "sysinfo_retro" ]
+    utils = [ "neofetch", "screenfetch", "ufetch", "ufetch-arco", "pfetch", "paleofetch", "alsi", "hfetch", "sfetch", "sysinfo", "sysinfo-retro" ]
 
 
     util_switches = [ ]
