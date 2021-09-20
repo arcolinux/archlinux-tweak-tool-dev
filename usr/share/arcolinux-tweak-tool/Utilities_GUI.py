@@ -66,20 +66,30 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lolcat_switches.append(self.sysinfo_lolcat)
     lolcat_switches.append(self.sysinfo_retro_lolcat)
 
+    #Utilising a grid to keep things neat
+    grid = Gtk.Grid()
+
     #Now we take all the prepared containers and switches, and create a page out of them.
     for i in range(len(utils)):
-        util_hbox = (Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10))
+        grid.insert_row(i)
+        #util_hbox = (Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10))
         util_label = Gtk.Label(xalign=0)
-        util_label.set_text(utils[i].capitalize())
+        #yeah - it's hacky - adding spaces to force buffering. But it's easy, and it works.
+        util_label.set_text(utils[i].capitalize()+"   ")
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
         lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
         lolcat_label = Gtk.Label(xalign=0)
-        lolcat_label.set_markup("Use lolcat")
-        util_hbox.pack_start(util_label, False, False, 0)
-        util_hbox.pack_start(util_switches[i], False, False, 0)
-        util_hbox.pack_start(lolcat_label, False, False, 0)
-        util_hbox.pack_start(lolcat_switches[i], False, False, 0)
-        vbox14.pack_start(util_hbox, False, False, 0)
+        lolcat_label.set_markup("   Use lolcat   ")
+        grid.attach(util_label, 0, i, 2, 1)
+        grid.attach_next_to(util_switches[i], util_label, Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(lolcat_label, util_switches[i], Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(lolcat_switches[i], lolcat_label, Gtk.PositionType.RIGHT, 1, 1)
+        #util_hbox.pack_start(util_label, False, False, 0)
+        #util_hbox.pack_start(util_switches[i], False, False, 0)
+        #util_hbox.pack_start(lolcat_label, False, False, 0)
+        #util_hbox.pack_start(lolcat_switches[i], False, False, 0)
+        #vbox14.pack_start(util_hbox, False, False, 0)
+    vbox14.pack_start(grid, False, False, 0)
 
     vboxStack9.pack_start(hbox3, False, False, 0)
     vboxStack9.pack_start(hbox4, False, False, 0)
