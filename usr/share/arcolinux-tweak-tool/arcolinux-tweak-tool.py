@@ -225,40 +225,41 @@ class Main(Gtk.Window):
 
 #       #========================NEOFETCH LOLCAT TOGGLE===================
         #Neofetch
+        self.neo_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat"))
         self.neofetch_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat"))
-        #self.neofetch_util.set_active(neofetch.get_term_rc("neofetch"))
+        self.neofetch_util.set_active(neofetch.get_term_rc("neofetch"))
 #       #========================UTILITIES TOGGLES========================
 
         #screenfetch
-        #self.screenfetch_lolcat.set_active(neofetch.get_term_rc("screenfetch | lolcat"))
-        #self.screenfetch_util.set_active(neofetch.get_term_rc("screenfetch"))
+        self.screenfetch_lolcat.set_active(neofetch.get_term_rc("screenfetch | lolcat"))
+        self.screenfetch_util.set_active(neofetch.get_term_rc("screenfetch"))
         #ufetch
-        #self.ufetch_lolcat.set_active(neofetch.get_term_rc("ufetch | lolcat"))
-        #self.ufetch_util.set_active(neofetch.get_term_rc("ufetch"))
+        self.ufetch_lolcat.set_active(neofetch.get_term_rc("ufetch | lolcat"))
+        self.ufetch_util.set_active(neofetch.get_term_rc("ufetch"))
         #ufetch-arco
-        #self.ufetch_arco_lolcat.set_active(neofetch.get_term_rc("ufetch-arco | lolcat"))
-        #self.ufetch_arco_util.set_active(neofetch.get_term_rc("ufetch-arco"))
+        self.ufetch_arco_lolcat.set_active(neofetch.get_term_rc("ufetch-arco | lolcat"))
+        self.ufetch_arco_util.set_active(neofetch.get_term_rc("ufetch-arco"))
         #pfetch
-        #self.pfetch_lolcat.set_active(neofetch.get_term_rc("pfetch | lolcat"))
-        #self.pfetch_util.set_active(neofetch.get_term_rc("pfetch"))
+        self.pfetch_lolcat.set_active(neofetch.get_term_rc("pfetch | lolcat"))
+        self.pfetch_util.set_active(neofetch.get_term_rc("pfetch"))
         #paleofetch
-        #self.paleofetch_lolcat.set_active(neofetch.get_term_rc("paleofetch | lolcat"))
-        #self.paleofetch_util.set_active(neofetch.get_term_rc("paleofetch"))
+        self.paleofetch_lolcat.set_active(neofetch.get_term_rc("paleofetch | lolcat"))
+        self.paleofetch_util.set_active(neofetch.get_term_rc("paleofetch"))
         #alsi
-        #self.alsi_lolcat.set_active(neofetch.get_term_rc("alsi | lolcat"))
-        #self.alsi_util.set_active(neofetch.get_term_rc("alsi"))
+        self.alsi_lolcat.set_active(neofetch.get_term_rc("alsi | lolcat"))
+        self.alsi_util.set_active(neofetch.get_term_rc("alsi"))
         #hfetch
-        #self.hfetch_lolcat.set_active(neofetch.get_term_rc("hfetch | lolcat"))
-        #self.hfetch_util.set_active(neofetch.get_term_rc("hfetch"))
+        self.hfetch_lolcat.set_active(neofetch.get_term_rc("hfetch | lolcat"))
+        self.hfetch_util.set_active(neofetch.get_term_rc("hfetch"))
         #sfetch
-        #self.sfetch_lolcat.set_active(neofetch.get_term_rc("sfetch | lolcat"))
-        #self.sfetch_util.set_active(neofetch.get_term_rc("sfetch"))
+        self.sfetch_lolcat.set_active(neofetch.get_term_rc("sfetch | lolcat"))
+        self.sfetch_util.set_active(neofetch.get_term_rc("sfetch"))
         #sysinfo
-        #self.sysinfo_lolcat.set_active(neofetch.get_term_rc("sysinfo | lolcat"))
-        #self.sysinfo_util.set_active(neofetch.get_term_rc("sysinfo"))
+        self.sysinfo_lolcat.set_active(neofetch.get_term_rc("sysinfo | lolcat"))
+        self.sysinfo_util.set_active(neofetch.get_term_rc("sysinfo"))
         #sysinfo-retro
-        #self.sysinfo_retro_lolcat.set_active(neofetch.get_term_rc("sysinfo-retro | lolcat"))
-        #self.sysinfo_retro_util.set_active(neofetch.get_term_rc("sysinfo-retro"))
+        self.sysinfo_retro_lolcat.set_active(neofetch.get_term_rc("sysinfo-retro | lolcat"))
+        self.sysinfo_retro_util.set_active(neofetch.get_term_rc("sysinfo-retro"))
 
         if Functions.os.path.isfile(Functions.lightdm_conf):
             if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
@@ -1219,7 +1220,10 @@ class Main(Gtk.Window):
         util_str = utility
         if widget.get_active():
             util_str = utility + " | lolcat" #The space here is CRITICAL
-            set_util_state(utility, True, True)
+            self.set_util_state(utility, True, True)
+        #The below is to ensure that the check box on Neofetch always toggles to match correctly
+        elif widget.get_active() == False and utility == "neofetch":
+            self.set_util_state(utility, True, False)
         configs = [Functions.bash_config, Functions.zsh_config]
         for config in configs:
             with open(config, "r") as f:
@@ -1227,7 +1231,7 @@ class Main(Gtk.Window):
                 f.close()
                 try:
                     pos = Functions._get_position(lines, utility)
-                    lines[pos] = util_str
+                    lines[pos] = util_str + "\n"
                 #this will cover use cases where the util for lolcatting is not in the rc files
                 except:
                     lines.append("\n"+util_str)
@@ -1241,7 +1245,7 @@ class Main(Gtk.Window):
             util_str = utility
         else:
             util_str = "#" + utility
-            set_util_state(utility, False, False)
+            self.set_util_state(utility, False, False)
         configs = [Functions.bash_config, Functions.zsh_config]
         for config in configs:
             with open(config, "r") as f:
@@ -1249,7 +1253,7 @@ class Main(Gtk.Window):
                 f.close()
                 try:
                     pos = Functions._get_position(lines, utility)
-                    lines[pos] = util_str
+                    lines[pos] = util_str + "\n"
                 #this will cover use cases where the util is not in the rc files
                 except:
                     lines.append("\n"+util_str)
@@ -1257,45 +1261,45 @@ class Main(Gtk.Window):
                 f.writelines(lines)
                 f.close()
 
-    def set_util_state(util, util_state, lolcat_state):
+    #This function has one job, and one job only; ensure that check boxes match what is passed to it, based on the logic from the calling function
+    def set_util_state(self, util, util_state, lolcat_state):
         if util == "neofetch":
-            lolcat_btn = self.neo_lolcat
-            util_btn = self.neo_util
+            self.neofetch_lolcat.set_active(lolcat_state)
+            self.neofetch_util.set_active(util_state)
+            self.neo_lolcat.set_active(lolcat_state)
         elif util == "screenfetch":
-            lolcat_btn = self.scr_lolcat
-            util_btn = self.scr_util
+            self.screenfetch_lolcat.set_active(lolcat_state)
+            self.screenfetch_util.set_active(util_state)
         elif util == "ufetch":
-            lolcat_btn = self.uf_lolcat
-            util_btn = self.uf_util
+            self.ufetch_lolcat.set_active(lolcat_state)
+            self.ufetch_util.set_active(util_state)
         elif util == "ufetch-arco":
-            lolcat_btn = self.ufa_lolcat
-            util_btn = self.ufa_util
+            self.ufetch_arco_lolcat.set_active(lolcat_state)
+            self.ufetch_arco_util.set_active(util_state)
         elif util == "pfetch":
-            lolcat_btn = self.pf_lolcat
-            util_btn = self.pf_util
+            self.pfetch_lolcat.set_active(lolcat_state)
+            self.pfetch_util.set_active(util_state)
         elif util == "paleofetch":
-            lolcat_btn = self.paleof_lolcat
-            util_btn = self.paleof_util
+            self.paleofetch_lolcat.set_active(lolcat_state)
+            self.paleofetch_util.set_active(util_state)
         elif util == "alsi":
-            lolcat_btn = self.alsi_lolcat
-            util_btn = self.alsi_util
+            self.alsi_lolcat.set_active(lolcat_state)
+            self.alsi_util.set_active(util_state)
         elif util == "hfetch":
-            lolcat_btn = self.hf_lolcat
-            util_btn = self.hf_util
+            self.hfetch_lolcat.set_active(lolcat_state)
+            self.hfetch_util.set_active(util_state)
         elif util == "sfetch":
-            lolcat_btn = self.sf_lolcat
-            util_btn = self.sf_util
+            self.sfetch_lolcat.set_active(lolcat_state)
+            self.sfetch_util.set_active(util_state)
         elif util == "sysinfo":
-            lolcat_btn = self.sys_lolcat
-            util_btn = self.sys_util
+            self.sysinfo_lolcat.set_active(lolcat_state)
+            self.sysinfo_util.set_active(util_state)
         elif util == "sysinfo-retro":
-            lolcat_btn = self.retrosys_lolcat
-            util_btn = self.retrosys_util
+            self.sysinfo_retro_lolcat.set_active(lolcat_state)
+            self.sysinfo_retro_util.set_active(util_state)
         else:
             print("You should not be here. Something has been input incorrectly.")
 
-        lolcat_btn.set_active(lolcat_state)
-        util_btn.set_active(util_state)
 
     # ====================================================================
     #                       Lightdm
