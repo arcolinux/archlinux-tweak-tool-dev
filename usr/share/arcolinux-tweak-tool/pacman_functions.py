@@ -1,7 +1,7 @@
 import Functions
 
 # =================================================================
-# =                  Author: Cameron Percival                     =
+# =             Author: Cameron Percival    Erik Dubois           =
 # =================================================================
 
 
