@@ -112,8 +112,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     self.title = Gtk.CheckButton(label="Show title")
 
-    self.lolcat = Gtk.Switch()
-    self.lolcat.connect("notify::active", self.lolcat_toggle, "neofetch")
+    self.neofetch_lolcat = Gtk.Switch()
+    self.neofetch_lolcat.connect("notify::active", self.lolcat_toggle, "neofetch")
     lolcat_label = Gtk.Label(xalign=0)
     lolcat_label.set_markup("Use lolcat")
 
@@ -172,7 +172,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     hbox25.pack_start(flowbox, True, True, 10)
 
     hbox27.pack_start(lolcat_label, False, False, 0)
-    hbox27.pack_start(self.lolcat, False, False, 30)
+    hbox27.pack_start(self.neofetch_lolcat, False, False, 30)
 
     hbox24.pack_end(applyneofetch, False, False, 0)
     hbox24.pack_end(resetneofetch, False, False, 0)

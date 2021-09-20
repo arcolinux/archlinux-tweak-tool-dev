@@ -196,6 +196,7 @@ class Main(Gtk.Window):
         arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
         arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
         arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
+        arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
@@ -207,6 +208,7 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
         self.aseed_button.set_active(arco_mirror_seed)
+        self.aarnet_button.set_active(arco_mirror_aarnet)
         #self.abelnet_button.set_active(arco_mirror_belnet)
         #self.agithub_button.set_active(arco_mirror_github)
 
@@ -222,7 +224,41 @@ class Main(Gtk.Window):
         self.opened = False
 
 #       #========================NEOFETCH LOLCAT TOGGLE===================
-        self.lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat"))
+        #Neofetch
+        self.neofetch_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat"))
+        #self.neofetch_util.set_active(neofetch.get_term_rc("neofetch"))
+#       #========================UTILITIES TOGGLES========================
+
+        #screenfetch
+        #self.screenfetch_lolcat.set_active(neofetch.get_term_rc("screenfetch | lolcat"))
+        #self.screenfetch_util.set_active(neofetch.get_term_rc("screenfetch"))
+        #ufetch
+        #self.ufetch_lolcat.set_active(neofetch.get_term_rc("ufetch | lolcat"))
+        #self.ufetch_util.set_active(neofetch.get_term_rc("ufetch"))
+        #ufetch-arco
+        #self.ufetch_arco_lolcat.set_active(neofetch.get_term_rc("ufetch-arco | lolcat"))
+        #self.ufetch_arco_util.set_active(neofetch.get_term_rc("ufetch-arco"))
+        #pfetch
+        #self.pfetch_lolcat.set_active(neofetch.get_term_rc("pfetch | lolcat"))
+        #self.pfetch_util.set_active(neofetch.get_term_rc("pfetch"))
+        #paleofetch
+        #self.paleofetch_lolcat.set_active(neofetch.get_term_rc("paleofetch | lolcat"))
+        #self.paleofetch_util.set_active(neofetch.get_term_rc("paleofetch"))
+        #alsi
+        #self.alsi_lolcat.set_active(neofetch.get_term_rc("alsi | lolcat"))
+        #self.alsi_util.set_active(neofetch.get_term_rc("alsi"))
+        #hfetch
+        #self.hfetch_lolcat.set_active(neofetch.get_term_rc("hfetch | lolcat"))
+        #self.hfetch_util.set_active(neofetch.get_term_rc("hfetch"))
+        #sfetch
+        #self.sfetch_lolcat.set_active(neofetch.get_term_rc("sfetch | lolcat"))
+        #self.sfetch_util.set_active(neofetch.get_term_rc("sfetch"))
+        #sysinfo
+        #self.sysinfo_lolcat.set_active(neofetch.get_term_rc("sysinfo | lolcat"))
+        #self.sysinfo_util.set_active(neofetch.get_term_rc("sysinfo"))
+        #sysinfo-retro
+        #self.sysinfo_retro_lolcat.set_active(neofetch.get_term_rc("sysinfo-retro | lolcat"))
+        #self.sysinfo_retro_util.set_active(neofetch.get_term_rc("sysinfo-retro"))
 
         if Functions.os.path.isfile(Functions.lightdm_conf):
             if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
@@ -345,6 +381,13 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_belnet")
+
+    def on_mirror_aarnet_repo_toggle(self, widget, active):
+        if not pmf.mirror_exist("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"):
+            pmf.append_mirror(self, Functions.seedhostmirror)
+        else:
+            if self.opened is False:
+                pmf.toggle_mirrorlist(self, widget.get_active(), "arco_mirror_aarnet")
 
     def on_mirror_github_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
@@ -1170,12 +1213,13 @@ class Main(Gtk.Window):
             self.frame3.hide()
             self.emblem.set_sensitive(False)
 
-    #When using this function to toggle a lolcat: utility = name of tool, e.g. neofetch 
+    #When using this function to toggle a lolcat: utility = name of tool, e.g. neofetch
     def lolcat_toggle(self, widget, active, utility):
         #If set to active:
         util_str = utility
         if widget.get_active():
             util_str = utility + " | lolcat" #The space here is CRITICAL
+            set_util_state(utility, True, True)
         configs = [Functions.bash_config, Functions.zsh_config]
         for config in configs:
             with open(config, "r") as f:
@@ -1191,26 +1235,67 @@ class Main(Gtk.Window):
                 f.writelines(lines)
                 f.close()
 
+    def util_toggle(self, widget, active, utility):
+        util_str = utility
+        if widget.get_active():
+            util_str = utility
+        else:
+            util_str = "#" + utility
+            set_util_state(utility, False, False)
+        configs = [Functions.bash_config, Functions.zsh_config]
+        for config in configs:
+            with open(config, "r") as f:
+                lines = f.readlines()
+                f.close()
+                try:
+                    pos = Functions._get_position(lines, utility)
+                    lines[pos] = util_str
+                #this will cover use cases where the util is not in the rc files
+                except:
+                    lines.append("\n"+util_str)
+            with open(config, "w") as f:
+                f.writelines(lines)
+                f.close()
 
-        #MASSAGE THE SHIT OUT OF THIS FOR ACTIVATING LOLCAT IN BASHRC/ZSHRC:
-        #_get_position
-        #with open(Functions.bash_config, "r") as f:
-        #    lines = f.readlines()
-        #    f.close()
-        #try:
-        #    pos = Functions._get_position(lines, "neofetch")
-        #    pos_commented = Functions._get_position(lines, "#neofetch")
-        #except:
-        #    with open(Functions.home + "/.config/autostart/" + text + ".desktop", "a") as f:
-        #        f.write("Hidden=" + str(bools))
-        #        f.close()
-        #if not failed:
-        #    val = lines[pos].split("=")[1].strip()
-        #    lines[pos] = lines[pos].replace(val, str(bools).lower())
-        #    with open(Functions.home + "/.config/autostart/" + text + ".desktop", "w") as f:
-        #        f.writelines(lines)
-        #        f.close()
+    def set_util_state(util, util_state, lolcat_state):
+        if util == "neofetch":
+            lolcat_btn = self.neo_lolcat
+            util_btn = self.neo_util
+        elif util == "screenfetch":
+            lolcat_btn = self.scr_lolcat
+            util_btn = self.scr_util
+        elif util == "ufetch":
+            lolcat_btn = self.uf_lolcat
+            util_btn = self.uf_util
+        elif util == "ufetch-arco":
+            lolcat_btn = self.ufa_lolcat
+            util_btn = self.ufa_util
+        elif util == "pfetch":
+            lolcat_btn = self.pf_lolcat
+            util_btn = self.pf_util
+        elif util == "paleofetch":
+            lolcat_btn = self.paleof_lolcat
+            util_btn = self.paleof_util
+        elif util == "alsi":
+            lolcat_btn = self.alsi_lolcat
+            util_btn = self.alsi_util
+        elif util == "hfetch":
+            lolcat_btn = self.hf_lolcat
+            util_btn = self.hf_util
+        elif util == "sfetch":
+            lolcat_btn = self.sf_lolcat
+            util_btn = self.sf_util
+        elif util == "sysinfo":
+            lolcat_btn = self.sys_lolcat
+            util_btn = self.sys_util
+        elif util == "sysinfo-retro":
+            lolcat_btn = self.retrosys_lolcat
+            util_btn = self.retrosys_util
+        else:
+            print("You should not be here. Something has been input incorrectly.")
 
+        lolcat_btn.set_active(lolcat_state)
+        util_btn.set_active(util_state)
 
     # ====================================================================
     #                       Lightdm
