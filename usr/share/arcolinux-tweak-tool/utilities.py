@@ -60,14 +60,14 @@ def install_util(util):
         command = 'pacman -S arcolinux-paleofetch-git --noconfirm --needed'
     elif util == "alsi":
         command = 'pacman -S alsi --noconfirm --needed'
-    #elif util == "hfetch":
-    #    command = 'pacman -S sddm --noconfirm --needed'
-    #elif util == "sfetch":
-    #    command = 'pacman -S sddm --noconfirm --needed'
-    #elif util == "sysinfo":
-    #    command = 'pacman -S sddm --noconfirm --needed'
-    #elif util == "sysinfo-retro":
-    #    command = 'pacman -S sddm --noconfirm --needed'
+    elif util == "hfetch":
+        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+    elif util == "sfetch":
+        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+    elif util == "sysinfo":
+        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+    elif util == "sysinfo-retro":
+        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
     elif util == "lolcat":
         command = 'pacman -S lolcat --noconfirm --needed'
     else:
