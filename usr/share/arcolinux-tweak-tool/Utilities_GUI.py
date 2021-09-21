@@ -16,7 +16,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lbl2 = Gtk.Label(xalign=0)
     lbl2.set_text("Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
     lbl3 = Gtk.Label(xalign=0)
-    lbl3.set_text("We recommend using not more than TWO utilities at the same time, due to screen real estate.")
+    lbl3.set_text("We recommend using not more than two utilities at the same time, due to screen real estate.")
     vbox14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     #Every util needs to have a util switch, and a lolcat switch.
     utils = [ "neofetch", "screenfetch", "ufetch", "ufetch-arco", "pfetch", "paleofetch", "alsi", "hfetch", "sfetch", "sysinfo", "sysinfo-retro" ]
