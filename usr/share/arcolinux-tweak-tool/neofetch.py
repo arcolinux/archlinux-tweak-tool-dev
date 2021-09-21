@@ -3,6 +3,7 @@
 # =================================================================
 import Functions
 from Functions import os
+
 # ====================================================================
 #                       NEOFETCH
 # ====================================================================
@@ -258,8 +259,13 @@ def get_checkboxes(self):
 
 # We only read the bashrc here,as this is used to turn on/off the lolcat option.
 # Assumption; both .bashrc and .zshrc are set identically.
-def get_term_rc(value):
-    with open(Functions.bash_config, "r") as myfile:
+def get_term_rc(value, shell):
+    config_file = ""
+    if shell == "bash":
+        config_file = Functions.bash_config
+    elif shell == "zsh":
+        config_file = Functions.zsh_config
+    with open(config_file, "r") as myfile:
         lines = myfile.readlines()
         myfile.close()
 

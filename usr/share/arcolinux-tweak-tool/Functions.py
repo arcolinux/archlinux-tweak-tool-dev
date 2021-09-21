@@ -205,6 +205,18 @@ def source_shell(self):
                         " -c \"source " + home + "/.zshrc\""],
                        stdout=subprocess.PIPE)
 
+def get_shell():
+    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""],
+                             shell=False,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.STDOUT)
+
+    output = process.stdout.decode().strip()
+    if output == "/bin/bash":
+        return "bash"
+    elif output == "/bin/zsh":
+        return "zsh"
+
 
 def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)

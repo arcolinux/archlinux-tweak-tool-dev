@@ -19,7 +19,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lbl3.set_text("We recommend using not more than two utilities at the same time, due to screen real estate.")
     vbox14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     #Every util needs to have a util switch, and a lolcat switch.
-    utils = [ "neofetch", "screenfetch", "ufetch", "ufetch-arco", "pfetch", "paleofetch", "alsi", "hfetch", "sfetch", "sysinfo", "sysinfo-retro" ]
+    utils = [ "neofetch", "screenfetch", "alsi", "paleofetch", "fetch", "hfetch", "sfetch", "ufetch", "ufetch-arco", "pfetch", "sysinfo", "sysinfo-retro"]
 
 
     util_switches = [ ]
@@ -28,6 +28,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     self.ufetch_util = Gtk.Switch()
     self.ufetch_arco_util = Gtk.Switch()
     self.pfetch_util = Gtk.Switch()
+    self.fetch_util = Gtk.Switch()
     self.paleofetch_util = Gtk.Switch()
     self.alsi_util = Gtk.Switch()
     self.hfetch_util = Gtk.Switch()
@@ -36,13 +37,14 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     self.sysinfo_retro_util = Gtk.Switch()
     util_switches.append(self.neofetch_util)
     util_switches.append(self.screenfetch_util)
+    util_switches.append(self.alsi_util)
+    util_switches.append(self.paleofetch_util)
+    util_switches.append(self.fetch_util)
+    util_switches.append(self.hfetch_util)
+    util_switches.append(self.sfetch_util)
     util_switches.append(self.ufetch_util)
     util_switches.append(self.ufetch_arco_util)
     util_switches.append(self.pfetch_util)
-    util_switches.append(self.paleofetch_util)
-    util_switches.append(self.alsi_util)
-    util_switches.append(self.hfetch_util)
-    util_switches.append(self.sfetch_util)
     util_switches.append(self.sysinfo_util)
     util_switches.append(self.sysinfo_retro_util)
 
@@ -55,18 +57,20 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     self.paleofetch_lolcat = Gtk.Switch()
     self.alsi_lolcat = Gtk.Switch()
     self.hfetch_lolcat = Gtk.Switch()
+    self.fetch_lolcat = Gtk.Switch()
     self.sfetch_lolcat = Gtk.Switch()
     self.sysinfo_lolcat = Gtk.Switch()
     self.sysinfo_retro_lolcat = Gtk.Switch()
     lolcat_switches.append(self.neofetch_lolcat)
     lolcat_switches.append(self.screenfetch_lolcat)
+    lolcat_switches.append(self.alsi_lolcat)
+    lolcat_switches.append(self.paleofetch_lolcat)
+    lolcat_switches.append(self.fetch_lolcat)
+    lolcat_switches.append(self.hfetch_lolcat)
+    lolcat_switches.append(self.sfetch_lolcat)
     lolcat_switches.append(self.ufetch_lolcat)
     lolcat_switches.append(self.ufetch_arco_lolcat)
     lolcat_switches.append(self.pfetch_lolcat)
-    lolcat_switches.append(self.paleofetch_lolcat)
-    lolcat_switches.append(self.alsi_lolcat)
-    lolcat_switches.append(self.hfetch_lolcat)
-    lolcat_switches.append(self.sfetch_lolcat)
     lolcat_switches.append(self.sysinfo_lolcat)
     lolcat_switches.append(self.sysinfo_retro_lolcat)
 

@@ -225,42 +225,45 @@ class Main(Gtk.Window):
         self.opened = False
 
 #       #========================NEOFETCH LOLCAT TOGGLE===================
+        shell = Functions.get_shell()
         #Neofetch
-        self.neo_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat"))
-        self.neofetch_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat"))
-        self.neofetch_util.set_active(neofetch.get_term_rc("neofetch"))
+        self.neo_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
+        self.neofetch_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
+        self.neofetch_util.set_active(neofetch.get_term_rc("neofetch", shell))
 #       #========================UTILITIES TOGGLES========================
-
-        #screenfetch
-        self.screenfetch_lolcat.set_active(neofetch.get_term_rc("screenfetch | lolcat"))
-        self.screenfetch_util.set_active(neofetch.get_term_rc("screenfetch"))
         #ufetch
-        self.ufetch_lolcat.set_active(neofetch.get_term_rc("ufetch | lolcat"))
-        self.ufetch_util.set_active(neofetch.get_term_rc("ufetch"))
+        self.fetch_lolcat.set_active(neofetch.get_term_rc("fetch | lolcat", shell))
+        self.fetch_util.set_active(neofetch.get_term_rc("fetch", shell))
+        #screenfetch
+        self.screenfetch_lolcat.set_active(neofetch.get_term_rc("screenfetch | lolcat", shell))
+        self.screenfetch_util.set_active(neofetch.get_term_rc("screenfetch", shell))
+        #ufetch
+        self.ufetch_lolcat.set_active(neofetch.get_term_rc("ufetch | lolcat", shell))
+        self.ufetch_util.set_active(neofetch.get_term_rc("ufetch", shell))
         #ufetch-arco
-        self.ufetch_arco_lolcat.set_active(neofetch.get_term_rc("ufetch-arco | lolcat"))
-        self.ufetch_arco_util.set_active(neofetch.get_term_rc("ufetch-arco"))
+        self.ufetch_arco_lolcat.set_active(neofetch.get_term_rc("ufetch-arco | lolcat", shell))
+        self.ufetch_arco_util.set_active(neofetch.get_term_rc("ufetch-arco", shell))
         #pfetch
-        self.pfetch_lolcat.set_active(neofetch.get_term_rc("pfetch | lolcat"))
-        self.pfetch_util.set_active(neofetch.get_term_rc("pfetch"))
+        self.pfetch_lolcat.set_active(neofetch.get_term_rc("pfetch | lolcat", shell))
+        self.pfetch_util.set_active(neofetch.get_term_rc("pfetch", shell))
         #paleofetch
-        self.paleofetch_lolcat.set_active(neofetch.get_term_rc("paleofetch | lolcat"))
-        self.paleofetch_util.set_active(neofetch.get_term_rc("paleofetch"))
+        self.paleofetch_lolcat.set_active(neofetch.get_term_rc("paleofetch | lolcat", shell))
+        self.paleofetch_util.set_active(neofetch.get_term_rc("paleofetch", shell))
         #alsi
-        self.alsi_lolcat.set_active(neofetch.get_term_rc("alsi | lolcat"))
-        self.alsi_util.set_active(neofetch.get_term_rc("alsi"))
+        self.alsi_lolcat.set_active(neofetch.get_term_rc("alsi | lolcat", shell))
+        self.alsi_util.set_active(neofetch.get_term_rc("alsi", shell))
         #hfetch
-        self.hfetch_lolcat.set_active(neofetch.get_term_rc("hfetch | lolcat"))
-        self.hfetch_util.set_active(neofetch.get_term_rc("hfetch"))
+        self.hfetch_lolcat.set_active(neofetch.get_term_rc("hfetch | lolcat", shell))
+        self.hfetch_util.set_active(neofetch.get_term_rc("hfetch", shell))
         #sfetch
-        self.sfetch_lolcat.set_active(neofetch.get_term_rc("sfetch | lolcat"))
-        self.sfetch_util.set_active(neofetch.get_term_rc("sfetch"))
+        self.sfetch_lolcat.set_active(neofetch.get_term_rc("sfetch | lolcat", shell))
+        self.sfetch_util.set_active(neofetch.get_term_rc("sfetch", shell))
         #sysinfo
-        self.sysinfo_lolcat.set_active(neofetch.get_term_rc("sysinfo | lolcat"))
-        self.sysinfo_util.set_active(neofetch.get_term_rc("sysinfo"))
+        self.sysinfo_lolcat.set_active(neofetch.get_term_rc("sysinfo | lolcat", shell))
+        self.sysinfo_util.set_active(neofetch.get_term_rc("sysinfo", shell))
         #sysinfo-retro
-        self.sysinfo_retro_lolcat.set_active(neofetch.get_term_rc("sysinfo-retro | lolcat"))
-        self.sysinfo_retro_util.set_active(neofetch.get_term_rc("sysinfo-retro"))
+        self.sysinfo_retro_lolcat.set_active(neofetch.get_term_rc("sysinfo-retro | lolcat", shell))
+        self.sysinfo_retro_util.set_active(neofetch.get_term_rc("sysinfo-retro", shell))
 
         if Functions.os.path.isfile(Functions.lightdm_conf):
             if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):

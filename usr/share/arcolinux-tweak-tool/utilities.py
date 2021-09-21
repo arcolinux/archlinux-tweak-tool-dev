@@ -32,6 +32,9 @@ def set_util_state(self, util, util_state, lolcat_state):
     elif util == "hfetch":
         self.hfetch_lolcat.set_active(lolcat_state)
         self.hfetch_util.set_active(util_state)
+    elif util == "fetch":
+        self.fetch_lolcat.set_active(lolcat_state)
+        self.fetch_util.set_active(util_state)
     elif util == "sfetch":
         self.sfetch_lolcat.set_active(lolcat_state)
         self.sfetch_util.set_active(util_state)
@@ -63,6 +66,8 @@ def install_util(util):
     elif util == "hfetch":
         command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
     elif util == "sfetch":
+        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+    elif util == "fetch":
         command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
     elif util == "sysinfo":
         command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
