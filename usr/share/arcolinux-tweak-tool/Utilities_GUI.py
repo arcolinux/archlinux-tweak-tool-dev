@@ -68,27 +68,37 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
 
     #Utilising a grid to keep things neat
     grid = Gtk.Grid()
-
+    #This is used for the seperators in the grid. It's probably not the best way - but it keeps control with us.
+    sep_text = "      "
     #Now we take all the prepared containers and switches, and create a page out of them.
     for i in range(len(utils)):
         grid.insert_row(i)
-        #util_hbox = (Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10))
+        #These are the seperators using the spacing set above - need to be individually created or GTK errors.
+        sep1 = Gtk.Label(xalign=0)
+        sep1.set_text(sep_text)
+        sep2 = Gtk.Label(xalign=0)
+        sep2.set_text(sep_text)
+        sep3 = Gtk.Label(xalign=0)
+        sep3.set_text(sep_text)
+        sep4 = Gtk.Label(xalign=0)
+        sep4.set_text(sep_text)
+        lolcat_label = Gtk.Label(xalign=0)
+        lolcat_label.set_markup("Use lolcat")
         util_label = Gtk.Label(xalign=0)
-        #yeah - it's hacky - adding spaces to force buffering. But it's easy, and it works.
-        util_label.set_text(utils[i].capitalize()+"   ")
+        util_label.set_text(utils[i].capitalize())
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
         lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
-        lolcat_label = Gtk.Label(xalign=0)
-        lolcat_label.set_markup("   Use lolcat   ")
         grid.attach(util_label, 0, i, 2, 1)
-        grid.attach_next_to(util_switches[i], util_label, Gtk.PositionType.RIGHT, 1, 1)
-        grid.attach_next_to(lolcat_label, util_switches[i], Gtk.PositionType.RIGHT, 1, 1)
-        grid.attach_next_to(lolcat_switches[i], lolcat_label, Gtk.PositionType.RIGHT, 1, 1)
-        #util_hbox.pack_start(util_label, False, False, 0)
-        #util_hbox.pack_start(util_switches[i], False, False, 0)
-        #util_hbox.pack_start(lolcat_label, False, False, 0)
-        #util_hbox.pack_start(lolcat_switches[i], False, False, 0)
-        #vbox14.pack_start(util_hbox, False, False, 0)
+        grid.attach_next_to(sep1, util_label, Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(util_switches[i], sep1, Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(sep2, util_switches[i], Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(lolcat_label, sep2, Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(sep3, lolcat_label, Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(lolcat_switches[i], sep3, Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(sep4, lolcat_switches[i], Gtk.PositionType.RIGHT, 1, 1)
+
+        #TODO: Add Imaging, and changes when tickboxes are toggled Preview button maybe?
+
     vbox14.pack_start(grid, False, False, 0)
 
     vboxStack9.pack_start(hbox3, False, False, 0)
