@@ -13,6 +13,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     hbox4.pack_start(hseparator, True, True, 0)
     hbox3.pack_start(lbl1, False, False, 0)
 
+    lbl2 = Gtk.Label(xalign=0)
+    lbl2.set_text("Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
+    lbl3 = Gtk.Label(xalign=0)
+    lbl3.set_text("We recommend using not more than TWO utilities at the same time, due to screen real estate.")
     vbox14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     #Every util needs to have a util switch, and a lolcat switch.
     utils = [ "neofetch", "screenfetch", "ufetch", "ufetch-arco", "pfetch", "paleofetch", "alsi", "hfetch", "sfetch", "sysinfo", "sysinfo-retro" ]
@@ -97,8 +101,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
         grid.attach_next_to(lolcat_switches[i], sep3, Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(sep4, lolcat_switches[i], Gtk.PositionType.RIGHT, 1, 1)
 
-        #TODO: Add Imaging, and changes when tickboxes are toggled Preview button maybe?
-
+    vbox14.pack_start(lbl2, False, False, 0)
+    vbox14.pack_start(lbl3, False, False, 0)
     vbox14.pack_start(grid, False, False, 0)
 
     vboxStack9.pack_start(hbox3, False, False, 0)
