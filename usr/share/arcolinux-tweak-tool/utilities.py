@@ -84,3 +84,8 @@ def install_util(util):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+
+def _get_position(lists, value):
+    data = [string for string in lists if value == string.strip("\n") or "#"+value == string.strip("\n")]
+    position = lists.index(data[0])
+    return position

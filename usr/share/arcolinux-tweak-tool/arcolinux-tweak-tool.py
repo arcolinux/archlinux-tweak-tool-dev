@@ -230,6 +230,7 @@ class Main(Gtk.Window):
         self.neo_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
         self.neofetch_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
         self.neofetch_util.set_active(neofetch.get_term_rc("neofetch", shell))
+
 #       #========================UTILITIES TOGGLES========================
         #ufetch
         self.fetch_lolcat.set_active(neofetch.get_term_rc("fetch | lolcat", shell))
@@ -1235,7 +1236,7 @@ class Main(Gtk.Window):
                 lines = f.readlines()
                 f.close()
                 try:
-                    pos = Functions._get_position(lines, utility)
+                    pos = utilities._get_position(lines, utility)
                     lines[pos] = util_str + "\n"
                 #this will cover use cases where the util for lolcatting is not in the rc files
                 except:
@@ -1258,7 +1259,7 @@ class Main(Gtk.Window):
                 lines = f.readlines()
                 f.close()
                 try:
-                    pos = Functions._get_position(lines, utility)
+                    pos = utilities._get_position(lines, utility)
                     lines[pos] = util_str + "\n"
                 #this will cover use cases where the util is not in the rc files
                 except:

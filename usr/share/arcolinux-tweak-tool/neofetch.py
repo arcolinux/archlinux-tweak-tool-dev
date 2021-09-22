@@ -261,18 +261,19 @@ def get_checkboxes(self):
 # Assumption; both .bashrc and .zshrc are set identically.
 def get_term_rc(value, shell):
     config_file = ""
-    if shell == "bash":
+    if Functions.get_shell() == "bash":
         config_file = Functions.bash_config
-    elif shell == "zsh":
+    elif Functions.get_shell() == "zsh":
         config_file = Functions.zsh_config
     with open(config_file, "r") as myfile:
         lines = myfile.readlines()
         myfile.close()
 
+    commented_value = "#" + value
     for line in lines:
-        if value in line:
-            if "#" + value in line:
-                return False
-            else:
-                return True
+        if value == line.strip("\n"):
+            return True
+        elif commented_value == line.strip("\n"):
+            return False
+
     return False
