@@ -1239,10 +1239,14 @@ class Main(Gtk.Window):
         if widget.get_active():
             util_str = utility
             utilities.install_util(utility)
+            if utility == "neofetch":
+                utilities.set_util_state(self, utility, True, utilities.get_lolcat_state(self, utility))
         else:
             util_str = "#" + utility
             #If the lolcat for the utility is on; best turn it off too.
-            if (utilities.get_lolcat_state(self, utility)):
+            if utilities.get_lolcat_state(self, utility):
+                utilities.set_util_state(self, utility, False, False)
+            if utility == "neofetch":
                 utilities.set_util_state(self, utility, False, False)
         utilities.write_configs(utility, util_str)
 
