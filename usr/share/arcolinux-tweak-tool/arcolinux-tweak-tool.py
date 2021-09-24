@@ -1226,24 +1226,13 @@ class Main(Gtk.Window):
         if widget.get_active():
             utilities.install_util("lolcat")
             util_str = utility + " | lolcat" #The space here is CRITICAL
-            utilities.set_util_state(self, utility, True, True)
+            #If the utility is currently not acive, activate it
+            if utilities.get_util_state(self, utility) == False:
+                utilities.set_util_state(self, utility, True, True)
         #The below is to ensure that the check box on Neofetch always toggles to match correctly
         elif widget.get_active() == False and utility == "neofetch":
             utilities.set_util_state(self, utility, True, False)
-        configs = [Functions.bash_config, Functions.zsh_config]
-        for config in configs:
-            with open(config, "r") as f:
-                lines = f.readlines()
-                f.close()
-                try:
-                    pos = utilities._get_position(lines, utility)
-                    lines[pos] = util_str + "\n"
-                #this will cover use cases where the util for lolcatting is not in the rc files
-                except:
-                    lines.append("\n"+util_str)
-            with open(config, "w") as f:
-                f.writelines(lines)
-                f.close()
+        utilities.write_configs(utility, util_str)
 
     def util_toggle(self, widget, active, utility):
         util_str = utility
@@ -1252,21 +1241,10 @@ class Main(Gtk.Window):
             utilities.install_util(utility)
         else:
             util_str = "#" + utility
-            utilities.set_util_state(self, utility, False, False)
-        configs = [Functions.bash_config, Functions.zsh_config]
-        for config in configs:
-            with open(config, "r") as f:
-                lines = f.readlines()
-                f.close()
-                try:
-                    pos = utilities._get_position(lines, utility)
-                    lines[pos] = util_str + "\n"
-                #this will cover use cases where the util is not in the rc files
-                except:
-                    lines.append("\n"+util_str)
-            with open(config, "w") as f:
-                f.writelines(lines)
-                f.close()
+            #If the lolcat for the utility is on; best turn it off too.
+            if (utilities.get_lolcat_state(self, utility)):
+                utilities.set_util_state(self, utility, False, False)
+        utilities.write_configs(utility, util_str)
 
     # ====================================================================
     #                       Lightdm
