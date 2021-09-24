@@ -230,7 +230,7 @@ class Main(Gtk.Window):
         self.neo_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
         self.neofetch_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
         self.neofetch_util.set_active(neofetch.get_term_rc("neofetch", shell))
-
+        self.neo_util.set_active(neofetch.get_term_rc("neofetch", shell))
 #       #========================UTILITIES TOGGLES========================
         #ufetch
         self.fetch_lolcat.set_active(neofetch.get_term_rc("fetch | lolcat", shell))
