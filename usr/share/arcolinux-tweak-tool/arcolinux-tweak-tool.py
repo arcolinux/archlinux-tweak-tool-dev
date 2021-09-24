@@ -46,7 +46,7 @@ class Main(Gtk.Window):
         self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
-        self.set_default_size(800, 700)
+        self.set_default_size(800, 900)
 
         self.opened = True
         self.firstrun = True
@@ -196,8 +196,8 @@ class Main(Gtk.Window):
 #       #========================ARCO MIRROR=============================
         arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
         arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
-        arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
         arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
+        arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
@@ -209,8 +209,8 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
         self.aseed_button.set_active(arco_mirror_seed)
+        self.abelnet_button.set_active(arco_mirror_belnet)
         self.aarnet_button.set_active(arco_mirror_aarnet)
-        #self.abelnet_button.set_active(arco_mirror_belnet)
         #self.agithub_button.set_active(arco_mirror_github)
 
 #       #========================TESTING REPO SET TOGGLE==================
@@ -230,7 +230,7 @@ class Main(Gtk.Window):
         self.neo_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
         self.neofetch_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
         self.neofetch_util.set_active(neofetch.get_term_rc("neofetch", shell))
-
+        self.neo_util.set_active(neofetch.get_term_rc("neofetch", shell))
 #       #========================UTILITIES TOGGLES========================
         #ufetch
         self.fetch_lolcat.set_active(neofetch.get_term_rc("fetch | lolcat", shell))
@@ -390,7 +390,7 @@ class Main(Gtk.Window):
 
     def on_mirror_aarnet_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"):
-            pmf.append_mirror(self, Functions.seedhostmirror)
+            pmf.append_mirror(self, Functions.aarnetmirror)
         else:
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(), "arco_mirror_aarnet")

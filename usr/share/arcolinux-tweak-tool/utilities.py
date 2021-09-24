@@ -11,6 +11,7 @@ def set_util_state(self, util, util_state, lolcat_state):
         self.neofetch_lolcat.set_state(lolcat_state)
         self.neofetch_util.set_state(util_state)
         self.neo_lolcat.set_state(lolcat_state)
+        self.neo_util.set_state(lolcat_state)
     elif util == "screenfetch":
         self.screenfetch_lolcat.set_state(lolcat_state)
         self.screenfetch_util.set_state(util_state)

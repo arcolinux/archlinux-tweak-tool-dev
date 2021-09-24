@@ -282,7 +282,7 @@ def toggle_mirrorlist(self, state, widget):  # noqa
                 if widget == "arco_mirror_github":
                     mirror_off("Server = https://arcolinux.github.io/$repo/$arch", lines, i, line)
                 if widget == "arco_mirror_aarnet":
-                    mirror_on("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch", lines, i, line)
+                    mirror_off("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch", lines, i, line)
                 # if widget == "arco":
                 #     pacman_off("[arcolinux_repo_testing]", lines, i, line)
                 # if widget == "arch":
