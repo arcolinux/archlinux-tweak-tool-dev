@@ -390,7 +390,7 @@ class Main(Gtk.Window):
 
     def on_mirror_aarnet_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"):
-            pmf.append_mirror(self, Functions.seedhostmirror)
+            pmf.append_mirror(self, Functions.aarnetmirror)
         else:
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(), "arco_mirror_aarnet")

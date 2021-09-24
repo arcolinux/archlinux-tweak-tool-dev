@@ -44,12 +44,12 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack7.pack_start(label5, False, True, 10)
     hboxStack7.pack_end(self.aseed_button, False, False, 20)
 
-    # self.abelnet_button = Gtk.Switch()
-    # self.abelnet_button.connect("notify::active", self.on_mirror_belnet_repo_toggle)
-    # label6 = Gtk.Label(xalign=0)
-    # label6.set_markup("Enable Belnet repo - free bandwidth")
-    # hboxStack8.pack_start(label6, False, True, 10)
-    # hboxStack8.pack_end(self.abelnet_button, False, False, 20)
+    self.abelnet_button = Gtk.Switch()
+    self.abelnet_button.connect("notify::active", self.on_mirror_belnet_repo_toggle)
+    label6 = Gtk.Label(xalign=0)
+    label6.set_markup("Enable Belnet repo - free bandwidth")
+    hboxStack8.pack_start(label6, False, True, 10)
+    hboxStack8.pack_end(self.abelnet_button, False, False, 20)
 
     # self.agithub_button = Gtk.Switch()
     # self.agithub_button.connect("notify::active", self.on_mirror_github_repo_toggle)
@@ -79,7 +79,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vbox3.pack_start(hboxStack7, False, False, 10)
-    #vbox3.pack_start(hboxStack8, False, False, 10)
+    vbox3.pack_start(hboxStack8, False, False, 10)
     #vbox3.pack_start(hboxStack9, False, False, 10)
     vbox3.pack_start(hboxStack10, False, False, 10)
     frame3.add(vbox3)
