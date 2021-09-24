@@ -196,8 +196,8 @@ class Main(Gtk.Window):
 #       #========================ARCO MIRROR=============================
         arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
         arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
-        arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
         arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
+        arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
 #       #========================SPINOFF REPO=============================
         hefftor_repo = pmf.check_repo("[hefftor-repo]")
         bobo_repo = pmf.check_repo("[chaotic-aur]")
@@ -209,8 +209,8 @@ class Main(Gtk.Window):
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
         self.aseed_button.set_active(arco_mirror_seed)
+        self.abelnet_button.set_active(arco_mirror_belnet)
         self.aarnet_button.set_active(arco_mirror_aarnet)
-        #self.abelnet_button.set_active(arco_mirror_belnet)
         #self.agithub_button.set_active(arco_mirror_github)
 
 #       #========================TESTING REPO SET TOGGLE==================

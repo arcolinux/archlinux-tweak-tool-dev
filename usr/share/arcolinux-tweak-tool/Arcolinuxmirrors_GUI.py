@@ -40,14 +40,14 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.aseed_button = Gtk.Switch()
     self.aseed_button.connect("notify::active", self.on_mirror_seed_repo_toggle)
     label5 = Gtk.Label(xalign=0)
-    label5.set_markup("Enable Seedhost repo - Do not enable it and save us bandwidth")
+    label5.set_markup("Enable Seedhost repo - Do not enable it and save us bandwidth - paid - Netherlands")
     hboxStack7.pack_start(label5, False, True, 10)
     hboxStack7.pack_end(self.aseed_button, False, False, 20)
 
     self.abelnet_button = Gtk.Switch()
     self.abelnet_button.connect("notify::active", self.on_mirror_belnet_repo_toggle)
     label6 = Gtk.Label(xalign=0)
-    label6.set_markup("Enable Belnet repo - free bandwidth")
+    label6.set_markup("Enable Belnet repo - free bandwidth - Belgium")
     hboxStack8.pack_start(label6, False, True, 10)
     hboxStack8.pack_end(self.abelnet_button, False, False, 20)
 
@@ -61,7 +61,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.aarnet_button = Gtk.Switch()
     self.aarnet_button.connect("notify::active", self.on_mirror_aarnet_repo_toggle)
     label8 = Gtk.Label(xalign=0)
-    label8.set_markup("Enable Aarnet repo - Quite fast if in Australia or New Zealand")
+    label8.set_markup("Enable Aarnet repo - free bandwidth - Australia")
     hboxStack10.pack_start(label8, False, True, 10)
     hboxStack10.pack_end(self.aarnet_button, False, False, 20)
 
