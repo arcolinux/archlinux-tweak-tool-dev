@@ -14,9 +14,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     hbox3.pack_start(lbl1, False, False, 0)
 
     lbl2 = Gtk.Label(xalign=0)
-    lbl2.set_text("Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
+    lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
     lbl3 = Gtk.Label(xalign=0)
-    lbl3.set_text("We recommend using not more than two utilities at the same time, due to screen real estate.")
+    lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
     vbox14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     #Every util needs to have a util switch, and a lolcat switch.
     utils = [ "neofetch", "screenfetch", "alsi", "paleofetch", "fetch", "hfetch", "sfetch", "ufetch", "ufetch-arco", "pfetch", "sysinfo", "sysinfo-retro"]
@@ -82,6 +82,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     for i in range(len(utils)):
         grid.insert_row(i)
         #These are the seperators using the spacing set above - need to be individually created or GTK errors.
+        sep0 = Gtk.Label(xalign=0)
+        sep0.set_text(sep_text)
         sep1 = Gtk.Label(xalign=0)
         sep1.set_text(sep_text)
         sep2 = Gtk.Label(xalign=0)
@@ -96,7 +98,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
         util_label.set_text(utils[i].capitalize())
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
         lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
-        grid.attach(util_label, 0, i, 2, 1)
+        grid.attach(sep0, 0, i, 2, 1)
+        grid.attach_next_to(util_label, sep0, Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(sep1, util_label, Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(util_switches[i], sep1, Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(sep2, util_switches[i], Gtk.PositionType.RIGHT, 1, 1)
