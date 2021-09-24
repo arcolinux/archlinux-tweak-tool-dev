@@ -1,8 +1,9 @@
-# =================================================================
-# =                  Author: Brad Heffernan                       =
-# =================================================================
+#      #============================================================
+#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #============================================================
 import Functions
 from Functions import os
+
 # ====================================================================
 #                       NEOFETCH
 # ====================================================================
@@ -255,3 +256,24 @@ def get_checkboxes(self):
         self.cblocks.set_active(True)
     else:
         self.cblocks.set_active(False)
+
+# We only read the bashrc here,as this is used to turn on/off the lolcat option.
+# Assumption; both .bashrc and .zshrc are set identically.
+def get_term_rc(value, shell):
+    config_file = ""
+    if Functions.get_shell() == "bash":
+        config_file = Functions.bash_config
+    elif Functions.get_shell() == "zsh":
+        config_file = Functions.zsh_config
+    with open(config_file, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+
+    commented_value = "#" + value
+    for line in lines:
+        if value == line.strip("\n"):
+            return True
+        elif commented_value == line.strip("\n"):
+            return False
+
+    return False
