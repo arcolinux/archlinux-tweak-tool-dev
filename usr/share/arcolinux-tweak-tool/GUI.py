@@ -346,10 +346,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # if Functions.file_check(Functions.neofetch_config):
     stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
 
-    stack.add_titled(vboxStack20, "stack20", "Terminal Utilities")
-    # if Functions.file_check(Functions.oblogout_conf):
-    #     stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
-
     # if Functions.file_check(Functions.pacman):
     stack.add_titled(vboxStack1, "stack6", "Pacman")  # Pacman config
 
@@ -365,6 +361,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     # if Functions.file_check(Functions.termite_config):
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
+
+    stack.add_titled(vboxStack20, "stack20", "Terminal Fun")
+    # if Functions.file_check(Functions.oblogout_conf):
+    #     stack.add_titled(vboxStack6, "stack5", "") # Oblogout config
 
     # stack.add_titled(vboxStack9, "stack10", "Tweak skel")
 
