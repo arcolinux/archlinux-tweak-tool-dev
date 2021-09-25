@@ -166,13 +166,14 @@ def _get_position(lists, value):
     for string in lists:
         if is_special:
             for item in special_cases:
-                if string == item:
+                if string == item and value in string:
                     data.append(string)
         else:
             if value in string:
                 data.append(string)
 
     if len(data)>0:
+        print(data)
         position = lists.index(data[0])
         return position
     else:
@@ -189,7 +190,7 @@ def write_configs(utility, util_str):
                 lines[pos] = util_str + "\n"
             #this will cover use cases where the util is not in the rc files
             except Exception as e:
-                #print(e)
+                print(e)
                 lines.append(util_str)
         with open(config, "w") as f:
             f.writelines(lines)
@@ -208,7 +209,6 @@ def get_term_rc(value, shell):
         myfile.close()
 
     pos = _get_position(lines, value)
-
     if pos > 0 and lines[pos].startswith("#"):
         return False
     elif pos > 0:

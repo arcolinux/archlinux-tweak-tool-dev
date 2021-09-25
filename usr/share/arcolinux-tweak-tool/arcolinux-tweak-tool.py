@@ -1232,7 +1232,7 @@ class Main(Gtk.Window):
             utilities.install_util("lolcat")
             util_str = utility + " | lolcat" #The space here is CRITICAL
             #If the utility is currently not acive, activate it
-            if utilities.get_util_state(self, utility) == False:
+            if utilities.get_util_state(self, utility) == False or utility == "neofetch":
                 utilities.set_util_state(self, utility, True, True)
         #The below is to ensure that the check box on Neofetch always toggles to match correctly
         elif widget.get_active() == False and utility == "neofetch":
