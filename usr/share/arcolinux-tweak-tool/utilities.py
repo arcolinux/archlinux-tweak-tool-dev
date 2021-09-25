@@ -11,7 +11,7 @@ def set_util_state(self, util, util_state, lolcat_state):
         self.neofetch_lolcat.set_state(lolcat_state)
         self.neofetch_util.set_state(util_state)
         self.neo_lolcat.set_state(lolcat_state)
-        self.neo_util.set_state(lolcat_state)
+        self.neo_util.set_state(util_state)
     elif util == "screenfetch":
         self.screenfetch_lolcat.set_state(lolcat_state)
         self.screenfetch_util.set_state(util_state)
@@ -45,6 +45,9 @@ def set_util_state(self, util, util_state, lolcat_state):
     elif util == "sysinfo-retro":
         self.sysinfo_retro_lolcat.set_state(lolcat_state)
         self.sysinfo_retro_util.set_state(util_state)
+    elif util == "cpufetch":
+        self.cpufetch_lolcat.set_state(lolcat_state)
+        self.cpufetch_util.set_state(util_state)
     else:
         print("You should not be here. Something has been input incorrectly.")
 
@@ -73,6 +76,8 @@ def get_util_state(self, util):
         return self.sysinfo_util.get_active()
     elif util == "sysinfo-retro":
         return self.sysinfo_retro_util.get_active()
+    elif util == "cpufetch":
+        return self.cpufetch_util.get_active()
     else:
         print("Get Util State error. Something has been input incorrectly.")
         return False
@@ -102,6 +107,8 @@ def get_lolcat_state(self, util):
         return self.sysinfo_lolcat.get_active()
     elif util == "sysinfo-retro":
         return self.sysinfo_retro_lolcat.get_active()
+    elif util == "cpufetch":
+        return self.cpufetch_lolcat.get_active()
     else:
         print("Get lolcat state error. Something has been input incorrectly.")
         return False
@@ -134,6 +141,8 @@ def install_util(util):
         command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
     elif util == "lolcat":
         command = 'pacman -S lolcat --noconfirm --needed'
+    elif util == "cpufetch":
+        command = 'pacman -S cpufetch --noconfirm --needed'
     else:
         pass
 

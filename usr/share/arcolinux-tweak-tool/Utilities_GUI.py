@@ -19,7 +19,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
     vbox14 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     #Every util needs to have a util switch, and a lolcat switch.
-    utils = [ "neofetch", "screenfetch", "alsi", "paleofetch", "fetch", "hfetch", "sfetch", "ufetch", "ufetch-arco", "pfetch", "sysinfo", "sysinfo-retro"]
+    utils = [ "neofetch", "screenfetch", "alsi", "paleofetch", "fetch", "hfetch", "sfetch", "ufetch", "ufetch-arco", "pfetch", "sysinfo", "sysinfo-retro", "cpufetch"]
 
 
     util_switches = [ ]
@@ -35,6 +35,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     self.sfetch_util = Gtk.Switch()
     self.sysinfo_util = Gtk.Switch()
     self.sysinfo_retro_util = Gtk.Switch()
+    self.cpufetch_util = Gtk.Switch()    
     util_switches.append(self.neofetch_util)
     util_switches.append(self.screenfetch_util)
     util_switches.append(self.alsi_util)
@@ -47,6 +48,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     util_switches.append(self.pfetch_util)
     util_switches.append(self.sysinfo_util)
     util_switches.append(self.sysinfo_retro_util)
+    util_switches.append(self.cpufetch_util)
 
     lolcat_switches = [ ]
     self.neofetch_lolcat = Gtk.Switch()
@@ -61,6 +63,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     self.sfetch_lolcat = Gtk.Switch()
     self.sysinfo_lolcat = Gtk.Switch()
     self.sysinfo_retro_lolcat = Gtk.Switch()
+    self.cpufetch_lolcat = Gtk.Switch()    
     lolcat_switches.append(self.neofetch_lolcat)
     lolcat_switches.append(self.screenfetch_lolcat)
     lolcat_switches.append(self.alsi_lolcat)
@@ -73,6 +76,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lolcat_switches.append(self.pfetch_lolcat)
     lolcat_switches.append(self.sysinfo_lolcat)
     lolcat_switches.append(self.sysinfo_retro_lolcat)
+    lolcat_switches.append(self.cpufetch_lolcat)    
 
     #Utilising a grid to keep things neat
     grid = Gtk.Grid()

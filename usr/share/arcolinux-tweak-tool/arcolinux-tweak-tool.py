@@ -218,6 +218,7 @@ class Main(Gtk.Window):
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton3.set_active(multi_testing)
         self.checkbutton4.set_active(arch_community)
+
 #       #========================SPINOFF REPO SET TOGGLE==================
         #self.hefftor_button.set_active(hefftor_repo)
         self.bobo_button.set_active(bobo_repo)
@@ -231,7 +232,8 @@ class Main(Gtk.Window):
         self.neofetch_lolcat.set_active(neofetch.get_term_rc("neofetch | lolcat", shell))
         self.neofetch_util.set_active(neofetch.get_term_rc("neofetch", shell))
         self.neo_util.set_active(neofetch.get_term_rc("neofetch", shell))
-#       #========================UTILITIES TOGGLES========================
+
+#       #========================TERMINAL UTILITIES TOGGLES========================
         #ufetch
         self.fetch_lolcat.set_active(neofetch.get_term_rc("fetch | lolcat", shell))
         self.fetch_util.set_active(neofetch.get_term_rc("fetch", shell))
@@ -265,6 +267,9 @@ class Main(Gtk.Window):
         #sysinfo-retro
         self.sysinfo_retro_lolcat.set_active(neofetch.get_term_rc("sysinfo-retro | lolcat", shell))
         self.sysinfo_retro_util.set_active(neofetch.get_term_rc("sysinfo-retro", shell))
+        #cpufetch
+        self.cpufetch_lolcat.set_active(neofetch.get_term_rc("cpufetch | lolcat", shell))
+        self.cpufetch_util.set_active(neofetch.get_term_rc("cpufetch", shell))
 
         if Functions.os.path.isfile(Functions.lightdm_conf):
             if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
@@ -1239,10 +1244,14 @@ class Main(Gtk.Window):
         if widget.get_active():
             util_str = utility
             utilities.install_util(utility)
+            if utility == "neofetch":
+                utilities.set_util_state(self, utility, True, utilities.get_lolcat_state(self, utility))
         else:
             util_str = "#" + utility
             #If the lolcat for the utility is on; best turn it off too.
-            if (utilities.get_lolcat_state(self, utility)):
+            if utilities.get_lolcat_state(self, utility):
+                utilities.set_util_state(self, utility, False, False)
+            if utility == "neofetch":
                 utilities.set_util_state(self, utility, False, False)
         utilities.write_configs(utility, util_str)
 
