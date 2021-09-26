@@ -178,10 +178,13 @@ def write_configs(utility, util_str):
             f.close()
             try:
                 pos = _get_position(lines, utility)
-                lines[pos] = util_str + "\n"
+                if pos > 0:
+                    lines[pos] = util_str + "\n"
+                else:
+                    lines.append("\n"+util_str)
             #this will cover use cases where the util is not in the rc files
             except Exception as e:
-                lines.append(util_str)
+                lines.append("\n"+util_str)
         with open(config, "w") as f:
             f.writelines(lines)
             f.close()
