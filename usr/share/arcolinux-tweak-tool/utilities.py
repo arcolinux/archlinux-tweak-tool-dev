@@ -156,24 +156,15 @@ def install_util(util):
 def _get_position(lists, value):
     data = []
     #Because we don't know EXACTLY how the app will process the rc file, we need to account for every variation.
-    special_cases = ["fetch", "fetch | lolcat", "fetch\n", "fetch | lolcat\n", "#fetch", "#fetch | lolcat", "#fetch\n", "#fetch | lolcat\n"] #
-    is_special = False
-
-    if value == "fetch" or value == "fetch | lolcat":
-        is_special = True
-        #print("is_special triggered by: " + value)
+    suffixes = [" | lolcat", "\n", " | lolcat\n"] #
+    prefix = "#"
 
     for string in lists:
-        if is_special:
-            for item in special_cases:
-                if string == item and value in string:
-                    data.append(string)
-        else:
-            if value in string:
+        for item in suffixes:
+            if string == value+item or string == prefix+value+item or string == value:
                 data.append(string)
 
     if len(data)>0:
-        #print(data)
         position = lists.index(data[0])
         return position
     else:
@@ -190,7 +181,6 @@ def write_configs(utility, util_str):
                 lines[pos] = util_str + "\n"
             #this will cover use cases where the util is not in the rc files
             except Exception as e:
-                #print(e)
                 lines.append(util_str)
         with open(config, "w") as f:
             f.writelines(lines)
