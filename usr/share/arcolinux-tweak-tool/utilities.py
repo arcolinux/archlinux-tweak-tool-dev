@@ -159,20 +159,25 @@ def _get_position(lists, value):
     special_cases = ["fetch", "fetch | lolcat", "fetch\n", "fetch | lolcat\n", "#fetch", "#fetch | lolcat", "#fetch\n", "#fetch | lolcat\n"] #
     is_special = False
 
-    if value == "fetch":
+    if value == "fetch" or value == "fetch | lolcat":
         is_special = True
+        #print("is_special triggered by: " + value)
 
     for string in lists:
         if is_special:
             for item in special_cases:
-                if string == item:
+                if string == item and value in string:
                     data.append(string)
         else:
             if value in string:
                 data.append(string)
 
-    position = lists.index(data[0])
-    return position
+    if len(data)>0:
+        #print(data)
+        position = lists.index(data[0])
+        return position
+    else:
+        return -1
 
 def write_configs(utility, util_str):
     configs = [Functions.bash_config, Functions.zsh_config]
@@ -185,8 +190,29 @@ def write_configs(utility, util_str):
                 lines[pos] = util_str + "\n"
             #this will cover use cases where the util is not in the rc files
             except Exception as e:
-                print(e)
-                #lines.append(util_str)
+                #print(e)
+                lines.append(util_str)
         with open(config, "w") as f:
             f.writelines(lines)
             f.close()
+
+# We only read the bashrc here,as this is used to turn on/off the lolcat option.
+# Assumption; both .bashrc and .zshrc are set identically.
+def get_term_rc(value, shell):
+    config_file = ""
+    if Functions.get_shell() == "bash":
+        config_file = Functions.bash_config
+    elif Functions.get_shell() == "zsh":
+        config_file = Functions.zsh_config
+    with open(config_file, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+
+    pos = _get_position(lines, value)
+
+    if pos > 0 and lines[pos].startswith("#"):
+        return False
+    elif pos > 0:
+        return True
+    else:
+        return False

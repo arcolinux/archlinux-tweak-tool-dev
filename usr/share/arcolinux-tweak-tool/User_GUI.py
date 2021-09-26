@@ -1,5 +1,5 @@
 #=================================================================
-#=                  Author: Erik Dubois                          =
+#=         Author: Erik Dubois and Cameron Percival              =
 #=================================================================
 
 
@@ -14,15 +14,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
     hbox5.pack_start(hseparator, True, True, 0)
 
-    #hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    #hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -33,7 +25,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     label_name.set_text("    Name")
     name_sep = Gtk.Label(xalign=0)
     name_sep.set_text(sep_text)
-
 
     label_username = Gtk.Label(xalign=0)
     label_username.set_text("    Username")
@@ -98,38 +89,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
     grid.attach_next_to(conf_pwd_sep, label_confirm_password, Gtk.PositionType.RIGHT, 1, 1)
     grid.attach_next_to(self.hbox_confirm_password, conf_pwd_sep, Gtk.PositionType.RIGHT, 1, 1)
 
-    #hbox.pack_start(label_name, False, False, 10)
-    #hbox.pack_end(self.hbox_name, True, True, 10)
-
-    #hbox3.pack_start(label_username, False, False, 10)
-    #hbox3.pack_end(self.hbox_username, True, True, 10)
-
-    #hbox8.pack_start(label_account_type, False, False, 10)
-    #hbox8.pack_end(self.combo_account_type, False, False, 10)
-
-    #hbox1.pack_start(label_password, False, False, 10)
-    #hbox1.pack_end(self.hbox_password, True, True, 10)
-
-    #hbox6.pack_start(label_confirm_password, False, False, 10)
-    #hbox6.pack_end(self.hbox_confirm_password, True, True, 10)
-
-    #hbox7.pack_start(label_empty1, False, False, 10)
-
-    #hbox8.pack_start(label_empty2, False, False, 10)
-
-
     hbox2.pack_end(apply_sddm, False, False, 0)
 
     vboxStack10.pack_start(hbox4, False, False, 0)
     vboxStack10.pack_start(hbox5, False, False, 0)
     vboxStack10.pack_start(grid, False, False, 0)
-    #vboxStack10.pack_start(hbox3, False, False, 0)
-    #vboxStack10.pack_start(hbox, False, False, 0)
-    #vboxStack10.pack_start(hbox7, False, False, 0)
-    #vboxStack10.pack_start(hbox7, False, False, 0)
-    #vboxStack10.pack_start(hbox8, False, False, 0)
-    #vboxStack10.pack_start(hbox1, False, False, 0)
-    #vboxStack10.pack_start(hbox6, False, False, 0)
     vboxStack10.pack_start(hbox9, False, False, 0)
     vboxStack10.pack_start(hbox10, False, False, 0)
     vboxStack10.pack_start(hbox11, False, False, 0)
