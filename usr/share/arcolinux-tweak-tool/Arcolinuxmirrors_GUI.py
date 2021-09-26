@@ -69,7 +69,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     warning.set_markup("If you disable all these mirrors you will no longer have access to the Xlarge repository.")
     warning2 = Gtk.Label(xalign=0)
     warning2.set_markup("Change your /etc/pacman.conf accordingly.")
-
+    hboxStack11.pack_start(warning, False, False, 10)
+    hboxStack12.pack_start(warning2, False, False, 10)
     # ========================================================
     #               FOOTER
     # ========================================================
@@ -83,8 +84,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
 
     vbox3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    vbox3.pack_start(warning, False, False, 10)
-    vbox3.pack_start(warning2, False, False, 10)
+    vbox3.pack_start(hboxStack11, False, False, 10)
+    vbox3.pack_start(hboxStack12, False, False, 10)
     vbox3.pack_start(hboxStack7, False, False, 10)
     vbox3.pack_start(hboxStack8, False, False, 10)
     #vbox3.pack_start(hboxStack9, False, False, 10)
