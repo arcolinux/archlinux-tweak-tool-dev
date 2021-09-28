@@ -52,10 +52,10 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 zsh_config = ""
-if path.is_file(home + "/.zshrc"):
+if os.path.isfile(home + "/.zshrc"):
     zsh_config = home + "/.zshrc"
 bash_config = ""
-if path.is_file(home + "/.bashrc"):
+if os.path.isfile(home + "/.bashrc"):
     bash_config = home + "/.bashrc"
 account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
