@@ -222,8 +222,6 @@ def get_shell():
     elif output == "/bin/zsh" or output == "/usr/bin/zsh":
         return "zsh"
 
-
-
 def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
 
