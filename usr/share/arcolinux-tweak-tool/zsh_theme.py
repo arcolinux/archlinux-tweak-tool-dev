@@ -34,7 +34,6 @@ def get_themes(combo):
             print("ATT was unable to locate your .zshrc file, please either move your zshrc file to your base home directory (~/.zshrc), or run cz in zsh to restore the Arcolinux default.")
         except Exception as e:
             print(e)
-
     else:
         combo.append_text("oh-my-zsh not installed...")
         combo.set_active(0)
