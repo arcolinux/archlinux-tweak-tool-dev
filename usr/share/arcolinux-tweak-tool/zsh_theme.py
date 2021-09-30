@@ -30,8 +30,11 @@ def get_themes(combo):
                     active = x+1 #remember; arrays start at ZERO
                 combo.append_text(lists_sorted[x].split(".")[0].strip())
             combo.set_active(active)
+        except OSError:
+            print("ATT was unable to locate your .zshrc file, please either move your zshrc file to your base home directory (~/.zshrc), or run cz in zsh to restore the Arcolinux default.")
         except Exception as e:
             print(e)
+
     else:
         combo.append_text("oh-my-zsh not installed...")
         combo.set_active(0)

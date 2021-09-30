@@ -52,10 +52,10 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 zsh_config = ""
-if path.is_file(home + "/.zshrc"):
+if os.path.isfile(home + "/.zshrc"):
     zsh_config = home + "/.zshrc"
 bash_config = ""
-if path.is_file(home + "/.bashrc"):
+if os.path.isfile(home + "/.bashrc"):
     bash_config = home + "/.bashrc"
 account_list = ["Standard","Administrator"]
 i3wm_config = home + "/.config/i3/config"
@@ -211,16 +211,17 @@ def source_shell(self):
                        stdout=subprocess.PIPE)
 
 def get_shell():
-    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""],
-                             shell=False,
+    process = subprocess.run(["su", "-", sudo_username,"-c","echo \"$SHELL\""],
+                             #shell=False,
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
 
-    output = process.stdout.decode().strip()
-    if output == "/bin/bash":
+    output = process.stdout.decode().strip().strip('\n')
+    if output == "/bin/bash" or output == "/usr/bin/bash":
         return "bash"
-    elif output == "/bin/zsh":
+    elif output == "/bin/zsh" or output == "/usr/bin/zsh":
         return "zsh"
+
 
 
 def run_as_user(script):
@@ -413,6 +414,9 @@ def set_hblock(self, toggle, state):
 
     timeout_id = None
     timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
+
+    if not os.path.isfile("/etc/hosts.bak.att"):
+            shutil.copy("/etc/hosts", "/etc/hosts.bak.att")
 
     try:
 
