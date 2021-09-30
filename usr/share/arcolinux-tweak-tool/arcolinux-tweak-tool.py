@@ -274,7 +274,7 @@ class Main(Gtk.Window):
             self.cpufetch_lolcat.set_active(utilities.get_term_rc("cpufetch | lolcat"))
             self.cpufetch_util.set_active(utilities.get_term_rc("cpufetch"))
             #colorscripts
-            self.colorscript.set_active(utilities.get_term_rc("colorscripts"))
+            self.colorscript.set_active(utilities.get_term_rc("colorscript random"))
 
         if Functions.os.path.isfile(Functions.lightdm_conf):
             if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):
