@@ -169,7 +169,7 @@ def _get_position(lists, value):
 
     for string in lists:
         for item in suffixes:
-            if string == value+item or string == prefix+value+item or string == value:
+            if string == value+item or string == prefix+value+item or string == value or string == prefix+value:
                 data.append(string)
 
     if len(data)>0:
@@ -216,7 +216,7 @@ def get_term_rc(value):
             lines = myfile.readlines()
             myfile.close()
             pos = _get_position(lines, value)
-                                    
+
     if pos > 0 and lines[pos].startswith("#"):
         return False
     elif pos >= 0:
