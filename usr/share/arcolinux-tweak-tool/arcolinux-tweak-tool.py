@@ -69,8 +69,6 @@ class Main(Gtk.Window):
         t.daemon = True
         t.start()
         t.join()
-        sleep(2)
-        splScr.destroy()
 
         if not os.path.isdir(Functions.log_dir):
             try:
@@ -275,6 +273,8 @@ class Main(Gtk.Window):
             self.cpufetch_util.set_active(utilities.get_term_rc("cpufetch"))
             #colorscripts
             self.colorscript.set_active(utilities.get_term_rc("colorscript random"))
+
+        splScr.destroy()
 
         if Functions.os.path.isfile(Functions.lightdm_conf):
             if "#" in lightdm.check_lightdm(lightdm.get_lines(Functions.lightdm_conf),"autologin-user="):

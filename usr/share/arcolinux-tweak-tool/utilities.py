@@ -216,7 +216,7 @@ def get_term_rc(value):
             lines = myfile.readlines()
             myfile.close()
             pos = _get_position(lines, value)
-
+                                    
     if pos > 0 and lines[pos].startswith("#"):
         return False
     elif pos >= 0:
