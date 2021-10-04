@@ -45,7 +45,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label5 = Gtk.Label(xalign=0)
     label5.set_markup("Enable Seedhost repo - Do not enable it and save us bandwidth - paid - Netherlands")
     seedhost_sync = Gtk.Label(xalign=0)
-    seedhost_sync.set_markup("Seedhost syncs in real time (i.e. immediately)")
+    seedhost_sync.set_markup("Seedhost is always up-to-date")
     hboxStack7.pack_start(label5, False, True, 10)
     hboxStack7.pack_end(self.aseed_button, False, False, 20)
     hboxStack13.pack_start(seedhost_sync, False, True, 10)
