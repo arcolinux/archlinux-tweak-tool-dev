@@ -1260,6 +1260,26 @@ class Main(Gtk.Window):
                 utilities.set_util_state(self, utility, False, False)
         utilities.write_configs(utility, util_str)
 
+    def restore_config(self, widget, shell):
+        command = ""
+        if shell == "zsh":
+            command = "sudo cp /etc/skel/.zshrc " + Functions.home + "/.zshrc"
+            if not os.path.isfile(Functions.zsh_config + ".bak") and Functions.zsh_config != "":
+                Functions.shutil.copy(Functions.zsh_config,
+                                      Functions.zsh_config + ".bak")
+        elif shell == "bash":
+            if not os.path.isfile(Functions.bash_config + ".bak") and Functions.bash_config != "":
+                Functions.shutil.copy(Functions.zsh_config,
+                                      Functions.zsh_config + ".bak")
+            command = "sudo cp /etc/skel/.bashrc " + Functions.home + "/.bashrc"
+        else:
+            print("Unable to restore your shell, something unexpected happen on restore_config call")
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Restored your config file from Arcolinux Default.")
+
     # ====================================================================
     #                       Lightdm
     # ====================================================================

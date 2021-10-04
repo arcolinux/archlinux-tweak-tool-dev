@@ -7,6 +7,9 @@ import Functions
 def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10) # hbox for zsh and bash config restoration buttons
+    hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Utilities Enabler")
     lbl1.set_name("title")
@@ -18,11 +21,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lbl2 = Gtk.Label(xalign=0)
     lbl3 = Gtk.Label(xalign=0)
 
-    if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh":
+    #Yes, there is some duplication here - but it makes the code much more readable. Deal with it.
+    if Functions.get_shell() == "bash" and Functions.bash_config != "":
+        lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
+        lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
+    elif Functions.get_shell() == "zsh" and Functions.zsh_config != "":
         lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
         lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
     else:
-        lbl2.set_text("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your shells config file.")
+        lbl2.set_text("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your configuration file.")
         lbl3.set_text("  Arcolinux Tweak Tool only supports BASH and ZSH currently. If you are using something else, you are unable to use these tools from ATT.")
 
     #Every util needs to have a util switch, and a lolcat switch.
@@ -90,7 +97,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     #Colorscripts is unique in this list, as it does NOT need a lolcat toggle, so handled seperately.
     self.colorscript = Gtk.Switch()
     self.colorscript.connect("notify::active", self.util_toggle, "colorscript random")
-    if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh":
+    if Functions.get_shell() == "bash" and Functions.bash_config != "":
+        self.colorscript.set_sensitive(True)
+    elif Functions.get_shell() == "zsh" and Functions.zsh_config != "":
         self.colorscript.set_sensitive(True)
     else:
         self.colorscript.set_sensitive(False)
@@ -124,7 +133,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
         lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
         #If we can't find the current shell config or if we don't know what the current shell is; disable all buttons.
-        if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh":
+        if Functions.get_shell() == "bash" and Functions.bash_config != "":
+            util_switches[i].set_sensitive(True)
+            lolcat_switches[i].set_sensitive(True)
+        elif Functions.get_shell() == "zsh" and Functions.zsh_config != "":
             util_switches[i].set_sensitive(True)
             lolcat_switches[i].set_sensitive(True)
         else:
@@ -147,6 +159,20 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
             grid.attach_next_to(cs_sep1, cs_label, Gtk.PositionType.RIGHT, 1, 1)
             grid.attach_next_to(self.colorscript, cs_sep1, Gtk.PositionType.RIGHT, 1, 1)
 
+    restore_zsh_btn = Gtk.Button(label="Restore Arcolinux Default ZSH config")
+    restore_zsh_btn.connect("clicked", self.restore_config, "zsh")
+    restore_bash_btn = Gtk.Button(label="Restore Arcolinux Default BASH config")
+    restore_bash_btn.connect("clicked", self.restore_config, "bash")
+    restore_lbl = Gtk.Label(xalign=0)
+    restore_lbl.set_text("  Using either of the buttons below will restore the default Arcolinux terminal configuration.")
+    restore_lbl2 = Gtk.Label(xalign=0)
+    restore_lbl2.set_text("  Your existing configuration will not be saved, if it has not been found.")
+
+    hbox6.pack_start(restore_lbl, False, False, 0)
+    hbox7.pack_start(restore_lbl2, False, False, 0)
+    hbox5.pack_start(restore_zsh_btn, False, False, 0)
+    hbox5.pack_start(restore_bash_btn, False, False, 0)
+
     vbox14.pack_start(lbl2, False, False, 0)
     vbox14.pack_start(lbl3, False, False, 0)
     vbox14.pack_start(grid, False, False, 0)
@@ -154,3 +180,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     vboxStack9.pack_start(hbox3, False, False, 0)
     vboxStack9.pack_start(hbox4, False, False, 0)
     vboxStack9.pack_start(vbox14, False, False, 0)
+    vboxStack9.pack_start(hbox6, False, False, 0)
+    vboxStack9.pack_start(hbox7, False, False, 0)
+    vboxStack9.pack_start(hbox5, False, False, 0)
