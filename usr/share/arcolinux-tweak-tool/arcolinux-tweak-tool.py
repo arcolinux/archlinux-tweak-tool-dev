@@ -1261,24 +1261,56 @@ class Main(Gtk.Window):
         utilities.write_configs(utility, util_str)
 
     def restore_config(self, widget, shell):
-        command = ""
         if shell == "zsh":
-            command = "sudo cp /etc/skel/.zshrc " + Functions.home + "/.zshrc"
+            #making sure we have a zshrc file from ArcoLinux to copy
+            if not os.path.isfile("/etc/skel/.zshrc"):
+                command = ""
+                command = "pacman -S arcolinux-zsh-git --needed --noconfirm"
+                Functions.subprocess.call(command.split(" "),
+                shell=False,
+                stdout=Functions.subprocess.PIPE,
+                stderr=Functions.subprocess.STDOUT)          
+            #skel function
+            copypaste = ""
+            copypaste = "sudo cp /etc/skel/.zshrc " + Functions.home + "/.zshrc"
+            Functions.subprocess.call(copypaste.split(" "),
+                shell=False,
+                stdout=Functions.subprocess.PIPE,
+                stderr=Functions.subprocess.STDOUT)
+            #making a backup of current zshrc
             if not os.path.isfile(Functions.zsh_config + ".bak") and Functions.zsh_config != "":
                 Functions.shutil.copy(Functions.zsh_config,
                                       Functions.zsh_config + ".bak")
         elif shell == "bash":
+            #making sure we have a bashrc file from ArcoLinux to copy
+            #arch linux will always have a bashrc just not ours...
+            #att will not use this if clause
+            if not os.path.isfile("/etc/skel/.bashrc"):
+                command = ""
+                #can we only get the .bashrc somehow?
+                command = "pacman -S arcolinux-root-git --needed --noconfirm"
+                Functions.subprocess.call(command.split(" "),
+                shell=False,
+                stdout=Functions.subprocess.PIPE,
+                stderr=Functions.subprocess.STDOUT)
+            #making a backup of current bashrc
             if not os.path.isfile(Functions.bash_config + ".bak") and Functions.bash_config != "":
                 Functions.shutil.copy(Functions.zsh_config,
                                       Functions.zsh_config + ".bak")
-            command = "sudo cp /etc/skel/.bashrc " + Functions.home + "/.bashrc"
+            #skel function
+            copypaste = ""
+            copypaste = "sudo cp /etc/skel/.bashrc " + Functions.home + "/.bashrc"
+            Functions.subprocess.call(copypaste.split(" "),
+                shell=False,
+                stdout=Functions.subprocess.PIPE,
+                stderr=Functions.subprocess.STDOUT)
         else:
-            print("Unable to restore your shell, something unexpected happen on restore_config call")
-        Functions.subprocess.call(command,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Restored your config file from Arcolinux Default.")
+            print("Unable to restore your shell, something unexpected happened on restore_config call")
+        # Functions.subprocess.call(command,
+        #                 shell=True,
+        #                 stdout=Functions.subprocess.PIPE,
+        #                 stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Restored your config file to the Arcolinux Default.")
 
     # ====================================================================
     #                       Lightdm
