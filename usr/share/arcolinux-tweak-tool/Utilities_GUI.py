@@ -23,11 +23,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
 
     #Yes, there is some duplication here - but it makes the code much more readable. Deal with it.
     if Functions.get_shell() == "bash" and Functions.bash_config != "":
-        lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
-        lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
+        lbl2.set_text("  You are currently on BASH.\n  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
+        lbl3.set_text("  We will add the utilities to your ~/.bashrc file.")
     elif Functions.get_shell() == "zsh" and Functions.zsh_config != "":
-        lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
-        lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
+        lbl2.set_text("  You are currently on ZSH.\n  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
+        lbl3.set_text("  We will add the utilities to your ~/.zshrc file.")
     else:
         lbl2.set_text("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your configuration file.")
         lbl3.set_text("  Arcolinux Tweak Tool only supports BASH and ZSH currently. If you are using something else, you are unable to use these tools from ATT.")
@@ -164,9 +164,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     restore_bash_btn = Gtk.Button(label="Restore Arcolinux Default BASH config")
     restore_bash_btn.connect("clicked", self.restore_config, "bash")
     restore_lbl = Gtk.Label(xalign=0)
-    restore_lbl.set_text("  Using either of the buttons below will restore the default Arcolinux terminal configuration.")
+    restore_lbl.set_text("  Using the buttons below will restore the default Arcolinux shell configuration.")
     restore_lbl2 = Gtk.Label(xalign=0)
-    restore_lbl2.set_text("  Your existing configuration will not be saved, if it has not been found.")
+    restore_lbl2.set_text("  Your existing configuration will not be saved. It will be overwritten.")
 
     hbox6.pack_start(restore_lbl, False, False, 0)
     hbox7.pack_start(restore_lbl2, False, False, 0)
