@@ -26,7 +26,7 @@ def GUI(self, Gtk, vboxStack3, Functions):
     hbox8.pack_start(label_top, False, False, 10)
 
     instructions = Gtk.Label()
-    instructions.set_markup("To update your hblock hosts, please disable, then enable hblock.")
+    instructions.set_markup("To update your hblock hosts file, please disable and enable hblock")
     hbox11.pack_start(instructions, False, False, 10)
 
     label_hblock = Gtk.Label()
