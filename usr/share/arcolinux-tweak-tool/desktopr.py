@@ -409,7 +409,6 @@ leftwm = [
     "arcolinux-candy-beauty-git",
     "arcolinux-config-all-desktops-git",
     "arcolinux-dconf-all-desktops-git",
-    "arcolinux-gtk3-sardi-arc-git",
     "arcolinux-local-xfce4-git",
     "arcolinux-meta-logout",
     "arcolinux-leftwm-git",
