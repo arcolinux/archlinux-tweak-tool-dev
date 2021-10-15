@@ -187,6 +187,7 @@ deepin = [
     "gvfs",
 ]
 dusk = [
+    "arcolinux-candy-beauty-git",
     "arcolinux-config-all-desktops-git",
     "arcolinux-dconf-all-desktops-git",
     "arcolinux-dwm-st-git", 
@@ -217,6 +218,7 @@ dusk = [
     "xfce4-terminal",
 ]
 dwm = [
+    "arcolinux-candy-beauty-git",
     "arcolinux-config-all-desktops-git",
     "arcolinux-dconf-all-desktops-git",
     "arcolinux-dwm-git",
