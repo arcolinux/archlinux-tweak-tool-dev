@@ -1269,7 +1269,7 @@ class Main(Gtk.Window):
                 Functions.subprocess.call(command.split(" "),
                 shell=False,
                 stdout=Functions.subprocess.PIPE,
-                stderr=Functions.subprocess.STDOUT)          
+                stderr=Functions.subprocess.STDOUT)
             #skel function
             copypaste = ""
             copypaste = "sudo cp /etc/skel/.zshrc " + Functions.home + "/.zshrc"
@@ -1961,7 +1961,13 @@ def signal_handler(sig, frame):
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
-    if not os.path.isfile("/tmp/att.lock"):
+    #These lines offer protection and grace when a kernel has obfuscated or removed basic OS functionality.
+    os_function_support = True
+    try:
+        os.getlogin()
+    except:
+        os_function_support = False
+    if not os.path.isfile("/tmp/att.lock") and os_function_support:
         with open("/tmp/att.pid", "w") as f:
             f.write(str(os.getpid()))
             f.close()
@@ -1977,14 +1983,25 @@ if __name__ == "__main__":
         w.show_all()
         Gtk.main()
     else:
-        md = Gtk.MessageDialog(parent=Main(),
-                               flags=0,
-                               message_type=Gtk.MessageType.INFO,
-                               buttons=Gtk.ButtonsType.YES_NO,
-                               text="Lock File Found")
-        md.format_secondary_markup(
-            "The lock file has been found. This indicates there is already an instance of <b>ArcoLinux Tweak tool</b> running.\n\
-click yes to remove the lock file and try running again")  # noqa
+        md = ""
+
+        if os_function_support:
+            md = Gtk.MessageDialog(parent=Main(),
+                                   flags=0,
+                                   message_type=Gtk.MessageType.INFO,
+                                   buttons=Gtk.ButtonsType.YES_NO,
+                                   text="Lock File Found")
+            md.format_secondary_markup(
+                "The lock file has been found. This indicates there is already an instance of <b>ArcoLinux Tweak Tool</b> running.\n\
+    click yes to remove the lock file and try running again")  # noqa
+        else:
+            md = Gtk.MessageDialog(parent=Main(),
+                                   flags=0,
+                                   message_type=Gtk.MessageType.INFO,
+                                   buttons=Gtk.ButtonsType.CLOSE,
+                                   text="Kernel Not Supported")
+            md.format_secondary_markup(
+                "Your current kernel does not support basic os function calls. <b>ArcoLinux Tweak Tool</b> requires these to work.")  # noqa
 
         result = md.run()
         md.destroy()
