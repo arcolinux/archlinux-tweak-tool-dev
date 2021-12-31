@@ -52,7 +52,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
 
     hbox1.pack_start(label1, False, False, 10)
     hbox1.pack_end(self.sessions, True, True, 10)
-    
+
     hbox2.pack_end(apply, False, False, 0)
     hbox2.pack_end(reset, False, False, 0)
     hbox2.pack_end(enable_slick, False, False, 10)

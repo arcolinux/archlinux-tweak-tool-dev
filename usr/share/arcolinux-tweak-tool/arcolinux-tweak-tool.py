@@ -213,11 +213,12 @@ class Main(Gtk.Window):
         self.axlrepo_button.set_active(arch_xl)
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
-        self.aseed_button.set_active(arco_mirror_seed)
-        self.agitlab_button.set_active(arco_mirror_gitlab)
-        self.abelnet_button.set_active(arco_mirror_belnet)
-        self.aarnet_button.set_active(arco_mirror_aarnet)
-        #self.agithub_button.set_active(arco_mirror_github)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            self.aseed_button.set_active(arco_mirror_seed)
+            self.agitlab_button.set_active(arco_mirror_gitlab)
+            self.abelnet_button.set_active(arco_mirror_belnet)
+            self.aarnet_button.set_active(arco_mirror_aarnet)
+            #self.agithub_button.set_active(arco_mirror_github)
 
 #       #========================TESTING REPO SET TOGGLE==================
         self.checkbutton.set_active(arco_testing)
