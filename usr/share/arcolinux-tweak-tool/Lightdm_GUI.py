@@ -1,5 +1,5 @@
 #=================================================================
-#=                  Author: Brad Heffernan                       =
+#=                  Author: Brad Heffernan & Erik Dubois         =
 #=================================================================
 
 
@@ -36,6 +36,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
     enable_lightdm = Gtk.Button(label="Enable Lightdm")
     enable_lightdm.connect("clicked", self.on_click_lightdm_enable)
 
+    enable_slick = Gtk.Button(label="Enable Lightdm Slickgreeter")
+    enable_slick.connect("clicked", self.on_click_lightdm_slick)    
+
 
     apply = Gtk.Button(label="Apply settings")
     apply.connect("clicked", self.on_click_lightdm_apply)
@@ -49,9 +52,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, lightdm, Functions):
 
     hbox1.pack_start(label1, False, False, 10)
     hbox1.pack_end(self.sessions, True, True, 10)
-
+    
     hbox2.pack_end(apply, False, False, 0)
     hbox2.pack_end(reset, False, False, 0)
+    hbox2.pack_end(enable_slick, False, False, 10)
     hbox2.pack_end(enable_lightdm, False, False, 0)
 
     vboxStack10.pack_start(hbox4, False, False, 0)

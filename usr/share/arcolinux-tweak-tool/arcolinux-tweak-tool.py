@@ -1337,6 +1337,16 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
 
+    def on_click_lightdm_slick(self, desktop):
+        self.on_click_att_lightdm_clicked(desktop)
+        self.on_click_lightdm_enable(desktop)
+        command = '/usr/local/bin/arcolinux-install-activate-lightdm-slickgreeter'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Reboot now - Activate manually if needed")
+
     # ====================================================================
     #                       SDDM
     # ====================================================================
