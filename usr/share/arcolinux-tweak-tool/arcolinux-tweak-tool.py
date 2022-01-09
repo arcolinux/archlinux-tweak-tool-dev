@@ -1082,12 +1082,12 @@ class Main(Gtk.Window):
         # install missing applications for ArcoLinuxD
         Functions.install_zsh(self)
         # first make backup if there is a file
-        if not Functions.os.path.isfile(home + "/.zshrc" + ".bak") and Functions.os.path.isfile(home + "/.zshrc"):
-            Functions.shutil.copy(home + "/.zshrc",
-                              home + "/.zshrc" + ".bak")
-        if not Functions.os.path.isfile(home + "/.zshrc"):
+        if not Functions.os.path.isfile(Functions.home + "/.zshrc" + ".bak") and Functions.os.path.isfile(Functions.home + "/.zshrc"):
+            Functions.shutil.copy(Functions.home + "/.zshrc",
+                              Functions.home + "/.zshrc" + ".bak")
+        if not Functions.os.path.isfile(Functions.home + "/.zshrc"):
             Functions.shutil.copy("/etc/skel/.zshrc",
-                              home + "/.zshrc")
+                              Functions.home + "/.zshrc")
 
         command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/zsh'
         Functions.subprocess.call(command,
