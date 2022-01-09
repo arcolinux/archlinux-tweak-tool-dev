@@ -533,7 +533,7 @@ def install_alacritty(self):
 # =====================================================
 
 def install_zsh(self):
-    install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting arcolinux-zsh-git --needed --noconfirm'
+    install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting arcolinux-zsh-git oh-my-zsh-git --needed --noconfirm'
 
     if os.path.exists("/usr/bin/zsh") and os.path.exists("/etc/skel/.zshrc") :
         pass
