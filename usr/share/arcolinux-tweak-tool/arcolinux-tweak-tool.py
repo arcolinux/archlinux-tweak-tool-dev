@@ -469,6 +469,13 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "bobo")
+    def on_nemesis_toggle(self, widget, active):
+        if not pmf.repo_exist("[nemesis_repo]"):
+            pmf.append_repo(self, Functions.nemesis_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "nemesis")
 
     def on_pacman_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_testing]"):
