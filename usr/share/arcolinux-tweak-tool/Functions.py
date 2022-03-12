@@ -52,6 +52,9 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 zsh_config = ""
+fish_config = ""
+if os.path.isfile(home + "/.config/fish/config.fish"):
+    fish_config = home + "/.config/fish/config.fish"
 if os.path.isfile(home + "/.zshrc"):
     zsh_config = home + "/.zshrc"
 bash_config = ""
@@ -213,6 +216,10 @@ def source_shell(self):
         subprocess.run(["zsh", "-c", "su - " + sudo_username +
                         " -c \"source " + home + "/.zshrc\""],
                        stdout=subprocess.PIPE)
+    elif output == "/usr/bin/fish":
+        subprocess.run(["fish", "-c", "su - " + sudo_username +
+                        " -c \"source " + home + "/.config/fish/config.fish\""],
+                       stdout=subprocess.PIPE)    
 
 def get_shell():
     process = subprocess.run(["su", "-", sudo_username,"-c","echo \"$SHELL\""],
@@ -225,6 +232,8 @@ def get_shell():
         return "bash"
     elif output == "/bin/zsh" or output == "/usr/bin/zsh":
         return "zsh"
+    elif output == "/bin/fish" or output == "/usr/bin/fish":
+        return "fish"    
 
 def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
@@ -547,6 +556,31 @@ def install_zsh(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
 
+# =====================================================
+#               FISH + PACKAGES (ARCOLINUXD)
+# =====================================================
+
+def install_fish(self):
+    install = 'pacman -S fish arcolinux-fish-git --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/fish") and os.path.exists("/etc/skel/.config/fish/config.fish") :
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+def remove_fish(self):
+    install = 'pacman -Rs fish --noconfirm'
+
+    if not os.path.exists("/usr/bin/fish") :
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
 
 # =====================================================
 #               ARCOLINUX-DESKTOP-TRASHER

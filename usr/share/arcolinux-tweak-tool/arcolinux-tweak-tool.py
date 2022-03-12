@@ -19,6 +19,7 @@ import desktopr
 import autostart
 import polybar
 import zsh_theme
+import fish
 import user
 import fixes
 import GUI
@@ -199,7 +200,7 @@ class Main(Gtk.Window):
 #       #========================ARCO MIRROR=============================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
             arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
-            arco_mirror_gitlab = pmf.check_mirror("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch")
+            arco_mirror_gitlab = pmf.check_mirror("Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch")
             arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
             arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
             arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
@@ -402,7 +403,7 @@ class Main(Gtk.Window):
                                       "arco_mirror_seed")
 
     def on_mirror_gitlab_repo_toggle(self, widget, active):
-        if not pmf.mirror_exist("Server = https://gitlab.com/arcolinux/$repo/-/raw/master/$arch"):
+        if not pmf.mirror_exist("Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch"):
             pmf.append_mirror(self, Functions.seedhostmirror)
         else:
             if self.opened is False:
@@ -1177,6 +1178,137 @@ class Main(Gtk.Window):
         else:
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
         image.set_from_pixbuf(pixbuf)
+
+#    #====================================================================
+#    #                       FISH
+#    #====================================================================
+
+    # if os.path.isfile("/usr/bin/fish"): 
+    #     self.fish.set_active(True)
+    # else:
+    #     fish.fish.set_active(False)
+
+    def on_fish_toggle(self, widget, active):
+        if widget.get_active():
+            Functions.install_fish(self)
+            self.fish.set_active(True)
+            GLib.idle_add(Functions.show_in_app_notification, self, "Fish installed")
+        else:
+            Functions.remove_fish(self)
+            self.fish.set_active(False)
+            GLib.idle_add(Functions.show_in_app_notification, self, "Fish removed")
+            
+    def on_ohmyfish_toggle(self, widget, active):
+        if widget.get_active():
+            GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+        else:
+            GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - login")
+
+    def tobash_apply(self,widget):
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+
+    def tofish_apply(self,widget):
+        # install missing applications for ArcoLinuxD
+        Functions.install_fish(self)
+        # first make backup if there is a file
+        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish" + ".bak") \
+                    and Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish"):
+            Functions.shutil.copy(Functions.home + "/.config/fish/config.fish",
+                              Functions.home + "/.config/fish/config.fish" + ".bak")
+            Functions.permissions(Functions.home + "/.config/fish/config.fish.bak")
+        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish"):
+            Functions.shutil.copy("/etc/skel/.config/fish/config.fish",
+                              Functions.home + "/.config/fish/config.fish")
+            Functions.permissions(Functions.home + "/.config/fish/config.fish")
+
+        command = 'sudo chsh ' + Functions.sudo_username + ' -s /usr/bin/fish'
+        Functions.subprocess.call(command,
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        widget.set_sensitive(True)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+
+    def on_fish_reset(self, widget):
+        if os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
+            Functions.shutil.copy(Functions.home + "/.config/fish/config.fish.bak",
+                                  Functions.home + "/.config/fish/config.fish")
+        if not Functions.os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
+            Functions.shutil.copy("/etc/skel/.config/fish/config.fish",
+                                  Functions.home + "/.config/fish/config.fish")
+        
+        Functions.permissions(Functions.home + "/.config/fish/config.fish")
+        Functions.show_in_app_notification(self,
+                                            "Default Settings Applied")
+
+    #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
+    #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
+    #But I have not yet got that working.
+    def update_image(self, widget, image, theme_type, att_base, image_width, image_height):
+        sample_path = ""
+        preview_path = ""
+        random_option = False
+    # THIS CODE IS KEPT ON PURPOSE. DO NOT DELETE.
+    # Once Python 3.10 is released and used widely, delete the if statements below the match blocks
+    # and use the match instead. It is faster, and easier to maintain.
+    #    match "zsh":
+    #        case 'zsh':
+    #            sample_path = att_base+"/images/zsh-sample.jpg"
+    #            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+    #        case 'qtile':
+    #            sample_path = att_base+"/images/zsh-sample.jpg"
+    #            previe_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+    #        case 'i3':
+    #            sample_path = att_base+"/images/i3-sample.jpg"
+    #            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+    #        case 'awesome':
+    #            sample_path = att_base+"/images/i3-sample.jpg"
+    #            preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
+    #        case 'neofetch':
+    #            sample_path = att_base + widget.get_active_text()
+    #            preview_path = att_base + widget.get_active_text()
+    #        case unknown_command:
+    #            print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+    #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+        if theme_type == "zsh":
+            sample_path = att_base+"/images/zsh-sample.jpg"
+            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
+            if widget.get_active_text() == "random":
+                random_option = True
+        elif theme_type == "qtile":
+            sample_path = att_base+"/images/qtile-sample.jpg"
+            preview_path = att_base+"/themer_data/qtile/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "i3":
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
+        elif theme_type == "awesome":
+        #Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
+            tree_iter = self.awesome_combo.get_active_iter()
+            if tree_iter is not None:
+                model = self.awesome_combo.get_model()
+                row_id, name = model[tree_iter][:2]
+
+            sample_path = att_base+"/images/i3-sample.jpg"
+            preview_path = att_base+"/themer_data/awesomewm/"+name+".jpg"
+        elif theme_type == "neofetch":
+            sample_path = att_base + widget.get_active_text()
+            preview_path = att_base + widget.get_active_text()
+        else:
+        #If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
+                print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
+                print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
+        source_pixbuf = image.get_pixbuf()
+        if os.path.isfile(preview_path) and not random_option:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(preview_path, image_width, image_height)
+        else:
+            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
+        image.set_from_pixbuf(pixbuf)
+
 
 #    #====================================================================
 #    #                       ARCOLINUX MIRRORLIST
