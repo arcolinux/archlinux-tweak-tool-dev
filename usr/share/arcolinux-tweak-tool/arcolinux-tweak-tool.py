@@ -203,7 +203,7 @@ class Main(Gtk.Window):
             arco_mirror_gitlab = pmf.check_mirror("Server = https://gitlab.com/arcolinux/$repo/-/raw/main/$arch")
             arco_mirror_belnet = pmf.check_mirror("Server = https://ftp.belnet.be/arcolinux/$repo/$arch")
             arco_mirror_codeberg = pmf.check_mirror("Server = https://codeberg.org/arcolinux/$repo/media/branch/main/$arch")
-            arco_mirror_funami = pmf.check_mirror("Server = https://mirror.funami.tech/arcolinux/$repo/$arch") 
+            arco_mirror_funami = pmf.check_mirror("Server = https://mirror.funami.tech/arcolinux/$repo/$arch")
             arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
             arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
 #       #========================SPINOFF REPO=============================

@@ -32,8 +32,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxStack16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
-    hboxStack17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)    
-    hboxStack18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6) 
+    hboxStack17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxStack18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -137,13 +137,13 @@ def GUI(self, Gtk, vboxStack1, Functions):
     #gitlab
     vbox3.pack_start(hboxStack16, False, False, 0)
     #codeberg
-    vbox3.pack_start(hboxStack17, False, False, 0)       
+    vbox3.pack_start(hboxStack17, False, False, 0)
     #belnet
     vbox3.pack_start(hboxStack14, False, False, 0)
     # aarnet
     vbox3.pack_start(hboxStack10, False, False, 0)
     #funami
-    vbox3.pack_start(hboxStack18, False, False, 0)    
+    vbox3.pack_start(hboxStack18, False, False, 0)
     #seedhost
     vbox3.pack_start(hboxStack7, False, False, 0)
 
