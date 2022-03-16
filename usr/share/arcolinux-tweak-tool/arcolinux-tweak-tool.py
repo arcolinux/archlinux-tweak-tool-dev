@@ -431,6 +431,7 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_funami")
+
     def on_mirror_jingk_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://mirror.jingk.ai/arcolinux/$repo/$arch"):
             pmf.append_mirror(self, Functions.seedhostmirror)
