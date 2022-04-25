@@ -254,7 +254,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
             reset_sddm_original.connect("clicked", self.on_click_no_sddm_reset_original)
             install_sddm = Gtk.Button(label="Install Sddm and enable it")
             install_sddm.connect("clicked", self.on_click_att_sddm_clicked)
-            reset_sddm_original_restart = Gtk.Button(label="Restart ArcoLinux Tweak Tool")
+            reset_sddm_original_restart = Gtk.Button(label="Restart ArchLinux Tweak Tool")
             reset_sddm_original_restart.connect("clicked", self.on_refresh_att_clicked)
 
             vboxStack17.pack_start(ls, False, False, 0)
@@ -346,7 +346,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     # if output == "/bin/zsh":
     stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
-    
+
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_name("sidebar")
     stack_switcher.set_stack(stack)
@@ -367,7 +367,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
     #btnReStartAtt.set_property("has-tooltip", True)
     #btnReStartAtt.connect("query-tooltip", self.tooltip_callback,
-    #           "Restart the ArcoLinux Tweak Tool")
+    #           "Restart the Arch Linux Tweak Tool")
 
     # =====================================================
     #                      PACKS
