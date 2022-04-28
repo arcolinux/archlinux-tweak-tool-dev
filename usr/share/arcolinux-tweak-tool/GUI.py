@@ -386,7 +386,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #               RESTART BUTTON
     # =====================================================
     lbl_distro = Gtk.Label(xalign=0)
-    lbl_distro.set_markup("Working on " + distro.id())
+    lbl_distro.set_markup("Working on\n" + distro.id())
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
     #btnReStartAtt.set_property("has-tooltip", True)
