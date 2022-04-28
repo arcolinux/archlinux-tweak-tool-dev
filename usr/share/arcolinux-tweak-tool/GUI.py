@@ -158,7 +158,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         vboxStack4.pack_start(hbox31, False, False, 0)
         vboxStack4.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("We did not find a <b>/boot/grub/themes/Vimix/themes.txt</b> file")
+        ls.set_markup("We did not find a <b>/boot/grub/themes/Vimix/themes.txt</b> file\nMake sure the ArcoLinux repos are activated in the Pacman tab")
 
         install_arco_vimix = Gtk.Button(label="Install Vimix theme")
         install_arco_vimix.connect("clicked", self.on_click_install_arco_vimix_clicked)
@@ -385,7 +385,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #               RESTART BUTTON
     # =====================================================
-
+    lbl_distro = Gtk.Label(xalign=0)
+    lbl_distro.set_markup("Working on " + distro.id())
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
     #btnReStartAtt.set_property("has-tooltip", True)
@@ -400,6 +401,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
 
+    hbox2.pack_start(lbl_distro, False, False, 0)
     hbox3.pack_start(btnReStartAtt, False, False, 0)
 
     #ivbox.pack_start(image, False, False, 0)

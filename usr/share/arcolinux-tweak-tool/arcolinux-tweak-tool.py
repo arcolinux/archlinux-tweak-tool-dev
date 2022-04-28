@@ -716,6 +716,9 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "Settings Saved Successfully")
         widget.set_sensitive(True)
 
+    def blank_pacman(source,target):
+        Functions.shutil.copy(Functions.blank_pacman, Functions.pacman)
+
     def reset_settings(self, widget, filez):  # noqa
         if os.path.isfile(filez + ".bak"):
             Functions.shutil.copy(filez + ".bak", filez)

@@ -36,6 +36,7 @@ else:
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
+blank_pacman ="/usr/share/arcolinux-tweak-tool/data/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"

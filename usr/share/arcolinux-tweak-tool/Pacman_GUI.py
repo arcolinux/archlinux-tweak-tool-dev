@@ -132,6 +132,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.button1.connect('clicked', self.button1_clicked)
     reset_pacman = Gtk.Button(label="Reset pacman")
     reset_pacman.connect("clicked", self.reset_settings, Functions.pacman)
+    blank_pacman = Gtk.Button(label="Blank pacman")
+    blank_pacman.connect("clicked", self.blank_pacman)
 
     # ========================================================
     #               ARCO REPOS PACKING
@@ -183,6 +185,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     # ========================================================
     hboxStack4.pack_end(self.button1, False, False, 0)
     hboxStack4.pack_end(reset_pacman, False, False, 0)
+    hboxStack4.pack_end(blank_pacman, False, False, 0)
 
     # ========================================================
     #               TESTING REPOS PACKING TO FRAME
