@@ -143,7 +143,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                 GRUB
     # ==========================================================
 
-    if Functions.file_check("/boot/grub/themes/Vimix/themes.txt"):
+    if Functions.file_check("/boot/grub/themes/Vimix/theme.txt"):
         Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
     else:
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
