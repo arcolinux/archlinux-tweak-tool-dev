@@ -98,12 +98,6 @@ SigLevel = Optional TrustedOnly\n\
 Server = https://erikdubois.github.io/$repo/$arch"
 
 # =====================================================
-#               Distro
-# =====================================================
-
-def get_distro(self):
-    return(distro.id())
-# =====================================================
 #               Create log file
 # =====================================================
 
