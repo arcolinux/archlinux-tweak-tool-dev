@@ -941,6 +941,15 @@ class Main(Gtk.Window):
         elif response == Gtk.ResponseType.CANCEL:
             dialog.destroy()
 
+    def on_click_install_arco_vimix_clicked(self, desktop):
+        command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+
+        GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed - restart ATT")
+
 #    #====================================================================
 #    #                       SLIMLOCK
 #    #====================================================================

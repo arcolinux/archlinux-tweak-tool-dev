@@ -143,7 +143,27 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                 GRUB
     # ==========================================================
 
-    Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
+    if Functions.file_check("/boot/grub/themes/Vimix/themes.txt"):
+        Grub_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions)
+    else:
+        hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        lbl1 = Gtk.Label(xalign=0)
+        lbl1.set_text("Grub")
+        lbl1.set_name("title")
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox41.pack_start(hseparator, True, True, 0)
+        hbox31.pack_start(lbl1, False, False, 0)
+        vboxStack4.pack_start(hbox31, False, False, 0)
+        vboxStack4.pack_start(hbox41, False, False, 0)
+        ls = Gtk.Label()
+        ls.set_markup("We did not find a <b>/boot/grub/themes/Vimix/themes.txt</b> file")
+
+        install_arco_vimix = Gtk.Button(label="Install Vimix theme")
+        install_arco_vimix.connect("clicked", self.on_click_install_arco_vimix_clicked)
+
+        vboxStack4.pack_start(install_arco_vimix, False, False, 0)
+        vboxStack4.pack_start(ls, True, False, 0)
 
     # # ==========================================================
     # #               LIGHTDM

@@ -3,6 +3,7 @@
 # =================================================================
 
 import os
+import distro
 import sys
 import shutil
 import psutil
@@ -96,6 +97,12 @@ nemesis_repo = "[nemesis_repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Server = https://erikdubois.github.io/$repo/$arch"
 
+# =====================================================
+#               Distro
+# =====================================================
+
+def get_distro(self):
+    return(distro.id())
 # =====================================================
 #               Create log file
 # =====================================================
@@ -726,3 +733,10 @@ def checkIfProcessRunning(processName):
 def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
+
+def get_distro():
+    """
+    Name of your Linux distro (in lowercase).
+    """
+    with open("/etc/os-release") as f:
+        return f.read().lower().split()[0]
