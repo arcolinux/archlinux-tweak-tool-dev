@@ -503,14 +503,6 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_axl")
 
-    def on_hefftor_toggle(self, widget, active):
-        if not pmf.repo_exist("[hefftor-repo]"):
-            pmf.append_repo(self, Functions.hefftor_repo)
-        else:
-            if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(),
-                                      "hefftor")
-
     def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
             pmf.append_repo(self, Functions.chaotics_repo)
@@ -544,53 +536,60 @@ class Main(Gtk.Window):
                                       "arco-testing")
 
     def on_pacman_toggle1(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "testing")
+        if not pmf.repo_exist("[testing]"):
+            pmf.insert_repo(self, Functions.arch_testing_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "testing")
             
     def on_pacman_toggle2(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "core")
+        if not pmf.repo_exist("[core]"):
+            pmf.insert_repo(self, Functions.arch_core_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "core")
 
     def on_pacman_toggle3(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "extra")
+        if not pmf.repo_exist("[extra]"):
+            pmf.insert_repo(self, Functions.arch_extra_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "extra")
 
     def on_pacman_toggle4(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "community-testing")
+        if not pmf.repo_exist("[community-testing]"):
+            pmf.insert_repo(self, Functions.arch_community_testing_repo)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "community-testing")
 
     def on_pacman_toggle5(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "community")
+        if not pmf.repo_exist("[community]"):
+            pmf.insert_repo(self, Functions.arch_community_repo)
+        else:        
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "community")
 
     def on_pacman_toggle6(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "multilib-testing")
+        if not pmf.repo_exist("[multilib-testing]"):
+            pmf.insert_repo(self, Functions.arch_multilib_testing_repo)
+        else:        
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "multilib-testing")
             
     def on_pacman_toggle7(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "multilib")            
-
-
-
-
-
-    def on_pacman_toggle4(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "community-testing")
-    def on_pacman_toggle5(self, widget, active):
-        if self.opened is False:
-            pmf.toggle_test_repos(self, widget.get_active(),
-                                  "community")
-
+        if not pmf.repo_exist("[multilib]"):
+            pmf.insert_repo(self, Functions.arch_multilib_repo)
+        else:        
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "multilib")            
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
