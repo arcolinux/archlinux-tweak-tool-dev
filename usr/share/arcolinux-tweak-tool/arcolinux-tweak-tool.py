@@ -775,6 +775,8 @@ class Main(Gtk.Window):
     def blank_pacman(source,target):
         Functions.shutil.copy(Functions.pacman,
                                   Functions.pacman + ".bak")
+        if distro.id() == "arch":
+            Functions.shutil.copy(Functions.blank_pacman_arch, Functions.pacman)
         if distro.id() == "arcolinux":
             Functions.shutil.copy(Functions.blank_pacman_arco, Functions.pacman)
         if distro.id() == "endeavouros":
@@ -789,6 +791,8 @@ class Main(Gtk.Window):
                                                "Default Settings Applied")
 
         if filez == pacman:
+            if distro.id() == "arch":
+                Functions.shutil.copy(Functions.pacman_arch, Functions.pacman)            
             if distro.id() == "arcolinux":
                 Functions.shutil.copy(Functions.pacman_arco, Functions.pacman)
             if distro.id() == "endeavouros":
