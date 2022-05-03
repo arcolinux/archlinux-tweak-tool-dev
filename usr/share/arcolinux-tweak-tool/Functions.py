@@ -74,7 +74,7 @@ qtile_config = home + "/.config/qtile/config.py"
 seedhostmirror = "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
 aarnetmirror = "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch"
 
-arepo_test = "[arcolinux_repo_testing]\n\
+atestrepo = "[arcolinux_repo_testing]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
 

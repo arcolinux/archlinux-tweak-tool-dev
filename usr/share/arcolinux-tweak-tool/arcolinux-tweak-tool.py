@@ -185,12 +185,6 @@ class Main(Gtk.Window):
 
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
 
-#       #========================OTHER REPO=============================
-        
-        chaotics_repo = pmf.check_repo("[chaotic-aur]")
-        endeavouros_repo = pmf.check_repo("[endeavouros]")
-        nemesis_repo = pmf.check_repo("[nemesis_repo]")
-
 #       #========================ARCO REPO=============================
 
         arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
@@ -207,6 +201,12 @@ class Main(Gtk.Window):
         arch_community = pmf.check_repo("[community]")
         arch_multilib_testing = pmf.check_repo("[multilib-testing]")
         arch_multilib = pmf.check_repo("[multilib]")
+
+#       #========================OTHER REPO=============================
+        
+        chaotics_repo = pmf.check_repo("[chaotic-aur]")
+        endeavouros_repo = pmf.check_repo("[endeavouros]")
+        nemesis_repo = pmf.check_repo("[nemesis_repo]")
         
 #       #========================ARCO MIRROR=============================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
@@ -219,13 +219,6 @@ class Main(Gtk.Window):
             arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
             arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
 
-#       #========================ARCO REPO SET TOGGLE=====================
-
-        self.atestrepo_button.set_active(arco_testing)
-        self.arepo_button.set_active(arco_base)
-        self.a3prepo_button.set_active(arco_3p)
-        self.axlrepo_button.set_active(arco_xl)
-
 #       #========================ARCO MIRROR SET TOGGLE=====================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
             self.aseed_button.set_active(arco_mirror_seed)
@@ -237,8 +230,14 @@ class Main(Gtk.Window):
             self.aarnet_button.set_active(arco_mirror_aarnet)
             #self.agithub_button.set_active(arco_mirror_github)
 
-#       #========================TESTING REPO SET TOGGLE==================
-        
+#       #========================ARCO REPO SET TOGGLE=====================
+
+        self.atestrepo_button.set_active(arco_testing)
+        self.arepo_button.set_active(arco_base)
+        self.a3prepo_button.set_active(arco_3p)
+        self.axlrepo_button.set_active(arco_xl)
+
+#       #========================ARCH LINUX REPO SET TOGGLE==================
         
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton6.set_active(arch_core)
@@ -480,7 +479,7 @@ class Main(Gtk.Window):
                                       "arco_mirror_github")
     def on_pacman_atestrepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_testing]"):
-            pmf.insert_repo(self, Functions.arepo_test)
+            pmf.insert_repo(self, Functions.atestrepo)
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
@@ -588,7 +587,8 @@ class Main(Gtk.Window):
         else:        
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
-                                      "multilib")            
+                                      "multilib")
+      
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
         startiter, enditer = self.text.get_bounds()
@@ -795,27 +795,7 @@ class Main(Gtk.Window):
                 Functions.shutil.copy(Functions.pacman_eos, Functions.pacman)
             if distro.id() == "garuda":
                 Functions.shutil.copy(Functions.pacman_garuda, Functions.pacman)
-            # arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
-            
-            # arch_testing = pmf.check_repo("[testing]")
-            # arch_core = pmf.check_repo("[core]")
-            # arch_extra = pmf.check_repo("[extra]")
-            # arch_community_testing = pmf.check_repo("[community_testing]")
-            # arch_community = pmf.check_repo("[community]")
-            # arch_multilib_testing = pmf.check_repo("[multilib-testing]")
-            # arch_multilib = pmf.check_repo("[multilib]")
-            
-
-            # self.checkbutton.set_active(arco_testing)
-            
-            # self.checkbutton2.set_active(arch_testing)
-            # self.checkbutton6.set_active(arch_core)
-            # self.checkbutton7.set_active(arch_extra)
-            # self.checkbutton4.set_active(arch_community_testing)
-            # self.checkbutton5.set_active(arch_community)
-            # self.checkbutton3.set_active(arch_multilib_testing)
-            # self.checkbutton8.set_active(arch_multilib)
-            
+             
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
         elif filez == Functions.gtk3_settings:

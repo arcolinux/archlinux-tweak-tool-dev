@@ -168,7 +168,7 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "nemesis":
                     spin_on("[nemesis_repo]", lines, i, line)
  
-                if widget == "arco-testing":
+                if widget == "arco_testing":
                     pacman_on("[arcolinux_repo_testing]", lines, i, line)
                 if widget == "arco_base":
                     pacman_on("[arcolinux_repo]", lines, i, line)
@@ -214,7 +214,7 @@ def toggle_test_repos(self, state, widget):  # noqa
                 if widget == "nemesis":
                     spin_off("[nemesis_repo]", lines, i, line)
                     
-                if widget == "arco-testing":
+                if widget == "arco_testing":
                     pacman_off("[arcolinux_repo_testing]", lines, i, line)
                 if widget == "arco_base":
                     pacman_off("[arcolinux_repo]", lines, i, line)
