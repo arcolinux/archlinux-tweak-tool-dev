@@ -479,7 +479,7 @@ class Main(Gtk.Window):
                                       "arco_mirror_github")
     def on_pacman_atestrepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_testing]"):
-            pmf.insert_repo(self, Functions.atestrepo)
+            pmf.append_repo(self, Functions.atestrepo)
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
@@ -535,7 +535,7 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle1(self, widget, active):
         if not pmf.repo_exist("[testing]"):
-            pmf.insert_repo(self, Functions.arch_testing_repo)
+            pmf.append_repo(self, Functions.arch_testing_repo)
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
@@ -543,7 +543,7 @@ class Main(Gtk.Window):
             
     def on_pacman_toggle2(self, widget, active):
         if not pmf.repo_exist("[core]"):
-            pmf.insert_repo(self, Functions.arch_core_repo)
+            pmf.append_repo(self, Functions.arch_core_repo)
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
@@ -551,7 +551,7 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle3(self, widget, active):
         if not pmf.repo_exist("[extra]"):
-            pmf.insert_repo(self, Functions.arch_extra_repo)
+            pmf.append_repo(self, Functions.arch_extra_repo)
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
@@ -559,7 +559,7 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle4(self, widget, active):
         if not pmf.repo_exist("[community-testing]"):
-            pmf.insert_repo(self, Functions.arch_community_testing_repo)
+            pmf.append_repo(self, Functions.arch_community_testing_repo)
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
@@ -567,7 +567,7 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle5(self, widget, active):
         if not pmf.repo_exist("[community]"):
-            pmf.insert_repo(self, Functions.arch_community_repo)
+            pmf.append_repo(self, Functions.arch_community_repo)
         else:        
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
@@ -575,7 +575,7 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle6(self, widget, active):
         if not pmf.repo_exist("[multilib-testing]"):
-            pmf.insert_repo(self, Functions.arch_multilib_testing_repo)
+            pmf.append_repo(self, Functions.arch_multilib_testing_repo)
         else:        
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
@@ -583,7 +583,7 @@ class Main(Gtk.Window):
             
     def on_pacman_toggle7(self, widget, active):
         if not pmf.repo_exist("[multilib]"):
-            pmf.insert_repo(self, Functions.arch_multilib_repo)
+            pmf.append_repo(self, Functions.arch_multilib_repo)
         else:        
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
