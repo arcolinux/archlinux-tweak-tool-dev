@@ -774,6 +774,8 @@ class Main(Gtk.Window):
         widget.set_sensitive(True)
 
     def blank_pacman(source,target):
+        Functions.shutil.copy(Functions.pacman,
+                                  Functions.pacman + ".bak")
         if distro.id() == "arcolinux":
             Functions.shutil.copy(Functions.blank_pacman_arco, Functions.pacman)
         if distro.id() == "endeavouros":
