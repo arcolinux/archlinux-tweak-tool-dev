@@ -134,7 +134,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     self.chaotics_button = Gtk.Switch()
     self.chaotics_button.connect("notify::active", self.on_chaotics_toggle)
     label9 = Gtk.Label(xalign=0)
-    label9.set_markup("Enable Chaotics repo")
+    label9.set_markup("Enable Chaotics repo - set as last repo")
 
     self.endeavouros_button = Gtk.Switch()
     self.endeavouros_button.connect("notify::active", self.on_endeavouros_toggle)

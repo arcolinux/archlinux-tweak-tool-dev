@@ -317,9 +317,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     zsh_theme_GUI.GUI(self, Gtk, vboxStack15, zsh_theme, base_dir, GdkPixbuf)
 
-
-
-
     # ==========================================================
     #                   ADD TO WINDOW
     # ==========================================================
