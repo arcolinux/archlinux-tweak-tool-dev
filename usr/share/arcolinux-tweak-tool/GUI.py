@@ -328,46 +328,33 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
     
-    stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
+    #stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
 
     stack.add_titled(vboxStack19, "stack19", "Fixes")  # Fixes
     
     stack.add_titled(vboxStack4, "stack1", "Grub")  # Grub config
 
-    # if Functions.file_check(Functions.lightdm_conf):
     stack.add_titled(vboxStack11, "stack3", "Lightdm")  # Lightdm config
 
-    # arcolinux mirrors
     stack.add_titled(vboxStack16, "stack16", "Mirrors")  # mirrors
 
-    # if Functions.file_check(Functions.neofetch_config):
     stack.add_titled(vboxStack8, "stack4", "Neofetch")  # Neofetch config
 
-    # if Functions.file_check(Functions.pacman):
     stack.add_titled(vboxStack1, "stack6", "Pacman")  # Pacman config
-
-    # if Functions.path_check(Functions.polybar):
-    #     stack.add_titled(vboxStack14, "stack14", "Polybar changer")
 
     stack.add_titled(vboxStack3, "stack2", "Privacy")  # Hblock
 
-    # if Functions.file_check(Functions.slimlock_conf):
-    #     stack.add_titled(vboxStack5, "stack7", "") # Slimlock
-
     stack.add_titled(vboxStack17, "stack17", "Sddm")  # Sddm config
 
-    # if Functions.file_check(Functions.termite_config):
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 
     stack.add_titled(vboxStack20, "stack20", "Terminal Fun") # lolcat and others
 
-    # if "awesome" in self.desktop.lower() or "i3" in self.desktop.lower():
     if distro.id() == "arcolinux":
         stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
 
     stack.add_titled(vboxStack18, "stack18", "User")  # Sddm config
 
-    # if output == "/bin/zsh":
     stack.add_titled(vboxStack15, "stack15", "Zsh")  # Zsh themes
 
     stack_switcher = Gtk.StackSidebar()
@@ -377,6 +364,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #                       LOGO
     # =====================================================
+    
     ivbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
         os.path.join(base_dir, 'images/arcolinux-stock.png'), 45, 45)
@@ -385,6 +373,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     # =====================================================
     #               RESTART BUTTON
     # =====================================================
+    
     lbl_distro = Gtk.Label(xalign=0)
     lbl_distro.set_markup("Working on\n" + distro.id())
     btnReStartAtt = Gtk.Button(label="Restart ATT")

@@ -3,6 +3,7 @@
 # =================================================================
 
 import os
+import distro
 import sys
 import shutil
 import psutil
@@ -14,6 +15,8 @@ import gi
 # import configparser
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk  # noqa
+
+distr = distro.id()
 
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
@@ -753,10 +756,3 @@ def checkIfProcessRunning(processName):
 def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
-
-def get_distro():
-    """
-    Name of your Linux distro (in lowercase).
-    """
-    with open("/etc/os-release") as f:
-        return f.read().lower().split()[0]
