@@ -35,6 +35,9 @@ else:
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
+pacman_arco ="/usr/share/arcolinux-tweak-tool/data/arco/pacman.conf"
+pacman_eos ="/usr/share/arcolinux-tweak-tool/data/eos/pacman.conf"
+pacman_garuda ="/usr/share/arcolinux-tweak-tool/data/garuda/pacman.conf"
 blank_pacman_arco ="/usr/share/arcolinux-tweak-tool/data/arco/blank/pacman.conf"
 blank_pacman_eos ="/usr/share/arcolinux-tweak-tool/data/eos/blank/pacman.conf"
 blank_pacman_garuda ="/usr/share/arcolinux-tweak-tool/data/blank/garuda/pacman.conf"
@@ -86,10 +89,6 @@ Include = /etc/pacman.d/arcolinux-mirrorlist"
 axlrepo = "[arcolinux_repo_xlarge]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist"
-
-hefftor_repo = "[hefftor-repo]\n\
-SigLevel = Optional TrustedOnly\n\
-Include = /etc/pacman.d/arcolinux-mirrorlist-bradheff"
 
 chaotics_repo = "[chaotic-aur]\n\
 SigLevel = Required DatabaseOptional\n\

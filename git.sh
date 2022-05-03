@@ -17,15 +17,20 @@
 echo "Checking for newer files online first"
 git pull
 
-#get the pacman.conf from ArcoLinux
+echo "get the pacman.conf from ArcoLinux"
 workdir=$(pwd)
 echo "getting latest .bashrc"
 wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-tweak-tool/data/arco/pacman.conf
 
-#get the pacman.conf from EOS
+echo "get the pacman.conf from EOS"
 workdir=$(pwd)
 echo "getting latest .bashrc"
 wget https://raw.githubusercontent.com/endeavouros-team/EndeavourOS-ISO/main/airootfs/etc/pacman.conf -O $workdir/usr/share/arcolinux-tweak-tool/data/eos/pacman.conf
+
+echo "get the pacman.conf from EOS"
+workdir=$(pwd)
+echo "getting latest .bashrc"
+wget https://gitlab.com/garuda-linux/tools/garuda-tools/-/raw/master/data/pacman-multilib.conf -O $workdir/usr/share/arcolinux-tweak-tool/data/garuda/pacman.conf
 
 # Below command will backup everything inside the project folder
 git add --all .

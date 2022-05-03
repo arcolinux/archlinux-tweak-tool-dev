@@ -184,8 +184,19 @@ class Main(Gtk.Window):
             Functions.permissions(Functions.config)
 
         GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
-        # self.lbl_desktop.set_markup("<span foreground=\'grey\'>" +
-        #                             self.desktop.lower() + "</span>")
+
+#       #========================OTHER REPO=============================
+        
+        chaotics_repo = pmf.check_repo("[chaotic-aur]")
+        endeavouros_repo = pmf.check_repo("[endeavouros]")
+        nemesis_repo = pmf.check_repo("[nemesis_repo]")
+
+#       #========================ARCO REPO=============================
+
+        arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
+        arco_base = pmf.check_repo("[arcolinux_repo]")
+        arco_3p = pmf.check_repo("[arcolinux_repo_3party]")
+        arco_xl = pmf.check_repo("[arcolinux_repo_xlarge]")
 
 #       #========================ARCH REPO=============================
                 
@@ -197,13 +208,6 @@ class Main(Gtk.Window):
         arch_multilib_testing = pmf.check_repo("[multilib-testing]")
         arch_multilib = pmf.check_repo("[multilib]")
         
-#       #========================ARCO REPO=============================
-
-        arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
-        arco_base = pmf.check_repo("[arcolinux_repo]")
-        multi_3p = pmf.check_repo("[arcolinux_repo_3party]")
-        arch_xl = pmf.check_repo("[arcolinux_repo_xlarge]")
-
 #       #========================ARCO MIRROR=============================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
             arco_mirror_seed = pmf.check_mirror("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch")
@@ -214,16 +218,13 @@ class Main(Gtk.Window):
             arco_mirror_jingk = pmf.check_mirror("Server = https://mirror.jingk.ai/arcolinux/$repo/$arch")
             arco_mirror_aarnet = pmf.check_mirror("Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
             arco_mirror_github = pmf.check_mirror("Server = https://arcolinux.github.io/$repo/$arch")
-#       #========================SPINOFF REPO=============================
-        
-        chaotics_repo = pmf.check_repo("[chaotic-aur]")
-        endeavouros_repo = pmf.check_repo("[endeavouros]")
-        nemesis_repo = pmf.check_repo("[nemesis_repo]")
 
 #       #========================ARCO REPO SET TOGGLE=====================
+
+        self.atestrepo_button.set_active(arco_testing)
         self.arepo_button.set_active(arco_base)
-        self.a3prepo_button.set_active(multi_3p)
-        self.axlrepo_button.set_active(arch_xl)
+        self.a3prepo_button.set_active(arco_3p)
+        self.axlrepo_button.set_active(arco_xl)
 
 #       #========================ARCO MIRROR SET TOGGLE=====================
         if os.path.isfile(Functions.arcolinux_mirrorlist):
@@ -237,7 +238,7 @@ class Main(Gtk.Window):
             #self.agithub_button.set_active(arco_mirror_github)
 
 #       #========================TESTING REPO SET TOGGLE==================
-        self.checkbutton.set_active(arco_testing)
+        
         
         self.checkbutton2.set_active(arch_testing)
         self.checkbutton6.set_active(arch_core)
@@ -246,7 +247,6 @@ class Main(Gtk.Window):
         self.checkbutton5.set_active(arch_community)
         self.checkbutton3.set_active(arch_multilib_testing)
         self.checkbutton8.set_active(arch_multilib)
-
 
 #       #========================OTHER REPO SET TOGGLE==================
         
@@ -478,6 +478,13 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_github")
+    def on_pacman_atestrepo_toggle(self, widget, active):
+        if not pmf.repo_exist("[arcolinux_repo_testing]"):
+            pmf.insert_repo(self, Functions.arepo_test)
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "arco_testing")
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):
@@ -526,14 +533,6 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "nemesis")
-
-    def on_pacman_toggle(self, widget, active):
-        if not pmf.repo_exist("[arcolinux_repo_testing]"):
-            pmf.insert_repo(self, Functions.arepo_test)
-        else:
-            if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(),
-                                      "arco-testing")
 
     def on_pacman_toggle1(self, widget, active):
         if not pmf.repo_exist("[testing]"):
@@ -791,11 +790,11 @@ class Main(Gtk.Window):
 
         if filez == pacman:
             if distro.id() == "arcolinux":
-                Functions.shutil.copy(Functions.blank_pacman_arco, Functions.pacman)
+                Functions.shutil.copy(Functions.pacman_arco, Functions.pacman)
             if distro.id() == "endeavouros":
-                Functions.shutil.copy(Functions.blank_pacman_eos, Functions.pacman)
+                Functions.shutil.copy(Functions.pacman_eos, Functions.pacman)
             if distro.id() == "garuda":
-                Functions.shutil.copy(Functions.blank_pacman_garuda, Functions.pacman)
+                Functions.shutil.copy(Functions.pacman_garuda, Functions.pacman)
             # arco_testing = pmf.check_repo("[arcolinux_repo_testing]")
             
             # arch_testing = pmf.check_repo("[testing]")

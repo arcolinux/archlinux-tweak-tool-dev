@@ -56,8 +56,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
     frame3lbl = frame3.get_label_widget()
     frame3lbl.set_markup("<b>ArcoLinux repos</b>")
 
-    self.checkbutton = Gtk.Switch()
-    self.checkbutton.connect("notify::active", self.on_pacman_toggle)
+    self.atestrepo_button = Gtk.Switch()
+    self.atestrepo_button.connect("notify::active", self.on_pacman_atestrepo_toggle)
     label1 = Gtk.Label(xalign=0)
     label1.set_markup("Enable ArcoLinux testing repo")
 
