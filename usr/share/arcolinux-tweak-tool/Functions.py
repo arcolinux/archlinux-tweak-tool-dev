@@ -3,7 +3,6 @@
 # =================================================================
 
 import os
-import distro
 import sys
 import shutil
 import psutil
@@ -36,7 +35,9 @@ else:
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
-blank_pacman ="/usr/share/arcolinux-tweak-tool/data/pacman.conf"
+blank_pacman_arco ="/usr/share/arcolinux-tweak-tool/data/arco/pacman.conf"
+blank_pacman_eos ="/usr/share/arcolinux-tweak-tool/data/eos/pacman.conf"
+blank_pacman_garuda ="/usr/share/arcolinux-tweak-tool/data/garuda/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
@@ -90,13 +91,38 @@ hefftor_repo = "[hefftor-repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Include = /etc/pacman.d/arcolinux-mirrorlist-bradheff"
 
-bobo_repo = "[chaotic-aur]\n\
+chaotics_repo = "[chaotic-aur]\n\
 SigLevel = Required DatabaseOptional\n\
 Include = /etc/pacman.d/chaotic-mirrorlist"
+
+endeavouros_repo = "[endeavouros]\n\
+SigLevel = PackageRequired\n\
+Include = /etc/pacman.d/endeavouros-mirrorlist"
 
 nemesis_repo = "[nemesis_repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Server = https://erikdubois.github.io/$repo/$arch"
+
+arch_testing_repo = "[testing]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_core_repo = "[core]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_extra_repo = "[extra]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_community_testing_repo = "[community-testing]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_community_repo = "[community]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_multilib_testing_repo = "[multilib-testing]\n\
+Include = /etc/pacman.d/mirrorlist"
+
+arch_multilib_repo = "[multilib]\n\
+Include = /etc/pacman.d/mirrorlist"
 
 # =====================================================
 #               Create log file
