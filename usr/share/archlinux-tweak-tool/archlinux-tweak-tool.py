@@ -47,7 +47,7 @@ class Main(Gtk.Window):
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
-        self.set_icon_from_file(os.path.join(base_dir, 'images/arcolinux.png'))
+        self.set_icon_from_file(os.path.join(base_dir, 'images/archlinux.png'))
         self.set_default_size(800, 900)
 
         self.opened = True
@@ -139,15 +139,15 @@ class Main(Gtk.Window):
             #                      Functions.bd)
 
         if not Functions.os.path.isdir(Functions.home +
-                                       "/.config/arcolinux-tweak-tool"):
+                                       "/.config/archlinux-tweak-tool"):
 
             Functions.os.makedirs(Functions.home +
-                                  "/.config/arcolinux-tweak-tool", 0o766)
+                                  "/.config/archlinux-tweak-tool", 0o766)
             Functions.permissions(Functions.home +
-                                  "/.config/arcolinux-tweak-tool")
+                                  "/.config/archlinux-tweak-tool")
         # Force Permissions
         a1 = Functions.os.stat(Functions.home + "/.config/autostart")
-        a2 = Functions.os.stat(Functions.home + "/.config/arcolinux-tweak-tool")
+        a2 = Functions.os.stat(Functions.home + "/.config/archlinux-tweak-tool")
         #a3 = Functions.os.stat(Functions.home + "/" + Functions.bd)
         autostart = a1.st_uid
         att = a2.st_uid
@@ -162,8 +162,8 @@ class Main(Gtk.Window):
             Functions.permissions(Functions.home + "/.config/autostart")
             print("Fix autostart permissions...")
         if att == 0:
-            Functions.permissions(Functions.home + "/.config/arcolinux-tweak-tool")
-            print("Fix arcolinux-tweak-tool permissions...")
+            Functions.permissions(Functions.home + "/.config/archlinux-tweak-tool")
+            print("Fix archlinux-tweak-tool permissions...")
         #if backup == 0:
         #    Functions.permissions(Functions.home + "/" + Functions.bd)
         #    print("Fix .att_backup permissions...")

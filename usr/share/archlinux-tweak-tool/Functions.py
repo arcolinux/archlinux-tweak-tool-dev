@@ -38,14 +38,14 @@ else:
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
-pacman_arch ="/usr/share/arcolinux-tweak-tool/data/arch/pacman.conf"
-pacman_arco ="/usr/share/arcolinux-tweak-tool/data/arco/pacman.conf"
-pacman_eos ="/usr/share/arcolinux-tweak-tool/data/eos/pacman.conf"
-pacman_garuda ="/usr/share/arcolinux-tweak-tool/data/garuda/pacman.conf"
-blank_pacman_arch ="/usr/share/arcolinux-tweak-tool/data/arch/blank/pacman.conf"
-blank_pacman_arco ="/usr/share/arcolinux-tweak-tool/data/arco/blank/pacman.conf"
-blank_pacman_eos ="/usr/share/arcolinux-tweak-tool/data/eos/blank/pacman.conf"
-blank_pacman_garuda ="/usr/share/arcolinux-tweak-tool/data/garuda/blank/pacman.conf"
+pacman_arch ="/usr/share/archlinux-tweak-tool/data/arch/pacman.conf"
+pacman_arco ="/usr/share/archlinux-tweak-tool/data/arco/pacman.conf"
+pacman_eos ="/usr/share/archlinux-tweak-tool/data/eos/pacman.conf"
+pacman_garuda ="/usr/share/archlinux-tweak-tool/data/garuda/pacman.conf"
+blank_pacman_arch ="/usr/share/archlinux-tweak-tool/data/arch/blank/pacman.conf"
+blank_pacman_arco ="/usr/share/archlinux-tweak-tool/data/arco/blank/pacman.conf"
+blank_pacman_eos ="/usr/share/archlinux-tweak-tool/data/eos/blank/pacman.conf"
+blank_pacman_garuda ="/usr/share/archlinux-tweak-tool/data/garuda/blank/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
@@ -57,8 +57,8 @@ termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
 bd = ".att_backups"
-config = home + "/.config/arcolinux-tweak-tool/settings.ini"
-config_dir = home + "/.config/arcolinux-tweak-tool/"
+config = home + "/.config/archlinux-tweak-tool/settings.ini"
+config_dir = home + "/.config/archlinux-tweak-tool/"
 polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
@@ -132,11 +132,11 @@ Include = /etc/pacman.d/mirrorlist"
 #               Create log file
 # =====================================================
 
-log_dir="/var/log/arcolinux/"
-att_log_dir="/var/log/arcolinux/att/"
+log_dir="/var/log/archlinux/"
+att_log_dir="/var/log/archlinux/att/"
 
 def create_log(self):
-    print('Making log in /var/log/arcolinux')
+    print('Making log in /var/log/archlinux')
     now = datetime.datetime.now()
     time = now.strftime("%Y-%m-%d-%H-%M-%S" )
     destination = att_log_dir + 'att-log-' + time
