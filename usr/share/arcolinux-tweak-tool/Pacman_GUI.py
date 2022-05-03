@@ -126,11 +126,6 @@ def GUI(self, Gtk, vboxStack1, Functions):
     frame2lbl = frame2.get_label_widget()
     frame2lbl.set_markup("<b>Other repos</b>")
 
-    #self.hefftor_button = Gtk.Switch()
-    #self.hefftor_button.connect("notify::active", self.on_hefftor_toggle)
-    #label8 = Gtk.Label(xalign=0)
-    #label8.set_markup("Enable Hefftors repo")
-
     self.chaotics_button = Gtk.Switch()
     self.chaotics_button.connect("notify::active", self.on_chaotics_toggle)
     label9 = Gtk.Label(xalign=0)
@@ -179,7 +174,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     vboxStack2.pack_start(hboxStack1, False, False, 10)
-  
+
     # ========================================================
     #               TESTING REPOS PACKING
     # ========================================================
