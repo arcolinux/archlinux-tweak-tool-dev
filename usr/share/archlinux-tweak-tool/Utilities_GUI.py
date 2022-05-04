@@ -17,10 +17,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
 
     lbl2 = Gtk.Label(xalign=0)
     lbl3 = Gtk.Label(xalign=0)
+    lbl4 = Gtk.Label(xalign=0)
 
     if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh":
         lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
         lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
+        lbl4.set_text("  For some of these packages you will need to add the ArcoLinux repositories.")
+
     else:
         lbl2.set_text("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your shells config file.")
         lbl3.set_text("  Arcolinux Tweak Tool only supports BASH and ZSH currently. If you are using something else, you are unable to use these tools from ATT.")
