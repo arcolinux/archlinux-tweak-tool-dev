@@ -22,13 +22,13 @@ sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
 sddm_default = "/etc/sddm.conf"
-sddm_default_original = "/usr/local/share/arcolinux/sddm/sddm.conf"
+sddm_default_original = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
 
 sddm_default_d1 = "/etc/sddm.conf"
 sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
 sddm_default_d2_dir = "/etc/sddm.conf.d/"
-sddm_default_d_sddm_original_1 = "/usr/local/share/arcolinux/sddm.conf.d/sddm.conf"
-sddm_default_d_sddm_original_2 = "/usr/local/share/arcolinux/sddm.conf.d/kde_settings.conf"
+sddm_default_d_sddm_original_1 = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
+sddm_default_d_sddm_original_2 = "/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf"
 
 if os.path.exists("/etc/sddm.conf.d/kde_settings.conf"):
     sddm_conf = "/etc/sddm.conf.d/kde_settings.conf"
@@ -36,16 +36,16 @@ else:
     sddm_conf = "/etc/sddm.conf"
 
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
-arcolinux_mirrorlist_original = "/usr/local/share/arcolinux/arcolinux-mirrorlist"
+arcolinux_mirrorlist_original = "/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
-pacman_arch ="/usr/share/archlinux-tweak-tool/data/arch/pacman.conf"
-pacman_arco ="/usr/share/archlinux-tweak-tool/data/arco/pacman.conf"
-pacman_eos ="/usr/share/archlinux-tweak-tool/data/eos/pacman.conf"
-pacman_garuda ="/usr/share/archlinux-tweak-tool/data/garuda/pacman.conf"
-blank_pacman_arch ="/usr/share/archlinux-tweak-tool/data/arch/blank/pacman.conf"
-blank_pacman_arco ="/usr/share/archlinux-tweak-tool/data/arco/blank/pacman.conf"
-blank_pacman_eos ="/usr/share/archlinux-tweak-tool/data/eos/blank/pacman.conf"
-blank_pacman_garuda ="/usr/share/archlinux-tweak-tool/data/garuda/blank/pacman.conf"
+pacman_arch ="/usr/share/archlinux-tweak-tool/data/arch/pacman/pacman.conf"
+pacman_arco ="/usr/share/archlinux-tweak-tool/data/arco/pacman/pacman.conf"
+pacman_eos ="/usr/share/archlinux-tweak-tool/data/eos/pacman/pacman.conf"
+pacman_garuda ="/usr/share/archlinux-tweak-tool/data/garuda/pacman/pacman.conf"
+blank_pacman_arch ="/usr/share/archlinux-tweak-tool/data/arch/pacman/blank/pacman.conf"
+blank_pacman_arco ="/usr/share/archlinux-tweak-tool/data/arco/pacman/blank/pacman.conf"
+blank_pacman_eos ="/usr/share/archlinux-tweak-tool/data/eos/pacman/blank/pacman.conf"
+blank_pacman_garuda ="/usr/share/archlinux-tweak-tool/data/pacman/garuda/blank/pacman.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"
