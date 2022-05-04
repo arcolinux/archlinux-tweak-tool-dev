@@ -266,10 +266,8 @@ class Main(Gtk.Window):
         # print(test)
         # if test == False:
         #     #util_switches[1].connect("notify::active", self.util_toggle, utils[1])
-        #     self.util_toggle(self, self.neofetch_util, "neofetch")
-            
+        #     self.util_toggle(self, self.neofetch_util, "neofetch")        
 
-        
         shell = Functions.get_shell()
 
         if shell == "zsh" or shell == "bash":
