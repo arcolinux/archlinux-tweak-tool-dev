@@ -46,6 +46,7 @@ blank_pacman_arch ="/usr/share/archlinux-tweak-tool/data/arch/pacman/blank/pacma
 blank_pacman_arco ="/usr/share/archlinux-tweak-tool/data/arco/pacman/blank/pacman.conf"
 blank_pacman_eos ="/usr/share/archlinux-tweak-tool/data/eos/pacman/blank/pacman.conf"
 blank_pacman_garuda ="/usr/share/archlinux-tweak-tool/data/garuda/pacman/blank/pacman.conf"
+neofetch_arco = "/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf"
 oblogout_conf = "/etc/oblogout.conf"
 # oblogout_conf = home + "/oblogout.conf"
 gtk3_settings = home + "/.config/gtk-3.0/settings.ini"

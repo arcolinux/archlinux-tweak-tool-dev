@@ -125,6 +125,11 @@ class Main(Gtk.Window):
             if user_exists is False:
                 sddm.insert_user("#User=")
 
+        if not Functions.os.path.exists(Functions.home + "/.config/neofetch"):
+            Functions.os.makedirs(Functions.home + "/.config/neofetch", 0o766)
+            Functions.shutil.copy(Functions.neofetch_arco, Functions.home + "/.config/neofetch/config.conf")
+            Functions.permissions(Functions.home + "/.config/neofetch")
+
         if not Functions.os.path.exists(Functions.home + "/.config/autostart"):
             # Functions.MessageBox(self, "oops!",
             #                      "some directories are missing. run 'skel' in terminal and try starting again.")
