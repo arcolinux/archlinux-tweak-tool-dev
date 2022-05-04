@@ -28,6 +28,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     # =======================================
     #               DROPDOWN
     # =======================================
+    label_warning = Gtk.Label(xalign=0)
+    label_warning.set_text("Add and/or activate the ArcoLinux repositories!")
     label = Gtk.Label(xalign=0)
     label.set_text("Select a desktop")
     self.d_combo = Gtk.ComboBoxText()
@@ -37,6 +39,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
         self.d_combo.append_text(x)
     self.d_combo.set_active(0)
 
+    dropbox.pack_start(label_warning, False, False, 0)
     dropbox.pack_start(label, False, False, 0)
     dropbox.pack_start(self.d_combo, False, False, 0)
 
@@ -86,7 +89,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, Functions, base_dir, Pango)
     self.desktopr_stat.set_ellipsize (Pango.EllipsizeMode.MIDDLE)
 
     noice = Gtk.Label(xalign=0)
-    noice.set_text("We will backup and overwrite your ~/.config when installing desktops\nBackup is in ~/.config-att folder\nLog files are located in /var/log/arcolinux")
+    noice.set_text("We will backup and overwrite your ~/.config when installing desktops\nBackup is in ~/.config-att folder\nLog files are located in /var/log/archlinux")
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
 

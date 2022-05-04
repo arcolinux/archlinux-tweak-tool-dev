@@ -454,6 +454,7 @@ leftwm = [
     "arcolinux-wallpapers-git",
     "arcolinux-wallpapers-candy-git",
     "arcolinux-xfce-git",
+    "alacritty",
     "dmenu",
     "feh",
     "gvfs",
