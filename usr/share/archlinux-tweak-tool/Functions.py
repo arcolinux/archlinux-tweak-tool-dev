@@ -758,3 +758,16 @@ def checkIfProcessRunning(processName):
 def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
+    
+def check_content(value, file):         # noqa
+    with open(file, "r") as myfile:
+        lines = myfile.readlines()
+        myfile.close()
+
+    for line in lines:
+        if value in line:
+            if value in line:
+                return True
+            else:
+                return False
+    return False

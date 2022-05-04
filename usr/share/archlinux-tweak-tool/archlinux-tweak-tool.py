@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from pyclbr import Function
 import Splash
 import gi
 import Functions
@@ -258,14 +259,20 @@ class Main(Gtk.Window):
 
 #       #========================NEOFETCH LOLCAT TOGGLE===================
 
+        # config = shell + "_config"
+        # print(config)
+        # config = Functions.config
+        # test = Functions.check_content("neofetch",config)
+        # print(test)
+        # if test == False:
+        #     #util_switches[1].connect("notify::active", self.util_toggle, utils[1])
+        #     self.util_toggle(self, self.neofetch_util, "neofetch")
+            
+
+        
         shell = Functions.get_shell()
 
         if shell == "zsh" or shell == "bash":
-            #Neofetch
-            self.neo_lolcat.set_active(utilities.get_term_rc("neofetch | lolcat"))
-            self.neofetch_lolcat.set_active(utilities.get_term_rc("neofetch | lolcat"))
-            self.neofetch_util.set_active(utilities.get_term_rc("neofetch"))
-            self.neo_util.set_active(utilities.get_term_rc("neofetch"))
 
     #       #========================TERMINAL UTILITIES TOGGLES========================
             #screenfetch
@@ -306,6 +313,12 @@ class Main(Gtk.Window):
             self.cpufetch_util.set_active(utilities.get_term_rc("cpufetch"))
             #colorscripts
             self.colorscript.set_active(utilities.get_term_rc("colorscript random"))
+
+            #Neofetch
+            self.neo_lolcat.set_active(utilities.get_term_rc("neofetch | lolcat"))
+            self.neofetch_lolcat.set_active(utilities.get_term_rc("neofetch | lolcat"))
+            self.neofetch_util.set_active(utilities.get_term_rc("neofetch"))
+            self.neo_util.set_active(utilities.get_term_rc("neofetch"))
 
         splScr.destroy()
 
@@ -924,14 +937,6 @@ class Main(Gtk.Window):
                 pimage.set_from_pixbuf(pb)
                 self.fb.add(pimage)
                 pimage.show_all()
-            # for i in range(len(lists)):
-            #     combo.append_text(lists[i])
-            #     if start is True:
-            #         if(lists[i] == bg_image):
-            #             combo.set_active(i)
-            #     else:
-            #         if(lists[i] == os.path.basename(self.tbimage.get_text())):
-            #             combo.set_active(i)
 
     def on_grub_theme_change(self, widget):
         try:
