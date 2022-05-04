@@ -152,6 +152,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
 
     vbox14.pack_start(lbl2, False, False, 0)
     vbox14.pack_start(lbl3, False, False, 0)
+    vbox14.pack_start(lbl4, False, False, 0)
     vbox14.pack_start(grid, False, False, 0)
 
     vboxStack9.pack_start(hbox3, False, False, 0)
