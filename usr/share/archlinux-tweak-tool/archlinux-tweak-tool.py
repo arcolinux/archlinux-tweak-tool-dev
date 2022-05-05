@@ -1766,7 +1766,7 @@ class Main(Gtk.Window):
 
     def on_click_fix_pacman_keys(self,widget):
         install_alacritty(self)
-        Functions.subprocess.call("alacritty -e /usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys",
+        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
@@ -1798,7 +1798,7 @@ class Main(Gtk.Window):
 
 
     def on_click_fix_sddm_conf(self,widget):
-        command = '/usr/local/bin/arcolinux-fix-sddm-config'
+        command = '/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
@@ -1831,15 +1831,18 @@ class Main(Gtk.Window):
                 print(e)
         
         if not os.path.isfile(Functions.gpg_conf_local + ".bak"):
-            Functions.shutil.copy(Functions.gpg_conf_local,
-                            Functions.gpg_conf_local + ".bak")
+            try:
+                Functions.shutil.copy(Functions.gpg_conf_local,
+                                Functions.gpg_conf_local + ".bak")
+                Functions.permissions(Functions.gpg_conf_local + ".bak")
+            except Exception as e:
+                print(e)
             
         Functions.shutil.copy(Functions.gpg_conf_local_original,
                             Functions.gpg_conf_local)
         Functions.permissions(Functions.gpg_conf_local)
 
         GLib.idle_add(Functions.show_in_app_notification, self, "The new ~/.gnupg/gpg.conf has been saved")
-
 
 #    #====================================================================
 #    #                       DESKTOPR

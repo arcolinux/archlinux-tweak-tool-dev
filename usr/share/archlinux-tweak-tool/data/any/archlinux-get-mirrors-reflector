@@ -26,5 +26,8 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-#sudo /usr/bin/reflector --latest 100 --fastest 100 --number 10 --save /etc/pacman.d/mirrorlist
 sudo /usr/bin/reflector --score 100 --fastest 10 --number 10 --verbose --save /etc/pacman.d/mirrorlist
+
+echo "###############################################################################"
+echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
+echo "###############################################################################"

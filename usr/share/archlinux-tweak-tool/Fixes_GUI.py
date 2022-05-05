@@ -77,7 +77,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     button_Apply_Pacman_Gpg_Conf_Local = Gtk.Button(label="Backup and reset gpg.conf")
     button_Apply_Pacman_Gpg_Conf_Local.connect ("clicked", self.on_click_fix_pacman_gpg_conf_local)
     hbox8.pack_start(hbox8_label, False, False, 10)
-    hbox8.pack_end(button_Apply_Pacman_Gpg_Conf_Local, False, False, 10) 
+    hbox8.pack_end(button_Apply_Pacman_Gpg_Conf_Local, False, False, 10)
+    
+    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox9_label = Gtk.Label(xalign=0)
+    hbox9_label.set_markup("<b>Distro specific</b>")
+    hbox9.pack_start(hbox9_label, False, False, 10)     
    
     # ======================================================================
     #                       VBOX STACK 
@@ -89,7 +94,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     vboxStack19.pack_start(hbox3, False, False, 0)
     vboxStack19.pack_start(hbox4, False, False, 0)
     vboxStack19.pack_start(hbox7, False, False, 0)
-    vboxStack19.pack_start(hbox8, False, False, 0)    
+    vboxStack19.pack_start(hbox8, False, False, 0)
+    vboxStack19.pack_start(hbox9, False, False, 20)    
     if Functions.distr == "arcolinux":
         vboxStack19.pack_start(hbox5, False, False, 0)
-        vboxStack19.pack_start(hbox6, False, False, 0)
+        #vboxStack19.pack_start(hbox6, False, False, 0)
