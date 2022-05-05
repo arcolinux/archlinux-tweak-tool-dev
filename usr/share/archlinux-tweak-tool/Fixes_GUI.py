@@ -1,13 +1,13 @@
 #=================================================================
 #=                  Author: Erik Dubois                          =
 #=================================================================
-
+import distro
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
          
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_label = Gtk.Label(xalign=0)
-    hbox1_label.set_text("ArcoLinux Fixes")
+    hbox1_label.set_text("Fixes for " + distro.id())
     hbox1_label.set_name("title")
     hbox1.pack_start(hbox1_label, False, False, 10)
     
@@ -17,7 +17,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2_label = Gtk.Label(xalign=0)
-    hbox2_label.set_text("ArcoLinux fix pacman keys")   
+    hbox2_label.set_text("Reset and reload pacman keys")   
     button_Apply_Pacman_Key_Fix = Gtk.Button(label="Fix keys")
     button_Apply_Pacman_Key_Fix.connect ("clicked", self.on_click_fix_pacman_keys)
     hbox2.pack_start(hbox2_label, False, False, 10)
