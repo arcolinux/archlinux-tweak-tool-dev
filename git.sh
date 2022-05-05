@@ -19,7 +19,7 @@ git pull
 
 workdir=$(pwd)
 
-echo "getting default neofetch file"
+echo "getting default osbeck servers"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-osbeck-as-mirror -O $workdir/usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers
 
 echo "getting fix pacman databases"
