@@ -1773,7 +1773,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")
 
     def on_click_fix_mainstream(self,widget):
-        command = 'usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
+        command = '/usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
