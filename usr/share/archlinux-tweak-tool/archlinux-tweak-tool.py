@@ -1773,8 +1773,13 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")
 
     def on_click_fix_mainstream(self,widget):
-        command = '/usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
+        command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
         Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        command_show = 'alacritty --hold -e nano /etc/pacman.d/mirrorlist'
+        Functions.subprocess.call(command_show.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
@@ -1782,7 +1787,7 @@ class Main(Gtk.Window):
 
     def on_click_get_arch_mirrors(self,widget):
         install_reflector(self)
-        Functions.subprocess.call("alacritty -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
+        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
@@ -1790,7 +1795,7 @@ class Main(Gtk.Window):
 
     def on_click_get_arch_mirrors2(self,widget):
         #install_rate_mirrors(self)
-        Functions.subprocess.call("alacritty -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
+        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
@@ -1798,7 +1803,7 @@ class Main(Gtk.Window):
 
 
     def on_click_fix_sddm_conf(self,widget):
-        command = '/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
+        command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
@@ -1806,7 +1811,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/sddm.conf")
 
     def on_click_fix_pacman_conf(self,widget):
-        command = '/usr/local/bin/arcolinux-fix-pacman-conf'
+        command = 'alacritty --hold -e /usr/local/bin/arcolinux-fix-pacman-conf'
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
