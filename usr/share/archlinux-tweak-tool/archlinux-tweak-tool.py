@@ -1767,7 +1767,7 @@ class Main(Gtk.Window):
     def on_click_fix_pacman_keys(self,widget):
         install_alacritty(self)
         Functions.subprocess.call("alacritty -e /usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys",
-                        shell=False,
+                        shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")

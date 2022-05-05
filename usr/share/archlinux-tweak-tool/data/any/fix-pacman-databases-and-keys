@@ -54,6 +54,10 @@ echo
 sudo pacman-key --populate
 echo 
 
+if grep -q "EndeavourOS" /etc/os-release; then
+	sudo pacman-key --lsign-key info@endeavouros.com
+fi
+
 echo "###############################################################################"
 echo "Getting new databases"
 echo "###############################################################################"
