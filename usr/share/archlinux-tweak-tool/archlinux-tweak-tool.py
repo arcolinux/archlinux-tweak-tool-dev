@@ -1778,7 +1778,7 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        command_show = 'alacritty --hold -e nano /etc/pacman.d/mirrorlist'
+        command_show = 'alacritty --hold -e cat /etc/pacman.d/mirrorlist'
         Functions.subprocess.call(command_show.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
