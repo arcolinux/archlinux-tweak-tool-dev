@@ -21,6 +21,12 @@ distr = distro.id()
 sudo_username = os.getlogin()
 home = "/home/" + str(sudo_username)
 
+gpg_conf = "/etc/pacman.d/gnupg/gpg.conf"
+gpg_conf_local = home + "/.gnupg/gpg.conf"
+
+gpg_conf_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
+gpg_conf_local_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
+
 sddm_default = "/etc/sddm.conf"
 sddm_default_original = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
 

@@ -1789,7 +1789,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
 
     def on_click_get_arch_mirrors2(self,widget):
-        install_rate_mirrors(self)
+        #install_rate_mirrors(self)
         Functions.subprocess.call("alacritty -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
@@ -1814,12 +1814,31 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.conf")
 
     def on_click_fix_pacman_gpg_conf(self,widget):
-        command = '/usr/local/bin/arcolinux-fix-pacman-gpg-conf'
-        Functions.subprocess.call(command,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.d/gnupg/gpg.conf")
+        if not os.path.isfile(Functions.gpg_conf + ".bak"):
+            Functions.shutil.copy(Functions.gpg_conf,
+                            Functions.gpg_conf + ".bak")
+        Functions.shutil.copy(Functions.gpg_conf_original,
+                            Functions.gpg_conf)
+            
+        GLib.idle_add(Functions.show_in_app_notification, self, "The new /etc/pacman.d/gnupg/gpg.conf has been saved")
+
+    def on_click_fix_pacman_gpg_conf_local(self,widget):
+        if not os.path.isdir(Functions.home + "/.gnupg"):
+            try:
+                Functions.os.makedirs(Functions.home + "/.gnupg", 0o766)
+                Functions.permissions(Functions.home + "/.gnupg")
+            except Exception as e:
+                print(e)
+        
+        if not os.path.isfile(Functions.gpg_conf_local + ".bak"):
+            Functions.shutil.copy(Functions.gpg_conf_local,
+                            Functions.gpg_conf_local + ".bak")
+            
+        Functions.shutil.copy(Functions.gpg_conf_local_original,
+                            Functions.gpg_conf_local)
+        Functions.permissions(Functions.gpg_conf_local)
+
+        GLib.idle_add(Functions.show_in_app_notification, self, "The new ~/.gnupg/gpg.conf has been saved")
 
 
 #    #====================================================================
