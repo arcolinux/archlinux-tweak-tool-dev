@@ -25,9 +25,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
            
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3_label = Gtk.Label(xalign=0)
-    hbox3_label.set_text("Set Osbeck as the only Arch Linux server")   
-    button_Apply_Osbeck = Gtk.Button(label="Set Osbeck")
-    button_Apply_Osbeck.connect ("clicked", self.on_click_fix_osbeck)
+    hbox3_label.set_text("Set mainstream servers for ArchLinux")   
+    button_Apply_Osbeck = Gtk.Button(label="Set mainstream")
+    button_Apply_Osbeck.connect ("clicked", self.on_click_fix_mainstream)
     hbox3.pack_start(hbox3_label, False, False, 10)
     hbox3.pack_end(button_Apply_Osbeck, False, False, 10)    
     
