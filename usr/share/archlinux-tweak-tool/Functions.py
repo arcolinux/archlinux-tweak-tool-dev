@@ -575,6 +575,36 @@ def install_alacritty(self):
                         stderr=subprocess.STDOUT)
 
 # =====================================================
+#               REFLECTOR
+# =====================================================
+
+def install_reflector(self):
+    install = 'pacman -S reflector --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/reflector"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+# =====================================================
+#               RATE-MIRRORS
+# =====================================================
+
+def install_rate_mirrors(self):
+    install = 'pacman -S rate-mirrors --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/rate-mirrors"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+# =====================================================
 #               ZSH + PACKAGES (ARCOLINUXD)
 # =====================================================
 

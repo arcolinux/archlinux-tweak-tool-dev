@@ -27,7 +27,7 @@ import fixes
 import GUI
 import subprocess
 import utilities
-from Functions import install_alacritty, os, pacman
+from Functions import install_alacritty,install_reflector,install_rate_mirrors, os, pacman
 from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
@@ -1780,13 +1780,22 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Mainstream servers have been saved")
 
-    def on_click_fix_mirrors(self,widget):
-        install_alacritty(self)
-        Functions.subprocess.call("alacritty -e /usr/local/bin/arcolinux-get-mirrors",
+    def on_click_get_arch_mirrors(self,widget):
+        install_reflector(self)
+        Functions.subprocess.call("alacritty -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
+
+    def on_click_get_arch_mirrors2(self,widget):
+        install_rate_mirrors(self)
+        Functions.subprocess.call("alacritty -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
+                        shell=True,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved")
+
 
     def on_click_fix_sddm_conf(self,widget):
         command = '/usr/local/bin/arcolinux-fix-sddm-config'
