@@ -1772,13 +1772,13 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")
 
-    def on_click_fix_osbeck(self,widget):
-        command = '/usr/local/bin/arcolinux-osbeck-as-mirror'
+    def on_click_fix_mainstream(self,widget):
+        command = 'usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Osbeck set as Arch Linux")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Mainstream servers have been saved")
 
     def on_click_fix_mirrors(self,widget):
         install_alacritty(self)
