@@ -1778,11 +1778,7 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        command_show = 'alacritty --hold -e cat /etc/pacman.d/mirrorlist'
-        Functions.subprocess.call(command_show.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
+
         GLib.idle_add(Functions.show_in_app_notification, self, "Mainstream servers have been saved")
 
     def on_click_get_arch_mirrors(self,widget):
@@ -1805,7 +1801,7 @@ class Main(Gtk.Window):
     def on_click_fix_sddm_conf(self,widget):
         command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
         Functions.subprocess.call(command,
-                        shell=True,
+                        shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/sddm.conf")
