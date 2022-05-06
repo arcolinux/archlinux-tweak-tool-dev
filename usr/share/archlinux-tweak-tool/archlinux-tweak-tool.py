@@ -1801,7 +1801,7 @@ class Main(Gtk.Window):
     def on_click_fix_sddm_conf(self,widget):
         command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
         Functions.subprocess.call(command,
-                        shell=False,
+                        shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/sddm.conf")

@@ -42,6 +42,7 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-fish/main/etc/skel/.c
 
 echo "getting latest NEW /etc/sddm.conf"
 wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf
+
 wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/sddm.conf.d/kde_settings.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf
 FIND="Session=xfce"
 REPLACE="#Session="
