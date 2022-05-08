@@ -258,7 +258,7 @@ def source_shell(self):
     elif output == "/usr/bin/fish":
         subprocess.run(["fish", "-c", "su - " + sudo_username +
                         " -c \"source " + home + "/.config/fish/config.fish\""],
-                       stdout=subprocess.PIPE)    
+                       stdout=subprocess.PIPE)
 
 def get_shell():
     process = subprocess.run(["su", "-", sudo_username,"-c","echo \"$SHELL\""],
@@ -272,7 +272,7 @@ def get_shell():
     elif output == "/bin/zsh" or output == "/usr/bin/zsh":
         return "zsh"
     elif output == "/bin/fish" or output == "/usr/bin/fish":
-        return "fish"    
+        return "fish"
 
 def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
@@ -795,7 +795,7 @@ def checkIfProcessRunning(processName):
 def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
-    
+
 def check_content(value, file):         # noqa
     with open(file, "r") as myfile:
         lines = myfile.readlines()
