@@ -224,10 +224,10 @@ def permissions(dst):
 
     except Exception as e:
         print(e)
+
 # =====================================================
 #               COPY FUNCTION
 # =====================================================
-
 
 def copy_func(src, dst, isdir=False):
     if isdir:
@@ -808,3 +808,16 @@ def check_content(value, file):         # noqa
             else:
                 return False
     return False
+
+# =====================================================
+#               DISTRO LABEL
+# =====================================================
+
+def change_distro_label(name):      # noqa
+    if name == "arcolinux":
+        name = "ArcoLinux"
+    if name == "garuda":
+        name = "Garuda"
+    if name == "endeavouros":
+        name = "EndeavourOS"
+    return name

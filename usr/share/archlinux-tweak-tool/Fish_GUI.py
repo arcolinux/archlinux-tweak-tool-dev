@@ -1,5 +1,5 @@
 #      #============================================================
-#      #=       Authors: Erik Dubois - Cameron Percival         =
+#      #=        Authors: Erik Dubois - Cameron Percival           =
 #      #============================================================
 
 def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf):

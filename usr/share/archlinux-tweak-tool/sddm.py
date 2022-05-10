@@ -125,7 +125,6 @@ def pop_box(self, combos):
 
     name = check_sddm(lines, "Session=").split("=")[1]
 
-
     comss.sort()
     if 'i3-with-shmlog' in comss:
         comss.remove('i3-with-shmlog')

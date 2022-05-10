@@ -7,7 +7,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_label = Gtk.Label(xalign=0)
-    hbox1_label.set_text("Fixes for " + distro.id())
+    hbox1_label.set_text("Fixes for " + Functions.change_distro_label(distro.id()))
     hbox1_label.set_name("title")
     hbox1.pack_start(hbox1_label, False, False, 10)
 
