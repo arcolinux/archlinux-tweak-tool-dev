@@ -44,7 +44,7 @@ pmf = pacman_functions
 
 class Main(Gtk.Window):
     def __init__(self):
-        super(Main, self).__init__(title="ArchLinux Tweak Tool")
+        super(Main, self).__init__(title="Arch Linux Tweak Tool")
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
         self.set_position(Gtk.WindowPosition.CENTER)
