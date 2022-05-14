@@ -55,6 +55,15 @@ copy = ["cp", "-Rv"]
 # =                         Distros                               =
 # =================================================================
 
+
+# =================================================================
+# =================================================================
+# =================================================================
+# =                         ARCOLINUX                             =
+# =================================================================
+# =================================================================
+# =================================================================
+
 if distro.id() == "arcolinux":
     awesome = [
         "arcolinux-awesome-git",
@@ -591,7 +600,6 @@ if distro.id() == "arcolinux":
     ]
     plasma = [
         "plasma",
-        "kde-applications-meta",
         "kde-system-meta",
         "arcolinux-arc-kde",
         "arcolinux-config-plasma-git",
@@ -797,9 +805,12 @@ if distro.id() == "arcolinux":
         "xmonad-log",
         "xmonad-utils",
     ]
-
+# =================================================================
+# =================================================================
 # =================================================================
 # =                         ARCHLINUX                             =
+# =================================================================
+# =================================================================
 # =================================================================
 
 if distro.id() == "arch":
@@ -820,7 +831,6 @@ if distro.id() == "arch":
         "thunar-archive-plugin",
         "thunar-volman",
         "vicious",
-        "xfce4-terminal",
     ]
     bspwm = [
         "arcolinux-bspwm-git",
@@ -842,7 +852,6 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "xfce4-terminal",
         "xtitle-git",
     ]
     budgie = [
@@ -876,7 +885,6 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "xfce4-terminal",
     ]
     deepin = [
         "deepin",
@@ -894,7 +902,6 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "xfce4-terminal",
     ]
     dwm = [
         "arcolinux-dwm-git",
@@ -912,7 +919,6 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "xfce4-terminal",
     ]
     fvwm3 = [
         "arcolinux-fvwm3-git",
@@ -934,7 +940,6 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "xfce4-terminal",
     ]
     gnome = [
         "gnome",
@@ -958,7 +963,6 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "xfce4-terminal",
         "xtitle-git",
     ]
     i3 = [
@@ -978,7 +982,6 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "xfce4-terminal",
     ]
     icewm = [
         "arcolinux-icewm-git",
@@ -996,7 +999,6 @@ if distro.id() == "arch":
         "thunar-archive-plugin",
         "thunar-volman",
         "xdgmenumaker",
-        "xfce4-terminal",
     ]
     jwm = [
         "arcolinux-jwm-git",
@@ -1014,7 +1016,6 @@ if distro.id() == "arch":
         "thunar-archive-plugin",
         "thunar-volman",
         "xdgmenumaker",
-        "xfce4-terminal",
     ]
     leftwm = [
         "archlinux-logout-git",
@@ -1038,224 +1039,116 @@ if distro.id() == "arch":
         "ttf-iosevka-nerd",
         "ttf-material-design-iconic-font",
         "ttf-meslo-nerd-font-powerlevel10k",
-        "xfce4-terminal",
     ]
     lxqt = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-lxqt-git",
-        "arcolinux-root-git",
-        "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
         "dmenu",
-        "gvfs",
         "lxqt",
         "lxqt-arc-dark-theme-git",
         "obconf-qt",
         "picom",
         "polkit-gnome",
-        "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "xfce4-screenshooter",
-        "xfce4-taskmanager",
-        "xfce4-terminal",
-        "xscreensaver",
     ]
     mate = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-gtk3-surfn-arc-git",
-        "arcolinux-mate-dconf-git",
-        "arcolinux-mate-git",
-        "arcolinux-root-git",
-        "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
-        "dmenu",
-        "gnome-screenshot",
-        "gvfs",
         "mate",
         "mate-extra",
         "mate-tweak",
-        "xfce4-terminal",
     ]
     openbox = [
         "arcolinux-common-git",
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
         "arcolinux-docs-git",
         "arcolinux-geany-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
-        "arcolinux-nitrogen-git",
         "arcolinux-obmenu-generator-git",
         "arcolinux-openbox-git",
         "arcolinux-pipemenus-git",
-        "arcolinux-plank-git",
-        "arcolinux-plank-themes-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
-        "arcolinux-root-git",
         "arcolinux-tint2-git",
         "arcolinux-tint2-themes-git",
-        "arcolinux-volumeicon-git",
-        "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
         "dmenu",
         "feh",
         "geany",
         "gksu",
         "gnome-screenshot",
-        "gvfs",
         "gsimplecal",
         "gtk2-perl",
         "lxappearance-obconf",
         "lxrandr",
-        "nitrogen",
         "obconf",
         "obkey",
         "obmenu-generator",
         "obmenu3",
         "openbox",
         "openbox-arc-git",
-        "openbox-themes-pambudi-git",
         "perl-linux-desktopfiles",
         "picom",
-        "plank",
         "polkit-gnome",
         "rofi",
-        "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
         "tint2",
-        "volumeicon",
         "xcape",
-        "xfce4-screenshooter",
-        "xfce4-settings",
-        "xfce4-taskmanager",
-        "xfce4-terminal",
         "yad",
     ]
     plasma = [
         "plasma",
-        "kde-applications-meta",
         "kde-system-meta",
-        "arcolinux-arc-kde",
-        "arcolinux-config-plasma-git",
-        "arcolinux-gtk3-surfn-plasma-dark-git",
-        "arcolinux-plasma-dconf-git",
-        "arcolinux-plasma-git",
-        "arcolinux-plasma-kservices-git",
-        "arcolinux-root-git",
-        "arcolinux-wallpapers-git",
-        "ark",
-        "breeze",
-        "cryfs",
         "discover",
-        "dolphin",
-        "dolphin-plugins",
-        "encfs",
-        "ffmpegthumbs",
-        "gocryptfs",
-        "gvfs",
-        "gwenview",
         "kate",
-        "kde-gtk-config",
-        "kdeconnect",
-        "kdenetwork-filesharing",
-        "ktorrent",
-        "ocs-url",
-        "okular",
         "packagekit-qt5",
-        "partitionmanager",
-        "sddm-kcm",
-        "spectacle",
-        "surfn-plasma-dark-icons-git",
-        "systemd-kcm",
-        "yakuake",
     ]
     qtile = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-qtile-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
-        "arcolinux-root-git",
-        "arcolinux-volumeicon-git",
-        "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
-        "gvfs",
         "picom",
         "polkit-gnome",
         "python-setuptools",
         "python-psutil",
         "qtile",
         "rofi",
-        "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "volumeicon",
-        "xfce4-terminal",
     ]
     spectrwm = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
         "arcolinux-spectrwm-git",
-        "arcolinux-volumeicon-git",
-        "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
-        "gvfs",
         "picom",
         "polkit-gnome",
         "polybar",
         "python-psutil",
-        "rxvt-unicode",
         "spectrwm",
         "sutils-git",
         "sxhkd",
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "volumeicon",
         "xdo",
-        "xfce4-terminal",
         "xtitle-git",
     ]
     wmderland = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-wmderland-git",
-        "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
-        "arcolinux-root-git",
-        "arcolinux-volumeicon-git",
-        "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
         "dmenu",
         "feh",
         "wmderland-git",
@@ -1267,83 +1160,40 @@ if distro.id() == "arch":
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "volumeicon",
-        "xfce4-terminal",
     ]
     ukui = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-local-xfce4-git",
-        "arcolinux-qt5-git",
-        "arcolinux-root-git",
-        "arcolinux-ukui-dconf-git",
-        "arcolinux-ukui-git",
-        "arcolinux-xfce-git",
-        "arcolinux-wallpapers-git",
-        "dmenu",
-        "gnome-screenshot",
-        "gvfs",
         "mate-control-center",
         "mate-desktop",
         "mate-menus",
         "mate-system-monitor",
         "mate-terminal",
         "qt5-quickcontrols",
-        "redshift",
-        "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
         "ukui",
-        "xfce4-terminal",
     ]
     xfce = [
         "xfce4",
         "xfce4-goodies",
-        "catfish",
-        "dmenu",
-        "gvfs",
-        "mugshot",
         "polkit-gnome",
-        "rxvt-unicode",
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
-        "arcolinux-local-xfce4-git",
-        "archlinux-logout-git",
-        "arcolinux-root-git",
-        "arcolinux-xfce-git",
-        "arcolinux-wallpapers-git",
     ]
     xmonad = [
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-polybar-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
-        "arcolinux-root-git",
-        "arcolinux-volumeicon-git",
-        "arcolinux-wallpapers-git",
-        "arcolinux-xfce-git",
         "arcolinux-xmonad-polybar-git",
         "awesome-terminal-fonts",
         "dmenu",
         "feh",
-        "gvfs",
         "haskell-dbus",
-        "perl-checkupdates-aur",
-        "perl-www-aur",
         "picom",
         "polybar",
         "rofi",
-        "rxvt-unicode",
         "thunar",
         "thunar-archive-plugin",
         "thunar-volman",
-        "volumeicon",
-        "xfce4-terminal",
         "xmonad",
         "xmonad-contrib",
         "xmonad-log",
@@ -1890,7 +1740,6 @@ if distro.id() == "endeavouros":
     ]
     plasma = [
         "plasma",
-        "kde-applications-meta",
         "kde-system-meta",
         "arcolinux-arc-kde",
         "arcolinux-config-plasma-git",
@@ -2637,7 +2486,6 @@ if distro.id() == "garuda":
     ]
     plasma = [
         "plasma",
-        "kde-applications-meta",
         "kde-system-meta",
         "arcolinux-arc-kde",
         "arcolinux-config-plasma-git",
