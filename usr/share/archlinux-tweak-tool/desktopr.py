@@ -12,7 +12,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk  # noqa
 
 default_app = [
-    "sudo"
+    "nano"
 ]
 
 # =================================================================
@@ -2854,7 +2854,11 @@ def install_desktop(self, desktop, state):
 
     timeout_id = None
     timeout_id = GLib.timeout_add(100, fn.do_pulse, None, self.desktopr_prog)
-    # print(command)
+    print("----------------------------------------------------------------")
+    print("Packages list to install")
+    print("----------------------------------------------------------------")
+    print(command)
+    print("----------------------------------------------------------------")
 
     if state == "reinst":
         com1 = pkexec_reinstall
@@ -2867,7 +2871,6 @@ def install_desktop(self, desktop, state):
     # print(list(np.append(com1, command)))
 
     GLib.idle_add(self.desktopr_stat.set_text, "installing " + self.d_combo.get_active_text() + "...")
-
     with fn.subprocess.Popen(list(np.append(com1, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
         for line in p.stdout:
             GLib.idle_add(self.desktopr_stat.set_text, line.strip())
@@ -2901,7 +2904,7 @@ def install_desktop(self, desktop, state):
         GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
         print(desktop + " has been installed")
         print("We installed this list:")
-        print(l2)
+        print(list(l2))
     else:
         GLib.idle_add(self.desktop_status.set_markup, "This desktop is <b>NOT</b> installed")
         GLib.idle_add(self.desktopr_error.set_text, "Install " + desktop + " via terminal")
