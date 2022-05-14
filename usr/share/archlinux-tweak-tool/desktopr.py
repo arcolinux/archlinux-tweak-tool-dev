@@ -1066,6 +1066,7 @@ if distro.id() == "arch":
     ]
     plasma = [
         "plasma",
+        "arcolinux-sddm-simplicity-git",
         "kde-system-meta",
         "discover",
         "kate",
@@ -2869,7 +2870,6 @@ def install_desktop(self, desktop, state):
         com1 = pkexec
 
     # print(list(np.append(com1, command)))
-    print("----------------------------------------------------------------")
     GLib.idle_add(self.desktopr_stat.set_text, "Installing " + self.d_combo.get_active_text() + "...")
     with fn.subprocess.Popen(list(np.append(com1, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
         for line in p.stdout:
@@ -2903,11 +2903,15 @@ def install_desktop(self, desktop, state):
         GLib.idle_add(self.desktopr_stat.set_text, "")
         GLib.idle_add(self.desktop_status.set_text, "This desktop is installed")
         GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
+        print("----------------------------------------------------------------")
         print(desktop + " has been installed")
+        print("----------------------------------------------------------------")
     else:
         GLib.idle_add(self.desktop_status.set_markup, "This desktop is <b>NOT</b> installed")
         GLib.idle_add(self.desktopr_error.set_text, "Install " + desktop + " via terminal")
         # GLib.idle_add(self.desktopr_stat.set_text, "An error has occured in installation")
         GLib.idle_add(fn.show_in_app_notification, self, desktop + " has not been installed")
+        print("----------------------------------------------------------------")
         print(desktop + " has NOT been installed")
+        print("----------------------------------------------------------------")
     fn.create_log(self)
