@@ -11,8 +11,8 @@ import datetime
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk  # noqa
 
-arco_logout = [
-    "htop"
+default_app = [
+    "sudo"
 ]
 
 # =================================================================
@@ -462,7 +462,6 @@ if distro.id() == "arcolinux":
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
         "arcolinux-xfce-git",
-        "alacritty",
         "dmenu",
         "feh",
         "gvfs",
@@ -1021,7 +1020,6 @@ if distro.id() == "arch":
         "archlinux-logout-git",
         "arcolinux-leftwm-git",
         "arcolinux-rofi-git",
-        "alacritty",
         "dmenu",
         "feh",
         "leftwm-dev-git",
@@ -1763,7 +1761,6 @@ if distro.id() == "endeavouros":
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
         "arcolinux-xfce-git",
-        "alacritty",
         "dmenu",
         "feh",
         "gvfs",
@@ -2511,7 +2508,6 @@ if distro.id() == "garuda":
         "arcolinux-volumeicon-git",
         "arcolinux-wallpapers-git",
         "arcolinux-xfce-git",
-        "alacritty",
         "dmenu",
         "feh",
         "gvfs",
@@ -2931,11 +2927,11 @@ def install_desktop(self, desktop, state):
     fn.copy_func(fn.home + "/.config/", fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"), isdir=True)
     fn.permissions(fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"))
     if desktop == "awesome":
-        command = list(np.append(awesome, arco_logout))
+        command = list(np.append(awesome, default_app))
         src.append("/etc/skel/.config/awesome")
         twm = True
     elif desktop == "bspwm":
-        command = list(np.append(bspwm, arco_logout))
+        command = list(np.append(bspwm, default_app))
         src.append("/etc/skel/.config/bspwm")
         src.append("/etc/skel/.config/polybar")
         twm = True
@@ -2949,7 +2945,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "cinnamon":
         command = cinnamon
     elif desktop == "cwm":
-        command = list(np.append(cwm, arco_logout))
+        command = list(np.append(cwm, default_app))
         src.append("/etc/skel/.config/cwm")
         src.append("/etc/skel/.cwmrc")
         src.append("/etc/skel/.xprofile")
@@ -2959,15 +2955,15 @@ def install_desktop(self, desktop, state):
         check_package(self, "/usr/bin", "qt5ct")
         command = deepin
     elif desktop == "dusk":
-        command = list(np.append(dusk, arco_logout))
+        command = list(np.append(dusk, default_app))
         src.append("/etc/skel/.config/arco-dusk")
         twm = True
     elif desktop == "dwm":
-        command = list(np.append(dwm, arco_logout))
+        command = list(np.append(dwm, default_app))
         src.append("/etc/skel/.config/arco-dwm")
         twm = True
     elif desktop == "fvwm3":
-        command = list(np.append(fvwm3, arco_logout))
+        command = list(np.append(fvwm3, default_app))
         src.append("/etc/skel/.config/fvwm3")
         src.append("/etc/skel/.fvwm")
         src.append("/etc/skel/.config/polybar")
@@ -2975,30 +2971,30 @@ def install_desktop(self, desktop, state):
     elif desktop == "gnome":
         command = gnome
     elif desktop == "herbstluftwm":
-        command = list(np.append(hlwm, arco_logout))
+        command = list(np.append(hlwm, default_app))
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "i3":
-        command = list(np.append(i3, arco_logout))
+        command = list(np.append(i3, default_app))
         src.append("/etc/skel/.config/i3")
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "icewm":
-        command = list(np.append(icewm, arco_logout))
+        command = list(np.append(icewm, default_app))
         src.append("/etc/skel/.config/icewm")
         twm = True
     elif desktop == "jwm":
-        command = list(np.append(jwm, arco_logout))
+        command = list(np.append(jwm, default_app))
         src.append("/etc/skel/.config/jwm")
         src.append("/etc/skel/.jwmrc")
         twm = True
     elif desktop == "leftwm":
-        command = list(np.append(leftwm, arco_logout))
+        command = list(np.append(leftwm, default_app))
         src.append("/etc/skel/.config/leftwm")
         twm = True
     elif desktop == "lxqt":
-        command = list(np.append(lxqt, arco_logout))
+        command = list(np.append(lxqt, default_app))
         src.append("/etc/skel/.config/lxqt")
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/pcmanfm-qt")
@@ -3008,7 +3004,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "mate":
         command = mate
     elif desktop == "openbox":
-        command = list(np.append(openbox, arco_logout))
+        command = list(np.append(openbox, default_app))
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/obmenu-generator")
         src.append("/etc/skel/.config/tint2")
@@ -3022,28 +3018,28 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.local/share")
         twm = True
     elif desktop == "qtile":
-        command = list(np.append(qtile, arco_logout))
+        command = list(np.append(qtile, default_app))
         src.append("/etc/skel/.config/qtile")
         twm = True
     elif desktop == "spectrwm":
-        command = list(np.append(spectrwm, arco_logout))
+        command = list(np.append(spectrwm, default_app))
         src.append("/etc/skel/.config/spectrwm")
         src.append("/etc/skel/.spectrwm.conf")
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "ukui":
-        command = list(np.append(ukui, arco_logout))
+        command = list(np.append(ukui, default_app))
         src.append("/etc/skel/.config/")
         twm = True
     elif desktop == "wmderland":
-        command = list(np.append(wmderland, arco_logout))
+        command = list(np.append(wmderland, default_app))
         src.append("/etc/skel/.config/wmderland")
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "xfce":
-        command = list(np.append(xfce, arco_logout))
+        command = list(np.append(xfce, default_app))
     elif desktop == "xmonad":
-        command = list(np.append(xmonad, arco_logout))
+        command = list(np.append(xmonad, default_app))
         src.append("/etc/skel/.xmonad")
         src.append("/etc/skel/.config/polybar")
         twm = True
