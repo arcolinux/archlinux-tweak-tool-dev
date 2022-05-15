@@ -116,12 +116,12 @@ class Main(Gtk.Window):
             #     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
             #                           Functions.sddm_default_d2)
 
-        if Functions.os.path.isfile(Functions.sddm_conf):
+        if Functions.os.path.isfile(Functions.sddm_default_d2):
             session_exists = sddm.check_sddmk_session("Session=")
             if session_exists is False:
                 sddm.insert_session("#Session=")
 
-        if Functions.os.path.isfile(Functions.sddm_conf):
+        if Functions.os.path.isfile(Functions.sddm_default_d2):
             user_exists = sddm.check_sddmk_user("User=")
             if user_exists is False:
                 sddm.insert_user("#User=")
@@ -335,15 +335,15 @@ class Main(Gtk.Window):
                 self.sessions.set_sensitive(True)
 
         if not "plasma" in self.desktop.lower():
-            if Functions.os.path.isfile(Functions.sddm_conf):
-                if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf),"User="):
+            if Functions.os.path.isfile(Functions.sddm_default_d2):
+                if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2),"User="):
                     self.autologin_sddm.set_active(False)
                     self.sessions_sddm.set_sensitive(False)
                 else:
                     self.autologin_sddm.set_active(True)
                     self.sessions_sddm.set_sensitive(True)
             if Functions.os.path.isfile(Functions.sddm_default):
-                read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default),"CursorTheme=").split("=")[1]
+                read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d1),"CursorTheme=").split("=")[1]
                 self.entry_cursor_name.set_text(read_cursor_name)
 
         if not os.path.isfile("/tmp/att.lock"):
@@ -1660,7 +1660,7 @@ class Main(Gtk.Window):
         if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or (self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None) :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
                                             args=(self,
-                                                sddm.get_sddm_lines(Functions.sddm_conf),  # noqa
+                                                sddm.get_sddm_lines(Functions.sddm_default_d2),  # noqa
                                                 Functions.sudo_username,
                                                 self.sessions_sddm.get_active_text(),
                                                 self.autologin_sddm.get_active(),
@@ -1682,8 +1682,8 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self, "You need to select desktop and/or theme first")
 
     def on_click_sddm_reset(self, widget):
-        if Functions.os.path.isfile(Functions.sddm_conf):
-            if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
+        if Functions.os.path.isfile(Functions.sddm_default_d2):
+            if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2), "User="):  # noqa
                 self.autologin_sddm.set_active(False)
             else:
                 self.autologin_sddm.set_active(True)
@@ -1708,7 +1708,7 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.sddm_default_original,
                                   Functions.sddm_default)
 
-        if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
+        if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d2), "User="):  # noqa
             self.autologin_sddm.set_active(False)
         else:
             self.autologin_sddm.set_active(True)
