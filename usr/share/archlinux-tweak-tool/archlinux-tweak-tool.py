@@ -1643,7 +1643,13 @@ class Main(Gtk.Window):
         #if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
         #    Functions.shutil.copy(Functions.sddm_conf,
         #                          Functions.sddm_conf + ".bak")
-        self.on_click_sddm_enable()
+        command = 'systemctl enable sddm.service -f'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We enabled sddm.service")
+
         if not os.path.isdir(Functions.sddm_default_d2_dir):
             try:
                 os.mkdir(Functions.sddm_default_d2_dir)
