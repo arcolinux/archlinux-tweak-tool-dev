@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+
+#      #============================================================
+#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
+#      #============================================================
+
 from pyclbr import Function
 import Splash
 import gi
@@ -32,11 +37,6 @@ from subprocess import PIPE, STDOUT
 from time import sleep
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf, Pango, GLib  # noqa
-# from Settings import settings, configparser
-
-#      #============================================================
-#      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
-#      #============================================================
 
 base_dir = os.path.dirname(os.path.realpath(__file__))
 pmf = pacman_functions
@@ -44,6 +44,23 @@ pmf = pacman_functions
 
 class Main(Gtk.Window):
     def __init__(self):
+        print("---------------------------------------------------------------------------")
+        print("If you have errors, report it on the discord channel of ArcoLinux")
+        print("If you have errors, because of SDDM")
+        print("Try running 'fix-sddm-conf' in a terminal")
+        print("Then launch the Arch Linux Tweak Tool again")
+        print("---------------------------------------------------------------------------")
+        print("Created for :")
+        print(" - ArcoLinux")
+        print(" - Arch Linux")
+        print(" - Alci")
+        print(" - Carli")
+        print(" - Ariser")
+        print(" - EndeavourOS")
+        print(" - Garuda")
+        print("---------------------------------------------------------------------------")
+        print("Other Arch Linux based distros will be visited later")
+        print("---------------------------------------------------------------------------")
         super(Main, self).__init__(title="Arch Linux Tweak Tool")
         self.set_border_width(10)
         self.connect("delete-event", self.on_close)
