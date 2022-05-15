@@ -1581,6 +1581,17 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "Default Settings Applied")
 
     def on_autologin_activated(self, widget, gparam):
+        command = 'groupadd autologin'
+        try:
+            Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        except Exception as e:
+                print(e)
+
+        print("We added the group autologin")
+
         if widget.get_active():
             self.sessions.set_sensitive(True)
         else:
@@ -1592,12 +1603,14 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We installed lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings")
 
         command = 'systemctl enable lightdm.service -f'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We enabled lightdm")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed and enabled - reboot")
 
@@ -1607,17 +1620,19 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("Lightdm has been enabled - reboot")
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
 
     def on_click_lightdm_slick(self, desktop):
         self.on_click_att_lightdm_clicked(desktop)
         self.on_click_lightdm_enable(desktop)
-        command = '/usr/local/bin/arcolinux-install-activate-lightdm-slickgreeter'
+        command = '/usr/share/archlinux-tweak-tool/data/any/arcolinux-install-activate-lightdm-slickgreeter'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Reboot now - Activate manually if needed")
+        print("Lightdm slickgreeter has been installed and enabled - reboot")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed - Reboot now")
 
     # ====================================================================
     #                       SDDM
