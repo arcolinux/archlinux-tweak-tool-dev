@@ -1565,6 +1565,7 @@ class Main(Gtk.Window):
                                                 self.autologin.get_active()))
             t1.daemon = True
             t1.start()
+            print("Settings saved successfully")
         else:
             Functions.show_in_app_notification(self, "Need to select desktop first")
 
@@ -1578,6 +1579,7 @@ class Main(Gtk.Window):
         else:
             self.autologin.set_active(True)
 
+        print("Default Settings Applied")
         Functions.show_in_app_notification(self, "Default Settings Applied")
 
     def on_autologin_activated(self, widget, gparam):
@@ -1641,7 +1643,7 @@ class Main(Gtk.Window):
         #if not Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
         #    Functions.shutil.copy(Functions.sddm_conf,
         #                          Functions.sddm_conf + ".bak")
-
+        self.on_click_sddm_enable()
         if not os.path.isdir(Functions.sddm_default_d2_dir):
             try:
                 os.mkdir(Functions.sddm_default_d2_dir)
@@ -1705,6 +1707,7 @@ class Main(Gtk.Window):
             self.autologin_sddm.set_active(True)
 
         print("The ArcoLinux sddm configuration is now applied")
+        print("Both files have been changed /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_click_no_sddm_reset_original(self, widget):
@@ -1756,12 +1759,12 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed")
 
         if self.keep_default_theme.get_active() is True:
-            command = 'pacman -S arcolinux-sddm-sugar-candy-git --needed --noconfirm'
+            command = 'pacman -S arcolinux-sddm-simplicity-git --needed --noconfirm'
             Functions.subprocess.call(command.split(" "),
                             shell=False,
                             stdout=Functions.subprocess.PIPE,
                             stderr=Functions.subprocess.STDOUT)
-            print("We removed the ArcoLinux sddm themes except default")
+            print("We installed the default ArcoLinux sddm theme again")
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
     def on_click_att_sddm_clicked(self, desktop):
