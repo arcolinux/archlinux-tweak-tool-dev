@@ -1581,18 +1581,17 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "Default Settings Applied")
 
     def on_autologin_activated(self, widget, gparam):
-        command = 'groupadd autologin'
-        try:
-            Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        except Exception as e:
-                print(e)
-
-        print("We added the group autologin")
-
         if widget.get_active():
+            command = 'groupadd autologin'
+            try:
+                Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            except Exception as e:
+                    print(e)
+
+            print("We added the group autologin or checked that it exists")
             self.sessions.set_sensitive(True)
         else:
             self.sessions.set_sensitive(False)
@@ -1723,18 +1722,17 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
 
     def on_autologin_sddm_activated(self, widget, gparam):
-        command = 'groupadd autologin'
-        try:
-            Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        except Exception as e:
-                print(e)
-
-        print("We added the group autologin")
-
         if widget.get_active():
+            command = 'groupadd autologin'
+            try:
+                Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            except Exception as e:
+                    print(e)
+
+            print("We added the group autologin or checked that it exists")
             self.sessions_sddm.set_sensitive(True)
         else:
             self.sessions_sddm.set_sensitive(False)
