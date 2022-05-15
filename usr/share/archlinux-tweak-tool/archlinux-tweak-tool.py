@@ -1651,10 +1651,11 @@ class Main(Gtk.Window):
                                             self.entry_cursor_name.get_text()))
             t1.daemon = True
             t1.start()
-
+            print("Settings Saved Successfully")
             GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
 
         else:
+            print("You need to select desktop and/or theme first")
             Functions.show_in_app_notification(self, "You need to select desktop and/or theme first")
 
     def on_click_sddm_reset(self, widget):
@@ -1663,8 +1664,10 @@ class Main(Gtk.Window):
                 self.autologin_sddm.set_active(False)
             else:
                 self.autologin_sddm.set_active(True)
+            print("Your sddm.conf backup is now applied")
             Functions.show_in_app_notification(self, "Your sddm.conf backup is now applied")
         else:
+            print("We did not find a backup file for sddm.conf")
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
     def on_click_sddm_reset_original(self, widget):
@@ -1687,6 +1690,7 @@ class Main(Gtk.Window):
         else:
             self.autologin_sddm.set_active(True)
 
+        print("The ArcoLinux sddm configuration is now applied")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_click_no_sddm_reset_original(self, widget):
@@ -1700,10 +1704,21 @@ class Main(Gtk.Window):
                                   Functions.sddm_default_d1)
             Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_2,
                                   Functions.sddm_default_d2)
-
-        Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
+        print("The ArcoLinux sddm configuration is now applied")
+        Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
 
     def on_autologin_sddm_activated(self, widget, gparam):
+        command = 'groupadd autologin'
+        try:
+            Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        except Exception as e:
+                print(e)
+
+        print("We added the group autologin")
+
         if widget.get_active():
             self.sessions_sddm.set_sensitive(True)
         else:
@@ -1715,6 +1730,7 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We installed all ArcoLinux sddm themes")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
 
     def on_click_remove_sddm_themes(self,widget):
@@ -1723,6 +1739,7 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We removed all ArcoLinux sddm themes")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed")
 
         if self.keep_default_theme.get_active() is True:
@@ -1731,6 +1748,7 @@ class Main(Gtk.Window):
                             shell=False,
                             stdout=Functions.subprocess.PIPE,
                             stderr=Functions.subprocess.STDOUT)
+            print("We removed the ArcoLinux sddm themes except default")
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
     def on_click_att_sddm_clicked(self, desktop):
@@ -1748,13 +1766,19 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We installed arcolinux-sddm-simplicity-git")
 
+        command = 'pacman -S bibata-cursor-theme-bin --noconfirm --needed'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We installed bibata-cursor-theme-bin")
+
         command = 'systemctl enable sddm.service -f'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         print("We enabled sddm.service")
-
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed and enabled - reboot")
 
     def on_click_sddm_enable(self, desktop):
@@ -1763,12 +1787,14 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We enabled sddm.service")
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
 
     def on_launch_adt_clicked(self, desktop):
         Functions.install_adt(self)
         subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")
+        print("We relaunched ATT")
 
     def on_refresh_att_clicked(self, desktop):
         os.unlink("/tmp/att.lock")
