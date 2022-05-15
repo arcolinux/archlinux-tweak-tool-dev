@@ -46,7 +46,7 @@ class Main(Gtk.Window):
     def __init__(self):
         print("---------------------------------------------------------------------------")
         print("If you have errors, report it on the discord channel of ArcoLinux")
-        print("If you have errors, because of SDDM")
+        print("If you have errors, because of SDDM, cursors, user, theme, ...")
         print("Try running 'fix-sddm-conf' in a terminal")
         print("Then launch the Arch Linux Tweak Tool again")
         print("---------------------------------------------------------------------------")
