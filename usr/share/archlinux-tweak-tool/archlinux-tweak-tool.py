@@ -1628,6 +1628,11 @@ class Main(Gtk.Window):
         #    Functions.shutil.copy(Functions.sddm_conf,
         #                          Functions.sddm_conf + ".bak")
 
+        if not os.path.isdir(Functions.sddm_default_d2_dir):
+            try:
+                os.mkdir(Functions.sddm_default_d2_dir)
+            except Exception as e:
+                print(e)
 
         if (self.sessions_sddm.get_active_text() is not None and self.theme_sddm.get_active_text() is not None and self.autologin_sddm.get_active() is True) or (self.autologin_sddm.get_active() is False and self.theme_sddm.get_active_text() is not None) :
             t1 = Functions.threading.Thread(target=sddm.set_sddm_value,
@@ -1653,9 +1658,6 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self, "You need to select desktop and/or theme first")
 
     def on_click_sddm_reset(self, widget):
-        #if Functions.os.path.isfile(Functions.sddm_conf + ".bak"):
-        #    Functions.shutil.copy(Functions.sddm_conf + ".bak",
-        #                          Functions.sddm_conf)
         if Functions.os.path.isfile(Functions.sddm_conf):
             if "#" in sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_conf), "User="):  # noqa
                 self.autologin_sddm.set_active(False)
@@ -1666,6 +1668,11 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self, "We did not find a backup file for sddm.conf")
 
     def on_click_sddm_reset_original(self, widget):
+        if not os.path.isdir(Functions.sddm_default_d2_dir):
+            try:
+                os.mkdir(Functions.sddm_default_d2_dir)
+            except Exception as e:
+                print(e)
         if Functions.sddm_conf == "/etc/sddm.conf.d/kde_settings.conf":
             Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
@@ -1683,6 +1690,11 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
     def on_click_no_sddm_reset_original(self, widget):
+        if not os.path.isdir(Functions.sddm_default_d2_dir):
+            try:
+                os.mkdir(Functions.sddm_default_d2_dir)
+            except Exception as e:
+                print(e)
         if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
             Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
                                   Functions.sddm_default_d1)
