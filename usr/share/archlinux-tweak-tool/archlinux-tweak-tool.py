@@ -1716,19 +1716,19 @@ class Main(Gtk.Window):
         print("Both files have been changed /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm.conf is now applied")
 
-    def on_click_no_sddm_reset_original(self, widget):
-        if not os.path.isdir(Functions.sddm_default_d2_dir):
-            try:
-                os.mkdir(Functions.sddm_default_d2_dir)
-            except Exception as e:
-                print(e)
-        if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
-            Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
-                                  Functions.sddm_default_d1)
-            Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_2,
-                                  Functions.sddm_default_d2)
-        print("The ArcoLinux sddm configuration is now applied")
-        Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
+    # def on_click_no_sddm_reset_original(self, widget):
+    #     if not os.path.isdir(Functions.sddm_default_d2_dir):
+    #         try:
+    #             os.mkdir(Functions.sddm_default_d2_dir)
+    #         except Exception as e:
+    #             print(e)
+    #     if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
+    #         Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
+    #                               Functions.sddm_default_d1)
+    #         Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_2,
+    #                               Functions.sddm_default_d2)
+    #     print("The ArcoLinux sddm configuration is now applied")
+    #     Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
 
     def on_autologin_sddm_activated(self, widget, gparam):
         if widget.get_active():
@@ -1773,6 +1773,7 @@ class Main(Gtk.Window):
             print("We installed the default ArcoLinux sddm theme again")
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
+    #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):
         command = 'pacman -S sddm --noconfirm --needed'
         Functions.subprocess.call(command.split(" "),
@@ -1802,6 +1803,20 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We enabled sddm.service")
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed and enabled - reboot")
+
+        if not os.path.isdir(Functions.sddm_default_d2_dir):
+            try:
+                os.mkdir(Functions.sddm_default_d2_dir)
+            except Exception as e:
+                print(e)
+
+        if Functions.os.path.isfile(Functions.sddm_default_d_sddm_original_1):
+            Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_1,
+                                  Functions.sddm_default_d1)
+            Functions.shutil.copyfile(Functions.sddm_default_d_sddm_original_2,
+                                  Functions.sddm_default_d2)
+        print("The ArcoLinux sddm configuration is now applied")
+        Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
 
     def on_click_sddm_enable(self, desktop):
         command = 'systemctl enable sddm.service -f'
