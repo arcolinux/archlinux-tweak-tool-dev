@@ -342,7 +342,7 @@ class Main(Gtk.Window):
                 else:
                     self.autologin_sddm.set_active(True)
                     self.sessions_sddm.set_sensitive(True)
-            if Functions.os.path.isfile(Functions.sddm_default):
+            if Functions.os.path.isfile(Functions.sddm_default_d1):
                 read_cursor_name=sddm.check_sddm(sddm.get_sddm_lines(Functions.sddm_default_d1),"CursorTheme=").split("=")[1]
                 self.entry_cursor_name.set_text(read_cursor_name)
 
