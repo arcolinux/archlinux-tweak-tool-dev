@@ -1734,17 +1734,26 @@ class Main(Gtk.Window):
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
 
     def on_click_att_sddm_clicked(self, desktop):
-        command = 'pacman -S sddm arcolinux-simplicity-git --noconfirm --needed'
+        command = 'pacman -S sddm --noconfirm --needed'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We installed sddm")
+
+        command = 'pacman -S arcolinux-sddm-simplicity-git --noconfirm --needed'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We installed arcolinux-sddm-simplicity-git")
 
         command = 'systemctl enable sddm.service -f'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("We enabled sddm.service")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been installed and enabled - reboot")
 
