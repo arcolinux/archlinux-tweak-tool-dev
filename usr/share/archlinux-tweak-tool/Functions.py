@@ -725,7 +725,7 @@ def set_default_theme(self):
                 val = _get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
                 grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 # for Carli
-                val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/poly-dark/theme.txt"')
+                val = _get_position(grubd, 'GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt')
                 grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
 
             if distro.id() == "arcolinux":
@@ -868,4 +868,6 @@ def change_distro_label(name):      # noqa
         name = "Garuda"
     if name == "endeavouros":
         name = "EndeavourOS"
+    if name == "arch":
+        name = "Arch Linux"
     return name
