@@ -724,6 +724,10 @@ def set_default_theme(self):
             if distro.id() == "arch":
                 val = _get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
                 grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                # for Carli
+                val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/poly-dark/theme.txt"')
+                grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+
             if distro.id() == "arcolinux":
                 val = _get_position(grubd, "#GRUB_THEME")
                 grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
