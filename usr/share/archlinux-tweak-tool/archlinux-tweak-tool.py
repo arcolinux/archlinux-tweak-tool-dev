@@ -54,7 +54,7 @@ class Main(Gtk.Window):
         print(" - ArcoLinux     - https://arcolinux.info")
         print(" - Arch Linux    - https://archlinux.org")
         print(" - Alci          - https://alci.online")
-        print(" - Carli         - https://www.arcolinuxiso.com/")
+        print(" - Carli         - https://arcolinuxiso.com/")
         print(" - Ariser        - https://ariser.eu/")
         print(" - EndeavourOS   - https://endeavouros.com/")
         print(" - Garuda        - https://garudalinux.org/")

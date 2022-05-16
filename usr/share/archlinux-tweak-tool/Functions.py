@@ -706,8 +706,8 @@ def set_grub_wallpaper(self, image):
             with open(grub_theme_conf, "w") as f:
                 f.writelines(lists)
                 f.close()
-
-            show_in_app_notification(self, "Settings Saved Successfully")
+            print("Grub wallpaper saved")
+            show_in_app_notification(self, "Grub wallpaper saved")
             # MessageBox(self, "Success!!", "Settings Saved Successfully")
         except:  # noqa
             pass
@@ -728,10 +728,10 @@ def set_default_theme(self):
                 val = _get_position(grubd, "#GRUB_THEME")
                 grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
             if distro.id() == "endeavouros":
-                val = _get_position(grubd, "#GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt")
+                val = _get_position(grubd, "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt")
                 grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
             if distro.id() == "garuda":
-                val = _get_position(grubd, '#GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
+                val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
                 grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
 
             with open(grub_default_grub, "w") as f:
