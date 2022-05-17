@@ -910,8 +910,9 @@ class Main(Gtk.Window):
             self.grub_image_path = x.get_name()
 
     def on_set_grub_wallpaper(self, widget):
-        # Functions.set_grub_wallpaper(self,
-        #                              self.grub_theme_combo.get_active_text())
+
+        self.on_click_install_arco_vimix_clicked(self)
+
         Functions.set_grub_wallpaper(self,
                                      self.grub_image_path)
 
@@ -922,8 +923,10 @@ class Main(Gtk.Window):
         self.pop_themes_grub(self.grub_theme_combo,
                              Functions.get_grub_wallpapers(), True)
 
-        print("Default grub wallpaper applied")
-        Functions.show_in_app_notification(self, "Default grub wallpaper applied")
+        self.on_click_install_arco_vimix_clicked(self)
+
+        print("Default Vimix grub wallpaper applied")
+        Functions.show_in_app_notification(self, "Default Vimix grub wallpaper applied")
 
     def on_reset_grub(self, widget):
         if os.path.isfile(Functions.grub_default_grub + ".bak"):
@@ -1060,6 +1063,26 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed - restart ATT")
+
+    def on_reset_grub_vimix(self, desktop):
+        command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("arcolinux-grub-theme-vimix-git has been installed")
+
+        #changing /etc/default/grub to vimix theme
+        Functions.set_default_theme(self)
+
+        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed - restart ATT")
+
 
 #    #====================================================================
 #    #                       SLIMLOCK
@@ -1626,7 +1649,7 @@ class Main(Gtk.Window):
             except Exception as e:
                     print(e)
 
-            print("We added the group autologin or checked that it exists")
+            #print("We added the group autologin or checked that it exists")
             self.sessions.set_sensitive(True)
         else:
             self.sessions.set_sensitive(False)
@@ -1774,7 +1797,7 @@ class Main(Gtk.Window):
             except Exception as e:
                     print(e)
 
-            print("We added the group autologin or checked that it exists")
+            #print("We added the group autologin or checked that it exists")
             self.sessions_sddm.set_sensitive(True)
         else:
             self.sessions_sddm.set_sensitive(False)

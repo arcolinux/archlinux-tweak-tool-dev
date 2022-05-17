@@ -762,9 +762,10 @@ def set_default_theme(self):
                 f.close()
 
             print("Settings saved successfully in /etc/default/grub")
+            print("We made sure you have a backup - /etc/default/grub.bak")
             print("This line has changed in /etc/default/grub")
             print('GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"')
-            print("There is a /etc/default/grub.bak")
+
             show_in_app_notification(self, "Settings Saved Successfully in /etc/default/grub")
         except Exception as e:
             print(e)
