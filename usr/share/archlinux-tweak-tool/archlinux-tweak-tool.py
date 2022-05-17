@@ -1259,10 +1259,10 @@ class Main(Gtk.Window):
 
     def on_clicked_set_arcolinux_alacritty_theme(self,widget):
         if os.path.isfile(Functions.alacritty_config):
-            Functions.shutil.copy(Functions.alacritty_config,
+            Functions.shutil.copy(Functions.alacritty_arco,
                                   Functions.alacritty_config)
             Functions.permissions(Functions.home + "/.config/alacritty")
-            print("Alacritty reset")
+            print("Applied ArcoLinux Alacritty theme")
 
 #    #====================================================================
 #    #                       TERMITE
