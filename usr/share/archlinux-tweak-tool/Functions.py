@@ -3,7 +3,6 @@
 # =================================================================
 
 import os
-from ssl import _PasswordType
 import distro
 import sys
 import shutil
