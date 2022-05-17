@@ -1207,6 +1207,12 @@ class Main(Gtk.Window):
 
         #if there is no file copy/paste from /etc/skel else alacritty-themes crash
         if not os.path.isfile(Functions.alacritty_config):
+            if not os.path.isdir(Functions.alacritty_config_dir):
+                try:
+                    os.mkdir(Functions.alacritty_config_dir)
+                except Exception as e:
+                    print(e)
+
             Functions.shutil.copy("/etc/skel/.config/alacritty/alacritty.yml",
                                   Functions.alacritty_config)
             Functions.permissions(Functions.home + "/.config/alacritty")
