@@ -1062,7 +1062,7 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed - restart ATT")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
 
     def on_reset_grub_vimix(self, desktop):
         command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
@@ -1081,7 +1081,7 @@ class Main(Gtk.Window):
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed - restart ATT")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed")
 
 
 #    #====================================================================
