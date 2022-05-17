@@ -3,6 +3,7 @@
 # =================================================================
 
 import os
+from ssl import _PasswordType
 import distro
 import sys
 import shutil
@@ -722,21 +723,40 @@ def set_default_theme(self):
                 f.close()
 
             if distro.id() == "arch":
-                val = _get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
-                grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
-                # for Carli
-                val = _get_position(grubd, 'GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt')
-                grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                try:
+                    val = _get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
+            if distro.id() == "arch":
+                try:
+                    # for Carli
+                    val = _get_position(grubd, 'GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
 
             if distro.id() == "arcolinux":
-                val = _get_position(grubd, "#GRUB_THEME")
-                grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                try:
+                    val = _get_position(grubd, "#GRUB_THEME")
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
             if distro.id() == "endeavouros":
-                val = _get_position(grubd, "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt")
-                grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                try:
+                    val = _get_position(grubd, "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt")
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
             if distro.id() == "garuda":
-                val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
-                grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                try:
+                    val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                   pass
 
             with open(grub_default_grub, "w") as f:
                 f.writelines(grubd)
