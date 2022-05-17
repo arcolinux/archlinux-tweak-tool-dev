@@ -1202,6 +1202,7 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("Installing alacritty alacritty-themes base16-alacritty-git ")
         GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
 
     def on_clicked_install_xfce4_themes(self,widget):
@@ -1210,6 +1211,7 @@ class Main(Gtk.Window):
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("Installing xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal")
         GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
 
     def on_clicked_install_termite_themes(self,widget):
@@ -1220,6 +1222,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
         Functions.permissions(Functions.home + "/.config/termite")
+        print("Installing termite arcolinux-termite-themes-git")
         GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
 
     # def on_clicked_launch_alacritty_themes(self,widget):
@@ -1232,12 +1235,14 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.xfce4_terminal_config + ".bak",
                                   Functions.xfce4_terminal_config)
             Functions.permissions(Functions.home + "/.config/xfce4/terminal")
+            print("xfce4_terminal reset")
 
     def on_clicked_reset_alacritty(self,widget):
         if os.path.isfile(Functions.alacritty_config + ".bak"):
             Functions.shutil.copy(Functions.alacritty_config + ".bak",
                                   Functions.alacritty_config)
             Functions.permissions(Functions.home + "/.config/alacritty")
+            print("Alacritty reset")
 
 #    #====================================================================
 #    #                       TERMITE
