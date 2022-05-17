@@ -96,6 +96,12 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.grub_default_grub,
                                   Functions.grub_default_grub + ".bak")
 
+        #make backup of .config/xfce4/terminal/terminalrc
+        if Functions.file_check(Functions.xfce4_terminal_config):
+            if not os.path.isfile(Functions.xfce4_terminal_config + ".bak"):
+                Functions.shutil.copy(Functions.xfce4_terminal_config,
+                                    Functions.xfce4_terminal_config + ".bak")
+
         #make backup of .config/alacritty/alacritty.yml
         if Functions.file_check(Functions.alacritty_config):
             if not os.path.isfile(Functions.alacritty_config + ".bak"):
@@ -1216,10 +1222,16 @@ class Main(Gtk.Window):
         Functions.permissions(Functions.home + "/.config/termite")
         GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
 
-    def on_clicked_launch_alacritty_themes(self,widget):
-        Functions.install_alacritty_themes(self)
-        subprocess.call(["su - " + Functions.sudo_username + " -c " +  "/usr/bin/alacritty-themes"], shell=True)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Done")
+    # def on_clicked_launch_alacritty_themes(self,widget):
+    #     Functions.install_alacritty_themes(self)
+    #     subprocess.call(["su - " + Functions.sudo_username + " -c " +  "/usr/bin/alacritty-themes"], shell=True)
+    #     GLib.idle_add(Functions.show_in_app_notification, self, "Done")
+
+    def on_clicked_reset_xfce4_terminal(self,widget):
+        if os.path.isfile(Functions.xfce4_terminal_config + ".bak"):
+            Functions.shutil.copy(Functions.xfce4_terminal_config + ".bak",
+                                  Functions.xfce4_terminal_config)
+            Functions.permissions(Functions.home + "/.config/xfce4/terminal")
 
     def on_clicked_reset_alacritty(self,widget):
         if os.path.isfile(Functions.alacritty_config + ".bak"):
