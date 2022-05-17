@@ -179,9 +179,11 @@ class Main(Gtk.Window):
         #can be removed later - 02/11/2021 startdate
         if os.path.exists(Functions.home + "/.config-att"):
             Functions.permissions(Functions.home + "/.config-att")
+
         if autostart == 0:
             Functions.permissions(Functions.home + "/.config/autostart")
             print("Fix autostart permissions...")
+
         if att == 0:
             Functions.permissions(Functions.home + "/.config/archlinux-tweak-tool")
             print("Fix archlinux-tweak-tool permissions...")
