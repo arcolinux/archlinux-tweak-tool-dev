@@ -1197,12 +1197,12 @@ class Main(Gtk.Window):
 #    #====================================================================
 
     def on_clicked_install_alacritty_themes(self,widget):
-        command = 'pacman -S alacritty arcolinux-alacritty-git alacritty-themes base16-alacritty-git --needed --noconfirm'
+        command = 'pacman -S alacritty ttf-hack arcolinux-alacritty-git alacritty-themes base16-alacritty-git --needed --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Installing alacritty arcolinux-alacritty-git alacritty-themes base16-alacritty-git ")
+        print("Installing alacritty ttf-hack arcolinux-alacritty-git alacritty-themes base16-alacritty-git ")
         GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
 
         #if there is no file copy/paste from /etc/skel else alacritty-themes crash
@@ -1213,7 +1213,7 @@ class Main(Gtk.Window):
                 except Exception as e:
                     print(e)
 
-            Functions.shutil.copy("/etc/skel/.config/alacritty/alacritty.yml",
+            Functions.shutil.copy(Functions.alacritty_arco,
                                   Functions.alacritty_config)
             Functions.permissions(Functions.home + "/.config/alacritty")
             print("Alacritty config saved")
@@ -1253,6 +1253,13 @@ class Main(Gtk.Window):
     def on_clicked_reset_alacritty(self,widget):
         if os.path.isfile(Functions.alacritty_config + ".bak"):
             Functions.shutil.copy(Functions.alacritty_config + ".bak",
+                                  Functions.alacritty_config)
+            Functions.permissions(Functions.home + "/.config/alacritty")
+            print("Alacritty reset")
+
+    def on_clicked_set_arcolinux_alacritty_theme(self,widget):
+        if os.path.isfile(Functions.alacritty_config):
+            Functions.shutil.copy(Functions.alacritty_config,
                                   Functions.alacritty_config)
             Functions.permissions(Functions.home + "/.config/alacritty")
             print("Alacritty reset")
