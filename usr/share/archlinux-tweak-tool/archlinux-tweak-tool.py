@@ -1197,13 +1197,20 @@ class Main(Gtk.Window):
 #    #====================================================================
 
     def on_clicked_install_alacritty_themes(self,widget):
-        command = 'pacman -S alacritty alacritty-themes base16-alacritty-git --needed --noconfirm'
+        command = 'pacman -S alacritty arcolinux-alacritty-git alacritty-themes base16-alacritty-git --needed --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Installing alacritty alacritty-themes base16-alacritty-git ")
+        print("Installing alacritty arcolinux-alacritty-git alacritty-themes base16-alacritty-git ")
         GLib.idle_add(Functions.show_in_app_notification, self, "Alacritty Themes Installed")
+
+        #if there is no file copy/paste from /etc/skel else alacritty-themes crash
+        if not os.path.isfile(Functions.alacritty_config):
+            Functions.shutil.copy("/etc/skel/.config/alacritty/alacritty.yml",
+                                  Functions.alacritty_config)
+            Functions.permissions(Functions.home + "/.config/alacritty")
+            print("Alacritty config saved")
 
     def on_clicked_install_xfce4_themes(self,widget):
         command = 'pacman -S xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
