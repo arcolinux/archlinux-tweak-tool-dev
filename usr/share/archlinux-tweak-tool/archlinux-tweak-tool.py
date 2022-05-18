@@ -148,6 +148,7 @@ class Main(Gtk.Window):
                                           Functions.sddm_default_d1)
                     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
                                           Functions.sddm_default_d2)
+                    os.unlink("/tmp/att.lock")
                     Functions.restart_program()
                 except OSError as e:
                     #This will ONLY execute if the sddm files and the underlying sddm files do not exist
@@ -159,6 +160,7 @@ class Main(Gtk.Window):
                                         stderr=Functions.subprocess.STDOUT)
                         print("The SDDM files in your installation either did not exist, or were corrupted.")
                         print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
+                        os.unlink("/tmp/att.lock")
                         Functions.restart_program()
 
         #adding lines to sddm
