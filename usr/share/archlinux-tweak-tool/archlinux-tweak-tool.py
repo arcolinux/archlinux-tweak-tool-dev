@@ -1960,6 +1960,7 @@ class Main(Gtk.Window):
                                   Functions.sddm_default_d2)
         print("The ArcoLinux sddm configuration is now applied")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
+        os.unlink("/tmp/att.lock")
         Functions.restart_program()
 
     def on_click_sddm_enable(self, desktop):
