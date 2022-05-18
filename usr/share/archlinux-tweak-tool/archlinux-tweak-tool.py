@@ -148,7 +148,6 @@ class Main(Gtk.Window):
                                           Functions.sddm_default_d1)
                     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
                                           Functions.sddm_default_d2)
-                    os.unlink("/tmp/att.lock")
                     Functions.restart_program()
                 except OSError as e:
                     #This will ONLY execute if the sddm files and the underlying sddm files do not exist
@@ -1762,7 +1761,6 @@ class Main(Gtk.Window):
         print("We enabled lightdm")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed and enabled - reboot")
-        os.unlink("/tmp/att.lock")
         Functions.restart_program()
 
     def on_click_lightdm_enable(self, desktop):
@@ -1775,8 +1773,8 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been enabled - reboot")
 
     def on_click_lightdm_slick(self, desktop):
-        self.on_click_att_lightdm_clicked(desktop)
-        self.on_click_lightdm_enable(desktop)
+        #self.on_click_att_lightdm_clicked(desktop)
+        #self.on_click_lightdm_enable(desktop)
         command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-install-activate-lightdm-slickgreeter'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
@@ -1967,7 +1965,6 @@ class Main(Gtk.Window):
                                   Functions.sddm_default_d2)
         print("The ArcoLinux sddm configuration is now applied")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
-        os.unlink("/tmp/att.lock")
         Functions.restart_program()
 
     def on_click_sddm_enable(self, desktop):
@@ -1986,7 +1983,6 @@ class Main(Gtk.Window):
         print("We relaunched ATT")
 
     def on_refresh_att_clicked(self, desktop):
-        os.unlink("/tmp/att.lock")
         Functions.restart_program()
 
     # ====================================================================
