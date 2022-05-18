@@ -373,7 +373,6 @@ class Main(Gtk.Window):
                 print(e)
                 print("Run 'fix-sddm-conf' in a terminal")
                 print("We will make backups of /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
-                signal_handler()
 
         if not os.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w") as f:
