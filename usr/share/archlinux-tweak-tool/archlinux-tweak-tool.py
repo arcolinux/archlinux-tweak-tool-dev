@@ -939,8 +939,8 @@ class Main(Gtk.Window):
             self.grub_image_path = x.get_name()
 
     def on_set_grub_wallpaper(self, widget):
-
-        self.on_click_install_arco_vimix_clicked(self)
+        if not os.path.isfile(Functions.grub_theme_conf):
+            self.on_click_install_arco_vimix_clicked(self)
 
         if self.grub_image_path == "":
             Functions.show_in_app_notification(self, "First choose a wallpaper image")
@@ -955,7 +955,8 @@ class Main(Gtk.Window):
         self.pop_themes_grub(self.grub_theme_combo,
                              Functions.get_grub_wallpapers(), True)
 
-        self.on_click_install_arco_vimix_clicked(self)
+        if not os.path.isfile(Functions.grub_theme_conf):
+            self.on_click_install_arco_vimix_clicked(self)
 
         print("Default Vimix grub wallpaper applied")
         Functions.show_in_app_notification(self, "Default Vimix grub wallpaper applied")
