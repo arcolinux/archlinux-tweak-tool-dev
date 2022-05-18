@@ -159,7 +159,6 @@ class Main(Gtk.Window):
                                         stderr=Functions.subprocess.STDOUT)
                         print("The SDDM files in your installation either did not exist, or were corrupted.")
                         print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
-                        os.unlink("/tmp/att.lock")
                         Functions.restart_program()
 
         #adding lines to sddm
@@ -1095,7 +1094,6 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
-        os.unlink("/tmp/att.lock")
         Functions.restart_program()
 
     def on_reset_grub_vimix(self, desktop):
