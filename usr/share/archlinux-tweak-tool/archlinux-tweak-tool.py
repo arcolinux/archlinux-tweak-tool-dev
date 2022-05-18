@@ -91,6 +91,14 @@ class Main(Gtk.Window):
         t.start()
         t.join()
 
+
+
+        #make backup of ~/.zshrc
+        if os.path.isfile(Functions.zsh_config):
+            if not os.path.isfile(Functions.zsh_config + ".bak"):
+                Functions.shutil.copy(Functions.zsh_config,
+                                    Functions.zsh_config + ".bak")
+
         #make backup of /etc/default/grub
         if not os.path.isfile(Functions.grub_default_grub + ".bak"):
             Functions.shutil.copy(Functions.grub_default_grub,
@@ -1308,35 +1316,52 @@ class Main(Gtk.Window):
 #    #====================================================================
 
     def on_zsh_apply(self, widget):
+
+        #create a .zshrc if it doesn't exist'
+        if not os.path.isfile(Functions.zsh_config):
+            Functions.shutil.copy(Functions.zshrc_arco,
+                                  Functions.zsh_config)
+            Functions.permissions(Functions.home + "/.zshrc")
+
         if self.zsh_themes.get_active_text() is not None:
             widget.set_sensitive(False)
             zsh_theme.set_config(self, self.zsh_themes.get_active_text())
             widget.set_sensitive(True)
+            print("Applying zsh theme")
 
     def on_zsh_reset(self, widget):
         if os.path.isfile(Functions.zsh_config + ".bak"):
-            Functions.shutil.copy(Functions.zsh_config + ".bak",
-                                  Functions.zsh_config)
-            Functions.show_in_app_notification(self,
-                                               "Default Settings Applied")
+            Functions.shutil.copy(Functions.zsh_config + ".bak", Functions.zsh_config)
+            Functions.permissions(Functions.zsh_config)
+            Functions.show_in_app_notification(self, "Default settings applied")
+            print("Backup has been applied")
+        else:
+            Functions.shutil.copy(Functions.zshrc_arco, Functions.zsh_config)
+            Functions.permissions(Functions.zsh_config)
+            Functions.show_in_app_notification(self, "Valid ~/.zshrc applied")
+            print("Valid ~/.zshrc applied")
+
+
     def tozsh_apply(self,widget):
-        # install missing applications for ArcoLinuxD
+        # install missing applications
         Functions.install_zsh(self)
         # first make backup if there is a file
-        if not Functions.os.path.isfile(Functions.home + "/.zshrc" + ".bak") and Functions.os.path.isfile(Functions.home + "/.zshrc"):
-            Functions.shutil.copy(Functions.home + "/.zshrc",
-                              Functions.home + "/.zshrc" + ".bak")
-            Functions.permissions(Functions.home + "/.zshrc.bak")
-        if not Functions.os.path.isfile(Functions.home + "/.zshrc"):
-            Functions.shutil.copy("/etc/skel/.zshrc",
-                              Functions.home + "/.zshrc")
-            Functions.permissions(Functions.home + "/.zshrc")
+        if not Functions.os.path.isfile(Functions.zsh_config + ".bak") and Functions.os.path.isfile(Functions.zsh_config):
+            Functions.shutil.copy(Functions.zsh_config,
+                              Functions.zsh_config + ".bak")
+            Functions.permissions(Functions.zsh_config + ".bak")
+            print("We created a backup")
+        if not Functions.os.path.isfile(Functions.zsh_config):
+            Functions.shutil.copy(Functions.zshrc_arco, Functions.zsh_config)
+            Functions.permissions(Functions.zsh_config)
+            print("Providing a valid zshrc")
 
         command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/zsh'
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("Shell changed for the user - logout")
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
 
     def tobash_apply(self,widget):
@@ -1345,6 +1370,7 @@ class Main(Gtk.Window):
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
+        print("Shell changed for the user - logout")
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
 
     #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
