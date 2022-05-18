@@ -1,7 +1,6 @@
 #      #============================================================
 #      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
 #      #============================================================
-from gettext import install
 import os
 import Functions
 

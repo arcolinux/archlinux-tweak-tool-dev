@@ -4,8 +4,6 @@
 #      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
 #      #============================================================
 
-from distutils.log import error
-from pyclbr import Function
 import Splash
 import gi
 import Functions
@@ -1469,8 +1467,6 @@ class Main(Gtk.Window):
             GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
         else:
             GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - login")
-
-
 
     def tofish_apply(self,widget):
         # install missing applications for ArcoLinuxD

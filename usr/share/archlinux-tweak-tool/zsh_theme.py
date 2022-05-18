@@ -35,7 +35,7 @@ def get_themes(combo):
         except Exception as e:
             print(e)
     else:
-        combo.append_text("oh-my-zsh-git is not installed...install it with the button below and reload ATT")
+        combo.append_text("oh-my-zsh-git is not installed...install it with the button below and restart ATT")
         combo.set_active(0)
 
 def set_config(self, theme):
