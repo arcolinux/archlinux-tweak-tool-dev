@@ -148,6 +148,7 @@ class Main(Gtk.Window):
                                           Functions.sddm_default_d1)
                     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
                                           Functions.sddm_default_d2)
+                    Functions.restart_program()
                 except OSError as e:
                     #This will ONLY execute if the sddm files and the underlying sddm files do not exist
                     if e.errno == 2:
@@ -158,6 +159,7 @@ class Main(Gtk.Window):
                                         stderr=Functions.subprocess.STDOUT)
                         print("The SDDM files in your installation either did not exist, or were corrupted.")
                         print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
+                        Functions.restart_program()
 
         #adding lines to sddm
         if Functions.os.path.isfile(Functions.sddm_default_d2):
@@ -1958,6 +1960,7 @@ class Main(Gtk.Window):
                                   Functions.sddm_default_d2)
         print("The ArcoLinux sddm configuration is now applied")
         Functions.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
+        Functions.restart_program()
 
     def on_click_sddm_enable(self, desktop):
         command = 'systemctl enable sddm.service -f'
