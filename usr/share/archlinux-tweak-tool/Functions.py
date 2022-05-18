@@ -616,7 +616,7 @@ def install_zsh(self):
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
-        print("Installing zsh zsh-completions zsh-syntax-highlighting")
+        print("Installing zsh zsh-completions zsh-syntax-highlighting if needed")
     except Exception as e:
         print(e)
 

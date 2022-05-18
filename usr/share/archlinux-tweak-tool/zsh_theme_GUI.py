@@ -54,7 +54,7 @@ def GUI(self, Gtk, vboxStack15, zsh_themes, base_dir, GdkPixbuf):
     hbox20.pack_end(install_oh_my_zsh, False, False, 0)
     hbox20.pack_end(tozsh, False, False, 0)
 
-    termset.connect("clicked", self.on_zsh_apply)
+    termset.connect("clicked", self.on_zsh_apply_theme)
     termreset.connect("clicked", self.on_zsh_reset)
 
     if not zsh_themes.check_oh_my():

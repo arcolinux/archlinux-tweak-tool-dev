@@ -4,6 +4,7 @@
 #      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
 #      #============================================================
 
+from distutils.log import error
 from pyclbr import Function
 import Splash
 import gi
@@ -639,9 +640,9 @@ class Main(Gtk.Window):
             pmf.append_repo(
                 self, self.text.get_text(startiter, enditer, True))
 
-# =====================================================
-#               THEMER FUNCTIONS
-# =====================================================
+    # =====================================================
+    #               THEMER FUNCTIONS
+    # =====================================================
 
     def on_polybar_toggle(self, widget, active):
         if widget.get_active():
@@ -726,9 +727,9 @@ class Main(Gtk.Window):
 
             themer.get_qtile_themes(self.qtile_combo, qtile_list)
 
-# =====================================================
-#               OBLOGOUT FUNCTIONS
-# =====================================================
+    # =====================================================
+    #               OBLOGOUT FUNCTIONS
+    # =====================================================
 
     def save_oblogout(self, widget):  # noqa
         # widget.set_sensitive(False)
@@ -783,14 +784,12 @@ class Main(Gtk.Window):
 
             Functions.show_in_app_notification(self,
                                                "Settings Saved Successfully")
-
-#            # widget.set_sensitive(True)
         except Exception as e:
             print(e)
 
-# =====================================================
-#               Gtk FUNCTIONS
-# =====================================================
+    # =====================================================
+    #               Gtk FUNCTIONS
+    # =====================================================
 
     def save_gtk3_settings(self,
                            widget,
@@ -906,9 +905,9 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
 
-#   #====================================================================
-#   #                       HBLOCK SECURITY PRIVACY
-#   #====================================================================
+    #   #====================================================================
+    #   #                       HBLOCK SECURITY PRIVACY
+    #   #====================================================================
 
     def set_hblock(self, widget, state):
         if self.firstrun is not True:
@@ -923,9 +922,9 @@ class Main(Gtk.Window):
                 self, widget, widget.get_active()))
         t.start()
 
-#   #====================================================================
-#   #                       GRUB
-#   #====================================================================
+    #   #====================================================================
+    #   #                       GRUB
+    #   #====================================================================
 
     def on_grub_item_clicked(self, widget, data):
         for x in data:
@@ -1109,9 +1108,9 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Vimix has been installed")
 
 
-#    #====================================================================
-#    #                       SLIMLOCK
-#    #====================================================================
+    #    #====================================================================
+    #    #                       SLIMLOCK
+    #    #====================================================================
 
     def on_slim_apply(self, widget):
         if not os.path.isfile(Functions.slimlock_conf + ".bak"):
@@ -1200,9 +1199,9 @@ class Main(Gtk.Window):
         except Exception as e:
             print(e)
 
-#    #====================================================================
-#    #                       TERMINALS
-#    #====================================================================
+    #    #====================================================================
+    #    #                       TERMINALS
+    #    #====================================================================
 
     def on_clicked_install_alacritty_themes(self,widget):
         command = 'pacman -S alacritty ttf-hack arcolinux-alacritty-git alacritty-themes base16-alacritty-git --needed --noconfirm'
@@ -1272,9 +1271,9 @@ class Main(Gtk.Window):
             Functions.permissions(Functions.home + "/.config/alacritty")
             print("Applied ArcoLinux Alacritty theme")
 
-#    #====================================================================
-#    #                       TERMITE
-#    #====================================================================
+    #    #====================================================================
+    #    #                       TERMITE
+    #    #====================================================================
 
     def on_install_termite_themes(self, widget):
         self.btn_term.set_sensitive(False)
@@ -1311,11 +1310,11 @@ class Main(Gtk.Window):
                 Settings.write_settings("TERMITE", "theme", '')
                 termite.get_themes(self.term_themes)
 
-#    #====================================================================
-#    #                       ZSH THEMES
-#    #====================================================================
+    #    #====================================================================
+    #    #                       ZSH THEMES
+    #    #====================================================================
 
-    def on_zsh_apply(self, widget):
+    def on_zsh_apply_theme(self, widget):
 
         #create a .zshrc if it doesn't exist'
         if not os.path.isfile(Functions.zsh_config):
@@ -1332,12 +1331,13 @@ class Main(Gtk.Window):
     def on_zsh_reset(self, widget):
         if os.path.isfile(Functions.zsh_config + ".bak"):
             Functions.shutil.copy(Functions.zsh_config + ".bak", Functions.zsh_config)
-            Functions.permissions(Functions.zsh_config)
+            Functions.permissions(Functions.home + "/.zshrc")
+            Functions.permissions(Functions.home + "/.zshrc.bak")
             Functions.show_in_app_notification(self, "Default settings applied")
             print("Backup has been applied")
         else:
-            Functions.shutil.copy(Functions.zshrc_arco, Functions.zsh_config)
-            Functions.permissions(Functions.zsh_config)
+            Functions.shutil.copy("/usr/share/archlinux-tweak-tool/data/arco/.zshrc", Functions.home + "/.zshrc")
+            Functions.permissions(Functions.home + "/.zshrc")
             Functions.show_in_app_notification(self, "Valid ~/.zshrc applied")
             print("Valid ~/.zshrc applied")
 
@@ -1349,20 +1349,25 @@ class Main(Gtk.Window):
         if not Functions.os.path.isfile(Functions.zsh_config + ".bak") and Functions.os.path.isfile(Functions.zsh_config):
             Functions.shutil.copy(Functions.zsh_config,
                               Functions.zsh_config + ".bak")
-            Functions.permissions(Functions.zsh_config + ".bak")
+            Functions.permissions(Functions.home + "/.zshrc")
+            Functions.permissions(Functions.home + "/.zshrc.bak")
             print("We created a backup")
         if not Functions.os.path.isfile(Functions.zsh_config):
-            Functions.shutil.copy(Functions.zshrc_arco, Functions.zsh_config)
-            Functions.permissions(Functions.zsh_config)
-            print("Providing a valid zshrc")
+            try:
+                Functions.shutil.copy("/usr/share/archlinux-tweak-tool/data/arco/.zshrc", Functions.home + "/.zshrc")
+                Functions.permissions(Functions.home + "/.zshrc")
+                print("Providing a valid zshrc")
+
+            except Exception as e:
+                print(e)
 
         command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/zsh'
         Functions.subprocess.call(command,
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Shell changed for the user - logout")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+        print("Shell changed to zsh for the user - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to zsh for user - logout")
 
     def tobash_apply(self,widget):
         command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
@@ -1370,8 +1375,8 @@ class Main(Gtk.Window):
                         shell=True,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Shell changed for the user - logout")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+        print("Shell changed to bash for the user - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to bash for user - logout")
 
     #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
     #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
@@ -1436,9 +1441,9 @@ class Main(Gtk.Window):
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(sample_path, image_width, image_height)
         image.set_from_pixbuf(pixbuf)
 
-#    #====================================================================
-#    #                       FISH
-#    #====================================================================
+    #    #====================================================================
+    #    #                       FISH
+    #    #====================================================================
 
     # if os.path.isfile("/usr/bin/fish"):
     #     self.fish.set_active(True)
@@ -1461,13 +1466,7 @@ class Main(Gtk.Window):
         else:
             GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - login")
 
-    def tobash_apply(self,widget):
-        command = 'sudo chsh ' + Functions.sudo_username + ' -s /bin/bash'
-        Functions.subprocess.call(command,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed for user - logout")
+
 
     def tofish_apply(self,widget):
         # install missing applications for ArcoLinuxD
@@ -1567,9 +1566,9 @@ class Main(Gtk.Window):
         image.set_from_pixbuf(pixbuf)
 
 
-#    #====================================================================
-#    #                       ARCOLINUX MIRRORLIST
-#    #===================================================================
+    #    #====================================================================
+    #    #                       ARCOLINUX MIRRORLIST
+    #    #===================================================================
 
     def on_click_reset_arcolinux_mirrorlist(self, widget):
         if not Functions.os.path.isfile(Functions.arcolinux_mirrorlist + ".bak"):
