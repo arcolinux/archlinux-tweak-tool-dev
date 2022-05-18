@@ -1095,6 +1095,8 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
+        os.unlink("/tmp/att.lock")
+        Functions.restart_program()
 
     def on_reset_grub_vimix(self, desktop):
         command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
@@ -1759,6 +1761,8 @@ class Main(Gtk.Window):
         print("We enabled lightdm")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed and enabled - reboot")
+        os.unlink("/tmp/att.lock")
+        Functions.restart_program()
 
     def on_click_lightdm_enable(self, desktop):
         command = 'systemctl enable lightdm.service -f'
