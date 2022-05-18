@@ -92,30 +92,27 @@ class Main(Gtk.Window):
         t.start()
         t.join()
 
-
-
         #make backup of ~/.zshrc
         if os.path.isfile(Functions.zsh_config):
             if not os.path.isfile(Functions.zsh_config + ".bak"):
-                Functions.shutil.copy(Functions.zsh_config,
-                                    Functions.zsh_config + ".bak")
+                Functions.shutil.copy(Functions.zsh_config, Functions.zsh_config + ".bak")
+                Functions.permissions(Functions.home + "/.zshrc.bak")
 
         #make backup of /etc/default/grub
         if not os.path.isfile(Functions.grub_default_grub + ".bak"):
-            Functions.shutil.copy(Functions.grub_default_grub,
-                                  Functions.grub_default_grub + ".bak")
+            Functions.shutil.copy(Functions.grub_default_grub, Functions.grub_default_grub + ".bak")
 
         #make backup of .config/xfce4/terminal/terminalrc
         if Functions.file_check(Functions.xfce4_terminal_config):
             if not os.path.isfile(Functions.xfce4_terminal_config + ".bak"):
-                Functions.shutil.copy(Functions.xfce4_terminal_config,
-                                    Functions.xfce4_terminal_config + ".bak")
+                Functions.shutil.copy(Functions.xfce4_terminal_config, Functions.xfce4_terminal_config + ".bak")
+                Functions.permissions(Functions.xfce4_terminal_config + ".bak")
 
         #make backup of .config/alacritty/alacritty.yml
         if Functions.file_check(Functions.alacritty_config):
             if not os.path.isfile(Functions.alacritty_config + ".bak"):
-                Functions.shutil.copy(Functions.alacritty_config,
-                                    Functions.alacritty_config + ".bak")
+                Functions.shutil.copy(Functions.alacritty_config, Functions.alacritty_config + ".bak")
+                Functions.permissions(Functions.alacritty_config + ".bak")
 
         #make directory if it doesn't exist
         if not os.path.isdir(Functions.log_dir):
