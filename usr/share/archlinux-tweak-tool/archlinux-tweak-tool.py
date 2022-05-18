@@ -2111,6 +2111,13 @@ class Main(Gtk.Window):
 
         # desktopr.install_desktop(self, self.d_combo.get_active_text())
 
+    #TO ASK
+    # def on_arco_repo_clicked(self, active):
+
+    #     self.on_pacman_arepo_toggle(self)
+    #     self.on_pacman_a3p_toggle(self)
+    #     self.on_pacman_axl_toggle(self)
+
     def on_default_clicked(self, widget):
         Functions.create_log(self)
         if desktopr.check_desktop(self.d_combo.get_active_text()) is True:
