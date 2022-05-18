@@ -126,12 +126,12 @@ class Main(Gtk.Window):
             except Exception as e:
                 print(e)
 
-        # if os.path.exists("/usr/bin/sddm"):
-        #     if not os.path.isdir(Functions.sddm_default_d2_dir):
-        #         try:
-        #             os.mkdir(Functions.sddm_default_d2_dir)
-        #         except Exception as e:
-        #             print(e)
+        if os.path.exists("/usr/bin/sddm"):
+            if not os.path.isdir(Functions.sddm_default_d2_dir):
+                try:
+                    os.mkdir(Functions.sddm_default_d2_dir)
+                except Exception as e:
+                    print(e)
 
             # if not Functions.os.path.exists(Functions.sddm_conf):
             #     try:
@@ -151,11 +151,11 @@ class Main(Gtk.Window):
             #             print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
 
 
-            # if  os.path.getsize(Functions.sddm_conf) == 0:
-            #     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
-            #                           Functions.sddm_default_d1)
-            #     Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
-            #                           Functions.sddm_default_d2)
+            if  os.path.getsize(Functions.sddm_conf) == 0:
+                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_1,
+                                      Functions.sddm_default_d1)
+                Functions.shutil.copy(Functions.sddm_default_d_sddm_original_2,
+                                      Functions.sddm_default_d2)
 
         #adding lines to sddm
         if Functions.os.path.isfile(Functions.sddm_default_d2):
