@@ -131,13 +131,16 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack12.pack_start(warning2, False, False, 10)
 
     frame4 = Gtk.Frame(label="")
+    frame4.set_margin_top(10)
     frame4lbl = frame4.get_label_widget()
     frame4lbl.set_markup("<b>Other mirrorlists</b>")
 
     pace_label = Gtk.Label(xalign=0)
-    pace_label.set_markup("We use the <b>pace</b> application to set the mirrors of other repositories.\nYou save the settings in pace by clicking on preview and save.\nPace will change the orginal layout.")
+    pace_label.set_margin_top(0)
+    pace_label.set_markup("We use the <b>pace</b> application to set the mirrors of other repositories.\nYou save the settings in pace by clicking on preview and save. Pace will change the orginal layout.")
     launch_pace_btn = Gtk.Button(label="Install/launch pace")
     launch_pace_btn.connect("clicked", self.on_click_launch_pace)
+
     hboxStack15.pack_start(pace_label, False, False, 10)
     hboxStack15.pack_start(launch_pace_btn, False, False, 10)
 
