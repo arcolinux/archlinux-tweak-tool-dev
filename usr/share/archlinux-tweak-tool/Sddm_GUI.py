@@ -5,7 +5,10 @@
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, sddm, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
-    lbl1.set_text("Sddm Configuration")
+    lbl1.set_text("Sddm (inactive)")
+    if Functions.check_content("sddm", "/etc/systemd/system/display-manager.service"):
+        lbl1.set_text("Sddm (active)")
+    lbl1.set_name("title")
     lbl1.set_name("title")
     hbox4.pack_start(lbl1, False, False, 0)
 

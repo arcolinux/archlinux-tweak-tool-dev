@@ -4,6 +4,7 @@
 #      #= Authors: Brad Heffernan - Erik Dubois - Cameron Percival =
 #      #============================================================
 
+from matplotlib.widgets import Widget
 import Splash
 import gi
 import Functions
