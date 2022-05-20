@@ -478,9 +478,9 @@ class Main(Gtk.Window):
         tooltip.set_text(text)
         return True
 
-# =====================================================
-#               PACMAN FUNCTIONS
-# =====================================================
+    # =====================================================
+    #               PACMAN FUNCTIONS MIRROR
+    # =====================================================
 
     def on_mirror_seed_repo_toggle(self, widget, active):
         if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
@@ -544,117 +544,164 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_mirrorlist(self, widget.get_active(),
                                       "arco_mirror_github")
+
+    # =====================================================
+    #               PACMAN FUNCTIONS MIRROR
+    # =====================================================
+
     def on_pacman_atestrepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_testing]"):
             pmf.append_repo(self, Functions.atestrepo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_testing")
+                print("Repo has been toggle on or off")
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):
             pmf.append_repo(self, Functions.arepo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_base")
+                print("Repo has been toggle on or off")
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
             pmf.append_repo(self, Functions.a3drepo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_a3p")
+                print("Repo has been toggle on or off")
 
     def on_pacman_axl_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_xlarge]"):
             pmf.append_repo(self, Functions.axlrepo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_axl")
+                print("Repo has been toggle on or off")
 
     def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
             pmf.append_repo(self, Functions.chaotics_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "chaotics")
+                print("Repo has been toggle on or off")
 
     def on_endeavouros_toggle(self, widget, active):
         if not pmf.repo_exist("[endeavouros]"):
             pmf.append_repo(self, Functions.endeavouros_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "endeavouros")
+                print("Repo has been toggle on or off")
 
     def on_nemesis_toggle(self, widget, active):
         if not pmf.repo_exist("[nemesis_repo]"):
             pmf.append_repo(self, Functions.nemesis_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "nemesis")
+                print("Repo has been toggle on or off")
 
     def on_pacman_toggle1(self, widget, active):
         if not pmf.repo_exist("[testing]"):
             pmf.append_repo(self, Functions.arch_testing_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "testing")
+                print("Repo has been toggle on or off")
 
     def on_pacman_toggle2(self, widget, active):
         if not pmf.repo_exist("[core]"):
             pmf.append_repo(self, Functions.arch_core_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "core")
+                print("Repo has been toggle on or off")
 
     def on_pacman_toggle3(self, widget, active):
         if not pmf.repo_exist("[extra]"):
             pmf.append_repo(self, Functions.arch_extra_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "extra")
+                print("Repo has been toggle on or off")
 
     def on_pacman_toggle4(self, widget, active):
         if not pmf.repo_exist("[community-testing]"):
             pmf.append_repo(self, Functions.arch_community_testing_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "community-testing")
+                print("Repo has been toggle on or off")
 
     def on_pacman_toggle5(self, widget, active):
         if not pmf.repo_exist("[community]"):
             pmf.append_repo(self, Functions.arch_community_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "community")
+                print("Repo has been toggle on or off")
 
     def on_pacman_toggle6(self, widget, active):
         if not pmf.repo_exist("[multilib-testing]"):
             pmf.append_repo(self, Functions.arch_multilib_testing_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "multilib-testing")
+                print("Repo has been toggle on or off")
 
     def on_pacman_toggle7(self, widget, active):
         if not pmf.repo_exist("[multilib]"):
             pmf.append_repo(self, Functions.arch_multilib_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "multilib")
+                print("Repo has been toggle on or off")
 
     def button1_clicked(self, widget):
         self.text = self.textbox1.get_buffer()
