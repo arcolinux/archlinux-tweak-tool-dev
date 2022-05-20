@@ -167,7 +167,6 @@ def create_log(self):
 #               NOTIFICATIONS
 # =====================================================
 
-
 def show_in_app_notification(self, message):
     if self.timeout_id is not None:
         GLib.source_remove(self.timeout_id)
@@ -474,8 +473,8 @@ def set_hblock(self, toggle, state):
     timeout_id = None
     timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
 
-    if not os.path.isfile("/etc/hosts.bak.att"):
-            shutil.copy("/etc/hosts", "/etc/hosts.bak.att")
+    if not os.path.isfile("/etc/hosts.bak"):
+            shutil.copy("/etc/hosts", "/etc/hosts.bak")
 
     try:
 

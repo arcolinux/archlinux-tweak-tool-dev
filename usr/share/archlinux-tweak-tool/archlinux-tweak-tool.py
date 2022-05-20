@@ -140,6 +140,14 @@ class Main(Gtk.Window):
         # =====================================================
 
         #ensuring we have a backup of current neofetch
+        if os.path.isfile("/etc/hosts"):
+            try:
+                if not os.path.isfile("/etc/hosts" + ".bak"):
+                    Functions.shutil.copy("/etc/hosts", "/etc/hosts" + ".bak")
+            except Exception as e:
+                print(e)
+
+        #ensuring we have a backup of current neofetch
         if os.path.isfile(Functions.neofetch_config):
             try:
                 if not os.path.isfile(Functions.neofetch_config + ".bak"):
