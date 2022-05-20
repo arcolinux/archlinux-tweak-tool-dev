@@ -53,8 +53,6 @@ def GUI(self, Gtk, vboxStack3, Functions):
             self.hbswich.set_sensitive(False)
     else:
         self.hbswich.set_sensitive(True)
-    # if os.path.exists("/usr/bin/hblock") or os.path.exists("/usr/local/bin/hblock"):
-    #     self.hbswich.set_active(False)
 
     # if state:
     #     self.label7.set_text("Hblock active")

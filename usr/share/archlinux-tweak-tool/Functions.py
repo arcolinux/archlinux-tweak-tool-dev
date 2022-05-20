@@ -455,7 +455,7 @@ def check_sddm_value(list, value):
 def hblock_get_state(self):
     lines = int(subprocess.check_output('wc -l /etc/hosts',
                                         shell=True).strip().split()[0])
-    if os.path.exists("/usr/local/bin/hblock") and lines > 100:
+    if os.path.exists("/usr/bin/hblock") and lines > 100:
         return True
 
     self.firstrun = False
@@ -479,10 +479,10 @@ def set_hblock(self, toggle, state):
     try:
 
         install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
-        enable = "/usr/local/bin/hblock"
+        enable = "/usr/bin/hblock"
 
         if state:
-            if os.path.exists("/usr/local/bin/hblock"):
+            if os.path.exists("/usr/bin/hblock"):
                 GLib.idle_add(self.label7.set_text, "Database update...")
                 subprocess.call([enable],
                                 shell=False,
@@ -503,7 +503,7 @@ def set_hblock(self, toggle, state):
         else:
             GLib.idle_add(self.label7.set_text, "Remove update...")
             subprocess.run(["sh", "-c",
-                            "HBLOCK_SOURCES=\'\' /usr/local/bin/hblock"],
+                            "HBLOCK_SOURCES=\'\' /usr/bin/hblock"],
                            shell=False,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.STDOUT)
