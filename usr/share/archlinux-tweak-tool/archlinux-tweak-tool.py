@@ -624,6 +624,7 @@ class Main(Gtk.Window):
             with open(Functions.autostart + lbl + ".desktop", "w") as f:
                 f.writelines(lines)
                 f.close()
+            Functions.show_in_app_notification(self, "Item has been toggled on/off")
 
     # remove file from ~/.config/autostart
     def on_auto_remove_clicked(self, widget, data, listbox, lbl):
@@ -698,12 +699,16 @@ class Main(Gtk.Window):
             value = model.get_value(iter, 1)
             model.remove(iter)
             Functions.os.unlink(Functions.home + "/.config/autostart/" + value + ".desktop")  #  noqa
+            print("Item has been removed from autostart")
+            Functions.show_in_app_notification(self, "Item has been removed from autostart")
 
     def on_add_autostart(self, widget):
         if len(self.txtbox1.get_text()) > 1 and len(self.txtbox2.get_text()) > 1:  # noqa
             autostart.add_autostart(self, self.txtbox1.get_text(),
                                     self.txtbox2.get_text(),
                                     self.txtbox3.get_text())
+        print("Item has been added to autostart")
+        Functions.show_in_app_notification(self, "Item has been added to autostart")
 
     def on_exec_browse(self, widget):
 
@@ -1388,13 +1393,13 @@ class Main(Gtk.Window):
     def on_click_lightdm_slick(self, desktop):
         #self.on_click_att_lightdm_clicked(desktop)
         #self.on_click_lightdm_enable(desktop)
-        command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-install-activate-lightdm-slickgreeter'
+        command = '/usr/share/archlinux-tweak-tool/data/any/archlinux-lightdm-slickgreeter'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Lightdm slickgreeter has been installed and enabled - reboot")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed - Reboot now")
+        print("Lightdm slickgreeter has been installed and enabled (or removed and disabled) - reboot")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed or removed - Reboot now")
 
 #    #====================================================================
 #    #                       NEOFETCH CONFIG
