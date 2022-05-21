@@ -656,7 +656,6 @@ class Main(Gtk.Window):
             with open(Functions.autostart + lbl + ".desktop", "w") as f:
                 f.writelines(lines)
                 f.close()
-            Functions.show_in_app_notification(self, "Item has been toggled on/off")
 
     # remove file from ~/.config/autostart
     def on_auto_remove_clicked(self, widget, data, listbox, lbl):
