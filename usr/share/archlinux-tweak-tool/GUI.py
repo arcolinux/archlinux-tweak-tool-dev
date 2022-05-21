@@ -132,7 +132,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                FISH
     # ==========================================================
 
-    Fish_GUI.GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf)
+    Fish_GUI.GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf, Functions)
 
     # # ==========================================================
     # #               FIXES
@@ -325,7 +325,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
 
-    #stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
+    stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
 
     stack.add_titled(vboxStack19, "stack19", "Fixes")  # Fixes
 
@@ -347,7 +347,6 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack20, "stack20", "Terminal Fun") # lolcat and others
 
-    #if distro.id() == "arcolinux":
     stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
 
     stack.add_titled(vboxStack18, "stack18", "User")  # Sddm config
