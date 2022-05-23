@@ -22,7 +22,7 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf,Functions):
     # ==========================================================
 
     label01 = Gtk.Label()
-    if Functions.get_shell() == "fish":
+    if Functions.check_package_installed("fish"):
         label01.set_text("Install Fish (already installed)")
     else:
         label01.set_text("Install Fish")
@@ -38,7 +38,11 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf,Functions):
     # ==========================================================
 
     label02 = Gtk.Label()
-    label02.set_text("ArcoLinux fish incl. oh-my-fish, themes and plugins")
+    if Functions.check_package_installed("arcolinux-fish-git"):
+        label02.set_text("ArcoLinux fish incl. oh-my-fish, themes and plugins (already installed)")
+    else:
+        label02.set_text("ArcoLinux fish incl. oh-my-fish, themes and plugins")
+
     hbox02 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox02.pack_start(label02, False, False, 10)
 
@@ -77,8 +81,6 @@ if you installed the ArcoLinux Fish configuration")
     hbox20.pack_start(tozsh, False, False, 0)
     hbox20.pack_end(removefish, False, False, 0)
     hbox20.pack_end(termreset, False, False, 0)
-
-
 
     # ==========================================================
     #                     VBOXSTACK
