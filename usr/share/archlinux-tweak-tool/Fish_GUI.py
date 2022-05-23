@@ -25,7 +25,7 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf,Functions):
     if Functions.check_package_installed("fish"):
         label01.set_text("Install Fish (already installed)")
     else:
-        label01.set_text("Install Fish")
+        label01.set_text("Install Fish (not installed)")
     hbox01 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox01.pack_start(label01, False, False, 10)
 
