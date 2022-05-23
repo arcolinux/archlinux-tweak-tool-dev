@@ -41,7 +41,7 @@ def GUI(self, Gtk, vboxStack2, fish, base_dir, GdkPixbuf,Functions):
     if Functions.check_package_installed("arcolinux-fish-git"):
         label02.set_text("ArcoLinux fish incl. oh-my-fish, themes and plugins (already installed)")
     else:
-        label02.set_text("ArcoLinux fish incl. oh-my-fish, themes and plugins")
+        label02.set_text("ArcoLinux fish incl. oh-my-fish, themes and plugins (not installed)")
 
     hbox02 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox02.pack_start(label02, False, False, 10)

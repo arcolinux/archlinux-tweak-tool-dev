@@ -98,8 +98,6 @@ class Main(Gtk.Window):
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
         # =====================================================
 
-        Functions.check_package_installed("firefox")
-
         #make directory if it doesn't exist
         if not os.path.isdir(Functions.log_dir):
             try:

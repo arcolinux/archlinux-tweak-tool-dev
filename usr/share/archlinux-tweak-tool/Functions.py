@@ -287,7 +287,7 @@ def check_content(value, file):         # noqa
                 return False
     return False
 
-# check if value is true or false in file
+# check if package is installed or not
 def check_package_installed(package):         # noqa
     lines = str(subprocess.check_output('pacman -Qi ' + package, shell=True))
     value = "was not found"
