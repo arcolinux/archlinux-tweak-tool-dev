@@ -129,7 +129,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
         lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
         #If we can't find the current shell config or if we don't know what the current shell is; disable all buttons.
-        if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh":
+        if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh" or Functions.get_shell() == "fish":
             util_switches[i].set_sensitive(True)
             lolcat_switches[i].set_sensitive(True)
         else:
