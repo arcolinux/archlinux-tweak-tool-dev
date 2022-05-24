@@ -298,6 +298,24 @@ def check_package_installed(package):         # noqa
         #package is not installed
         return False
 
+# check if service is active
+def check_service(service):         # noqa
+    try:
+        command = "systemctl is-active " + service
+        output = subprocess.run(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        status = output.stdout.decode().strip()
+        if status =="active":
+            #print("Service is active")
+            return True
+        else:
+            #print("Service is inactive")
+            return False
+    except Exception as e:
+        return False
+
 # =====================================================
 #               END GLOBAL FUNCTIONS
 # =====================================================

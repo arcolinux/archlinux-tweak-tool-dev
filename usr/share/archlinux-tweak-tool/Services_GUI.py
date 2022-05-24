@@ -119,10 +119,22 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox10_label.set_markup("<b>For any Arch Linux based system</b>")
     hbox10.pack_start(hbox10_label, False, False, 10)
 
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11_label = Gtk.Label(xalign=0)
+    hbox11_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\nthe file manager on the client should automatically find the server- Beware of firewalls")
+    hbox11.pack_start(hbox11_label, False, False,10)
+
+    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox12_label = Gtk.Label(xalign=0)
+    hbox12_label.set_markup("<span foreground=\"red\" size=\"large\">We found a firewall on your system</span>")
+    hbox12.pack_start(hbox12_label, False, False,10)
 
     vboxStack1.pack_start(hbox2, False, False, 10)
     vboxStack1.pack_start(hbox3, False, False, 0)
     vboxStack1.pack_start(hbox4, False, False, 0)
+    vboxStack1.pack_end(hbox11, False, False, 10)
+    if Functions.check_service("firewalld"):
+        vboxStack1.pack_end(hbox12, False, False, 10)
 
     # ==================================================================
     #                       SAMBA TAB
