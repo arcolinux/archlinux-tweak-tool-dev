@@ -72,6 +72,7 @@ slimlock_conf = "/etc/slim.conf"
 termite_config = home + "/.config/termite/config"
 neofetch_config = home + "/.config/neofetch/config.conf"
 lightdm_conf = "/etc/lightdm/lightdm.conf"
+nsswitch_config ="/etc/nsswitch.conf"
 bd = ".att_backups"
 config = home + "/.config/archlinux-tweak-tool/settings.ini"
 config_dir = home + "/.config/archlinux-tweak-tool/"
@@ -303,6 +304,7 @@ def check_package_installed(package):         # noqa
 # =====================================================
 # =====================================================
 # =====================================================
+
 # =====================================================
 #               ALACRITTY
 # =====================================================
@@ -720,6 +722,19 @@ def close_in_app_notification(self):
     self.timeout_id = None
 
 # =====================================================
+#               NSSWITCH CONF COPY
+# =====================================================
+
+def copy_nsswitch(choice):
+    command ="cp /usr/share/archlinux-tweak-tool/data/" + choice + "/nsswitch.conf /etc/nsswitch.conf"
+    print(command)
+    subprocess.call(command.split(" "),
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)
+    print("/etc/nsswitch.conf has been overwritten - reboot")
+
+# =====================================================
 #               OBLOGOUT CONF
 # =====================================================
 # Get shortcuts index
@@ -833,6 +848,84 @@ def restart_program():
     os.unlink("/tmp/att.lock")
     python = sys.executable
     os.execl(python, python, *sys.argv)
+
+# =====================================================
+#               SERVICES - SAMBA
+# =====================================================
+
+def install_discovery(self):
+    install = 'pacman -S avahi nss-mdns gvfs-smb --needed --noconfirm'
+
+    if check_package_installed("avahi") and check_package_installed("nss-mdns") \
+            and check_package_installed("gvfs-smb"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Avahi, nss-mdns and gvfs-smb is now installed")
+
+    command = 'systemctl enable avahi-daemon.service -f --now'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    print("We enabled avahi-daemon.service")
+
+def remove_discovery(self):
+
+    command = 'systemctl stop avahi-daemon.service -f --now'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+    command = 'systemctl disable avahi-daemon.service -f --now'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    print("We disabled avahi-daemon.service")
+
+    command = 'systemctl stop avahi-daemon.socket -f'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+
+    command = 'systemctl disable avahi-daemon.socket -f'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    print("We disabled avahi-daemon.socket")
+
+    command = 'pacman -Rs avahi --noconfirm'
+    if check_package_installed("avahi"):
+        subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Avahi was removed")
+
+    command = 'pacman -Rs nss-mdns --noconfirm'
+    if check_package_installed("nss-mdns"):
+        subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("nss-mdns was removed")
+
+    command = 'pacman -Rs gvfs-smb --noconfirm'
+    if check_package_installed("gvfs-smb"):
+        subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("gvfs-smb was removed")
+    else:
+        pass
 
 # =====================================================
 #                       SHELL
