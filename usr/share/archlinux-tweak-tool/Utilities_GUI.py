@@ -95,7 +95,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     #Colorscripts is unique in this list, as it does NOT need a lolcat toggle, so handled seperately.
     self.colorscript = Gtk.Switch()
     self.colorscript.connect("notify::active", self.util_toggle, "colorscript random")
-    if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh":
+    if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh" or Functions.get_shell() == "fish" :
         self.colorscript.set_sensitive(True)
     else:
         self.colorscript.set_sensitive(False)
