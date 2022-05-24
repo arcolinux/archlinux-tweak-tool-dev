@@ -20,7 +20,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
     lbl4 = Gtk.Label(xalign=0)
     lbl5 = Gtk.Label(xalign=0)
 
-    if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh":
+    if Functions.get_shell() == "bash" or Functions.get_shell() == "zsh" or Functions.get_shell() == "fish":
         lbl2.set_text("  Once you have selected and deselected the utilities you want, please open a terminal to see how it looks.")
         lbl3.set_text("  We recommend using not more than two utilities at the same time, due to screen real estate.")
         lbl4.set_text("  For some of these packages you will need to add the ArcoLinux repositories.")
@@ -28,7 +28,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, Functions):
 
     else:
         lbl2.set_text("  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain your shells config file.")
-        lbl3.set_text("  Arcolinux Tweak Tool only supports BASH and ZSH currently. If you are using something else, you are unable to use these tools from ATT.")
+        lbl3.set_text("  Arcolinux Tweak Tool only supports BASH, ZSH and FISH currently. If you are using something else, you are unable to use these tools from ATT.")
 
     #Every util needs to have a util switch, and a lolcat switch.
     utils = [ "neofetch", "screenfetch", "alsi", "paleofetch", "fetch", "hfetch", "sfetch", "ufetch", "ufetch-arco", "pfetch", "sysinfo", "sysinfo-retro", "cpufetch"]
