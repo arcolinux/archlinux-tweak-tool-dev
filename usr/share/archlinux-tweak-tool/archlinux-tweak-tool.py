@@ -2186,10 +2186,12 @@ class Main(Gtk.Window):
         services.choose_nsswitch(self, widget)
 
     def on_click_install_samba(self,widget):
+        Functions.install_samba(self)
         print("work in progress")
         Functions.show_in_app_notification(self, "Work in progress")
 
     def on_click_uninstall_samba(self,widget):
+        Functions.uninstall_samba(self)
         print("work in progress")
         Functions.show_in_app_notification(self, "Work in progress")
 

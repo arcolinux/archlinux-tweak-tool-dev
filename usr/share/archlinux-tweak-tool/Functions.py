@@ -868,7 +868,7 @@ def restart_program():
     os.execl(python, python, *sys.argv)
 
 # =====================================================
-#               SERVICES - SAMBA
+#               SERVICES - AVAHI
 # =====================================================
 
 def install_discovery(self):
@@ -944,6 +944,72 @@ def remove_discovery(self):
         print("gvfs-smb was removed")
     else:
         pass
+
+# =====================================================
+#               SERVICES - SAMBA
+# =====================================================
+
+def install_samba(self):
+    install = 'pacman -S samba gvfs-smb --needed --noconfirm'
+
+    if check_package_installed("samba") and check_package_installed("gvfs-smb"):
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Samba and gvfs-smb are now installed")
+
+    #input login and password
+    #read -p "What is your login? It will be used to add this user to smb : " choice
+    #sudo smbpasswd -a $choice
+
+    command = 'systemctl enable smb.service -f --now'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    print("We enabled smb.service")
+
+    command = 'systemctl enable nmb.service -f --now'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    print("We enabled nmb.service")
+
+def uninstall_samba(self):
+
+    command = 'systemctl disable smb.service -f --now'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    print("We disabled smb.service")
+
+    command = 'systemctl disable nmb.service -f --now'
+    subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+    print("We disabled nmb.service")
+
+    command = 'pacman -Rs samba --noconfirm'
+    if check_package_installed("samba"):
+        subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Samba was removed if there were no dependencies")
+
+    command = 'pacman -Rs gvfs-smb --noconfirm'
+    if check_package_installed("nss-mdns"):
+        subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("gvfs-smb was removed")
 
 # =====================================================
 #                       SHELL

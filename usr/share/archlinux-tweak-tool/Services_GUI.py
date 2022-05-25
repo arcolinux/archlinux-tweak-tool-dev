@@ -77,68 +77,91 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox4.pack_end(button_uninstall_samba, False, False, 10)
     hbox4.pack_end(button_install_samba, False, False, 10)
 
-    hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox5_label = Gtk.Label(xalign=0)
-    hbox5_label.set_text("Get the original ArcoLinux /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
-    button_Apply_Mirrors = Gtk.Button(label="Reset sddm.conf")
-    button_Apply_Mirrors.connect ("clicked", self.on_click_fix_sddm_conf)
-    hbox5.pack_start(hbox5_label, False, False, 10)
-    hbox5.pack_end(button_Apply_Mirrors, False, False, 10)
+    # hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox5_label = Gtk.Label(xalign=0)
+    # hbox5_label.set_text("Get the original ArcoLinux /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf")
+    # button_Apply_Mirrors = Gtk.Button(label="Reset sddm.conf")
+    # button_Apply_Mirrors.connect ("clicked", self.on_click_fix_sddm_conf)
+    # hbox5.pack_start(hbox5_label, False, False, 10)
+    # hbox5.pack_end(button_Apply_Mirrors, False, False, 10)
 
-    hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox6_label = Gtk.Label(xalign=0)
-    hbox6_label.set_text("Get the original ArcoLinux /etc/pacman.conf")
-    button_Apply_Pacman_Conf = Gtk.Button(label="Reset pacman.conf")
-    button_Apply_Pacman_Conf.connect ("clicked", self.on_click_fix_pacman_conf)
-    hbox6.pack_start(hbox6_label, False, False, 10)
-    hbox6.pack_end(button_Apply_Pacman_Conf, False, False, 10)
+    # hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox6_label = Gtk.Label(xalign=0)
+    # hbox6_label.set_text("Get the original ArcoLinux /etc/pacman.conf")
+    # button_Apply_Pacman_Conf = Gtk.Button(label="Reset pacman.conf")
+    # button_Apply_Pacman_Conf.connect ("clicked", self.on_click_fix_pacman_conf)
+    # hbox6.pack_start(hbox6_label, False, False, 10)
+    # hbox6.pack_end(button_Apply_Pacman_Conf, False, False, 10)
 
-    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox7_label = Gtk.Label(xalign=0)
-    hbox7_label.set_text("Get the best keyservers for /etc/pacman.d/gnupg/gpg.conf")
-    button_Apply_Pacman_Gpg_Conf = Gtk.Button(label="Backup and reset gpg.conf")
-    button_Apply_Pacman_Gpg_Conf.connect ("clicked", self.on_click_fix_pacman_gpg_conf)
-    hbox7.pack_start(hbox7_label, False, False, 10)
-    hbox7.pack_end(button_Apply_Pacman_Gpg_Conf, False, False, 10)
+    # hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox7_label = Gtk.Label(xalign=0)
+    # hbox7_label.set_text("Get the best keyservers for /etc/pacman.d/gnupg/gpg.conf")
+    # button_Apply_Pacman_Gpg_Conf = Gtk.Button(label="Backup and reset gpg.conf")
+    # button_Apply_Pacman_Gpg_Conf.connect ("clicked", self.on_click_fix_pacman_gpg_conf)
+    # hbox7.pack_start(hbox7_label, False, False, 10)
+    # hbox7.pack_end(button_Apply_Pacman_Gpg_Conf, False, False, 10)
 
-    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox8_label = Gtk.Label(xalign=0)
-    hbox8_label.set_text("Get the best keyservers for ~/.gnupg/gpg.conf")
-    button_Apply_Pacman_Gpg_Conf_Local = Gtk.Button(label="Backup and reset gpg.conf")
-    button_Apply_Pacman_Gpg_Conf_Local.connect ("clicked", self.on_click_fix_pacman_gpg_conf_local)
-    hbox8.pack_start(hbox8_label, False, False, 10)
-    hbox8.pack_end(button_Apply_Pacman_Gpg_Conf_Local, False, False, 10)
+    # hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox8_label = Gtk.Label(xalign=0)
+    # hbox8_label.set_text("Get the best keyservers for ~/.gnupg/gpg.conf")
+    # button_Apply_Pacman_Gpg_Conf_Local = Gtk.Button(label="Backup and reset gpg.conf")
+    # button_Apply_Pacman_Gpg_Conf_Local.connect ("clicked", self.on_click_fix_pacman_gpg_conf_local)
+    # hbox8.pack_start(hbox8_label, False, False, 10)
+    # hbox8.pack_end(button_Apply_Pacman_Gpg_Conf_Local, False, False, 10)
 
-    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox9_label = Gtk.Label(xalign=0)
-    hbox9_label.set_markup("<b>Distro specific:  </b>" + Functions.change_distro_label(distro.id()))
-    hbox9.pack_start(hbox9_label, False, False, 10)
+    # hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox9_label = Gtk.Label(xalign=0)
+    # hbox9_label.set_markup("<b>Distro specific:  </b>" + Functions.change_distro_label(distro.id()))
+    # hbox9.pack_start(hbox9_label, False, False, 10)
 
-    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox10_label = Gtk.Label(xalign=0)
-    hbox10_label.set_markup("<b>For any Arch Linux based system</b>")
-    hbox10.pack_start(hbox10_label, False, False, 10)
+    # hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox10_label = Gtk.Label(xalign=0)
+    # hbox10_label.set_markup("<b>For any Arch Linux based system</b>")
+    # hbox10.pack_start(hbox10_label, False, False, 10)
 
-    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox11_label = Gtk.Label(xalign=0)
-    hbox11_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\nthe file manager on the client should automatically find the server- Beware of firewalls")
-    hbox11.pack_start(hbox11_label, False, False,10)
+    hbox91 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox91_label = Gtk.Label(xalign=0)
+    hbox91_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\nthe file manager on the client should automatically find the server- Beware of firewalls")
+    hbox91.pack_start(hbox91_label, False, False,10)
 
-    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox12_label = Gtk.Label(xalign=0)
-    hbox12_label.set_markup("<span foreground=\"red\" size=\"large\">We found a firewall on your system</span>")
-    hbox12.pack_start(hbox12_label, False, False,10)
+    hbox92 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox92_label = Gtk.Label(xalign=0)
+    hbox92_label.set_markup("<span foreground=\"red\" size=\"large\">We found a firewall on your system</span>")
+    hbox92.pack_start(hbox92_label, False, False,10)
+
+    hbox93 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox93_label = Gtk.Label(xalign=0)
+
+    status1 = Functions.check_service("smb")
+    if status1 == True:
+        status1 = "active"
+    else:
+        status1 = "inactive"
+
+    status2 = Functions.check_service("nmb")
+    if status2 == True:
+        status2 = "active"
+    else:
+        status2 = "inactive"
+
+    status3 = Functions.check_service("avahi-daemon")
+    if status3 == True:
+        status3 = "active"
+    else:
+        status3 = "inactive"
+
+    hbox93_label.set_text("Samba : " + status1 + "   Nmb : " + status2 + "   Avahi : " + status3)
+    hbox93.pack_start(hbox93_label, False, False,10)
 
     vboxStack1.pack_start(hbox2, False, False, 10)
     vboxStack1.pack_start(hbox3, False, False, 0)
     vboxStack1.pack_start(hbox4, False, False, 0)
-    vboxStack1.pack_end(hbox11, False, False, 10)
+    vboxStack1.pack_end(hbox91, False, False, 10)
+    vboxStack1.pack_end(hbox93, False, False, 10)
     if Functions.check_service("firewalld"):
-        vboxStack1.pack_end(hbox12, False, False, 10)
+        vboxStack1.pack_end(hbox92, False, False, 10)
 
-    # ==================================================================
-    #                       SAMBA TAB
-    # ==================================================================
+
 
     # ==================================================================
     #                       PRINTING TAB
