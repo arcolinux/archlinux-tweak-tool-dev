@@ -1700,6 +1700,10 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_testing")
+    def on_arcolinux_clicked(self, widget):
+        Functions.install_arcolinux(self)
+        print("ArcoLinux keyring and mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux keyring and mirrors added")
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):

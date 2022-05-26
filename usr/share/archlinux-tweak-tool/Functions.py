@@ -845,6 +845,35 @@ def install_endeavouros(self):
     except Exception as e:
         print(e)
 
+def install_arcolinux(self):
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+    name1 = "arcolinux-1-5-any.pkg.tar.zst"
+    try:
+        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --needed --noconfirm'
+        print(base_dir)
+        print(install)
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("EndeavourOS keyring is now installed")
+    except Exception as e:
+        print(e)
+
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+    name1 = "endeavouros-mirrorlist-4.4.3-1-any.pkg.tar.zst"
+    try:
+        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --needed --noconfirm'
+        print(base_dir)
+        print(install)
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("EndeavourOS mirrorlist is now installed")
+    except Exception as e:
+        print(e)
+
 # =====================================================
 #               PERMISSIONS
 # =====================================================

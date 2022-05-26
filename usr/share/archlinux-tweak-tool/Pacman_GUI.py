@@ -64,6 +64,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label1 = Gtk.Label(xalign=0)
     label1.set_markup("# Enable ArcoLinux testing repo")
 
+    self.arcolinux_button = Gtk.Button(label="Install keys and mirrors")
+    self.arcolinux_button.connect("clicked", self.on_arcolinux_clicked)
+
     self.arepo_button = Gtk.Switch()
     self.arepo_button.connect("notify::active", self.on_pacman_arepo_toggle)
     label5 = Gtk.Label(xalign=0)
@@ -177,6 +180,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     hboxStack18.pack_start(label1, False, True, 10)
     hboxStack18.pack_end(self.atestrepo_button, False, False, 10)
+    if not Functions.check_package_installed("arcolinux-keyring"):
+        hboxStack7.pack_start(self.arcolinux_button, False, True, 10)
     hboxStack7.pack_start(label5, False, True, 10)
     hboxStack7.pack_end(self.arepo_button, False, False, 10)
     hboxStack8.pack_start(label6, False, True, 10)
