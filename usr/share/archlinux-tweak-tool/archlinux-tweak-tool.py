@@ -421,11 +421,11 @@ class Main(Gtk.Window):
 
         #========================OTHER REPO SET TOGGLE==================
 
-        self.chaotics_button.set_active(chaotics_repo)
+        self.chaotics_switch.set_active(chaotics_repo)
         self.opened = False
-        self.endeavouros_button.set_active(endeavouros_repo)
+        self.endeavouros_switch.set_active(endeavouros_repo)
         self.opened = False
-        self.nemesis_button.set_active(nemesis_repo)
+        self.nemesis_switch.set_active(nemesis_repo)
         self.opened = False
 
         #========================NEOFETCH LOLCAT TOGGLE===================
@@ -1730,6 +1730,16 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_axl")
+    def on_chaotics_clicked(self, widget, active):
+        if not pmf.repo_exist("[chaotic-aur]"):
+            pmf.append_repo(self, Functions.chaotics_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "chaotics")
+
 
     def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
@@ -1740,6 +1750,16 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "chaotics")
+
+    def on_endeavouros_clicked(self, widget, active):
+        if not pmf.repo_exist("[endeavouros]"):
+            pmf.append_repo(self, Functions.endeavouros_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Repo has been added to /etc/pacman.conf")
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(),
+                                      "endeavouros")
 
     def on_endeavouros_toggle(self, widget, active):
         if not pmf.repo_exist("[endeavouros]"):

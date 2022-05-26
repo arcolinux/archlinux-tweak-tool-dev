@@ -19,6 +19,12 @@ git pull
 
 workdir=$(pwd)
 
+echo "Keyring and mirror from Garuda"
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-keyring* /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/
+
+echo "Keyring and mirror from Garuda"
+cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/endeavouros-keyring* /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/eos/packages/
+
 echo "alacritty.yml from ArcoLinux"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-alacritty/master/etc/skel/.config/alacritty/alacritty.yml -O $workdir/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml
 
