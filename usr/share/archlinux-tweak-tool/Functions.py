@@ -784,14 +784,14 @@ def install_pace(self):
         print("Pace is now installed")
 
 # =====================================================
-#               PACMAN INSTALLATION
+#               PACMAN EXTRA KEYS AND MIRRORS
 # =====================================================
 
 def install_chaotics(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
     name1 = "chaotic-keyring-20220514-1-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --needed --noconfirm'
+        install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --noconfirm'
         print(base_dir)
         print(install)
         subprocess.call(install.split(" "),
@@ -805,7 +805,7 @@ def install_chaotics(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
     name1 = "chaotic-mirrorlist-20220504-2-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --needed --noconfirm'
+        install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --noconfirm'
         print(base_dir)
         print(install)
         subprocess.call(install.split(" "),
@@ -820,7 +820,7 @@ def install_endeavouros(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
     name1 = "endeavouros-keyring-1-5-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --needed --noconfirm'
+        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
         print(base_dir)
         print(install)
         subprocess.call(install.split(" "),
@@ -834,7 +834,7 @@ def install_endeavouros(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
     name1 = "endeavouros-mirrorlist-4.4.3-1-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --needed --noconfirm'
+        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
         print(base_dir)
         print(install)
         subprocess.call(install.split(" "),
@@ -847,30 +847,30 @@ def install_endeavouros(self):
 
 def install_arcolinux(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
-    name1 = "arcolinux-1-5-any.pkg.tar.zst"
+    name1 = "arcolinux-keyring-20230919-6-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --needed --noconfirm'
+        install = 'pacman -U ' + base_dir + '/data/arco/packages/' + name1 + ' --noconfirm'
         print(base_dir)
         print(install)
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
-        print("EndeavourOS keyring is now installed")
+        print("ArcoLinux keyring is now installed")
     except Exception as e:
         print(e)
 
     base_dir = os.path.dirname(os.path.realpath(__file__))
-    name1 = "endeavouros-mirrorlist-4.4.3-1-any.pkg.tar.zst"
+    name1 = "arcolinux-mirrorlist-git-22.04-01-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --needed --noconfirm'
+        install = 'pacman -U ' + base_dir + '/data/arco/packages/' + name1 + ' --noconfirm'
         print(base_dir)
         print(install)
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
-        print("EndeavourOS mirrorlist is now installed")
+        print("ArcoLinux mirrorlist is now installed")
     except Exception as e:
         print(e)
 
