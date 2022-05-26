@@ -785,6 +785,37 @@ def install_pace(self):
         print("Pace is now installed")
 
 # =====================================================
+#               PACMAN INSTALLATION
+# =====================================================
+
+def install_chaotics(self):
+    path = os.path.join(self.base_dir, '/data/garuda/packages/')
+    install = 'pacman -U ' + path + 'chaotic-keyring-20220514-1-any.pkg.tar.zst --needed --noconfirm'
+    if os.path.exists(os.path.join(self.base_dir, \
+        '/data/garuda/packages/chaotic-keyring-20220514-1-any.pkg.tar.zst')):
+        try:
+            subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+            print("Chaotics keyring and mirror is now installed")
+        except Exception as e:
+            print(e)
+
+def install_endeavouros(self):
+    install = 'pacman -S alacritty --needed --noconfirm'
+
+    if os.path.exists("/usr/bin/alacritty"):
+        #print("Alacritty is already installed")
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Alacritty is now installed")
+
+# =====================================================
 #               PERMISSIONS
 # =====================================================
 
