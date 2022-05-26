@@ -1736,8 +1736,8 @@ class Main(Gtk.Window):
                                       "arco_axl")
     def on_chaotics_clicked(self, widget):
         Functions.install_chaotics(self)
-        print("Garuda keyring and mirrors added")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Garuda keyring and mirrors added")
+        print("Chaotics keyring and mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Chaotics keyring and mirrors added")
 
 
     def on_chaotics_toggle(self, widget, active):
