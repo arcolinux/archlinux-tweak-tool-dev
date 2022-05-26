@@ -458,7 +458,6 @@ def install_arcolinux_fish(self):
 
 def get_desktop(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
-
     desktop = subprocess.run(["sh", base_dir + "/get_desktop.sh", "-n"],
                              shell=False,
                              stdout=subprocess.PIPE,
@@ -789,18 +788,19 @@ def install_pace(self):
 # =====================================================
 
 def install_chaotics(self):
-    path = os.path.join(self.base_dir, '/data/garuda/packages/')
-    install = 'pacman -U ' + path + 'chaotic-keyring-20220514-1-any.pkg.tar.zst --needed --noconfirm'
-    if os.path.exists(os.path.join(self.base_dir, \
-        '/data/garuda/packages/chaotic-keyring-20220514-1-any.pkg.tar.zst')):
-        try:
-            subprocess.call(install.split(" "),
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+    name1 = "chaotic-keyring-20220514-1-any.pkg.tar.zst"
+    try:
+        install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --needed --noconfirm'
+        print(base_dir)
+        print(install)
+        subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
-            print("Chaotics keyring and mirror is now installed")
-        except Exception as e:
-            print(e)
+        print("Chaotics keyring and mirror is now installed")
+    except Exception as e:
+        print(e)
 
 def install_endeavouros(self):
     install = 'pacman -S alacritty --needed --noconfirm'

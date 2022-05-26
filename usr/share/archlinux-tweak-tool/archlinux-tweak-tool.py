@@ -1730,8 +1730,11 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_axl")
-    def on_chaotics_clicked(self, widget, active):
-        pmf.install_chaotics(self)
+    def on_chaotics_clicked(self, widget):
+        Functions.install_chaotics(self)
+        print("Garuda keyring and mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Garuda keyring and mirrors added")
+
 
     def on_chaotics_toggle(self, widget, active):
         if not pmf.repo_exist("[chaotic-aur]"):
@@ -1743,8 +1746,10 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "chaotics")
 
-    def on_endeavouros_clicked(self, widget, active):
-        pmf.install_endeavouros(self)
+    def on_endeavouros_clicked(self, widget):
+        Functions.install_endeavouros(self)
+        print("EndeavourOS keyring and mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "EndeavourOS keyring and mirrors added")
 
     def on_endeavouros_toggle(self, widget, active):
         if not pmf.repo_exist("[endeavouros]"):
