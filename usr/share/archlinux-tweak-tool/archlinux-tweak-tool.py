@@ -144,7 +144,7 @@ class Main(Gtk.Window):
         # =====================================================
 
         # ensuring we have a backup of the nsswitch.conf
-        if os.path.exists("/etc/nsswitch.conf")
+        if os.path.exists("/etc/nsswitch.conf"):
             if not os.path.isfile("/etc/nsswitch.conf" + ".bak"):
                 try:
                     Functions.shutil.copy("/etc/nsswitch.conf", "/etc/nsswitch.conf" + ".bak")
