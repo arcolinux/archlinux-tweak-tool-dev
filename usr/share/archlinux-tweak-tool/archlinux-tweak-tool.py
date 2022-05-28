@@ -2221,10 +2221,16 @@ class Main(Gtk.Window):
     #                       SERVICES - SAMBA
     #====================================================================
 
+    def on_click_create_samba_user(self,widget):
+        services.create_samba_user(self,widget)
+
+    def on_click_delete_samba_user(self,widget):
+        services.delete_samba_user(self,widget)
+
     def on_click_apply_samba(self,widget):
-        services.choose_smb_conf(self)
-        print("work in progress")
-        Functions.show_in_app_notification(self, "Work in progress")
+        services.choose_smb_conf(self,widget)
+        print("Applying selected samba configuration")
+        Functions.show_in_app_notification(self, "Applying selected samba configuration")
 
     def on_click_reset_samba(self,widget):
         if os.path.isfile(Functions.samba_config + ".bak"):
@@ -2233,6 +2239,7 @@ class Main(Gtk.Window):
             Functions.show_in_app_notification(self, "Original smb.conf is applied")
         if not os.path.isfile(Functions.samba_config + ".bak"):
             print("We have no original /etc/samba/smb.conf.bak file - we can not reset")
+            print("Instead choose one from the dropdown")
             Functions.show_in_app_notification(self, "No backup configuration present")
 
     def on_click_install_samba(self,widget):

@@ -1055,10 +1055,6 @@ def install_samba(self):
                         stderr=subprocess.STDOUT)
         print("Samba and gvfs-smb are now installed")
 
-    #input login and password
-    #read -p "What is your login? It will be used to add this user to smb : " choice
-    #sudo smbpasswd -a $choice
-
     command = 'systemctl enable smb.service -f --now'
     subprocess.call(command.split(" "),
                         shell=False,
@@ -1104,6 +1100,19 @@ def uninstall_samba(self):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
         print("gvfs-smb was removed")
+
+# =====================================================
+#               SAMBA CONF COPY
+# =====================================================
+
+def copy_samba(choice):
+    command ="cp /usr/share/archlinux-tweak-tool/data/any/samba/" + choice + "/smb.conf /etc/samba/smb.conf"
+    print(command)
+    subprocess.call(command.split(" "),
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT)
+    print("/etc/samba/smb.conf has been overwritten - reboot")
 
 # =====================================================
 #                       SHELL
