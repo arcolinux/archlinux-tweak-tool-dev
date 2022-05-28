@@ -56,7 +56,7 @@ def GUI(self, Gtk, vboxStack14, Functions):
     for option in options:
         self.nsswitch_choices.append_text(option)
     self.nsswitch_choices.set_active(0)
-    button_apply_nsswitch = Gtk.Button(label="Apply selected nsswitch")
+    button_apply_nsswitch = Gtk.Button(label="Apply selected nsswitch.conf")
     button_apply_nsswitch.connect ("clicked", self.on_click_apply_nsswitch)
     button_reset_nsswitch = Gtk.Button(label="Reset to default nsswitch")
     button_reset_nsswitch.connect ("clicked", self.on_click_reset_nsswitch)
@@ -69,11 +69,23 @@ def GUI(self, Gtk, vboxStack14, Functions):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4_label = Gtk.Label(xalign=0)
     hbox4_label.set_text("Install the samba server - sharing with other computers")
+    self.samba_choices = Gtk.ComboBoxText()
+    options_samba = ['ArcoLinux', 'Original', 'Default', 'Windows']
+    for option in options_samba:
+        self.samba_choices.append_text(option)
+    self.samba_choices.set_active(0)
+    button_apply_samba = Gtk.Button(label="Apply selected samba.conf")
+    button_apply_samba.connect ("clicked", self.on_click_apply_samba)
+    button_reset_samba = Gtk.Button(label="Reset to default samba.conf")
+    button_reset_samba.connect ("clicked", self.on_click_reset_samba)
     button_uninstall_samba = Gtk.Button(label="Uninstall Samba")
     button_uninstall_samba.connect ("clicked", self.on_click_uninstall_samba)
     button_install_samba = Gtk.Button(label="Install Samba")
     button_install_samba.connect ("clicked", self.on_click_install_samba)
     hbox4.pack_start(hbox4_label, False, False, 10)
+    hbox4.pack_start(self.samba_choices, True, False,10)
+    hbox4.pack_start(button_apply_samba, True, False, 10)
+    hbox4.pack_end(button_reset_samba, False, False, 10)
     hbox4.pack_end(button_uninstall_samba, False, False, 10)
     hbox4.pack_end(button_install_samba, False, False, 10)
 

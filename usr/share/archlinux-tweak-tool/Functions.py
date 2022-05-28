@@ -34,6 +34,8 @@ gpg_conf_local_original = "/usr/share/archlinux-tweak-tool/data/any/gpg.conf"
 sddm_default = "/etc/sddm.conf"
 sddm_default_original = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
 
+samba_config = "/etc/samba/smb.conf"
+
 sddm_default_d1 = "/etc/sddm.conf"
 sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
 sddm_default_d2_dir = "/etc/sddm.conf.d/"

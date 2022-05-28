@@ -19,6 +19,10 @@ git pull
 
 workdir=$(pwd)
 
+echo "Get the original samba file from samba github"
+wget https://gitlab.com/samba-team/samba/-/raw/master/examples/smb.conf.default -O $workdir/usr/share/archlinux-tweak-tool/data/any/samba/original/smb.conf
+
+
 echo "Keyring and mirror from ArcoLinux"
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring* /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/
 
