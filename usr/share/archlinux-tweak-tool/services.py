@@ -100,9 +100,15 @@ def delete_user(self,widget):
     else:
         print("Something went wrong")
 
-
 def restart_smb(self,widget):
-    restart ='systemctl restart smb'
-    Functions.os.system(restart)
-    print("Restarting smb service...")
-    GLib.idle_add(Functions.show_in_app_notification, self, "Restarting smb service...")
+
+    if Functions.check_service("smb"):
+        restart ='systemctl restart smb'
+        Functions.os.system(restart)
+        print("Restarting smb service...")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Restarting smb service...")
+    else:
+        print("Did you install samba - check for errors")
+        print("Type in a terminal")
+        print("   sudo systemctl status smb")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Did you install samba - check for errors")

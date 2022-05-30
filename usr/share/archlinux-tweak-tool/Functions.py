@@ -1067,7 +1067,7 @@ def remove_discovery(self):
 def install_samba(self):
     install = 'pacman -S samba gvfs-smb --needed --noconfirm'
 
-    if not os.path("/var/cache/samba"):
+    if not os.path.isdir("/var/cache/samba"):
                 os.makedirs("/var/cache/samba", 0o755)
 
     if check_package_installed("samba") and check_package_installed("gvfs-smb"):
