@@ -1200,7 +1200,7 @@ def copy_samba(choice):
 
         #add user to group
         try:
-            command ="gpasswd -a" + sudo_username + "sambashare"
+            command ="gpasswd -a " + sudo_username + " sambashare"
             subprocess.call(command.split(" "),
                             shell=False,
                             stdout=subprocess.PIPE,
