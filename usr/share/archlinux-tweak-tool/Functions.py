@@ -1177,9 +1177,11 @@ def copy_samba(choice):
             print(e)
 
     if choice == "usershares":
+        #make folder
         if not os.path.isdir("/var/lib/samba/usershares"):
             os.makedirs("/var/lib/samba/usershares", 0o770)
 
+        #create system sambashare group
         try:
             if check_group("sambashare"):
                 pass
@@ -1193,6 +1195,16 @@ def copy_samba(choice):
                 except Exception as e:
                     print(e)
 
+        except Exception as e:
+            print(e)
+
+        #add user to group
+        try:
+            command ="gpasswd -a" + sudo_username + "sambashare"
+            subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
         except Exception as e:
             print(e)
 
