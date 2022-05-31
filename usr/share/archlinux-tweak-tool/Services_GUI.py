@@ -117,13 +117,13 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
 
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox16_label = Gtk.Label(xalign=0)
-    hbox16_label.set_text("You can now reboot and enjoy the 'SAMBASHARE' if you choose 'easy' ")
+    hbox16_label.set_markup("You can now reboot and enjoy the <b>'Shared'</b> folder if you choose '<b>easy</b>' ")
     hbox16.pack_start(hbox16_label, False, False, 10)
 
     hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox18_label = Gtk.Label(xalign=0)
-    hbox18_label.set_text("If you choose 'usershares' then install also thunar and its plugin and \
-rightmouse click to share any folder in your home directory ")
+    hbox18_label.set_markup("If you choose '<b>usershares</b>' then install also thunar and its plugin and \
+right-click to share any folder in your home directory ")
     hbox18.pack_start(hbox18_label, False, False, 10)
 
     # ==================================================================
@@ -328,9 +328,9 @@ All computers in your network must have a unique name /etc/hostname")
     # ==================================================================
     stack.add_titled(vboxStack1, "stack1", "Network")
     stack.add_titled(vboxStack2, "stack2", "Samba Easy")
-    stack.add_titled(vboxStack3, "stack3", "Samba Advanced")
-    stack.add_titled(vboxStack4, "stack4", "Printing")
-    stack.add_titled(vboxStack5, "stack5", "Bluetooth")
+    #stack.add_titled(vboxStack3, "stack3", "Samba Advanced")
+    #stack.add_titled(vboxStack4, "stack4", "Printing")
+    #stack.add_titled(vboxStack5, "stack5", "Bluetooth")
     stack.add_titled(vboxStack6, "stack6", "Audio")
 
     vbox.pack_start(stack_switcher, False, False, 0)
