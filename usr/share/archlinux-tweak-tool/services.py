@@ -38,7 +38,7 @@ def choose_smb_conf(self,widget):
         Functions.copy_samba("example")
         GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf easy configuration applied")
     elif choice == "Usershares":
-        Functions.copy_samba("userhares")
+        Functions.copy_samba("usershares")
         GLib.idle_add(Functions.show_in_app_notification, self, "Smb.conf usershares configuration applied")
     elif choice == "Windows":
         Functions.copy_samba("windows")

@@ -1190,30 +1190,27 @@ def copy_samba(choice):
                                     shell=False,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.STDOUT)
-                    print("groupadd")
                 except Exception as e:
                     print(e)
 
-                try:
-                    command ="chown root:sambashare /var/lib/samba/usershares"
-                    subprocess.call(command.split(" "),
-                                    shell=False,
-                                    stdout=subprocess.PIPE,
-                                    stderr=subprocess.STDOUT)
-                    print("root:sambashare")
-                except Exception as e:
-                    print(e)
+        except Exception as e:
+            print(e)
 
-                # try:
-                #     command ="chmod 1770 /var/lib/samba/usershares"
-                #     subprocess.call(command.split(" "),
-                #                     shell=False,
-                #                     stdout=subprocess.PIPE,
-                #                     stderr=subprocess.STDOUT)
-                #     print("chmod")
-                # except Exception as e:
-                #     print(e)
+        try:
+            command ="chown root:sambashare /var/lib/samba/usershares"
+            subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+        except Exception as e:
+            print(e)
 
+        try:
+            command ="chmod 1770 /var/lib/samba/usershares"
+            subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
         except Exception as e:
             print(e)
 
@@ -1322,6 +1319,24 @@ def get_shell():
 
 def run_as_user(script):
     subprocess.call(["su - " + sudo_username + " -c " + script], shell=False)
+
+# =====================================================
+#               THUNAR SHARE PLUGIN
+# =====================================================
+
+def install_arco_thunar_plugin(self, widget):
+    install = 'pacman -S thunar arcolinux-thunar-shares-plugin --noconfirm'
+
+    if check_package_installed(" arcolinux-thunar-shares-plugin"):
+        print("Thunar and arcolinux-thunar-shares-plugin are already installed")
+        pass
+    else:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("Arcolinux-thunar-shares-plugin is now installed - reboot")
+        GLib.idle_add(self.label7.set_text, "Arcolinux-thunar-shares-plugin is now installed - reboot")
 
 # =====================================================
 #               UBLOCK ORIGIN
