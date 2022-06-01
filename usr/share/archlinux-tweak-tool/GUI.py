@@ -40,7 +40,7 @@ import Arcolinuxmirrors_GUI
 import Neofetch_GUI
 import Pacman_GUI
 import Termite_GUI
-import Template_GUI
+#import Template_GUI
 import Utilities_GUI
 #import Sddm_GUI
 import Services_GUI
@@ -316,7 +316,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
     #                        TEMPLATE
     # ==========================================================
 
-    Template_GUI.GUI(self, Gtk, vboxStack21, Functions)
+    #Template_GUI.GUI(self, Gtk, vboxStack21, Functions)
 
     # # ==========================================================
     # #               TERMINALS - TERMITE CONFIG
@@ -384,7 +384,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack23, "stack23", "Shells")  # shell
 
-    stack.add_titled(vboxStack21, "stack21", "Template")  # template
+    #stack.add_titled(vboxStack21, "stack21", "Template")  # template
 
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 

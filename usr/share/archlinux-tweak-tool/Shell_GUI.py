@@ -65,7 +65,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
 
         hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         hbox8_lbl = Gtk.Label()
-        hbox8_lbl.set_markup("Overwrite your ~/.bashrc with the ArcoLinux bashrc - backup is created - reset is possible")
+        hbox8_lbl.set_markup("Overwrite your ~/.bashrc with the ArcoLinux bashrc")
         self.arcolinux_bash = Gtk.Button("Install the ArcoLinux bashrc configuration")
         self.arcolinux_bash.connect("clicked", self.on_arcolinux_bash_clicked)
         self.bash_reset = Gtk.Button("Reset back to the original ~/.bashrc")
