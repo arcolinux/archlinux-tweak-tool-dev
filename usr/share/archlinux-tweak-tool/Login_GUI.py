@@ -272,7 +272,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         ls = Gtk.Label()
         ls.set_markup("<b>Lightdm does not seem to be installed</b>")
 
-        install_lightdm = Gtk.Button(label="Install Lightdm and enable it")
+        install_lightdm = Gtk.Button(label="Install Lightdm and enable it - autoreboot")
         install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked)
 
         vboxStack2.pack_start(ls, False, False, 0)
