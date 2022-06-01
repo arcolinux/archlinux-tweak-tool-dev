@@ -335,7 +335,8 @@ if you installed the ArcoLinux Fish configuration\n\n<b>If you just switched she
         hbox37.pack_start(hseparator, True, True, 0)
 
         ls = Gtk.Label()
-        ls.set_markup("<b>Fish does not seem to be installed</b>")
+        ls.set_markup("<b>Fish does not seem to be installed\
+                    Restart Att to see the information</b>")
 
         install_fish = Gtk.Button(label="Install Fish and enable it - autoreboot")
         install_fish.connect("clicked", Functions.install_fish)

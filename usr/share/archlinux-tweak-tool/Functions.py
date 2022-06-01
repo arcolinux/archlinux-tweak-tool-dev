@@ -1473,13 +1473,19 @@ def set_firefox_ublock(self, toggle, state):
 
 def install_zsh(self):
     install = 'pacman -S zsh zsh-completions zsh-syntax-highlighting --needed --noconfirm'
-
     try:
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
-        print("ATT has been restarted to see the tab ZSH")
-        restart_program()
+    except Exception as e:
+        print(e)
+
+    install = 'pacman -S zsh --needed --noconfirm'
+    try:
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
     except Exception as e:
         print(e)
