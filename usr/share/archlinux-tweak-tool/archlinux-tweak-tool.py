@@ -2134,7 +2134,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We installed all ArcoLinux sddm themes")
         GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
-        Functions.restart_program()
+        sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_remove_sddm_themes(self,widget):
         command = 'pacman -Rss arcolinux-meta-sddm-themes --noconfirm'
@@ -2153,6 +2153,8 @@ class Main(Gtk.Window):
                             stderr=Functions.subprocess.STDOUT)
             print("We installed the default ArcoLinux sddm theme again")
             GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm themes were removed except default")
+
+        sddm.pop_theme_box(self, self.theme_sddm)
 
     #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):
