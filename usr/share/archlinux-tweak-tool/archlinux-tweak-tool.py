@@ -824,6 +824,32 @@ class Main(Gtk.Window):
         print("Shell changed to bash for the user - logout")
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to bash for user - logout")
 
+    def on_install_bash_clicked(self, widget):
+        Functions.install_bash(self)
+        GLib.idle_add(Functions.show_in_app_notification, self, "Bash is installed without a configuration")
+        print("Bash is installed without a configuration")
+
+    def on_arcolinux_bash_clicked(self, widget):
+        try:
+            if os.path.isfile(Functions.bashrc_arco):
+                Functions.shutil.copy(Functions.bashrc_arco, Functions.bash_config)
+                Functions.permissions(Functions.home + "/.bashrc")
+        except Exception as e:
+            print(e)
+
+        print("ArcoLinux ~/.bashrc is applied - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux ~/.bashrc is applied - logout")
+
+    def on_bash_reset_clicked(self, widget):
+        try:
+            if os.path.isfile(Functions.bash_config + ".bak"):
+                Functions.shutil.copy(Functions.bash_config + ".bak", Functions.bash_config)
+                Functions.permissions(Functions.home + "/.bashrc")
+        except Exception as e:
+            print(e)
+
+        print("Your personal ~/.bashrc is applied again - logout")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Your personal ~/.bashrc is applied again - logout")
 
 #    #====================================================================
 #    #                       DESKTOPR
