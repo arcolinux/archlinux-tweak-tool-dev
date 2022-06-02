@@ -494,6 +494,8 @@ def change_distro_label(name):      # noqa
         name = "EndeavourOS"
     if name == "arch":
         name = "Arch Linux"
+    if name == "manjaro":
+        name = "Manjaro"
     return name
 
 # =====================================================
