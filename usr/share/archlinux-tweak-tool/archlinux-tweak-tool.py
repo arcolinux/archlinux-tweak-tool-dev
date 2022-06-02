@@ -1507,6 +1507,13 @@ class Main(Gtk.Window):
         print("Lightdm gtk-greeter-settings applied")
         Functions.show_in_app_notification(self, "Lightdm gtk-greeter-settings applied")
 
+    def on_click_reset_lightdm_greeter(self, widget):
+        if Functions.os.path.isfile(Functions.lightdm_greeter + ".bak"):
+            Functions.shutil.copy(Functions.lightdm_greeter + ".bak", Functions.lightdm_greeter)
+
+        print("Lightdm gtk-greeter-settings applied")
+        Functions.show_in_app_notification(self, "Lightdm gtk-greeter-settings applied")
+
     def on_click_lightdm_reset(self, widget):
         if Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
             Functions.shutil.copy(Functions.lightdm_conf + ".bak",

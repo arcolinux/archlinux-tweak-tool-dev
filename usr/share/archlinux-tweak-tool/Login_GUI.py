@@ -216,7 +216,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         btn_install_arco_lightdm_greeter = Gtk.Button(label="Set ATT config")
         btn_install_arco_lightdm_greeter.connect ("clicked", self.on_click_install_arco_lightdmgreeter)
         btn_reset_lightdm_greeter = Gtk.Button(label="Reset back to original config")
-        btn_reset_lightdm_greeter.connect ("clicked", self.on_click_lightdm_reset)
+        btn_reset_lightdm_greeter.connect ("clicked", self.on_click_reset_lightdm_greeter)
         hbox23.pack_start(hbox23_lbl, False, False, 10)
         hbox23.pack_end(btn_reset_lightdm_greeter, False, False, 10)
         hbox23.pack_end(btn_install_arco_lightdm_greeter, False, False, 10)
