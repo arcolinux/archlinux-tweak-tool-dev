@@ -692,9 +692,14 @@ class Main(Gtk.Window):
 
     # remove file from ~/.config/autostart
     def on_auto_remove_clicked(self, widget, data, listbox, lbl):
-        os.unlink(Functions.autostart + lbl + ".desktop")
-        print("Removed item from ~/.config/autostart/")
-        self.vvbox.remove(listbox)
+        try:
+            os.unlink(Functions.autostart + lbl + ".desktop")
+            print("Removed item from ~/.config/autostart/")
+            self.vvbox.remove(listbox)
+        except Exception as e:
+            print(e)
+            print("We were unable to remove it - remove it manually")
+            print("We only remove .desktop files")
 
     def clear_autostart(self):
         for x in self.vvbox.get_children():
