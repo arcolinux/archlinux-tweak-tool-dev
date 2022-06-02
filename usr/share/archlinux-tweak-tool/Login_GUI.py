@@ -249,7 +249,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         enable_slick.connect("clicked", self.on_click_lightdm_slick)
         apply = Gtk.Button(label="Apply settings")
         apply.connect("clicked", self.on_click_lightdm_apply)
-        reset = Gtk.Button(label="Reset")
+        reset = Gtk.Button(label="Reset lightdm.conf")
         reset.connect("clicked", self.on_click_lightdm_reset)
         hbox26.pack_end(apply, False, False, 0)
         hbox26.pack_end(reset, False, False, 0)
