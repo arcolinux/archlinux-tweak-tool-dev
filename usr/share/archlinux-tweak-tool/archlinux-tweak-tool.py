@@ -954,6 +954,13 @@ class Main(Gtk.Window):
 
 
     def on_arcolinux_only_fish_clicked(self, widget):
+        if not os.path.isdir(Functions.home + "/.config/fish/"):
+            try:
+                os.mkdir(Functions.home + "/.config/fish/")
+                Functions.permissions(Functions.home + "/.config/fish/")
+            except Exception as e:
+                print(e)
+
         if os.path.isfile(Functions.fish_arco):
             Functions.shutil.copy(Functions.fish_arco, Functions.home + "/.config/fish/config.fish")
             Functions.permissions(Functions.home + "/.config/fish/config.fish")
@@ -1152,7 +1159,7 @@ class Main(Gtk.Window):
         Functions.shutil.copy(Functions.gpg_conf_original,
                             Functions.gpg_conf)
         print("The new /etc/pacman.d/gnupg/gpg.conf has been saved")
-        print("We mainly add servers to the config")
+        print("We only add servers to the config")
         GLib.idle_add(Functions.show_in_app_notification, self, "The new /etc/pacman.d/gnupg/gpg.conf has been saved")
 
     def on_click_fix_pacman_gpg_conf_local(self,widget):
@@ -1175,7 +1182,7 @@ class Main(Gtk.Window):
                             Functions.gpg_conf_local)
         Functions.permissions(Functions.gpg_conf_local)
         print("The new ~/.gnupg/gpg.conf has been saved")
-        print("We mainly add servers to the config")
+        print("We only add servers to the config")
         GLib.idle_add(Functions.show_in_app_notification, self, "The new ~/.gnupg/gpg.conf has been saved")
 
     # =====================================================
