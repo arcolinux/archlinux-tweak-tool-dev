@@ -692,11 +692,15 @@ class Main(Gtk.Window):
         except:
             pass
         if not failed:
-            val = lines[pos].split("=")[1].strip()
-            lines[pos] = lines[pos].replace(val, str(not widget.get_active()).lower())
-            with open(Functions.autostart + lbl + ".desktop", "w") as f:
-                f.writelines(lines)
-                f.close()
+            try:
+                val = lines[pos].split("=")[1].strip()
+                lines[pos] = lines[pos].replace(val, str(not widget.get_active()).lower())
+                with open(Functions.autostart + lbl + ".desktop", "w") as f:
+                    f.writelines(lines)
+                    f.close()
+            except Exception as e:
+                #non .desktop files
+                pass
 
     # remove file from ~/.config/autostart
     def on_auto_remove_clicked(self, widget, data, listbox, lbl):
@@ -1058,21 +1062,28 @@ class Main(Gtk.Window):
 
     def on_click_fix_pacman_keys(self,widget):
         Functions.install_alacritty(self)
-        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys",
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Pacman has been reset (gpg, libraries,keys)")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")
+        try:
+            Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/fix-pacman-databases-and-keys",
+                            shell=True,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Pacman has been reset (gpg, libraries,keys)")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Pacman keys fixed")
+        except Exception as e:
+            print("Install Alacritty")
 
     def on_click_fix_mainstream(self,widget):
-        command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Mainstream servers have been set")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Mainstream servers have been saved")
+        Functions.install_alacritty(self)
+        try:
+            command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers'
+            Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Mainstream servers have been set")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Mainstream servers have been saved")
+        except Exception as e:
+            print("Install Alacritty")
 
     def on_click_reset_mirrorlist(self,widget):
         try:
@@ -1084,43 +1095,55 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Your original mirrorlist is back")
 
     def on_click_get_arch_mirrors(self,widget):
-        Functions.install_reflector(self)
-        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Fastest Arch Linux servers have been set using reflector")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved - reflector")
+        try:
+            Functions.install_reflector(self)
+            Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
+                            shell=True,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Fastest Arch Linux servers have been set using reflector")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved - reflector")
+        except Exception as e:
+            print("Install alacritty")
 
     def on_click_get_arch_mirrors2(self,widget):
-        Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Fastest Arch Linux servers have been set using rate-mirrors")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved - rate-mirrors")
+        try:
+            Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
+                            shell=True,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Fastest Arch Linux servers have been set using rate-mirrors")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Fastest Arch Linux servers saved - rate-mirrors")
+        except Exception as e:
+            print("Install alacritty")
 
 
     def on_click_fix_sddm_conf(self,widget):
-        command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
-        Functions.subprocess.call(command,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We use the default setup from plasma")
-        print("Two files:")
-        print(" - /etc/sddm.conf")
-        print(" - /etc/sddm.d.conf/kde_settings.conf")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original SDDM configuration")
+        try:
+            command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
+            Functions.subprocess.call(command,
+                            shell=True,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("We use the default setup from plasma")
+            print("Two files:")
+            print(" - /etc/sddm.conf")
+            print(" - /etc/sddm.d.conf/kde_settings.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original SDDM configuration")
+        except Exception as e:
+            print("Install alacritty")
 
     def on_click_fix_pacman_conf(self,widget):
-        command = 'alacritty --hold -e /usr/local/bin/arcolinux-fix-pacman-conf'
-        Functions.subprocess.call(command,
-                        shell=True,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("Saved the original /etc/pacman.conf")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.conf")
+        try:
+            command = 'alacritty --hold -e /usr/local/bin/arcolinux-fix-pacman-conf'
+            Functions.subprocess.call(command,
+                            shell=True,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Saved the original /etc/pacman.conf")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Saved the original /etc/pacman.conf")
+        except Exception as e:
+            print("Install alacritty")
 
     def on_click_fix_pacman_gpg_conf(self,widget):
         if not os.path.isfile(Functions.gpg_conf + ".bak"):
