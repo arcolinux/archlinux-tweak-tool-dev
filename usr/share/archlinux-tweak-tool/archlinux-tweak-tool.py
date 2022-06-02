@@ -1080,8 +1080,8 @@ class Main(Gtk.Window):
                 Functions.shutil.copy(Functions.mirrorlist + ".bak", Functions.mirrorlist)
         except Exception as e:
             print(e)
-        print("Your Arch Linux servers have been reset")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Your Arch Linux servers have been reset")
+        print("Your original mirrorlist is back")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Your original mirrorlist is back")
 
     def on_click_get_arch_mirrors(self,widget):
         Functions.install_reflector(self)
