@@ -1102,6 +1102,7 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Your original mirrorlist is back")
 
     def on_click_get_arch_mirrors(self,widget):
+        Functions.install_alacritty(self)
         try:
             Functions.install_reflector(self)
             Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-reflector",
@@ -1114,6 +1115,7 @@ class Main(Gtk.Window):
             print("Install alacritty")
 
     def on_click_get_arch_mirrors2(self,widget):
+        Functions.install_alacritty(self)
         try:
             Functions.subprocess.call("alacritty --hold -e /usr/share/archlinux-tweak-tool/data/any/archlinux-get-mirrors-rate-mirrors",
                             shell=True,
@@ -1126,6 +1128,7 @@ class Main(Gtk.Window):
 
 
     def on_click_fix_sddm_conf(self,widget):
+        Functions.install_alacritty(self)
         try:
             command = 'alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-fix-sddm-config'
             Functions.subprocess.call(command,
@@ -1496,6 +1499,13 @@ class Main(Gtk.Window):
             print("Lightdm settings saved successfully")
         else:
             Functions.show_in_app_notification(self, "Need to select desktop first")
+
+    def on_click_install_arco_lightdmgreeter(self, widget):
+        if Functions.os.path.isfile(Functions.lightdm_greeter_arco):
+            Functions.shutil.copy(Functions.lightdm_greeter_arco, Functions.lightdm_greeter)
+
+        print("Lightdm gtk-greeter-settings applied")
+        Functions.show_in_app_notification(self, "Lightdm gtk-greeter-settings applied")
 
     def on_click_lightdm_reset(self, widget):
         if Functions.os.path.isfile(Functions.lightdm_conf + ".bak"):
