@@ -115,17 +115,35 @@ class Main(Gtk.Window):
             except Exception as e:
                 print(e)
 
-        # if not Functions.os.path.isdir("/root/.config/gtk-4.0"):
-        #     try:
-        #         Functions.os.makedirs("/root/.config/gtk-4.0", 0o766)
-        #     except Exception as e:
-        #         print(e)
+        if not Functions.os.path.isdir("/root/.config/gtk-4.0"):
+            try:
+                Functions.os.makedirs("/root/.config/gtk-4.0", 0o766)
+            except Exception as e:
+                print(e)
+
+        if not Functions.os.path.isdir("/root/.config/xsettingsd"):
+            try:
+                Functions.os.makedirs("/root/.config/xsettingsd", 0o766)
+            except Exception as e:
+                print(e)
 
         if os.path.isfile("/root/.config/gtk-3.0/settings.ini"):
             Functions.shutil.copy("/root/.config/gtk-3.0/settings.ini",
                                 "/root/.config/gtk-3.0/settings.ini.bak")
             Functions.shutil.copy(Functions.home + "/.config/gtk-3.0/settings.ini",
                     "/root/.config/gtk-3.0/settings.ini")
+
+        if os.path.isfile("/root/.config/gtk-4.0/settings.ini"):
+            Functions.shutil.copy("/root/.config/gtk-4.0/settings.ini",
+                                "/root/.config/gtk-4.0/settings.ini.bak")
+            Functions.shutil.copy(Functions.home + "/.config/gtk-4.0/settings.ini",
+                    "/root/.config/gtk-4.0/settings.ini")
+
+        if os.path.isfile("/root/.config/xsettingsd/xsettingsd.conf"):
+            Functions.shutil.copy("/root/.config/xsettingsd/xsettingsd.conf",
+                                "/root/.config/xsettingsd/xsettingsd.conf.bak")
+            Functions.shutil.copy(Functions.home + "/.config/xsettingsd/xsettingsd.conf",
+                    "/root/.config/xsettingsd/xsettingsd.conf")
 
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
