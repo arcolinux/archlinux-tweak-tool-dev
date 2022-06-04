@@ -130,20 +130,20 @@ class Main(Gtk.Window):
         if os.path.isfile("/root/.config/gtk-3.0/settings.ini"):
             Functions.shutil.copy("/root/.config/gtk-3.0/settings.ini",
                                 "/root/.config/gtk-3.0/settings.ini.bak")
-            Functions.shutil.copy(Functions.home + "/.config/gtk-3.0/settings.ini",
-                    "/root/.config/gtk-3.0/settings.ini")
+            Functions.shutil.copy(Functions.home + "/.config/gtk-3.0/*",
+                    "/root/.config/gtk-3.0/")
 
         if os.path.isfile("/root/.config/gtk-4.0/settings.ini"):
             Functions.shutil.copy("/root/.config/gtk-4.0/settings.ini",
                                 "/root/.config/gtk-4.0/settings.ini.bak")
-            Functions.shutil.copy(Functions.home + "/.config/gtk-4.0/settings.ini",
-                    "/root/.config/gtk-4.0/settings.ini")
+            Functions.shutil.copy(Functions.home + "/.config/gtk-4.0/*",
+                    "/root/.config/gtk-4.0/")
 
         if os.path.isfile("/root/.config/xsettingsd/xsettingsd.conf"):
             Functions.shutil.copy("/root/.config/xsettingsd/xsettingsd.conf",
                                 "/root/.config/xsettingsd/xsettingsd.conf.bak")
-            Functions.shutil.copy(Functions.home + "/.config/xsettingsd/xsettingsd.conf",
-                    "/root/.config/xsettingsd/xsettingsd.conf")
+            Functions.shutil.copy(Functions.home + "/.config/xsettingsd/*",
+                    "/root/.config/xsettingsd/")
 
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
