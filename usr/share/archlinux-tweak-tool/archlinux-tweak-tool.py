@@ -190,7 +190,7 @@ class Main(Gtk.Window):
         #                   MAKING BACKUPS
         # =====================================================
 
-        # ensuring we have a backup of samba.conf
+        # ensuring we have a backup of index.theme
         if os.path.exists("/usr/share/icons/default/index.theme"):
             if not os.path.isfile("/usr/share/icons/default/index.theme" + ".bak"):
                 try:
@@ -2783,12 +2783,12 @@ class Main(Gtk.Window):
             print("Alacritty config saved")
 
     def on_clicked_install_xfce4_themes(self,widget):
-        command = 'pacman -S xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
+        command = 'pacman -S xfce4-terminal xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal --needed --noconfirm'
         Functions.subprocess.call(command.split(" "),
                         shell=False,
                         stdout=Functions.subprocess.PIPE,
                         stderr=Functions.subprocess.STDOUT)
-        print("Installing xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal")
+        print("Installing xfce4-terminal xfce4-terminal-base16-colors-git xfce4-terminal tempus-themes-xfce4-terminal-git prot16-xfce4-terminal")
         GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
 
     def on_clicked_install_termite_themes(self,widget):
