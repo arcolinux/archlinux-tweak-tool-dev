@@ -358,8 +358,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack13, "stack13", "Autostart")  # Autostart
 
-    if not (Functions.distr == "manjaro" or Functions.distr == "xerolinux"):
-        stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
+    #if not (Functions.distr == "manjaro" or Functions.distr == "xerolinux"):
+    stack.add_titled(vboxStack12, "stack12", "Desktop")  # Desktop installer
 
     #stack.add_titled(vboxStack2, "stack5", "Fish")  # Fish
 
@@ -393,8 +393,8 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     stack.add_titled(vboxStack20, "stack20", "Terminal Fun") # lolcat and others
 
-    if not (Functions.distr == "manjaro" or Functions.distr == "xerolinux"):
-        stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
+    #if not (Functions.distr == "manjaro" or Functions.distr == "xerolinux"):
+    stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
 
     stack.add_titled(vboxStack18, "stack18", "User")  # Sddm config
 
