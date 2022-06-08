@@ -242,6 +242,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack13.pack_start(label11, False, True, 10)
     hboxStack13.pack_end(self.nemesis_switch, False, False, 10)
 
+    if not Functions.check_package_installed("xerolinux-mirrorlist"):
+        hboxStack7.pack_end(self.xerolinux_button, False, True, 10)
+
     hboxStack20.pack_start(label17, False, True, 10)
     hboxStack20.pack_end(self.xerolinux_switch, False, False, 10)
 
