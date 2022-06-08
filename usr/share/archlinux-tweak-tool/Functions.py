@@ -663,6 +663,13 @@ def set_default_theme(self):
                 except IndexError:
                    pass
 
+            if distro.id() == "xerolinux":
+                try:
+                    val = _get_position(grubd, 'GRUB_THEME="/boot/grub/themes/XeroKDE/theme.txt"')
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                   pass
+
             with open(grub_default_grub, "w") as f:
                 f.writelines(grubd)
                 f.close()
