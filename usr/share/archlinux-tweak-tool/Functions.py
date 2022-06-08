@@ -499,6 +499,8 @@ def change_distro_label(name):      # noqa
         name = "Arch Linux"
     if name == "manjaro":
         name = "Manjaro"
+    if name == "xerolinux":
+        name = "Xerolinux"
     return name
 
 # =====================================================
