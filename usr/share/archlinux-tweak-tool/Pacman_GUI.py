@@ -243,7 +243,7 @@ def GUI(self, Gtk, vboxStack1, Functions):
     hboxStack13.pack_end(self.nemesis_switch, False, False, 10)
 
     if not Functions.check_package_installed("xerolinux-mirrorlist"):
-        hboxStack7.pack_end(self.xerolinux_button, False, True, 10)
+        hboxStack20.pack_end(self.xerolinux_button, False, True, 10)
 
     hboxStack20.pack_start(label17, False, True, 10)
     hboxStack20.pack_end(self.xerolinux_switch, False, False, 10)
@@ -338,8 +338,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     # =================CUSTOM REPO========================
 
-    #vboxStack1.pack_start(hboxStack2, False, False, 0)
-    #vboxStack1.pack_start(hboxStack3, True, True, 0)
+    vboxStack1.pack_start(hboxStack2, False, False, 0)
+    vboxStack1.pack_start(hboxStack3, True, True, 0)
 
     # =================FOOTER========================
 
