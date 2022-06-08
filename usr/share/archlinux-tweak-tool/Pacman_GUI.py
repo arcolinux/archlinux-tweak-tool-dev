@@ -148,6 +148,9 @@ def GUI(self, Gtk, vboxStack1, Functions):
     label11 = Gtk.Label(xalign=0)
     label11.set_markup("Enable Nemesis repo")
 
+    self.xerolinux_button = Gtk.Button(label="Install mirrors")
+    self.xerolinux_button.connect("clicked", self.on_xerolinux_clicked)
+
     self.xerolinux_switch = Gtk.Switch()
     self.xerolinux_switch.connect("notify::active", self.on_xero_toggle)
     label17 = Gtk.Label(xalign=0)

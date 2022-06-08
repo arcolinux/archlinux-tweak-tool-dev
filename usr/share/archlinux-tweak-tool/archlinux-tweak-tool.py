@@ -1965,6 +1965,13 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "nemesis")
 
+    def on_xerolinux_clicked(self, widget):
+        Functions.install_xerolinux(self)
+        print("XeroLinux mirrors added")
+        print("Select now all XeroLinux repos")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Xerolinux mirrors added")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Select now all Xerolinux repos")
+
     def on_xero_toggle(self, widget, active):
         if not pmf.repo_exist("[xerolinux_repo]"):
             pmf.append_repo(self, Functions.xero_repo)

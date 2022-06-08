@@ -1015,6 +1015,31 @@ def install_arcolinux(self):
     except Exception as e:
         print(e)
 
+def install_xerolinux(self):
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+    name1 = "arcolinux-keyring-20230919-6-any.pkg.tar.zst"
+    try:
+        install = 'pacman -U ' + base_dir + '/data/arco/packages/' + name1 + ' --noconfirm'
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("ArcoLinux keyring is now installed")
+    except Exception as e:
+        print(e)
+
+    base_dir = os.path.dirname(os.path.realpath(__file__))
+    name1 = "arcolinux-mirrorlist-git-22.04-01-any.pkg.tar.zst"
+    try:
+        install = 'pacman -U ' + base_dir + '/data/arco/packages/' + name1 + ' --noconfirm'
+        subprocess.call(install.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT)
+        print("ArcoLinux mirrorlist is now installed")
+    except Exception as e:
+        print(e)
+
 # =====================================================
 #               PERMISSIONS
 # =====================================================
