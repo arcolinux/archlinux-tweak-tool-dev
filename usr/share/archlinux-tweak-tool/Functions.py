@@ -49,6 +49,7 @@ else:
 
 mirrorlist = "/etc/pacman.d/mirrorlist"
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
+xerolinux_mirrorlist = "/etc/pacman.d/xerolinux-mirrorlist"
 arcolinux_mirrorlist_original = "/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist"
 pacman = "/etc/pacman.conf"
 pacman_arch = "/usr/share/archlinux-tweak-tool/data/arch/pacman/pacman.conf"

@@ -338,8 +338,8 @@ def GUI(self, Gtk, vboxStack1, Functions):
 
     # =================CUSTOM REPO========================
 
-    vboxStack1.pack_start(hboxStack2, False, False, 0)
-    vboxStack1.pack_start(hboxStack3, True, True, 0)
+    #vboxStack1.pack_start(hboxStack2, False, False, 0)
+    #vboxStack1.pack_start(hboxStack3, True, True, 0)
 
     # =================FOOTER========================
 

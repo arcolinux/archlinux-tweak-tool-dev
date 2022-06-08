@@ -233,6 +233,14 @@ class Main(Gtk.Window):
                 except Exception as e:
                     print(e)
 
+         #ensuring we have a backup or the xerolinux mirrorlist
+        if os.path.isfile(Functions.xerolinux_mirrorlist):
+            if not os.path.isfile(Functions.xerolinux_mirrorlist + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.xerolinux_mirrorlist, Functions.xerolinux_mirrorlist + ".bak")
+                except Exception as e:
+                    print(e)
+
          #ensuring we have a backup of the archlinux mirrorlist
         if os.path.isfile(Functions.mirrorlist):
             if not os.path.isfile(Functions.mirrorlist + ".bak"):
