@@ -60,6 +60,7 @@ class Main(Gtk.Window):
         print(" - EndeavourOS   - https://endeavouros.com/")
         print(" - Garuda        - https://garudalinux.org/")
         print(" - Manjaro       - https://manjaro.org/")
+        print(" - Xerolinux     - https://xerolinux.xyz/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Sway is not supported")
