@@ -135,6 +135,18 @@ nemesis_repo = "[nemesis_repo]\n\
 SigLevel = Optional TrustedOnly\n\
 Server = https://erikdubois.github.io/$repo/$arch"
 
+xero_repo = "[xerolinux_repo]\n\
+SigLevel = Optional TrustAll\n\
+Include = /etc/pacman.d/xero-mirrorlist"
+
+xero_xl_repo = "[xerolinux_repo_xl]\n\
+SigLevel = Optional TrustAll\n\
+Include = /etc/pacman.d/xero-mirrorlist"
+
+xero_nv_repo = "[xerolinux_nvidia_repo]\n\
+SigLevel = Optional TrustAll\n\
+Include = /etc/pacman.d/xero-mirrorlist"
+
 arch_testing_repo = "[testing]\n\
 Include = /etc/pacman.d/mirrorlist"
 
