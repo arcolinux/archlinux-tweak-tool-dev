@@ -254,7 +254,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
         hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         enable_lightdm = Gtk.Button(label="Enable Lightdm")
         enable_lightdm.connect("clicked", self.on_click_lightdm_enable)
-        enable_slick = Gtk.Button(label="Enable/Disable Lightdm Slickgreeter")
+        enable_slick = Gtk.Button(label="Install and Enable or Disable Lightdm Slickgreeter")
         enable_slick.connect("clicked", self.on_click_lightdm_slick)
         apply = Gtk.Button(label="Apply settings")
         apply.connect("clicked", self.on_click_lightdm_apply)
