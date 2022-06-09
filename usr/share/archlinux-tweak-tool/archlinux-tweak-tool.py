@@ -750,9 +750,17 @@ class Main(Gtk.Window):
     #===================================================================
 
     def on_click_launch_pace(self, widget):
-        Functions.install_pace(self)
-        #subprocess.Popen("/usr/bin/pace",shell=False)
-        call("pace",shell=True)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active():
+                Functions.install_pace(self)
+                #subprocess.Popen("/usr/bin/pace",shell=False)
+                call("pace",shell=True)
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
+        else:
+            print("Install ArcoLinux mirrors and keys")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install ArcoLinux mirrors and keys")
 
     #====================================================================
     #                       AUTOSTART
