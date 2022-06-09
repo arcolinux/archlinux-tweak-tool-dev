@@ -1018,7 +1018,7 @@ def install_arcolinux(self):
 
 def install_xerolinux(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
-    name1 = "xerolinux-mirrorlist-0.1.1-3-any.pkg.tar.zst"
+    name1 = "xerolinux-mirrorlist-0.1.2-1-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/xero/packages/' + name1 + ' --noconfirm'
         subprocess.call(install.split(" "),
