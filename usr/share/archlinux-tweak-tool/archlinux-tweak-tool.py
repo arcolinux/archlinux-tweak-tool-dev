@@ -1537,7 +1537,11 @@ class Main(Gtk.Window):
                 print("ATT will reboot automatically")
                 GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
                 Functions.restart_program()
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
         else:
+            print("Install ArcoLinux mirrors and keys")
             GLib.idle_add(Functions.show_in_app_notification, self, "Install ArcoLinux mirrors and keys")
 
     def on_reset_grub_vimix(self, desktop):
