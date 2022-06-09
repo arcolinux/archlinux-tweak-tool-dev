@@ -530,12 +530,17 @@ class Main(Gtk.Window):
 
 		#====================DESKTOP INSTALL REINSTALL===================
 
-        if Functions.check_arco_repos_active() == True:
-            self.button_install.set_sensitive(True)
-            self.button_reinstall.set_sensitive(True)
-        else:
+        if not os.path.isfile(Functions.arcolinux_mirrorlist):
             self.button_install.set_sensitive(False)
             self.button_reinstall.set_sensitive(False)
+
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active() == True:
+                self.button_install.set_sensitive(True)
+                self.button_reinstall.set_sensitive(True)
+            else:
+                self.button_install.set_sensitive(False)
+                self.button_reinstall.set_sensitive(False)
 
         #========================NEOFETCH LOLCAT TOGGLE===================
 
@@ -928,7 +933,7 @@ class Main(Gtk.Window):
     def on_install_bash_clicked(self, widget):
         Functions.install_bash(self)
         GLib.idle_add(Functions.show_in_app_notification, self, "Bash is installed without a configuration")
-        print("Bash is installed without a configuration")
+        print("Bash completion has been installed")
 
     def on_arcolinux_bash_clicked(self, widget):
         try:
@@ -1007,6 +1012,7 @@ class Main(Gtk.Window):
         Functions.install_fish(self)
         GLib.idle_add(Functions.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
         print("Fish is installed without a configuration")
+        Functions.restart_program()
 
     def on_arcolinux_fish_package_clicked(self,widget):
         Functions.install_arcolinux_fish_package(self)
@@ -1510,25 +1516,29 @@ class Main(Gtk.Window):
 
     # coming from GUI
     def on_click_install_arco_vimix_clicked(self, desktop):
-        command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("arcolinux-grub-theme-vimix-git has been installed")
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active():
+                command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
+                Functions.subprocess.call(command.split(" "),
+                                shell=False,
+                                stdout=Functions.subprocess.PIPE,
+                                stderr=Functions.subprocess.STDOUT)
+                print("arcolinux-grub-theme-vimix-git has been installed")
 
-        #changing /etc/default/grub to vimix theme
-        Functions.set_default_theme(self)
-        print("We will update your grub files")
-        print("sudo grub-mkconfig -o /boot/grub/grub.cfg is running")
-        print("Be patient...")
-        Functions.make_grub(self)
+                #changing /etc/default/grub to vimix theme
+                Functions.set_default_theme(self)
+                print("We will update your grub files")
+                print("sudo grub-mkconfig -o /boot/grub/grub.cfg is running")
+                print("Be patient...")
+                Functions.make_grub(self)
 
-        print("We have installed arcolinux-grub-theme-vimix-git")
-        print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
-        print("ATT will reboot automatically")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
-        Functions.restart_program()
+                print("We have installed arcolinux-grub-theme-vimix-git")
+                print("We have updated your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
+                print("ATT will reboot automatically")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Setting saved successfully")
+                Functions.restart_program()
+        else:
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install ArcoLinux mirrors and keys")
 
     def on_reset_grub_vimix(self, desktop):
         command = 'pacman -S arcolinux-grub-theme-vimix-git --noconfirm'
@@ -1556,19 +1566,23 @@ class Main(Gtk.Window):
     #====================================================================
 
     def set_hblock(self, widget, state):
-        if Functions.check_arco_repos_active() == True:
-            if self.firstrun is not True:
-                t = Functions.threading.Thread(target=Functions.set_hblock, args=(
-                    self, widget, widget.get_active()))
-                t.start()
-                print("Hblock is now active/inactive")
-                GLib.idle_add(Functions.show_in_app_notification, self, "Hblock is active/inactive")
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active() == True:
+                if self.firstrun is not True:
+                    t = Functions.threading.Thread(target=Functions.set_hblock, args=(
+                        self, widget, widget.get_active()))
+                    t.start()
+                    print("Hblock is now active/inactive")
+                    GLib.idle_add(Functions.show_in_app_notification, self, "Hblock is active/inactive")
+                else:
+                    self.firstrun = False
             else:
-                self.firstrun = False
+                #print("First enable the ArcoLinux repos")
+                self.hbswich.set_active(False)
+                GLib.idle_add(Functions.show_in_app_notification, self, "First enable the ArcoLinux repos")
         else:
-            #print("First enable the ArcoLinux repos")
-            self.hbswich.set_active(False)
-            GLib.idle_add(Functions.show_in_app_notification, self, "First enable the ArcoLinux repos")
+            print("First activate the ArcoLinux repos")
+            GLib.idle_add(Functions.show_in_app_notification, self, "First activate the ArcoLinux repos")
 
     def set_ublock_firefox(self, widget, state):
         t = Functions.threading.Thread(target=Functions.set_firefox_ublock, args=(
@@ -1714,6 +1728,20 @@ class Main(Gtk.Window):
             print("Neofetch default settings applied")
             Functions.show_in_app_notification(self,
                                                "Default Settings Applied")
+
+    def on_install_neo(self,widget):
+        try:
+            command = 'pacman -S neofetch --needed --noconfirm'
+            Functions.subprocess.call(command.split(" "),
+                            shell=False,
+                            stdout=Functions.subprocess.PIPE,
+                            stderr=Functions.subprocess.STDOUT)
+            print("Neofetch is installed ")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Neofetch is installed")
+        except Exception as e:
+            print(e)
+            print("Neofetch is NOT installed ")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Neofetch is NOT installed")
 
     def radio_toggled(self, widget):
         if self.w3m.get_active():
@@ -2883,16 +2911,27 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Xfce4-terminal Themes Installed")
 
     def on_clicked_install_termite_themes(self,widget):
-        command = 'pacman -S termite arcolinux-termite-themes-git --needed --noconfirm'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
-        Functions.permissions(Functions.home + "/.config/termite")
-        termite.get_themes(self.term_themes)
-        print("Installing termite arcolinux-termite-themes-git")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active() == True:
+                try:
+                    command = 'pacman -S termite arcolinux-termite-themes-git --needed --noconfirm'
+                    Functions.subprocess.call(command.split(" "),
+                                    shell=False,
+                                    stdout=Functions.subprocess.PIPE,
+                                    stderr=Functions.subprocess.STDOUT)
+                    Functions.copy_func("/etc/skel/.config/termite", Functions.home + "/.config/", True)
+                    Functions.permissions(Functions.home + "/.config/termite")
+                    termite.get_themes(self.term_themes)
+                    print("Installing termite arcolinux-termite-themes-git")
+                    GLib.idle_add(Functions.show_in_app_notification, self, "Termite Themes Installed")
+                except Exception as e:
+                    print(e)
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
+        else:
+            print("Install the ArcoLinux keys and mirrors")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
 
     # def on_clicked_launch_alacritty_themes(self,widget):
     #     Functions.install_alacritty_themes(self)
@@ -3082,20 +3121,30 @@ class Main(Gtk.Window):
         GLib.idle_add(Functions.show_in_app_notification, self, "Shell changed to zsh for user - logout")
 
     def install_oh_my_zsh(self,widget):
-        if os.path.exists("/usr/share/licenses/oh-my-zsh-git/LICENSE"):
-            print("Oh-my-zsh-git already installed")
-            pass
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active() == True:
+                if os.path.exists("/usr/share/licenses/oh-my-zsh-git/LICENSE"):
+                    print("Oh-my-zsh-git already installed")
+                    pass
+                else:
+                    install = 'pacman -S oh-my-zsh-git --noconfirm'
+                    try:
+                        subprocess.call(install.split(" "),
+                                        shell=False,
+                                        stdout=subprocess.PIPE,
+                                        stderr=subprocess.STDOUT)
+                        print("Installing oh-my-zsh-git")
+                        GLib.idle_add(Functions.show_in_app_notification, self, "oh-my-zsh-git is installed")
+                    except Exception as e:
+                        print(e)
+                        print("Oh-my-zsh-git is NOT installed")
+                        GLib.idle_add(Functions.show_in_app_notification, self, "Oh-my-zsh-git is NOT installed")
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
         else:
-            install = 'pacman -S oh-my-zsh-git --noconfirm'
-            try:
-                subprocess.call(install.split(" "),
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
-                print("Installing oh-my-zsh-git")
-            except Exception as e:
-                print(e)
-        GLib.idle_add(Functions.show_in_app_notification, self, "oh-my-zsh-git is installed")
+            print("Install the ArcoLinux keys and mirrors")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
 
     #The intent behind this function is to be a centralised image changer for all portions of ATT that need it
     #Currently utilising an if tree - this is not best practice: it should be a match: case tree.
