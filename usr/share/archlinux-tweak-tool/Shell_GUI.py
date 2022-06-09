@@ -178,7 +178,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         if Functions.check_package_installed("oh-my-zsh-git"):
             hbox28_lbl.set_markup("Oh-my-zsh-git is already <b>installed</b>")
         else:
-            hbox28_lbl.set_markup("Oh-my-zsh-git-highlighting is not installed")
+            hbox28_lbl.set_markup("Oh-my-zsh-git is not installed")
         self.install_zsh_omz = Gtk.Button("Install Oh-my-zsh-git")
         self.install_zsh_omz.connect("clicked", self.install_oh_my_zsh)
         hbox28.pack_start(hbox28_lbl, False, False, 10)
