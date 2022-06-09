@@ -496,10 +496,6 @@ class Main(Gtk.Window):
             self.aarnet_button.set_active(arco_mirror_aarnet)
             #self.agithub_button.set_active(arco_mirror_github)
 
-        if (arco_base or arco_3p or arco_xl) == False:
-            self.button_reinstall.set_sensitive(False)
-            self.button_install.set_sensitive(False)
-
         #========================ARCO REPO SET TOGGLE=====================
 
         self.atestrepo_button.set_active(arco_testing)

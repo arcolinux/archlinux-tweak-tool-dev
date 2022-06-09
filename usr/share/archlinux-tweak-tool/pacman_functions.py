@@ -202,10 +202,6 @@ def toggle_test_repos(self, state, widget):  # noqa
                 # lines = f.readlines()
                 f.writelines(lines)
                 f.close()
-
-            if (self.arco_base or self.arco_3p or self.arco_xl) == False:
-                self.button_reinstall.set_sensitive(False)
-                self.button_install.set_sensitive(False)
         except Exception as e:
             print(e)
             Functions.MessageBox(self, "ERROR!!",

@@ -238,7 +238,6 @@ def GUI(self, Gtk, vboxStack1, Functions):
     if not Functions.check_package_installed("endeavouros-keyring"):
         hboxStack19.pack_end(self.endeavouros_button, False, False, 10)
     hboxStack19.pack_end(self.endeavouros_switch, False, False, 10)
-
     hboxStack13.pack_start(label11, False, True, 10)
     hboxStack13.pack_end(self.nemesis_switch, False, False, 10)
 
