@@ -2380,14 +2380,25 @@ class Main(Gtk.Window):
             self.sessions_sddm.set_sensitive(False)
 
     def on_click_install_sddm_themes(self,widget):
-        command = 'pacman -S arcolinux-meta-sddm-themes --needed --noconfirm'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We installed all ArcoLinux sddm themes")
-        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
-        sddm.pop_theme_box(self, self.theme_sddm)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active():
+                try:
+                    command = 'pacman -S arcolinux-meta-sddm-themes --needed --noconfirm'
+                    Functions.subprocess.call(command.split(" "),
+                                    shell=False,
+                                    stdout=Functions.subprocess.PIPE,
+                                    stderr=Functions.subprocess.STDOUT)
+                    print("We installed all ArcoLinux sddm themes")
+                    GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Sddm Themes Installed")
+                    sddm.pop_theme_box(self, self.theme_sddm)
+                except Exception as e:
+                    print(e)
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
+        else:
+            print("Install the ArcoLinux keys and mirrors")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
 
     def on_click_remove_sddm_themes(self,widget):
         command = 'pacman -Rss arcolinux-meta-sddm-themes --noconfirm'
@@ -2410,14 +2421,22 @@ class Main(Gtk.Window):
         sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_install_bibata_cursor(self,widget):
-        command = 'pacman -S bibata-cursor-theme-bin --needed --noconfirm'
-        Functions.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=Functions.subprocess.PIPE,
-                        stderr=Functions.subprocess.STDOUT)
-        print("We installed the Bibata cursors")
-        GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursors have been installed")
-        sddm.pop_theme_box(self, self.theme_sddm)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active():
+                command = 'pacman -S bibata-cursor-theme-bin --needed --noconfirm'
+                Functions.subprocess.call(command.split(" "),
+                                shell=False,
+                                stdout=Functions.subprocess.PIPE,
+                                stderr=Functions.subprocess.STDOUT)
+                print("We installed the Bibata cursors")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Bibata cursors have been installed")
+                sddm.pop_theme_box(self, self.theme_sddm)
+            else:
+                print("Activate the ArcoLinux repos")
+                GLib.idle_add(Functions.show_in_app_notification, self, "Activate the ArcoLinux repos")
+        else:
+            print("Install the ArcoLinux keys and mirrors")
+            GLib.idle_add(Functions.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
 
     def on_click_remove_bibata_cursor(self,widget):
         command = 'pacman -R bibata-cursor-theme-bin --noconfirm'
@@ -2535,13 +2554,37 @@ class Main(Gtk.Window):
         Functions.save_samba_config(self,widget)
 
     def on_click_install_arco_thunar_plugin(self,widget):
-        Functions.install_arco_thunar_plugin(self,widget)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active() == True:
+                Functions.install_arco_thunar_plugin(self,widget)
+            else:
+                print("Activate the ArcoLinux repos")
+                Functions.show_in_app_notification(self, "Activate the ArcoLinux repos")
+        else:
+            print("Install the ArcoLinux keys and mirrors")
+            Functions.show_in_app_notification(self, "Install the ArcoLinux keys and mirrors")
 
     def on_click_install_arco_caja_plugin(self,widget):
-        Functions.install_arco_caja_plugin(self,widget)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active() == True:
+                Functions.install_arco_caja_plugin(self,widget)
+            else:
+                print("Activate the ArcoLinux repos")
+                Functions.show_in_app_notification(self, "Activate the ArcoLinux repos")
+        else:
+            print("Install the ArcoLinux keys and mirrors")
+            Functions.show_in_app_notification(self, "Install the ArcoLinux keys and mirrors")
 
     def on_click_install_arco_nemo_plugin(self,widget):
-        Functions.install_arco_nemo_plugin(self,widget)
+        if os.path.isfile(Functions.arcolinux_mirrorlist):
+            if Functions.check_arco_repos_active() == True:
+                Functions.install_arco_nemo_plugin(self,widget)
+            else:
+                print("Activate the ArcoLinux repos")
+                Functions.show_in_app_notification(self, "Activate the ArcoLinux repos")
+        else:
+            print("Install the ArcoLinux keys and mirrors")
+            Functions.show_in_app_notification(self, "Install the ArcoLinux keys and mirrors")
 
     def on_click_apply_samba(self,widget):
         services.choose_smb_conf(self,widget)
