@@ -267,10 +267,10 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, os, Functions):
 
         vboxStack2.pack_start(hbox19, False, False, 0)
         vboxStack2.pack_start(hbox20, False, False, 0)
-        vboxStack2.pack_start(hbox21, False, False, 10)
         vboxStack2.pack_start(hbox22, False, False, 0)
-        vboxStack2.pack_start(hbox23, False, False, 0)
+        vboxStack2.pack_start(hbox21, False, False, 0)
         vboxStack2.pack_start(hbox27, False, False, 0)
+        vboxStack2.pack_start(hbox23, False, False, 0)
         vboxStack2.pack_start(hbox24, False, False, 0)
         vboxStack2.pack_start(hbox25, False, False, 0)
         vboxStack2.pack_end(hbox26, False, False, 0)
