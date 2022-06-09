@@ -535,7 +535,7 @@ class Main(Gtk.Window):
             self.button_reinstall.set_sensitive(False)
 
         if os.path.isfile(Functions.arcolinux_mirrorlist):
-            if Functions.check_arco_repos_active() == True:
+            if Functions.check_arco_repos_active():
                 self.button_install.set_sensitive(True)
                 self.button_reinstall.set_sensitive(True)
             else:
@@ -932,7 +932,7 @@ class Main(Gtk.Window):
 
     def on_install_bash_clicked(self, widget):
         Functions.install_bash(self)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Bash is installed without a configuration")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Bash-completion has been installed")
         print("Bash completion has been installed")
 
     def on_arcolinux_bash_clicked(self, widget):
@@ -1582,6 +1582,7 @@ class Main(Gtk.Window):
                 GLib.idle_add(Functions.show_in_app_notification, self, "First enable the ArcoLinux repos")
         else:
             print("First activate the ArcoLinux repos")
+            self.hbswich.set_active(False)
             GLib.idle_add(Functions.show_in_app_notification, self, "First activate the ArcoLinux repos")
 
     def set_ublock_firefox(self, widget, state):
