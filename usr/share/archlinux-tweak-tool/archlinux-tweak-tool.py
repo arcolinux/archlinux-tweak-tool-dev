@@ -191,6 +191,22 @@ class Main(Gtk.Window):
         #                   MAKING BACKUPS
         # =====================================================
 
+         #ensuring we have a backup of /etc/sddm.conf
+        if os.path.isfile(Functions.sddm_default_d1):
+            if not os.path.isfile(Functions.sddm_default_d1 + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.sddm_default_d1, Functions.sddm_default_d1 + ".bak")
+                except Exception as e:
+                    print(e)
+
+         #ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
+        if os.path.isfile(Functions.sddm_default_d2):
+            if not os.path.isfile(Functions.sddm_default_d2 + ".bak"):
+                try:
+                    Functions.shutil.copy(Functions.sddm_default_d2, Functions.sddm_default_d2 + ".bak")
+                except Exception as e:
+                    print(e)
+
         # ensuring we have a backup of index.theme
         if os.path.exists("/usr/share/icons/default/index.theme"):
             if not os.path.isfile("/usr/share/icons/default/index.theme" + ".bak"):
