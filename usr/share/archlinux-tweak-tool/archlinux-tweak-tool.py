@@ -2522,6 +2522,42 @@ class Main(Gtk.Window):
         Functions.show_in_app_notification(self, "Samba has been successfully uninstalled")
 
     #====================================================================
+    #                       SHELLS EXTRA
+    #====================================================================
+
+    def on_extra_shell_applications_clicked(self,widget):
+        if self.expac.get_active():
+            Functions.install_extra_shell("expac")
+        if self.ripgrep.get_active():
+            Functions.install_extra_shell("ripgrep")
+        if self.yay.get_active():
+            Functions.install_extra_shell("yay-bin")
+        if self.paru.get_active():
+            Functions.install_extra_shell("paru-bin")
+        if self.bat.get_active():
+            Functions.install_extra_shell("bat")
+        if self.downgrade.get_active():
+            Functions.install_extra_shell("downgrade")
+        if self.hw_probe.get_active():
+            Functions.install_extra_shell("hw-probe")
+        if self.rate_mirrors.get_active():
+            Functions.install_extra_shell("rate-mirrors")
+        print("Software has been installed")
+        Functions.show_in_app_notification(self, "Software has been installed")
+
+    def on_select_all_toggle(self,widget,active):
+
+        if self.select_all.get_active():
+            self.expac.set_active(True)
+            self.ripgrep.set_active(True)
+            self.yay.set_active(True)
+            self.paru.set_active(True)
+            self.bat.set_active(True)
+            self.downgrade.set_active(True)
+            self.hw_probe.set_active(True)
+            self.rate_mirrors.set_active(True)
+
+    #====================================================================
     #                       SKEL
     #====================================================================
 
