@@ -964,11 +964,12 @@ class Main(Gtk.Window):
             if os.path.isfile(Functions.bashrc_arco):
                 Functions.shutil.copy(Functions.bashrc_arco, Functions.bash_config)
                 Functions.permissions(Functions.home + "/.bashrc")
+            Functions.source_shell(self)
         except Exception as e:
             print(e)
 
-        print("ArcoLinux ~/.bashrc is applied - logout")
-        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux ~/.bashrc is applied - logout")
+        print("ATT ~/.bashrc is applied")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ATT ~/.bashrc is applied")
 
     def on_bash_reset_clicked(self, widget):
         try:
@@ -1063,8 +1064,9 @@ class Main(Gtk.Window):
             Functions.shutil.copy("/etc/skel/.config/fish/config.fish", Functions.home + "/.config/fish/config.fish")
             Functions.permissions(Functions.home + "/.config/fish/config.fish")
 
-        print("ArcoLinux Fish config is installed and your old fish folder (if any) is in ~/.config/fish-att")
-        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux fish config is installed")
+        Functions.source_shell()
+        print("ATT Fish config is installed and your old fish folder (if any) is in ~/.config/fish-att")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ATT fish config is installed")
 
 
     def on_arcolinux_only_fish_clicked(self, widget):
@@ -1083,8 +1085,9 @@ class Main(Gtk.Window):
             Functions.shutil.copy(Functions.fish_arco, Functions.home + "/.config/fish/config.fish.bak")
             Functions.permissions(Functions.home + "/.config/fish/config.fish.bak")
 
-        print("Fish config has been saved - logout")
-        Functions.show_in_app_notification(self, "Fish config has been saved - logout")
+        Functions.source_shell(self)
+        print("Fish config has been saved")
+        Functions.show_in_app_notification(self, "Fish config has been saved")
 
     def on_fish_reset_clicked(self, widget):
         if os.path.isfile(Functions.home + "/.config/fish/config.fish.bak"):
@@ -2999,11 +3002,12 @@ class Main(Gtk.Window):
             if os.path.isfile(Functions.zshrc_arco):
                 Functions.shutil.copy(Functions.zshrc_arco, Functions.zsh_config)
                 Functions.permissions(Functions.home + "/.zshrc")
+            Functions.source_shell(self)
         except Exception as e:
             print(e)
 
-        print("ArcoLinux ~/.zshrc is applied - logout")
-        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux ~/.zshrc is applied - logout")
+        print("ATT ~/.zshrc is applied")
+        GLib.idle_add(Functions.show_in_app_notification, self, "ATT ~/.zshrc is applied")
 
     def on_zshrc_reset_clicked(self, widget):
         try:

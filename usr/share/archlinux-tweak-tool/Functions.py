@@ -1451,7 +1451,6 @@ def source_shell(self):
                              stdout=subprocess.PIPE)
 
     output = process.stdout.decode().strip()
-    print(output)
     if output == "/bin/bash":
         subprocess.run(["bash", "-c", "su - " + sudo_username +
                         " -c \"source " + home + "/.bashrc\""],
