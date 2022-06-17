@@ -2212,6 +2212,14 @@ class Main(Gtk.Window):
                                                     self.cbt_cursor_themes.get_active_text()))
                 t1.daemon = True
                 t1.start()
+            if Functions.distr == "xerolinux":
+                if Functions.check_content("[Autologin]",Functions.sddm_default_d1):
+                    t1 = Functions.threading.Thread(target=sddm.set_user_autologin_value,
+                                args=(self,
+                                    sddm.get_sddm_lines(Functions.sddm_default_d1),  # noqa
+                                    Functions.sudo_username,
+                                    self.sessions_sddm.get_active_text(),
+                                    self.autologin_sddm.get_active()))
 
             print("Sddm settings Saved Successfully")
             GLib.idle_add(Functions.show_in_app_notification, self, "Sddm settings saved successfully")

@@ -87,6 +87,33 @@ def set_sddm_value(self, lists, value, session, state, theme,cursor):
             f.writelines(lists)
             f.close()
 
+    except Exception as e:
+        print(e)
+        Functions.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
+
+def set_user_autologin_value(self, lists, value, session, state):
+    try:
+        com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
+        groups = com.stdout.decode().strip().split(" ")
+        # print(groups)
+        if "autologin" not in groups:
+            Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)
+
+        pos = Functions._get_position(lists, "Session=")
+        pos_session = Functions._get_position(lists, "User=")
+
+        if state:
+            lists[pos_session] = "User=" + value + "\n"
+            lists[pos] = "Session=" + session + "\n"
+        else:
+            if "#" not in lists[pos]:
+                lists[pos] = "#" + lists[pos]
+                lists[pos_session] = "#" + lists[pos_session]
+
+        with open(Functions.sddm_default_d1, "w") as f:
+            f.writelines(lists)
+            f.close()
+
 #        GLib.idle_add(Functions.show_in_app_notification, self, "Settings Saved Successfully")
 
     except Exception as e:
