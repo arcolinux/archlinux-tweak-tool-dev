@@ -99,6 +99,17 @@ class Main(Gtk.Window):
         t.start()
         t.join()
 
+# =====================================================
+#               PATREON LINK
+# =====================================================
+
+        def on_social_clicked(self, widget, event):
+            sup = Support.Support(self)
+            response = sup.run()
+
+            if response == Gtk.ResponseType.DELETE_EVENT:
+                sup.destroy()
+
         # =====================================================
         #     PLASMA THEME
         # =====================================================
