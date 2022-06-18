@@ -58,7 +58,7 @@ def check_sddm(lists, value):
     val = lists[pos].strip()
     return val
 
-def set_sddm_value(self, lists, value, session, state, theme,cursor):
+def set_sddm_value(self, lists, value, session, state, theme, cursor):
     try:
         com = Functions.subprocess.run(["sh", "-c", "su - " + Functions.sudo_username + " -c groups"], shell=False, stdout=Functions.subprocess.PIPE)
         groups = com.stdout.decode().strip().split(" ")
@@ -99,15 +99,18 @@ def set_user_autologin_value(self, lists, value, session, state):
         if "autologin" not in groups:
             Functions.subprocess.run(["gpasswd", "-a", Functions.sudo_username, "autologin"], shell=False)
 
-        pos = Functions._get_position(lists, "Session=")
-        pos_session = Functions._get_position(lists, "User=")
+        pos_session = Functions._get_positions(lists, "Session=")
+        #print(pos_session)
+        pos_session = pos_session[-1]
+        pos_user = Functions._get_position(lists, "User=" + value)
+        #print(pos_user)
 
         if state:
-            lists[pos_session] = "User=" + value + "\n"
-            lists[pos] = "Session=" + session + "\n"
+            lists[pos_user] = "User=" + value + "\n"
+            lists[pos_session] = "Session=" + session + "\n"
         else:
-            if "#" not in lists[pos]:
-                lists[pos] = "#" + lists[pos]
+            if "#" not in lists[pos_user]:
+                lists[pos_user] = "#" + lists[pos_user]
                 lists[pos_session] = "#" + lists[pos_session]
 
         with open(Functions.sddm_default_d1, "w") as f:
@@ -209,7 +212,10 @@ def pop_cursor_box(self, combo):
 
     lines = get_sddm_lines(Functions.sddm_default_d2)
 
-    name = check_sddm(lines, "CursorTheme=").split("=")[1]
+    if (len(check_sddm(lines, "CursorTheme=").split("=")) != 1):
+        name = check_sddm(lines, "CursorTheme=").split("=")[1]
+    else:
+        name = ""
 
     coms.sort()
     for i in range(len(coms)):
