@@ -128,7 +128,7 @@ the right setting - the right config - the right application - at the right plac
             Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "firefox --new-tab " + link], shell=False)
         else:
             if Functions.check_package_installed("chromium"):
-                Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "firefox " + link], shell=False)
+                Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "chromium " + link], shell=False)
             else:
                 Functions.subprocess.call(["sudo", "-H", "-u", Functions.sudo_username, "bash", "-c", "exo-open --launch webbrowser " + link], shell=False)
 
