@@ -224,9 +224,9 @@ class Main(Gtk.Window):
 
          #ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
         if os.path.isfile(Functions.sddm_default_d2):
-            if not os.path.isfile("bak." + Functions.sddm_default_d2):
+            if not os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
                 try:
-                    Functions.shutil.copy(Functions.sddm_default_d2, "bak." + Functions.sddm_default_d2)
+                    Functions.shutil.copy("/etc/sddm.conf.d/bak.kde_settings.conf" + Functions.sddm_default_d2)
                 except Exception as e:
                     print(e)
 
@@ -2279,8 +2279,8 @@ class Main(Gtk.Window):
             if os.path.isfile(Functions.sddm_default_d1 + ".bak"):
                 Functions.shutil.copy(Functions.sddm_default_d1 + ".bak",
                                     Functions.sddm_default_d1)
-            if os.path.isfile("bak." + Functions.sddm_default_d2):
-                Functions.shutil.copy("bak" + Functions.sddm_default_d2,
+            if os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
+                Functions.shutil.copy("/etc/sddm.conf.d/bak.kde_settings.conf",
                                     Functions.sddm_default_d2)
         except Exception as e:
             print(e)
