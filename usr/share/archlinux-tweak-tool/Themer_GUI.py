@@ -21,7 +21,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
         i3_list = themer.get_list(Functions.i3wm_config)
     if Functions.os.path.isfile(Functions.awesome_config):
         awesome_list = themer.get_list(Functions.awesome_config)
-    if Functions.os.path.isfile(Functions.qtile_config):
+    if Functions.os.path.isfile(Functions.qtile_config_theme):
         qtile_list = themer.get_list(Functions.qtile_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)

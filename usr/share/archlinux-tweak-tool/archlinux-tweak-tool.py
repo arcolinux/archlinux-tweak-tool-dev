@@ -226,7 +226,8 @@ class Main(Gtk.Window):
         if os.path.isfile(Functions.sddm_default_d2):
             if not os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
                 try:
-                    Functions.shutil.copy("/etc/sddm.conf.d/bak.kde_settings.conf" + Functions.sddm_default_d2)
+                    Functions.shutil.copy(Functions.sddm_default_d2,
+								"/etc/sddm.conf.d/bak.kde_settings.conf")
                 except Exception as e:
                     print(e)
 
