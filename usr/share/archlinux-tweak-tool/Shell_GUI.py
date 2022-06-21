@@ -326,7 +326,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         else:
             hbox32_lbl.set_markup("Fish is not installed")
         self.fish = Gtk.Button("Install Fish")
-        self.fish.connect("clicked", self.on_install_fish_clicked)
+        self.fish.connect("clicked", self.on_install_only_fish_clicked)
         hbox32.pack_start(hbox32_lbl, False, False, 10)
         hbox32.pack_end(self.fish, False, False, 10)
 
