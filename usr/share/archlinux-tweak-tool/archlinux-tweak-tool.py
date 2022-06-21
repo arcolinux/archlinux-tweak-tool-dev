@@ -1050,11 +1050,20 @@ class Main(Gtk.Window):
     #    #                       FISH
     #    #====================================================================
 
-    def on_install_fish_clicked(self, widget):
-        Functions.install_only_fish(self)
-        GLib.idle_add(Functions.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
+    def on_install_only_fish_clicked(self, widget):
+        install = 'pacman -S fish --needed --noconfirm'
+
+        if os.path.exists("/usr/bin/fish"):
+            pass
+        else:
+            subprocess.call(install.split(" "),
+                            shell=False,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT)
+        print("Only Fish has been installed")
         print("Fish is installed without a configuration")
-        #Functions.restart_program()
+        GLib.idle_add(Functions.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
+        Functions.restart_program()
 
     def on_arcolinux_fish_package_clicked(self,widget):
         Functions.install_arcolinux_fish_package(self)

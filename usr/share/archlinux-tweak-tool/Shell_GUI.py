@@ -412,7 +412,7 @@ if you installed the ATT Fish configuration\n\n<b>If you just switched shell, lo
 Restart Att to see the information</b>")
 
         install_only_fish = Gtk.Button(label="Install only Fish and restart ATT to configure")
-        install_only_fish.connect("clicked", Functions.install_only_fish)
+        install_only_fish.connect("clicked", self.on_install_only_fish_clicked)
 
         vboxStack3.pack_start(hbox36, False, False, 0)
         vboxStack3.pack_start(hbox37, False, False, 0)
