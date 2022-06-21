@@ -17,9 +17,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     hbox7.pack_start(hseparator, True, True, 0)
     hbox6.pack_start(lbl1, False, False, 0)
 
-    if Functions.os.path.isfile(Functions.i3wm_config):
+    if Functions.os.path.isfile(Functions.i3wm_config) \
+        and Functions.check_package_installed("arcolinux-i3wm-git"):
         i3_list = themer.get_list(Functions.i3wm_config)
-    if Functions.os.path.isfile(Functions.awesome_config):
+    if Functions.os.path.isfile(Functions.awesome_config) \
+        and Functions.check_package_installed("arcolinux-awesome-git"):
         awesome_list = themer.get_list(Functions.awesome_config)
     if Functions.os.path.isfile(Functions.qtile_config_theme) \
         and Functions.check_package_installed("arcolinux-qtile-git"):
@@ -52,7 +54,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
     self.i3_combo.set_size_request(280, 0)
-    if Functions.os.path.isfile(Functions.i3wm_config):
+    if Functions.os.path.isfile(Functions.i3wm_config) \
+        and Functions.check_package_installed("arcolinux-i3wm-git"):
         themer.get_i3_themes(self.i3_combo, i3_list)
 
     vbox2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -69,7 +72,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     lbls = Gtk.Label(label="Toggle polybar")
     self.poly = Gtk.Switch()
-    if Functions.os.path.isfile(Functions.i3wm_config):
+    if Functions.os.path.isfile(Functions.i3wm_config) \
+        and Functions.check_package_installed("arcolinux-i3wm-git"):
         if themer.check_polybar(themer.get_list(Functions.i3wm_config)):
             self.poly.set_active(True)
     self.poly.connect("notify::active", self.on_polybar_toggle)
@@ -112,7 +116,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
-    if Functions.os.path.isfile(Functions.awesome_config):
+    if Functions.os.path.isfile(Functions.awesome_config) \
+        and Functions.check_package_installed("arcolinux-awesome-git"):
         try:
             awesome_lines = themer.get_awesome_themes(awesome_list)
             for x in range(len(awesome_lines)):
@@ -124,7 +129,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     self.awesome_combo.set_size_request(180, 0)
     renderer_text = Gtk.CellRendererText()
 
-    if Functions.os.path.isfile(Functions.awesome_config):
+    if Functions.os.path.isfile(Functions.awesome_config) \
+        and Functions.check_package_installed("arcolinux-awesome-git"):
         try:
             val = int(themer.get_value(awesome_list, "local chosen_theme =")
                     .replace("themes[", "").replace("]", ""))
