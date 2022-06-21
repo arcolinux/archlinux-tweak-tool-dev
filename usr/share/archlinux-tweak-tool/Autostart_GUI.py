@@ -59,7 +59,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     # rbutton.connect("clicked", self.on_remove_auto)
 
     files = [x.replace(".desktop", "") for x in Functions.os.listdir(Functions.autostart)]
-
     mainbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     sw = Gtk.ScrolledWindow()
