@@ -142,7 +142,7 @@ def set_awesome_theme(lines, val):
 
 def get_qtile_themes(combo, lines):
     combo.get_model().clear()
-    if fn.path_check(fn.home + "/.config/qtile/themes/"):
+    if fn.check_package_installed("arcolinux-qtile-git"):
         try:
             menu = [x for x in fn.os.listdir(fn.home + "/.config/qtile/themes/") if ".theme" in x]
 
@@ -159,7 +159,7 @@ def get_qtile_themes(combo, lines):
             print(e)
 
 def set_qtile_themes(lines, theme):
-    if fn.path_check(fn.home + "/.config/qtile/themes/"):
+    if fn.check_package_installed("arcolinux-qtile-git"):
         try:
             pos1 = fn._get_position(lines, "# COLORS FOR THE BAR")
             pos2 = fn._get_position(lines, "colors = init_colors()")

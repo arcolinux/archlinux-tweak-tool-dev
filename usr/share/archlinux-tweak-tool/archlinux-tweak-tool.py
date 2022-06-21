@@ -1616,7 +1616,7 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("We installed lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings")
         print("--------------------------------------------")
-        print("Do not forget to enable lightdm")
+        print("Do not forget to enable Lightdm")
         print("--------------------------------------------")
 
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm has been installed but not enabled")
@@ -1640,6 +1640,33 @@ class Main(Gtk.Window):
                         stderr=Functions.subprocess.STDOUT)
         print("Lightdm slickgreeter has been installed and enabled (or removed and disabled) - reboot")
         GLib.idle_add(Functions.show_in_app_notification, self, "Lightdm-slickgreeter installed or removed - Reboot now")
+
+    #====================================================================
+    #                        LXDM
+    #====================================================================
+
+    def on_click_install_lxdm(self, desktop):
+        command = 'pacman -S lxdm --noconfirm'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("We installed Lxdm")
+        print("--------------------------------------------")
+        print("Do not forget to enable Lxdm")
+        print("--------------------------------------------")
+
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lxdm has been installed but not enabled")
+        Functions.restart_program()
+
+    def on_click_lxdm_enable(self, desktop):
+        command = 'systemctl enable lxdm.service -f'
+        Functions.subprocess.call(command.split(" "),
+                        shell=False,
+                        stdout=Functions.subprocess.PIPE,
+                        stderr=Functions.subprocess.STDOUT)
+        print("Lxdm has been enabled - reboot")
+        GLib.idle_add(Functions.show_in_app_notification, self, "Lxdm has been enabled - reboot")
 
     #====================================================================
     #                        NEOFETCH CONFIG

@@ -21,7 +21,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
         i3_list = themer.get_list(Functions.i3wm_config)
     if Functions.os.path.isfile(Functions.awesome_config):
         awesome_list = themer.get_list(Functions.awesome_config)
-    if Functions.os.path.isfile(Functions.qtile_config_theme):
+    if Functions.os.path.isfile(Functions.qtile_config_theme) \
+        and Functions.check_package_installed("arcolinux-qtile-git"):
         qtile_list = themer.get_list(Functions.qtile_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
@@ -205,7 +206,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     labelqt = Gtk.Label("Select theme")
     self.qtile_combo = Gtk.ComboBoxText()
     self.qtile_combo.set_size_request(280, 0)
-    if Functions.os.path.isfile(Functions.qtile_config):
+    if Functions.os.path.isfile(Functions.qtile_config_theme) \
+        and Functions.check_package_installed("arcolinux-qtile-git"):
         themer.get_qtile_themes(self.qtile_combo, qtile_list)
 
     vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
@@ -220,7 +222,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     resetqtile = Gtk.Button(label="Reset")
     resetqtile.connect("clicked", self.qtile_reset_clicked)
 
-    if not Functions.os.path.isfile(Functions.qtile_config):
+    if not Functions.os.path.isfile(Functions.qtile_config_theme) \
+        and Functions.check_package_installed("arcolinux-qtile-git"):
             applyqtile.set_sensitive(False)
             resetqtile.set_sensitive(False)
 
