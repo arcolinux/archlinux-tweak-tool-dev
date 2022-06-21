@@ -78,7 +78,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
             self.poly.set_active(True)
     self.poly.connect("notify::active", self.on_polybar_toggle)
 
-    if not Functions.os.path.isfile(Functions.i3wm_config):
+    if not Functions.os.path.isfile(Functions.i3wm_config) \
+        or not Functions.check_package_installed("arcolinux-i3wm-git"):
         applyi3.set_sensitive(False)
         reseti3.set_sensitive(False)
         self.poly.set_sensitive(False)
@@ -168,7 +169,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     image_width = 598
     image_height = 598
 
-    if Functions.os.path.isfile(Functions.awesome_config):
+    if Functions.os.path.isfile(Functions.awesome_config) \
+        and Functions.check_package_installed("arcolinux-awesome-git"):
         try:
             pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" + name + ".jpg", image_width, image_height)  # noqa
             self.image.set_from_pixbuf(pimage)
@@ -190,7 +192,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     reset = Gtk.Button(label="Reset")
     reset.connect("clicked", self.awesome_reset_clicked)
 
-    if not Functions.os.path.isfile(Functions.awesome_config):
+    if not Functions.os.path.isfile(Functions.awesome_config) \
+        or not Functions.check_package_installed("arcolinux-awesome-git"):
             apply.set_sensitive(False)
             reset.set_sensitive(False)
 
@@ -229,7 +232,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     resetqtile.connect("clicked", self.qtile_reset_clicked)
 
     if not Functions.os.path.isfile(Functions.qtile_config_theme) \
-        and Functions.check_package_installed("arcolinux-qtile-git"):
+        or not Functions.check_package_installed("arcolinux-qtile-git"):
             applyqtile.set_sensitive(False)
             resetqtile.set_sensitive(False)
 

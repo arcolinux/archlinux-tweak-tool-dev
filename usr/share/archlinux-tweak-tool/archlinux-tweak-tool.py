@@ -2959,6 +2959,7 @@ class Main(Gtk.Window):
         nid = str(row_id+1)
         themer.set_awesome_theme(themer.get_list(Functions.awesome_config),
                                  nid)
+        print("Theme applied successfully")
         Functions.show_in_app_notification(self, "Theme set successfully")
 
     def awesome_reset_clicked(self, widget):
@@ -2988,6 +2989,7 @@ class Main(Gtk.Window):
         if not themer.check_polybar(themer.get_list(Functions.i3wm_config)):
             themer.set_i3_themes_bar(themer.get_list(Functions.i3wm_config),
                                      self.i3_combo.get_active_text())
+        print("Theme applied successfully")
         Functions.show_in_app_notification(self,
                                            "Theme applied successfully")
 
@@ -3009,6 +3011,7 @@ class Main(Gtk.Window):
 
         themer.set_qtile_themes(themer.get_list(Functions.qtile_config),
                              self.qtile_combo.get_active_text())
+        print("Theme applied successfully")
         Functions.show_in_app_notification(self,
                                            "Theme applied successfully")
 
