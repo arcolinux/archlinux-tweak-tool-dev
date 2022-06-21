@@ -319,7 +319,7 @@ We will backup your files")
     #                       LXDM
     # ==================================================================
 
-    if Functions.check_package_installed("lxdm"):
+    if Functions.check_package_installed("lxdm") or Functions.check_package_installed("lxdm-gtk3"):
 
         hbox50 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox50_lbl = Gtk.Label(xalign=0)
