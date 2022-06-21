@@ -2,7 +2,6 @@
 # =             Author: Brad Heffernan Erik Dubois                =
 # =================================================================
 
-from asyncio import exceptions
 import Functions
 from Functions import GLib
 

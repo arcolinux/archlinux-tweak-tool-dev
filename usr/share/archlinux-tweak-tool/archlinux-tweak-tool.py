@@ -19,6 +19,7 @@ import Functions
 import Gtk_Functions
 import GUI
 import lightdm
+import lxdm
 import neofetch
 import oblogout
 import os

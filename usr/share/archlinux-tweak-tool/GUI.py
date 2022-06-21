@@ -11,6 +11,7 @@ import distro
 import fixes
 import lightdm
 import login
+import lxdm
 import neofetch
 import os
 import sddm
