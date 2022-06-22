@@ -101,6 +101,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
     vboxStack4.pack_start(hbox13, False, False, 0) #select wallpaper
     vboxStack4.pack_start(scrolled, True, True, 0) #Preview
     vboxStack4.pack_end(hbox9, False, False, 0)# Buttons
-    #if Functions.distr == "rebornos":
-    vboxStack4.pack_end(hbox16, False, False, 0)# Buttons
+    if Functions.distr == "rebornos":
+        vboxStack4.pack_end(hbox16, False, False, 0)# Buttons
 
