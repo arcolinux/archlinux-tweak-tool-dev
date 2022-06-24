@@ -66,7 +66,7 @@ class Main(Gtk.Window):
         print(" - ArchLinuxGUI  - https://archlinuxgui.in/")
         print(" - Axyl          - https://axyl-os.github.io/")
         print(" - RebornOS      - https://rebornos.org/")
-        print(" - AmOS          - https://github.com/amanre")
+        print(" - AmOs          - https://github.com/amanre")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
