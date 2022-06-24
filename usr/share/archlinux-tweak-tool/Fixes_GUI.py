@@ -107,6 +107,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     hbox10_label.set_markup("<b>For any Arch Linux based system</b>")
     hbox10.pack_start(hbox10_label, False, False, 10)
 
+    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox11_label = Gtk.Label(xalign=0)
+    hbox11_label.set_markup("We install Alacritty to show you what changes - close the terminal and ATT continues")
+    hbox11.pack_start(hbox11_label, False, False, 10)
+
+
     # ======================================================================
     #                       VBOX STACK
     # ======================================================================
@@ -114,6 +120,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
     vboxStack19.pack_start(hbox1, False, False, 0)
     vboxStack19.pack_start(hbox0, False, False, 0)
     vboxStack19.pack_start(hbox10, False, False, 20)
+    vboxStack19.pack_start(hbox11, False, False, 0)
     vboxStack19.pack_start(hbox2, False, False, 0)
     vboxStack19.pack_start(hbox3, False, False, 0)
     if not Functions.distr == "manjaro":
