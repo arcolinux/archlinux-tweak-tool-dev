@@ -106,7 +106,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack19, sddm, Functions):
         vboxStack19.pack_start(hbox4, False, False, 0)
     vboxStack19.pack_start(hbox7, False, False, 0)
     vboxStack19.pack_start(hbox8, False, False, 0)
-    vboxStack19.pack_start(hbox9, False, False, 20)
+
     if Functions.distr == "arcolinux":
+        vboxStack19.pack_start(hbox9, False, False, 20)
         vboxStack19.pack_start(hbox5, False, False, 0)
         #vboxStack19.pack_start(hbox6, False, False, 0)
