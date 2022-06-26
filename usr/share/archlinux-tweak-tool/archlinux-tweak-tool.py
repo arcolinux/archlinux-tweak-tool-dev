@@ -1448,6 +1448,16 @@ class Main(Gtk.Window):
             Functions.set_login_wallpaper(self,
                                      self.login_wallpaper_path)
 
+    def on_reset_login_wallpaper(self, widget):
+        # if not os.path.isfile(Functions.grub_theme_conf):
+        #     self.on_click_install_arco_vimix_clicked(self)
+
+        if self.login_wallpaper_path == "":
+            Functions.show_in_app_notification(self, "First choose a wallpaper image")
+        else:
+            Functions.reset_login_wallpaper(self,
+                                     self.login_wallpaper_path)
+
     def on_reset_grub_wallpaper(self, widget):
         if os.path.isfile(Functions.grub_theme_conf + ".bak"):
             Functions.shutil.copy(Functions.grub_theme_conf + ".bak",
@@ -3353,6 +3363,19 @@ class Main(Gtk.Window):
 
     def on_click_user_apply(self, widget):
         user.create_user(self)
+
+    #====================================================================
+    #                      WALL - WALLPAPER
+    #====================================================================
+
+    def on_install_att_backgrounds(self,widget):
+        Functions.install_archlinux_login_backgrounds(self,widget)
+        self.pop_login_wallpapers(self.login_managers_combo,
+                        Functions.get_login_wallpapers(), False)
+    def on_remove_att_backgrounds(self,widget):
+        Functions.remove_archlinux_login_backgrounds(self,widget)
+        self.pop_login_wallpapers(self.login_managers_combo,
+                        Functions.get_login_wallpapers(), False)
 
     #====================================================================
     #                      ZSH THEMES

@@ -476,6 +476,20 @@ We will backup your files")
         hbox111.pack_start(self.login_image, True, True, 10)
         hbox111.pack_start(btnsearch, False, False, 10)
 
+        hbox113 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        label113 = Gtk.Label()
+        if Functions.check_package_installed("archlinux-login-backgrounds-git"):
+            label113.set_text("Install our selection of wallpapers (installed)")
+        else:
+            label113.set_text("Install our selection of wallpapers")
+        btn_att_install = Gtk.Button(label="Install ATT backgrounds")
+        btn_att_install.connect("clicked", self.on_install_att_backgrounds)
+        btn_att_remove = Gtk.Button(label="Remove ATT backgrounds")
+        btn_att_remove.connect("clicked", self.on_remove_att_backgrounds)
+        hbox113.pack_end(btn_att_remove, False, False, 10)
+        hbox113.pack_end(btn_att_install, False, False, 10)
+        hbox113.pack_start(label113, False, True, 10)
+
         hbox112 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
         label112 = Gtk.Label()
         label112.set_text("Select a wallpaper and apply")
@@ -498,10 +512,10 @@ We will backup your files")
 
 
         hbox119 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        login_apply = Gtk.Button(label="Choose and apply background")
+        login_apply = Gtk.Button(label="Select and apply background")
         login_apply.connect("clicked", self.on_set_login_wallpaper)
         login_reset = Gtk.Button(label="Reset to the original background")
-        login_reset.connect("clicked", self.on_reset_grub)
+        login_reset.connect("clicked", self.on_reset_login_wallpaper)
 
         hbox119.pack_end(login_reset, False, False, 0)
         hbox119.pack_end(login_apply, False, False, 0)
@@ -512,6 +526,7 @@ We will backup your files")
         vboxStack4.pack_start(hbox73, False, False, 0)
 
         vboxStack4.pack_start(hbox111, False, False, 0) #import
+        vboxStack4.pack_start(hbox113, False, False, 0) #install wallpapers
         vboxStack4.pack_start(hbox112, False, False, 0) #select wallpaper
         vboxStack4.pack_start(scrolled, True, True, 0) #Preview
         vboxStack4.pack_end(hbox119, False, False, 0)# Buttons
