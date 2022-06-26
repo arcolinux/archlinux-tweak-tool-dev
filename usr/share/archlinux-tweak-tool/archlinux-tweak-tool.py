@@ -1504,7 +1504,6 @@ class Main(Gtk.Window):
                 pimage.show_all()
 
     def pop_login_wallpapers(self, combo, lists, start):
-        if Functions.check_package_installed("archlinux-login-backgrounds-git"):
             combo.get_model().clear()
             with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
                 listss = f.readlines()
