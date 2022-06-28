@@ -491,12 +491,22 @@ We will backup your files")
         hbox113.pack_start(label113, False, True, 10)
 
         hbox112 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
-        label112 = Gtk.Label()
-        label112.set_text("Select a wallpaper and apply")
+
         btn_login_import = Gtk.Button(label="Import selected image")
         btn_login_import.connect("clicked", self.on_import_login_wallpaper)
+        btn_remove_import = Gtk.Button(label="Remove selected image")
+        btn_remove_import.connect("clicked", self.on_import_remove_login_wallpaper)
+        hbox112.pack_end(btn_remove_import, False, False, 10)
         hbox112.pack_end(btn_login_import, False, False, 10)
-        hbox112.pack_start(label112, False, True, 10)
+
+        hbox115 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        hseparator = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
+        hbox115.pack_start(hseparator, True, True, 0)
+
+        hbox114 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        label114 = Gtk.Label()
+        label114.set_text("Select a wallpaper and apply")
+        hbox114.pack_start(label114, False, True, 10)
 
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
@@ -522,14 +532,15 @@ We will backup your files")
 
         vboxStack4.pack_start(hbox70, False, False, 0)
         vboxStack4.pack_start(hbox71, False, False, 0)
+        vboxStack4.pack_start(hbox113, False, False, 0)
         vboxStack4.pack_start(hbox72, False, False, 0)
         vboxStack4.pack_start(hbox73, False, False, 0)
-
-        vboxStack4.pack_start(hbox111, False, False, 0) #import
-        vboxStack4.pack_start(hbox113, False, False, 0) #install wallpapers
-        vboxStack4.pack_start(hbox112, False, False, 0) #select wallpaper
-        vboxStack4.pack_start(scrolled, True, True, 0) #Preview
-        vboxStack4.pack_end(hbox119, False, False, 0)# Buttons
+        vboxStack4.pack_start(hbox111, False, False, 0)
+        vboxStack4.pack_start(hbox112, False, False, 0)
+        vboxStack4.pack_start(hbox114, False, False, 0)
+        vboxStack4.pack_start(hbox115, False, False, 0)
+        vboxStack4.pack_start(scrolled, True, True, 0)
+        vboxStack4.pack_end(hbox119, False, False, 0)
 
 
 
