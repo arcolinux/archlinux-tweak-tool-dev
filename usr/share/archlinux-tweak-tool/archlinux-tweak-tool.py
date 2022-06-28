@@ -1515,9 +1515,9 @@ class Main(Gtk.Window):
 
     def pop_login_wallpapers(self, combo, lists, start):
             combo.get_model().clear()
-            with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
-                listss = f.readlines()
-                f.close()
+            # with open("/usr/share/sddm/themes/arcolinux-simplicity/theme.conf", "r", encoding="utf-8") as f:
+            #     listss = f.readlines()
+            #     f.close()
 
             #val = Functions._get_position(listss, "background=")
             #bg_image = listss[val].split(" ")[1].replace("\"", "").strip()
