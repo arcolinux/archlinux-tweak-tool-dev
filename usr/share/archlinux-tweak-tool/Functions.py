@@ -547,6 +547,8 @@ def change_distro_label(name):      # noqa
         name = "RebornOS"
     if name == "amos":
         name = "AmOs"
+    if name == "archcraft":
+        name = "Archcraft"
     return name
 
 # =====================================================
@@ -672,6 +674,7 @@ def set_login_wallpaper(self, image):
 
         if os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
             try:
+                print("This is your current theme: " + theme)
                 with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "r", encoding="utf-8") as f:
                     lists = f.readlines()
                     f.close()

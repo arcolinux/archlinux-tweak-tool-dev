@@ -146,6 +146,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 Switch to the default neofetch to use this tab")
     hbox28.pack_start(label28, False, False, 10)
 
+    hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    label29 = Gtk.Label()
+    label29.set_text("Archcraft is using a personalized neofetch configuration\n\
+Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/config.conf")
+    hbox29.pack_start(label28, False, False, 10)
+
     #hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.off, True, False, 10)
     hbox22.pack_end(self.asci, True, False, 10)
@@ -175,6 +181,10 @@ Switch to the default neofetch to use this tab")
     if Functions.distr == "amos":
         vboxStack8.pack_start(hbox9, False, False, 0)
         vboxStack8.pack_start(hbox28, False, False, 0)
+
+    if Functions.distr == "archcraft":
+        vboxStack8.pack_start(hbox9, False, False, 0)
+        vboxStack8.pack_start(hbox29, False, False, 0)
 
     vboxStack8.pack_end(hbox24, False, False, 0)
 
