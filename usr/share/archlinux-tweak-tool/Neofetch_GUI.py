@@ -150,7 +150,7 @@ Switch to the default neofetch to use this tab")
     label29 = Gtk.Label()
     label29.set_text("Archcraft is using a personalized neofetch configuration\n\
 Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/config.conf")
-    hbox29.pack_start(label28, False, False, 10)
+    hbox29.pack_start(label29, False, False, 10)
 
     #hbox22.pack_start(self.w3m, True, False, 10)
     hbox22.pack_end(self.off, True, False, 10)

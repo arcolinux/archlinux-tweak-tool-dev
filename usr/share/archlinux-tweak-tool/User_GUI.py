@@ -88,8 +88,7 @@ audio,video,network,storage,rfkill,wheel,autologin,sambashare")
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     apply_settings = Gtk.Button(label="Apply settings")
     apply_settings.connect("clicked", self.on_click_user_apply)
-    hbox2.pack_end(apply_settings, False, False, 0)
-
+    hbox2.pack_start(apply_settings, False, False, 0)
 
     hbox40 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl_delete_user = Gtk.Label(xalign=0)
