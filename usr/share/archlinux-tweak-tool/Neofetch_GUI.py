@@ -16,6 +16,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
     #                     NEOFETCH
     # ==========================================================
 
+    hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+    warning_label = Gtk.Label(xalign=0)
+    warning_label.set_markup("Some distros have their own configuration and/or application, investigate")
+    hbox23.pack_start(warning_label, False, False, 10)
+
     self.asci = Gtk.RadioButton(label="Enable ascii backend")
     #self.asci.set_label("Enable ascii backend")
     self.asci.connect("toggled", self.radio_toggled)
@@ -45,7 +50,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox22.set_margin_top(30)
-    hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox25.set_margin_top(30)
@@ -172,10 +176,10 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
 
     vboxStack8.pack_start(hbox3, False, False, 0)
     vboxStack8.pack_start(hbox4, False, False, 0)
+    vboxStack8.pack_start(hbox23, False, False, 0)
     vboxStack8.pack_start(hbox27, False, False, 0)
     vboxStack8.pack_start(hbox22, False, False, 0)
     vboxStack8.pack_start(self.hbox26, False, False, 0)
-    vboxStack8.pack_start(hbox23, False, False, 0)
     vboxStack8.pack_start(hbox25, False, False, 0)
 
     if Functions.distr == "amos":

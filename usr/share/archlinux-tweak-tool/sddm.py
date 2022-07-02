@@ -162,7 +162,8 @@ def pop_theme_box(self, combo):
 
     if os.path.exists("/usr/share/sddm") and os.path.exists(Functions.sddm_default_d2) and os.path.exists(Functions.sddm_default_d1):
         for items in Functions.os.listdir("/usr/share/sddm/themes/"):
-            coms.append(items.split(".")[0].lower())
+            #coms.append(items.split(".")[0].lower())
+            coms.append(items.split(".")[0])
         lines = get_sddm_lines(Functions.sddm_default_d2)
 
         name = check_sddm(lines, "Current=").split("=")[1]
@@ -317,7 +318,8 @@ def pop_cursor_box(self, combo):
     else:
         name = ""
 
-    coms.sort(key = lambda x: x.lower())
+    #coms.sort(key = lambda x: x.lower())
+    coms.sort()
     for i in range(len(coms)):
         #excludes = ['maya', 'maldives', 'elarun', '']
         #if not coms[i] in excludes:
