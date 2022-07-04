@@ -3,6 +3,9 @@
 # =================================================================
 
 
+from os import link
+
+
 def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
 
     #Image Dimensions. Change once here - apply to ALL the items in this GUI.
@@ -282,8 +285,13 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     for theme in Functions.leftwm_themes_list:
         self.leftwm_combo.append_text(theme)
     self.leftwm_combo.connect("changed", self.on_leftwm_combo_changed)
-    link_theme = (Functions.os.path.basename(Functions.os.readlink(Functions.leftwm_config_theme_current)))
-    self.leftwm_combo.set_active(1)
+    if Functions.path_check(Functions.leftwm_config_theme_current):
+        link_theme = Functions.os.path.basename(Functions.os.readlink(Functions.leftwm_config_theme_current))
+        for i in range(len(Functions.leftwm_themes_list)):
+            if link_theme == Functions.leftwm_themes_list[i]:
+                self.leftwm_combo.set_active(i)
+    else:
+        self.leftwm_combo.set_sensitive(False)
 
     vbox5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
