@@ -310,6 +310,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
         or not Functions.check_package_installed("arcolinux-leftwm-git"):
             applyleftwm.set_sensitive(False)
             resetleftwm.set_sensitive(False)
+            removeleftwm.set_sensitive(False)
 
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox11.pack_start(labellft, False, False, 10)

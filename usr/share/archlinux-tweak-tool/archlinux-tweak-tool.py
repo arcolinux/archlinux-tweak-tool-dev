@@ -656,7 +656,7 @@ class Main(Gtk.Window):
         if debug:
             print("GRUB")
 
-        if os.path.exists(Functions.grub_default_grub):
+        if Functions.check_package_installed("arcolinux-grub-theme-vimix-git"):
             try:
                 if Functions.check_content("GRUB_TIMEOUT=",Functions.grub_default_grub):
                     with open(Functions.grub_default_grub, "r", encoding="utf-8") as f:
@@ -3218,6 +3218,7 @@ class Main(Gtk.Window):
         print("Theme " + self.leftwm_combo.get_active_text() + " applied successfully")
         Functions.show_in_app_notification(self,
                                            "Theme " + self.leftwm_combo.get_active_text() + " applied successfully")
+        self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
 
     def leftwm_reset_clicked(self, widget):
         themer.reset_leftwm_themes(self.leftwm_combo.get_active_text())
@@ -3225,6 +3226,7 @@ class Main(Gtk.Window):
         print("Theme " + self.leftwm_combo.get_active_text() + " reset successfully")
         Functions.show_in_app_notification(self,
                                            "Theme " + self.leftwm_combo.get_active_text() + " reset successfully")
+        self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
 
     def leftwm_remove_clicked(self, widget):
         themer.remove_leftwm_themes(self.leftwm_combo.get_active_text())
