@@ -277,7 +277,9 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
     #self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
 
     label6 = Gtk.Label()
-    label6.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.\nInstall the desktop with ATT to theme it.")
+    label6.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.\n\
+Sometimes you even need to logout to let the theme apply fully\n\
+Be patient if it is the first time you install the theme or use the scripts to install them in one go")
 
     labellft = Gtk.Label("Select theme - candy is the default theme")
     self.leftwm_combo = Gtk.ComboBoxText()
