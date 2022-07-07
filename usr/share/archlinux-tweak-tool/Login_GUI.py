@@ -260,6 +260,8 @@ We will backup your files")
         hbox29_lbl = Gtk.Label(xalign=0)
         if Functions.check_package_installed("lightdm-slick-greeter"):
             hbox29_lbl.set_text("Install lightdm slick greeter (installed)")
+            if Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+                hbox29_lbl.set_text("Install lightdm slick greeter (installed and active)")
         else:
             hbox29_lbl.set_text("Install lightdm slick greeter")
         btn_install_slick_greeter = Gtk.Button(label="Install slickgreeter")
@@ -300,13 +302,13 @@ We will backup your files")
         hbox24_lbl.set_text("You can change more settings with the lightdm-gtk-greeter-settings app")
         hbox24.pack_start(hbox24_lbl, False, False, 10)
 
-        hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        hbox25_label = Gtk.Label(xalign=0)
-        if Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
-            hbox25_label.set_text("Slickgreeter is active")
-        else:
-            hbox25_label.set_text("Slickgreeter is inactive")
-        hbox25.pack_start(hbox25_label, False, False, 10)
+        # hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # hbox25_label = Gtk.Label(xalign=0)
+        # if Functions.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+        #     hbox25_label.set_text("Slickgreeter is active")
+        # else:
+        #     hbox25_label.set_text("Slickgreeter is inactive")
+        # hbox25.pack_start(hbox25_label, False, False, 10)
 
         #lightdm
         hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -330,7 +332,7 @@ We will backup your files")
         vboxStack2.pack_start(hbox23, False, False, 0)
         vboxStack2.pack_start(hbox29, False, False, 0)
         vboxStack2.pack_start(hbox24, False, False, 0)
-        vboxStack2.pack_start(hbox25, False, False, 0)
+        #vboxStack2.pack_start(hbox25, False, False, 0)
         vboxStack2.pack_end(hbox26, False, False, 0)
 
     else:

@@ -1904,7 +1904,7 @@ class Main(Gtk.Window):
     #====================================================================
 
     def on_click_install_lxdm(self, desktop):
-        Functions.install_packages(self,"lxdm")
+        Functions.install_package(self,"lxdm")
         #command = 'pacman -S lxdm --noconfirm'
         # Functions.subprocess.call(command.split(" "),
         #                 shell=False,
@@ -1939,15 +1939,19 @@ class Main(Gtk.Window):
 
     def on_click_install_att_lxdm_minimalo(self,widget):
         Functions.install_arco_package(self,"arcolinux-lxdm-theme-minimalo-git")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
 
     def on_click_remove_att_lxdm_minimalo(self,widget):
         Functions.remove_package(self,"arcolinux-lxdm-theme-minimalo-git")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
 
     def on_click_install_lxdm_themes(self,widget):
         Functions.install_arco_package(self,"lxdm-themes")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
 
     def on_click_remove_lxdm_themes(self,widget):
         Functions.remove_package(self,"lxdm-themes")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
 
     def on_click_lxdm_reset(self, widget):
         if Functions.os.path.isfile(Functions.lxdm_conf + ".bak"):
@@ -1961,6 +1965,8 @@ class Main(Gtk.Window):
 
         print("Lxdm default settings applied")
         Functions.show_in_app_notification(self, "Lxdm default settings applied")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+        lxdm.pop_gtk_theme_names_lxdm(self, self.lxdm_gtk_theme)
 
     def on_click_lxdm_apply(self, widget):
         if (self.lxdm_gtk_theme.get_active_text() is not None and self.lxdm_theme_greeter.get_active_text() is not None):
