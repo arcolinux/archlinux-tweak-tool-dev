@@ -675,6 +675,8 @@ def change_distro_label(name):      # noqa
         name = "AmOs"
     if name == "archcraft":
         name = "Archcraft"
+    if name == "cachyos":
+        name = "CachyOS"
     return name
 
 # =====================================================

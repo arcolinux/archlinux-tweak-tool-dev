@@ -68,7 +68,7 @@ class Main(Gtk.Window):
         print(" - RebornOS      - https://rebornos.org/")
         print(" - AmOs          - https://github.com/amanre")
         print(" - Archcraft     - https://archcraft.io/")
-        print(" - Cachyos       - https://cachyos.org/")
+        print(" - CachyOS       - https://cachyos.org/")
         print("---------------------------------------------------------------------------")
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")

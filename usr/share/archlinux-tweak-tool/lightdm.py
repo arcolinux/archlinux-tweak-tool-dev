@@ -14,6 +14,15 @@ def check_lightdm(lists, value):
         except Exception as e:
             print(e)
 
+def check_lightdm_greeter(lists, value):
+    if fn.os.path.isfile(fn.lightdm_greeter):
+        try:
+            pos = fn._get_position(lists, value)
+            val = lists[pos].strip()
+            return val
+        except Exception as e:
+            print(e)
+
 def set_lightdm_value(self, lists, value, session, state):
     if fn.os.path.isfile(fn.lightdm_conf):
         try:
@@ -125,7 +134,7 @@ def pop_gtk_theme_names_lightdm(self, combo):
         lines = fn.get_lines(fn.lightdm_greeter)
 
         pos = fn._get_position(lines, "theme-name=")
-        theme_name = check_lightdm(lines, "theme-name=").split("=")[1]
+        theme_name = check_lightdm_greeter(lines, "theme-name=").split("=")[1]
 
         # # if name == "":
         # #     name = check_lightdm(lines, "user-session=").split("=")[1]
