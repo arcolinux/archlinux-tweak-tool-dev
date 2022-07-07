@@ -2873,10 +2873,13 @@ class Main(Gtk.Window):
         # GLib.idle_add(Functions.show_in_app_notification, self, "Sddm has been enabled - reboot")
 
     def on_launch_adt_clicked(self, desktop):
-        Functions.install_adt(self)
-        subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
-        GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")
-        print("We started ADT")
+        Functions.install_arco_package(self,"arcolinux-desktop-trasher-git")
+        try:
+            subprocess.Popen("/usr/local/bin/arcolinux-desktop-trasher")
+            GLib.idle_add(Functions.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched")
+            print("We started ADT")
+        except Exception as e:
+                pass
 
     def on_refresh_att_clicked(self, desktop):
         Functions.restart_program()
