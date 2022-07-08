@@ -468,9 +468,9 @@ class Main(Gtk.Window):
             if fn.os.path.isfile(fn.sddm_default_d1):
                 try:
                     if  os.path.getsize(fn.sddm_default_d1) == 0:
-                        fn.shutil.copy(fn.sddm_default_d_sddm_original_1,
+                        fn.shutil.copy(fn.sddm_default_d1_arco,
                                             fn.sddm_default_d1)
-                        fn.shutil.copy(fn.sddm_default_d_sddm_original_2,
+                        fn.shutil.copy(fn.sddm_default_d2_arco,
                                             fn.sddm_default_d2)
                 except Exception as e:
                     print(e)
@@ -478,9 +478,9 @@ class Main(Gtk.Window):
             #if there is NO sddm.conf at all - both are not there
             if not fn.os.path.exists(fn.sddm_default_d1) and not fn.os.path.exists(fn.sddm_default_d2):
                 try:
-                    fn.shutil.copy(fn.sddm_default_d_sddm_original_1,
+                    fn.shutil.copy(fn.sddm_default_d1_arco,
                                           fn.sddm_default_d1)
-                    fn.shutil.copy(fn.sddm_default_d_sddm_original_2,
+                    fn.shutil.copy(fn.sddm_default_d2_arco,
                                           fn.sddm_default_d2)
                     print("The SDDM files in your installation either did not exist, or were corrupted.")
                     print("These files have now been restored. Please re-run the Tweak Tool if it did not load for you.")
@@ -515,9 +515,9 @@ class Main(Gtk.Window):
                 pass
             else:
                 fn.create_sddm_k_dir()
-                fn.shutil.copy(fn.sddm_default_d_sddm_original_1,
+                fn.shutil.copy(fn.sddm_default_d1_arco,
                                         fn.sddm_default_d1)
-                fn.shutil.copy(fn.sddm_default_d_sddm_original_2,
+                fn.shutil.copy(fn.sddm_default_d2_arco,
                                         fn.sddm_default_d2)
                 print("We changed your sddm configuration files so that ATT could start")
                 print("Backups are at /etc/backup-kde_settings.conf and /etc/backup-sddm.conf")
@@ -1224,7 +1224,6 @@ class Main(Gtk.Window):
         print("Only Fish has been installed")
         print("Fish is installed without a configuration")
         GLib.idle_add(fn.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
-        fn.restart_program()
 
     def on_arcolinux_fish_package_clicked(self,widget):
         fn.install_arcolinux_fish_package(self)
@@ -1887,16 +1886,9 @@ class Main(Gtk.Window):
 
     def on_click_att_lightdm_clicked(self, desktop):
         fn.install_package(self,"lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings" )
-        # command = 'pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings --noconfirm'
-        # fn.subprocess.call(command.split(" "),
-        #                 shell=False,
-        #                 stdout=fn.subprocess.PIPE,
-        #                 stderr=fn.subprocess.STDOUT)
-        print("We installed lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings")
         print("--------------------------------------------")
         print("Do not forget to enable Lightdm")
         print("--------------------------------------------")
-
         GLib.idle_add(fn.show_in_app_notification, self, "Lightdm has been installed but not enabled")
         fn.restart_program()
 
@@ -2678,9 +2670,9 @@ class Main(Gtk.Window):
     def on_click_sddm_reset_original_att(self, widget):
         fn.create_sddm_k_dir()
         try:
-            fn.shutil.copy(fn.sddm_default_d_sddm_original_1,
+            fn.shutil.copy(fn.sddm_default_d1_arco,
                                   fn.sddm_default_d1)
-            fn.shutil.copy(fn.sddm_default_d_sddm_original_2,
+            fn.shutil.copy(fn.sddm_default_d2_arco,
                                   fn.sddm_default_d2)
         except Exception as e:
             print(e)
@@ -2710,10 +2702,10 @@ class Main(Gtk.Window):
 
     def on_click_no_sddm_reset_original(self, widget):
         fn.create_sddm_k_dir()
-        if fn.os.path.isfile(fn.sddm_default_d_sddm_original_1):
-            fn.shutil.copyfile(fn.sddm_default_d_sddm_original_1,
+        if fn.os.path.isfile(fn.sddm_default_d1_arco):
+            fn.shutil.copyfile(fn.sddm_default_d1_arco,
                                   fn.sddm_default_d1)
-            fn.shutil.copyfile(fn.sddm_default_d_sddm_original_2,
+            fn.shutil.copyfile(fn.sddm_default_d2_arco,
                                   fn.sddm_default_d2)
         print("The ArcoLinux sddm configuration is now applied")
         fn.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
@@ -2776,113 +2768,38 @@ class Main(Gtk.Window):
         sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_install_bibata_cursor(self,widget):
-        if os.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active():
-                command = 'pacman -S bibata-cursor-theme-bin --needed --noconfirm'
-                fn.subprocess.call(command.split(" "),
-                                shell=False,
-                                stdout=fn.subprocess.PIPE,
-                                stderr=fn.subprocess.STDOUT)
-                print("We installed the Bibata cursors")
-                GLib.idle_add(fn.show_in_app_notification, self, "Bibata cursors have been installed")
-                #sddm.pop_theme_box(self, self.theme_sddm)
-                sddm.pop_cursor_box(self, self.sddm_cursor_themes)
-            else:
-                print("Activate the ArcoLinux repos")
-                GLib.idle_add(fn.show_in_app_notification, self, "Activate the ArcoLinux repos")
-        else:
-            print("Install the ArcoLinux keys and mirrors")
-            GLib.idle_add(fn.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
+        fn.install_arco_package(self,"bibata-cursor-theme-bin")
+        sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
 
     def on_click_remove_bibata_cursor(self,widget):
-        command = 'pacman -R bibata-cursor-theme-bin --noconfirm'
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("We removed the Bibata cursors")
-        GLib.idle_add(fn.show_in_app_notification, self, "Bibata cursors have been removed")
-        sddm.pop_theme_box(self, self.theme_sddm)
-        sddm.pop_cursor_box(self, self.sddm_cursor_themes)
+        fn.remove_package(self,"bibata-cursor-theme-bin")
+        sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
 
     def on_click_install_bibatar_cursor(self,widget):
-        if os.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active():
-                command = 'pacman -S bibata-extra-cursor-theme --needed --noconfirm'
-                fn.subprocess.call(command.split(" "),
-                                shell=False,
-                                stdout=fn.subprocess.PIPE,
-                                stderr=fn.subprocess.STDOUT)
-                print("We installed the Bibata extra cursors")
-                GLib.idle_add(fn.show_in_app_notification, self, "Bibata extra cursors have been installed")
-                sddm.pop_theme_box(self, self.theme_sddm)
-                sddm.pop_cursor_box(self, self.sddm_cursor_themes)
-            else:
-                print("Activate the ArcoLinux repos")
-                GLib.idle_add(fn.show_in_app_notification, self, "Activate the ArcoLinux repos")
-        else:
-            print("Install the ArcoLinux keys and mirrors")
-            GLib.idle_add(fn.show_in_app_notification, self, "Install the ArcoLinux keys and mirrors")
+        fn.install_arco_package(self,"bibata-extra-cursor-theme")
+        sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
 
     def on_click_remove_bibatar_cursor(self,widget):
-        command = 'pacman -R bibata-extra-cursor-theme --noconfirm'
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("We removed the Bibata extra cursors")
-        GLib.idle_add(fn.show_in_app_notification, self, "Bibata extra cursors have been removed")
-        sddm.pop_theme_box(self, self.theme_sddm)
-        sddm.pop_cursor_box(self, self.sddm_cursor_themes)
+        fn.remove_package(self,"bibata-extra-cursor-theme")
+        sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
 
     #if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):
-        command = 'pacman -S sddm --noconfirm --needed'
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("We installed sddm")
-
-        command = 'pacman -S arcolinux-sddm-simplicity-git --noconfirm --needed'
-        fn.subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=fn.subprocess.PIPE,
-                        stderr=fn.subprocess.STDOUT)
-        print("We installed arcolinux-sddm-simplicity-git")
-
-        # command = 'pacman -S bibata-cursor-theme-bin --noconfirm --needed'
-        # fn.subprocess.call(command.split(" "),
-        #                 shell=False,
-        #                 stdout=fn.subprocess.PIPE,
-        #                 stderr=fn.subprocess.STDOUT)
-        # print("We installed bibata-cursor-theme-bin")
-        # print("--------------------------------------------")
-        # print("Do not forget to enable sddm")
-        # print("--------------------------------------------")
-
+        fn.install_package(self,"sddm")
+        fn.install_arco_package(self,"arcolinux-sddm-simplicity-git")
+        print("Do not forget to enable sddm")
         GLib.idle_add(fn.show_in_app_notification, self, "Sddm has been installed but not enabled")
-
         fn.create_sddm_k_dir()
-
-        if fn.os.path.isfile(fn.sddm_default_d_sddm_original_1):
-            fn.shutil.copyfile(fn.sddm_default_d_sddm_original_1,
-                                  fn.sddm_default_d1)
-            fn.shutil.copyfile(fn.sddm_default_d_sddm_original_2,
-                                  fn.sddm_default_d2)
-        print("The ArcoLinux sddm configuration is now applied")
-        fn.show_in_app_notification(self, "The ArcoLinux sddm configuration is now applied")
+        fn.shutil.copyfile(fn.sddm_default_d1_arco,
+                                fn.sddm_default_d1)
+        fn.shutil.copyfile(fn.sddm_default_d2_arco,
+                                fn.sddm_default_d2)
+        print("The ATT sddm configuration is now applied")
+        fn.show_in_app_notification(self, "The ATT sddm configuration is now applied")
         fn.restart_program()
 
     def on_click_sddm_enable(self, desktop):
         fn.enable_login_manager(self, "sddm")
-        # command = 'systemctl enable sddm.service -f'
-        # fn.subprocess.call(command.split(" "),
-        #                 shell=False,
-        #                 stdout=fn.subprocess.PIPE,
-        #                 stderr=fn.subprocess.STDOUT)
-        # print("We enabled sddm.service")
-        # GLib.idle_add(fn.show_in_app_notification, self, "Sddm has been enabled - reboot")
 
     def on_launch_adt_clicked(self, desktop):
         fn.install_arco_package(self,"arcolinux-desktop-trasher-git")
@@ -2912,7 +2829,6 @@ class Main(Gtk.Window):
         fn.remove_discovery(self)
         GLib.idle_add(fn.show_in_app_notification, self, "Network discovery is removed")
         print("Network discovery is removed")
-
 
     def on_click_reset_nsswitch(self, widget):
         if os.path.isfile(fn.nsswitch_config + ".bak"):
@@ -3059,6 +2975,7 @@ class Main(Gtk.Window):
                                         args=(self,))
         t1.daemon = True
         t1.start()
+
     # ======REMOVE ITEMS TO TREEVIEW=============
 
     def on_remove_fixed(self, widget):
@@ -3759,35 +3676,10 @@ class Main(Gtk.Window):
         print("ZSH THEMES")
 
     def on_install_zsh_completions_clicked(self, widget):
-        if fn.check_package_installed("zsh-completions"):
-            print("Zsh-completions already installed")
-        else:
-            install = 'pacman -S zsh zsh-completions --noconfirm'
-            try:
-                subprocess.call(install.split(" "),
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
-                print("Installing zsh-completions")
-            except Exception as e:
-                print(e)
-        GLib.idle_add(fn.show_in_app_notification, self, "Zsh completions is installed")
-
+        fn.install_package(self,"zsh-completions")
 
     def on_install_zsh_syntax_highlighting_clicked(self, widget):
-        if fn.check_package_installed("zsh-syntax-highlighting"):
-            print("Zsh-syntax-highlighting is already installed")
-        else:
-            install = 'pacman -S zsh zsh-syntax-highlighting --noconfirm'
-            try:
-                subprocess.call(install.split(" "),
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
-                print("Zsh-syntax-highlighting is installed")
-            except Exception as e:
-                print(e)
-        GLib.idle_add(fn.show_in_app_notification, self, "Zsh-syntax-highlighting is installed")
+        fn.install_package(self,"zsh-syntax-highlighting")
 
     def on_arcolinux_zshrc_clicked(self, widget):
         try:
@@ -3871,6 +3763,7 @@ class Main(Gtk.Window):
             if fn.check_arco_repos_active() == True:
                 if os.path.exists("/usr/share/licenses/oh-my-zsh-git/LICENSE"):
                     print("Oh-my-zsh-git already installed")
+                    GLib.idle_add(fn.show_in_app_notification, self, "oh-my-zsh-git is installed")
                     pass
                 else:
                     install = 'pacman -S oh-my-zsh-git --noconfirm'
