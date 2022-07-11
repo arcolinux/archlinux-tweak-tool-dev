@@ -1720,9 +1720,9 @@ class Main(Gtk.Window):
             fn.shutil.copy(fn.lightdm_greeter_bak, fn.lightdm_greeter)
 
         if "#" in lightdm.check_lightdm(fn.get_lines(fn.lightdm_conf), "autologin-user="):  # noqa
-            self.autologin.set_active(False)
+            self.autologin_lightdm.set_active(False)
         else:
-            self.autologin.set_active(True)
+            self.autologin_lightdm.set_active(True)
 
         print("Lightdm and lightdm gtk-greeter-settings applied")
         fn.show_in_app_notification(self, "Lightdm settings applied")
