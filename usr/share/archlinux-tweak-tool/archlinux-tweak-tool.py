@@ -1176,6 +1176,8 @@ class Main(Gtk.Window):
         # if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
         print("installing {}".format(self.d_combo.get_active_text()))
         desktopr.check_lock(self,self.d_combo.get_active_text(),state)
+        sddm.pop_box(self, self.sessions_sddm)
+        lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
 
     def on_default_clicked(self, widget):
         fn.create_log(self)
