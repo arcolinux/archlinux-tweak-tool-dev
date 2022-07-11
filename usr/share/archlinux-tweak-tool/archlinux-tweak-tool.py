@@ -238,21 +238,23 @@ class Main(Gtk.Window):
 
         #ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
         #no backups in this folder - it confuses sddm.conf.d
-        #remove if exists backups
+
         if os.path.isfile(fn.sddm_default_d1):
-            if not os.path.isfile("/etc/bak.sddm.conf"):
+            if not os.path.isfile(fn.sddm_default_d1_bak):
                 try:
-                    fn.shutil.copy(fn.sddm_default_d1, "/etc/bak.sddm.conf")
+                    fn.shutil.copy(fn.sddm_default_d1, fn.sddm_default_d1_bak)
                 except Exception as e:
                     print(e)
 
-        if not os.path.isfile("/etc/bak.kde_settings.conf"):
-            try:
-                fn.shutil.copy(fn.sddm_default_d2, "/etc/bak.kde_settings.conf")
-            except Exception as e:
-                pass
+        if os.path.isfile(fn.sddm_default_d2):
+            if not os.path.isfile(fn.sddm_default_d2_bak):
+                try:
+                    fn.shutil.copy(fn.sddm_default_d2, fn.sddm_default_d2_bak)
+                except Exception as e:
+                    pass
 
-        #cleanup
+        #start cleanup
+        #remove if exists old backups and confusing files
         if os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
             try:
                 os.unlink("/etc/sddm.conf.d/bak.kde_settings.conf")
@@ -293,30 +295,31 @@ class Main(Gtk.Window):
                 print("Other files will be deleted")
             except Exception as e:
                 pass
+        #end cleanup
 
         #ensuring we have a backup of /etc/lightdm/lightdm.conf
-        if os.path.isfile("/etc/lightdm/lightdm.conf"):
-            try:
-                if not os.path.isfile("/etc/lightdm/lightdm.conf" + ".bak"):
-                    fn.shutil.copy("/etc/lightdm/lightdm.conf", "/etc/lightdm/lightdm.conf" + ".bak")
-            except Exception as e:
-                print(e)
+        if os.path.isfile(fn.lightdm_conf):
+            if not os.path.isfile(fn.lightdm_conf_bak):
+                try:
+                    fn.shutil.copy(fn.lightdm_conf, fn.lightdm_conf_bak)
+                except Exception as e:
+                    print(e)
 
         #ensuring we have a backup of /etc/lightdm/lightdm-gtk-greeter.conf
-        if os.path.isfile("/etc/lightdm/lightdm-gtk-greeter.conf"):
-            try:
-                if not os.path.isfile("/etc/lightdm/lightdm-gtk-greeter.conf" + ".bak"):
-                    fn.shutil.copy("/etc/lightdm/lightdm-gtk-greeter.conf", "/etc/lightdm/lightdm-gtk-greeter.conf" + ".bak")
-            except Exception as e:
-                print(e)
+        if os.path.isfile(fn.lightdm_greeter):
+            if not os.path.isfile(fn.lightdm_greeter_bak):
+                try:
+                    fn.shutil.copy(fn.lightdm_greeter, fn.lightdm_greeter_bak)
+                except Exception as e:
+                    print(e)
 
         #ensuring we have a backup of /etc/lxdm/lxdm.conf
-        if os.path.isfile("/etc/lxdm/lxdm.conf"):
-            try:
-                if not os.path.isfile("/etc/lxdm/lxdm.conf" + ".bak"):
-                    fn.shutil.copy("/etc/lxdm/lxdm.conf", "/etc/lxdm/lxdm.conf" + ".bak")
-            except Exception as e:
-                print(e)
+        if os.path.isfile(fn.lxdm_conf):
+            if not os.path.isfile(fn.lxdm_conf_bak):
+                try:
+                    fn.shutil.copy(fn.lxdm_conf, fn.lxdm_conf_bak)
+                except Exception as e:
+                    print(e)
 
         # ensuring we have a backup of index.theme
         if os.path.exists("/usr/share/icons/default/index.theme"):
