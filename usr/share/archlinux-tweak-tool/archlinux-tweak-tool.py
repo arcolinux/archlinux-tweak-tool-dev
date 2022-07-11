@@ -1710,25 +1710,31 @@ class Main(Gtk.Window):
         print("Lightdm gtk-greeter-settings applied")
         fn.show_in_app_notification(self, "Lightdm gtk-greeter-settings applied")
 
-    def on_click_reset_lightdm_greeter(self, widget):
+    def on_click_reset_lightdm_lightdm_greeter(self, widget):
+        if fn.os.path.isfile(fn.lightdm_conf + ".bak"):
+            fn.shutil.copy(fn.lightdm_conf + ".bak", fn.lightdm_greeter)
         if fn.os.path.isfile(fn.lightdm_greeter + ".bak"):
             fn.shutil.copy(fn.lightdm_greeter + ".bak", fn.lightdm_greeter)
-
-        print("Lightdm gtk-greeter-settings applied")
-        fn.show_in_app_notification(self, "Lightdm gtk-greeter-settings applied")
-
-    def on_click_lightdm_reset(self, widget):
-        if fn.os.path.isfile(fn.lightdm_conf + ".bak"):
-            fn.shutil.copy(fn.lightdm_conf + ".bak",
-                                  fn.lightdm_conf)
 
         if "#" in lightdm.check_lightdm(fn.get_lines(fn.lightdm_conf), "autologin-user="):  # noqa
             self.autologin.set_active(False)
         else:
             self.autologin.set_active(True)
 
-        print("Lightdm default settings reset")
-        fn.show_in_app_notification(self, "Default Settings Applied")
+        print("Lightdm and lightdm gtk-greeter-settings applied")
+        fn.show_in_app_notification(self, "Lightdm settings applied")
+        fn.restart_program()
+
+    # def on_click_lightdm_reset(self, widget):
+    #     if fn.os.path.isfile(fn.lightdm_conf + ".bak"):
+    #         fn.shutil.copy(fn.lightdm_conf + ".bak",
+    #                               fn.lightdm_conf)
+
+
+
+    #     print("Lightdm default settings reset")
+    #     fn.show_in_app_notification(self, "Default Settings Applied")
+    #     fn.restart_program()
 
     def on_autologin_lightdm_activated(self, widget, gparam):
         if widget.get_active():
@@ -1746,8 +1752,11 @@ class Main(Gtk.Window):
         else:
             self.sessions_lightdm.set_sensitive(False)
 
+    #no lightdm present
     def on_click_att_lightdm_clicked(self, desktop):
-        fn.install_package(self,"lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings" )
+        fn.install_package(self,"lightdm")
+        fn.install_package(self,"lightdm-gtk-greeter")
+        fn.install_package(self,"lightdm-gtk-greeter-settings")
         print("--------------------------------------------")
         print("Do not forget to enable Lightdm")
         print("--------------------------------------------")
@@ -1765,12 +1774,43 @@ class Main(Gtk.Window):
         fn.remove_package(self,"lightdm-slick-greeter")
         fn.disable_slick_greeter(self)
 
+    def on_click_lightdm_reset_original_att(self, widget):
+        try:
+            fn.shutil.copy(fn.lightdm_conf_arco,
+                                  fn.lightdm_conf)
+            fn.shutil.copy(fn.lightdm_greeter_arco,
+                                  fn.lightdm_greeter)
+            fn.shutil.copy(fn.ligthdm_slick_greeter_arco,
+                                  fn.lightdm_slick_greeter)
+        except Exception as e:
+            print(e)
+
+        print("All files have been changed /etc/lightdm.conf, /etc/lightdm-gtk-greeter.conf")
+        print("and /etc/lightdm/slick-greeter.conf")
+        print("Now change the configuration like you want it to be and save")
+        fn.show_in_app_notification(self, "The ATT lightdm configuration is now applied")
+        fn.restart_program()
+
     #====================================================================
     #                        LXDM
     #====================================================================
 
     def on_click_install_lxdm(self, desktop):
         fn.install_package(self,"lxdm")
+        print("--------------------------------------------")
+        print("Do not forget to enable Lxdm")
+        print("--------------------------------------------")
+        fn.restart_program()
+
+    #no lxdm present
+    def on_click_att_lxdm_clicked(self, desktop):
+        fn.install_package(self,"lxdm")
+        try:
+            fn.shutil.copy(fn.lxdm_conf_arco,
+                                  fn.lxdm_conf)
+        except Exception as e:
+            print(e)
+
         print("--------------------------------------------")
         print("Do not forget to enable Lxdm")
         print("--------------------------------------------")
@@ -1790,6 +1830,34 @@ class Main(Gtk.Window):
             except Exception as e:
                     print(e)
 
+    def on_click_lxdm_reset_original_att(self, widget):
+        try:
+            fn.shutil.copy(fn.lxdm_conf_arco,
+                                  fn.lxdm_conf)
+        except Exception as e:
+            print(e)
+
+        print("ATT Lxdm configuration file has been saved /etc/lxdm/lxdm.conf")
+        print("Now change the configuration like you want it to be and save")
+        fn.show_in_app_notification(self, "The ATT Lxdm configuration is now applied")
+        fn.restart_program()
+
+    def on_click_lxdm_reset(self, widget):
+        if fn.os.path.isfile(fn.lxdm_conf + ".bak"):
+            fn.shutil.copy(fn.lxdm_conf + ".bak",
+                                  fn.lxdm_conf)
+
+        if "#" in lxdm.check_lxdm(fn.get_lines(fn.lxdm_conf), "autologin="):  # noqa
+            self.autologin_lxdm.set_active(False)
+        else:
+            self.autologin_lxdm.set_active(True)
+        fn.restart_program()
+
+        print("Lxdm default settings applied")
+        fn.show_in_app_notification(self, "Lxdm default settings applied")
+        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+        lxdm.pop_gtk_theme_names_lxdm(self, self.lxdm_gtk_theme)
+
     def on_click_install_att_lxdm_minimalo(self,widget):
         fn.install_arco_package(self,"arcolinux-lxdm-theme-minimalo-git")
         lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
@@ -1805,21 +1873,6 @@ class Main(Gtk.Window):
     def on_click_remove_lxdm_themes(self,widget):
         fn.remove_package(self,"lxdm-themes")
         lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
-
-    def on_click_lxdm_reset(self, widget):
-        if fn.os.path.isfile(fn.lxdm_conf + ".bak"):
-            fn.shutil.copy(fn.lxdm_conf + ".bak",
-                                  fn.lxdm_conf)
-
-        if "#" in lxdm.check_lxdm(fn.get_lines(fn.lxdm_conf), "autologin="):  # noqa
-            self.autologin_lxdm.set_active(False)
-        else:
-            self.autologin_lxdm.set_active(True)
-
-        print("Lxdm default settings applied")
-        fn.show_in_app_notification(self, "Lxdm default settings applied")
-        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
-        lxdm.pop_gtk_theme_names_lxdm(self, self.lxdm_gtk_theme)
 
     def on_click_lxdm_apply(self, widget):
         if (self.lxdm_gtk_theme.get_active_text() is not None and self.lxdm_theme_greeter.get_active_text() is not None):
