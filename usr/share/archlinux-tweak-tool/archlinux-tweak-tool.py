@@ -1952,19 +1952,19 @@ class Main(Gtk.Window):
         utilities.write_configs(utility, util_str)
 
     def on_click_neofetch_all_selection(self,widget):
-        print("all")
+        print("You have selected all Neofetch switches")
         neofetch.set_checkboxes_all(self)
 
     def on_click_neofetch_normal_selection(self,widget):
-        print("normal")
+        print("You have selected the normal selection")
         neofetch.set_checkboxes_normal(self)
 
     def on_click_neofetch_small_selection(self,widget):
-        print("small")
+        print("You have selected the small selection")
         neofetch.set_checkboxes_small(self)
 
     def on_click_neofetch_none_selection(self,widget):
-        print("none")
+        print("You have not selected any Neofetch switch")
         neofetch.set_checkboxes_none(self)
 
     # =====================================================
