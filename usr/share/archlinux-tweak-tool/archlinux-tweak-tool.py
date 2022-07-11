@@ -1714,10 +1714,10 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(self, "Lightdm gtk-greeter-settings applied")
 
     def on_click_reset_lightdm_lightdm_greeter(self, widget):
-        if fn.os.path.isfile(fn.lightdm_conf + ".bak"):
-            fn.shutil.copy(fn.lightdm_conf + ".bak", fn.lightdm_greeter)
-        if fn.os.path.isfile(fn.lightdm_greeter + ".bak"):
-            fn.shutil.copy(fn.lightdm_greeter + ".bak", fn.lightdm_greeter)
+        if fn.os.path.isfile(fn.lightdm_conf_bak):
+            fn.shutil.copy(fn.lightdm_conf_bak, fn.lightdm_conf)
+        if fn.os.path.isfile(fn.lightdm_greeter_bak):
+            fn.shutil.copy(fn.lightdm_greeter_bak, fn.lightdm_greeter)
 
         if "#" in lightdm.check_lightdm(fn.get_lines(fn.lightdm_conf), "autologin-user="):  # noqa
             self.autologin.set_active(False)
@@ -1846,14 +1846,9 @@ class Main(Gtk.Window):
         fn.restart_program()
 
     def on_click_lxdm_reset(self, widget):
-        if fn.os.path.isfile(fn.lxdm_conf + ".bak"):
-            fn.shutil.copy(fn.lxdm_conf + ".bak",
+        if fn.os.path.isfile(fn.lxdm_conf_bak):
+            fn.shutil.copy(fn.lxdm_conf_bak,
                                   fn.lxdm_conf)
-
-        if "#" in lxdm.check_lxdm(fn.get_lines(fn.lxdm_conf), "autologin="):  # noqa
-            self.autologin_lxdm.set_active(False)
-        else:
-            self.autologin_lxdm.set_active(True)
         fn.restart_program()
 
         print("Lxdm default settings applied")
@@ -2586,11 +2581,11 @@ class Main(Gtk.Window):
     def on_click_sddm_reset_original(self, widget):
         fn.create_sddm_k_dir()
         try:
-            if os.path.isfile(fn.sddm_default_d1 + ".bak"):
-                fn.shutil.copy(fn.sddm_default_d1 + ".bak",
+            if os.path.isfile(fn.sddm_default_d1_bak):
+                fn.shutil.copy(fn.sddm_default_d1_bak,
                                     fn.sddm_default_d1)
-            if os.path.isfile("/etc/sddm.conf.d/bak.kde_settings.conf"):
-                fn.shutil.copy("/etc/sddm.conf.d/bak.kde_settings.conf",
+            if os.path.isfile(fn.sddm_default_d2_bak):
+                fn.shutil.copy(fn.sddm_default_d2_bak,
                                     fn.sddm_default_d2)
         except Exception as e:
             print(e)
