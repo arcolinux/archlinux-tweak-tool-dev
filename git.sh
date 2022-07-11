@@ -62,7 +62,6 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/
 
 echo "getting default neofetch file"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-neofetch/master/etc/skel/.config/neofetch/config.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf
-wget https://raw.githubusercontent.com/arcolinux/arcolinux-neofetch/master/etc/skel/.config/neofetch/config-small.conf -O $workdir/usr/share/archlinux-tweak-tool/data/arco/neofetch/config-small.conf
 
 echo "getting default grub file"
 wget https://raw.githubusercontent.com/arcolinux/arcolinuxl-iso/master/archiso/airootfs/etc/default/grub -O $workdir/usr/share/archlinux-tweak-tool/data/arco/grub/grub

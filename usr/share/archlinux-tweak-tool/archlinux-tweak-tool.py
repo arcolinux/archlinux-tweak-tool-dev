@@ -1861,6 +1861,9 @@ class Main(Gtk.Window):
     if debug:
         print("NEOFETCH")
 
+    def on_install_neo(self,widget):
+        fn.install_package(self,"neofetch")
+
     def on_apply_neo(self, widget):
         small_ascii = "auto"
         backend = "off"
@@ -1883,6 +1886,14 @@ class Main(Gtk.Window):
 
         neofetch.apply_config(self, backend, small_ascii)
 
+    def on_reset_neo_att(self,widget):
+        if os.path.isfile(fn.neofetch_arco):
+            fn.shutil.copy(fn.neofetch_arco, fn.neofetch_config)
+            fn.permissions(fn.neofetch_config)
+            print("Neofetch default ATT settings applied")
+            fn.show_in_app_notification(self, "Default settings applied")
+            neofetch.get_checkboxes(self)
+
     def on_reset_neo(self, widget):
         if os.path.isfile(fn.neofetch_config + ".bak"):
             fn.shutil.copy(fn.neofetch_config + ".bak",
@@ -1900,27 +1911,6 @@ class Main(Gtk.Window):
             print("Neofetch default settings applied")
             fn.show_in_app_notification(self,
                                                "Default settings applied")
-
-    def on_reset_small_neo(self, widget):
-        if os.path.isfile(fn.neofetch_small_config):
-            fn.shutil.copy(fn.neofetch_small_config,
-                                  fn.neofetch_config)
-
-            neofetch.pop_neofetch_box(self.emblem)
-            backend = neofetch.check_backend()
-            if backend == "ascii":
-                self.asci.set_active(True)
-                self.emblem.set_sensitive(False)
-            else:
-                self.w3m.set_active(True)
-
-            neofetch.get_checkboxes(self)
-            print("Neofetch small default settings applied")
-            fn.show_in_app_notification(self,
-                                               "Default settings applied")
-
-    def on_install_neo(self,widget):
-        fn.install_package(self,"neofetch")
 
     def radio_toggled(self, widget):
         if self.asci.get_active():
@@ -1960,6 +1950,22 @@ class Main(Gtk.Window):
             if utility == "neofetch":
                 utilities.set_util_state(self, utility, False, False)
         utilities.write_configs(utility, util_str)
+
+    def on_click_neofetch_all_selection(self,widget):
+        print("all")
+        neofetch.set_checkboxes_all(self)
+
+    def on_click_neofetch_normal_selection(self,widget):
+        print("normal")
+        neofetch.set_checkboxes_normal(self)
+
+    def on_click_neofetch_small_selection(self,widget):
+        print("small")
+        neofetch.set_checkboxes_small(self)
+
+    def on_click_neofetch_none_selection(self,widget):
+        print("none")
+        neofetch.set_checkboxes_none(self)
 
     # =====================================================
     #               OBLOGOUT FUNCTIONS ALPHABETICAL
@@ -3661,6 +3667,7 @@ class Main(Gtk.Window):
         sddm.pop_box(self, self.sessions_sddm)
         lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
         zsh_theme.get_themes(self.zsh_themes)
+        neofetch.get_checkboxes(self)
 
     # ================================================================================
     # ================================================================================
