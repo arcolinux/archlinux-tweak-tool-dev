@@ -832,14 +832,6 @@ class Main(Gtk.Window):
     # =====================================================
 
     # =====================================================
-    #     REMOVE THE LOCK FILE IF YOU CLOSE NICELY
-    # =====================================================
-
-    def on_close(self, widget, data):
-        os.unlink("/tmp/att.lock")
-        Gtk.main_quit()
-
-    # =====================================================
     #     CREATE AUTOSTART_GUI
     # =====================================================
 
@@ -1176,8 +1168,6 @@ class Main(Gtk.Window):
         # if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
         print("installing {}".format(self.d_combo.get_active_text()))
         desktopr.check_lock(self,self.d_combo.get_active_text(),state)
-        sddm.pop_box(self, self.sessions_sddm)
-        lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
 
     def on_default_clicked(self, widget):
         fn.create_log(self)
@@ -1649,6 +1639,22 @@ class Main(Gtk.Window):
         seconds = int(self.scale.get_value())
         fn.set_grub_timeout(self,seconds)
         fn.make_grub(self)
+
+    #====================================================================
+    #                            GUI
+    #====================================================================
+
+    def on_refresh_att_clicked(self, desktop):
+        fn.restart_program()
+
+    def on_close(self, widget, data):
+        os.unlink("/tmp/att.lock")
+        Gtk.main_quit()
+
+    def on_reload_att_clicked(self,widget):
+        sddm.pop_box(self, self.sessions_sddm)
+        lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
+
 
     #====================================================================
     #                            PRIVACY
@@ -2626,9 +2632,6 @@ class Main(Gtk.Window):
             print("We started ADT")
         except Exception as e:
                 pass
-
-    def on_refresh_att_clicked(self, desktop):
-        fn.restart_program()
 
     #====================================================================
     #                       SERVICES - NSSWITCH
