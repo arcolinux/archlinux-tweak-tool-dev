@@ -313,6 +313,14 @@ class Main(Gtk.Window):
                 except Exception as e:
                     print(e)
 
+        #ensuring we have a backup of /etc/lightdm/slick-greeter.conf
+        if os.path.isfile(fn.lightdm_slick_greeter):
+            if not os.path.isfile(fn.slick_greeter_bak):
+                try:
+                    fn.shutil.copy(fn.lightdm_slick_greeter, fn.lightdm_slick_greeter_bak)
+                except Exception as e:
+                    print(e)
+
         #ensuring we have a backup of /etc/lxdm/lxdm.conf
         if os.path.isfile(fn.lxdm_conf):
             if not os.path.isfile(fn.lxdm_conf_bak):
@@ -1727,17 +1735,6 @@ class Main(Gtk.Window):
         print("Lightdm and lightdm gtk-greeter-settings applied")
         fn.show_in_app_notification(self, "Lightdm settings applied")
         fn.restart_program()
-
-    # def on_click_lightdm_reset(self, widget):
-    #     if fn.os.path.isfile(fn.lightdm_conf + ".bak"):
-    #         fn.shutil.copy(fn.lightdm_conf + ".bak",
-    #                               fn.lightdm_conf)
-
-
-
-    #     print("Lightdm default settings reset")
-    #     fn.show_in_app_notification(self, "Default Settings Applied")
-    #     fn.restart_program()
 
     def on_autologin_lightdm_activated(self, widget, gparam):
         if widget.get_active():
