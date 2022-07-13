@@ -2226,7 +2226,7 @@ class Main(Gtk.Window):
         print("ArcoLinux keyring and mirrors added")
         #print("First restart ATT")
         #print("Then select all ArcoLinux repos except testing repo")
-        GLib.idle_add(fn.show_in_app_notification, self, "ArcoLinux keyring and mirrors added")
+        GLib.idle_add(fn.show_in_app_notification, self, "ArcoLinux keyring and mirrors added + activated")
         self.on_pacman_arepo_toggle(self.arepo_button, True)
         self.on_pacman_a3p_toggle(self.a3prepo_button, True)
         self.on_pacman_axl_toggle(self.axlrepo_button, True)
