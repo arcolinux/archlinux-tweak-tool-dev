@@ -1406,9 +1406,12 @@ def install_endeavouros(self):
 
 def install_arcolinux(self):
     base_dir = os.path.dirname(os.path.realpath(__file__))
-    name1 = "arcolinux-keyring-20230919-6-any.pkg.tar.zst"
+    #name1 = "arcolinux-keyring-20230919-6-any.pkg.tar.zst"
+    pathway = base_dir + "/data/arch/packages/arcolinux-keyring/"
+    file = os.listdir(pathway)
+
     try:
-        install = 'pacman -U ' + base_dir + '/data/arco/packages/' + name1 + ' --noconfirm'
+        install = 'pacman -U ' + pathway + str(file).strip("[]'") + ' --noconfirm'
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
@@ -1417,10 +1420,9 @@ def install_arcolinux(self):
     except Exception as e:
         print(e)
 
-    base_dir = os.path.dirname(os.path.realpath(__file__))
-    name1 = "arcolinux-mirrorlist-git-22.04-01-any.pkg.tar.zst"
+    #name2 = "arcolinux-mirrorlist-git-22.04-01-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/arco/packages/' + name1 + ' --noconfirm'
+        install = 'pacman -U ' + base_dir + '/data/arco/packages/arcolinux-mirrorlist/' + name2 + ' --noconfirm'
         subprocess.call(install.split(" "),
                         shell=False,
                         stdout=subprocess.PIPE,
