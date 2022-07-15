@@ -1,6 +1,6 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
 def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, fn, login):
 
@@ -61,12 +61,16 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox14.pack_start(label_sddm_config, False, False, 10)
 
         hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        reset_sddm_original_att = Gtk.Button(label="Apply the Sddm configuration from ATT - auto reboot")
-        reset_sddm_original_att.set_size_request(100,30)
-        reset_sddm_original_att.connect("clicked", self.on_click_sddm_reset_original_att)
-        reset_sddm_original = Gtk.Button(label="Apply your original Sddm configuration - auto reboot")
-        reset_sddm_original.set_size_request(100,30)
-        reset_sddm_original.connect("clicked", self.on_click_sddm_reset_original)
+        reset_sddm_original_att = Gtk.Button(
+            label="Apply the Sddm configuration from ATT - auto reboot")
+        reset_sddm_original_att.set_size_request(100, 30)
+        reset_sddm_original_att.connect(
+            "clicked", self.on_click_sddm_reset_original_att)
+        reset_sddm_original = Gtk.Button(
+            label="Apply your original Sddm configuration - auto reboot")
+        reset_sddm_original.set_size_request(100, 30)
+        reset_sddm_original.connect(
+            "clicked", self.on_click_sddm_reset_original)
         hbox13.pack_start(reset_sddm_original_att, False, False, 10)
         hbox13.pack_start(reset_sddm_original, False, False, 10)
 
@@ -78,7 +82,8 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox_lbl = Gtk.Label(xalign=0)
         hbox_lbl.set_markup("Autologin")
         self.autologin_sddm = Gtk.Switch()
-        self.autologin_sddm.connect("notify::active", self.on_autologin_sddm_activated)
+        self.autologin_sddm.connect(
+            "notify::active", self.on_autologin_sddm_activated)
         hbox.pack_start(hbox_lbl, False, False, 10)
         hbox.pack_end(self.autologin_sddm, False, False, 10)
 
@@ -87,7 +92,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox3_lbl.set_text("Choose the desktop you want to autologin to")
         hbox3.pack_start(hbox3_lbl, False, False, 10)
 
-        #sddm
+        # sddm
         hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox18_lbl = Gtk.Label(xalign=0)
         hbox18_lbl.set_markup("Desktop session")
@@ -105,26 +110,34 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox9.pack_end(self.theme_sddm, False, False, 10)
 
         hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        install_sddm_themes = Gtk.Button(label="Install missing ArcoLinux Sddm Themes")
-        install_sddm_themes.connect("clicked", self.on_click_install_sddm_themes)
-        remove_sddm_themes = Gtk.Button(label="Remove the ArcoLinux Sddm Themes")
+        install_sddm_themes = Gtk.Button(
+            label="Install missing ArcoLinux Sddm Themes")
+        install_sddm_themes.connect(
+            "clicked", self.on_click_install_sddm_themes)
+        remove_sddm_themes = Gtk.Button(
+            label="Remove the ArcoLinux Sddm Themes")
         remove_sddm_themes.connect("clicked", self.on_click_remove_sddm_themes)
         hbox11.pack_start(install_sddm_themes, False, False, 10)
         hbox11.pack_end(remove_sddm_themes, False, False, 10)
 
         hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         install_bibata_cursor = Gtk.Button(label="Install Bibata cursors")
-        install_bibata_cursor.connect("clicked", self.on_click_install_bibata_cursor)
+        install_bibata_cursor.connect(
+            "clicked", self.on_click_install_bibata_cursor)
         remove_bibata_cursor = Gtk.Button(label="Remove Bibata cursors")
-        remove_bibata_cursor.connect("clicked", self.on_click_remove_bibata_cursor)
+        remove_bibata_cursor.connect(
+            "clicked", self.on_click_remove_bibata_cursor)
         hbox16.pack_start(install_bibata_cursor, False, False, 10)
         hbox16.pack_end(remove_bibata_cursor, False, False, 10)
 
         hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        install_bibata_cursorr = Gtk.Button(label="Install Bibata extra cursors")
-        install_bibata_cursorr.connect("clicked", self.on_click_install_bibatar_cursor)
+        install_bibata_cursorr = Gtk.Button(
+            label="Install Bibata extra cursors")
+        install_bibata_cursorr.connect(
+            "clicked", self.on_click_install_bibatar_cursor)
         remove_bibata_cursorr = Gtk.Button(label="Remove Bibata extra cursors")
-        remove_bibata_cursorr.connect("clicked", self.on_click_remove_bibatar_cursor)
+        remove_bibata_cursorr.connect(
+            "clicked", self.on_click_remove_bibatar_cursor)
         hbox28.pack_start(install_bibata_cursorr, False, False, 10)
         hbox28.pack_end(remove_bibata_cursorr, False, False, 10)
 
@@ -137,7 +150,8 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox17_lbl = Gtk.Label(xalign=0)
-        hbox17_lbl.set_text("Select your cursor theme for the login screen e.g. Bibata-Modern-Ice")
+        hbox17_lbl.set_text(
+            "Select your cursor theme for the login screen e.g. Bibata-Modern-Ice")
         hbox17.pack_start(hbox17_lbl, False, False, 10)
 
         hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -190,7 +204,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
             vboxStack1.pack_end(hbox90, False, False, 0)
 
     else:
-        #no sddm installed
+        # no sddm installed
         hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox31_lbl = Gtk.Label(xalign=0)
         hbox31_lbl.set_text("Sddm is not installed")
@@ -203,7 +217,8 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         ls = Gtk.Label()
         ls.set_markup("<b>Sddm does not seem to be installed</b>")
-        install_sddm = Gtk.Button(label="Install Sddm - auto reboot - do not forget to enable it")
+        install_sddm = Gtk.Button(
+            label="Install Sddm - auto reboot - do not forget to enable it")
         install_sddm.connect("clicked", self.on_click_att_sddm_clicked)
 
         vboxStack1.pack_start(hbox31, False, False, 0)
@@ -223,7 +238,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         if fn.check_content("lightdm", "/etc/systemd/system/display-manager.service"):
             hbox19_lbl.set_text("Lightdm (active)")
         if fn.check_content("lightdm", "/etc/systemd/system/display-manager.service") and \
-            fn.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
+                fn.check_content("slick-greeter", "/etc/lightdm/lightdm.conf"):
             hbox19_lbl.set_text("Lightdm + slick-greeter (active)")
         hbox19_lbl.set_name("title")
         hbox19.pack_start(hbox19_lbl, False, False, 0)
@@ -234,16 +249,21 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         hbox140 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         label_lightdm_config = Gtk.Label(xalign=0)
-        label_lightdm_config.set_text("We recommend to use the default ATT lightdm and lightdm-greeter configuration setup")
+        label_lightdm_config.set_text(
+            "We recommend to use the default ATT lightdm and lightdm-greeter configuration setup")
         hbox140.pack_start(label_lightdm_config, False, False, 10)
 
         hbox130 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        reset_lightdm_original_att = Gtk.Button(label="Apply the Lightdm configuration from ATT - auto reboot")
-        reset_lightdm_original_att.set_size_request(100,30)
-        reset_lightdm_original_att.connect("clicked", self.on_click_lightdm_reset_original_att)
-        reset_lightdm_original = Gtk.Button(label="Apply your original Lightdm configuration - auto reboot")
-        reset_lightdm_original.set_size_request(100,30)
-        reset_lightdm_original.connect("clicked", self.on_click_reset_lightdm_lightdm_greeter)
+        reset_lightdm_original_att = Gtk.Button(
+            label="Apply the Lightdm configuration from ATT - auto reboot")
+        reset_lightdm_original_att.set_size_request(100, 30)
+        reset_lightdm_original_att.connect(
+            "clicked", self.on_click_lightdm_reset_original_att)
+        reset_lightdm_original = Gtk.Button(
+            label="Apply your original Lightdm configuration - auto reboot")
+        reset_lightdm_original.set_size_request(100, 30)
+        reset_lightdm_original.connect(
+            "clicked", self.on_click_reset_lightdm_lightdm_greeter)
         hbox130.pack_start(reset_lightdm_original_att, False, False, 10)
         hbox130.pack_start(reset_lightdm_original, False, False, 10)
 
@@ -255,7 +275,8 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox21_lbl = Gtk.Label(xalign=0)
         hbox21_lbl.set_text("Autologin")
         self.autologin_lightdm = Gtk.Switch()
-        self.autologin_lightdm.connect("notify::active", self.on_autologin_lightdm_activated)
+        self.autologin_lightdm.connect(
+            "notify::active", self.on_autologin_lightdm_activated)
         hbox21.pack_start(hbox21_lbl, False, False, 10)
         hbox21.pack_end(self.autologin_lightdm, False, False, 10)
 
@@ -268,25 +289,30 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox23_lbl = Gtk.Label(xalign=0)
         hbox23_lbl.set_text("Use the ATT lightdm-gtk-greeter configuration")
         btn_install_arco_lightdm_greeter = Gtk.Button(label="Set ATT config")
-        btn_install_arco_lightdm_greeter.connect ("clicked", self.on_click_install_arco_lightdmgreeter)
-        btn_reset_lightdm_greeter = Gtk.Button(label="Reset back to original config")
-        btn_reset_lightdm_greeter.connect ("clicked", self.on_click_reset_lightdm_lightdm_greeter)
+        btn_install_arco_lightdm_greeter.connect(
+            "clicked", self.on_click_install_arco_lightdmgreeter)
+        btn_reset_lightdm_greeter = Gtk.Button(
+            label="Reset back to original config")
+        btn_reset_lightdm_greeter.connect(
+            "clicked", self.on_click_reset_lightdm_lightdm_greeter)
         hbox23.pack_start(hbox23_lbl, False, False, 10)
         hbox23.pack_end(btn_reset_lightdm_greeter, False, False, 10)
         hbox23.pack_end(btn_install_arco_lightdm_greeter, False, False, 10)
 
         hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         self.lbl_slickgreeter = Gtk.Label(xalign=0)
-        login.find_label(self,self.lbl_slickgreeter)
+        login.find_label(self, self.lbl_slickgreeter)
         btn_install_slick_greeter = Gtk.Button(label="Install slickgreeter")
-        btn_install_slick_greeter.connect ("clicked", self.on_click_install_slick_greeter)
+        btn_install_slick_greeter.connect(
+            "clicked", self.on_click_install_slick_greeter)
         btn_remove_slick_greeter = Gtk.Button(label="Remove slickgreeter")
-        btn_remove_slick_greeter.connect ("clicked", self.on_click_remove_slick_greeter)
+        btn_remove_slick_greeter.connect(
+            "clicked", self.on_click_remove_slick_greeter)
         hbox29.pack_start(self.lbl_slickgreeter, False, False, 10)
         hbox29.pack_end(btn_remove_slick_greeter, False, False, 10)
         hbox29.pack_end(btn_install_slick_greeter, False, False, 10)
 
-        #lightdm
+        # lightdm
         hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox27_lbl = Gtk.Label(xalign=0)
         hbox27_lbl.set_text("Desktop session")
@@ -321,10 +347,13 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         hbox34 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox34_label = Gtk.Label(xalign=0)
-        hbox34_label.set_text("Only the Slickgreeter background color can be set")
-        self.slick_greeter_color_checkbutton = Gtk.CheckButton(label="Select it to use it")
+        hbox34_label.set_text(
+            "Only the Slickgreeter background color can be set")
+        self.slick_greeter_color_checkbutton = Gtk.CheckButton(
+            label="Select it to use it")
         hbox34.pack_start(hbox34_label, False, False, 10)
-        hbox34.pack_start(self.slick_greeter_color_checkbutton, False, False, 10)
+        hbox34.pack_start(
+            self.slick_greeter_color_checkbutton, False, False, 10)
 
         hbox25 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         self.slick_greeter_color = Gtk.ColorSelection()
@@ -332,10 +361,11 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         hbox24 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox24_lbl = Gtk.Label(xalign=0)
-        hbox24_lbl.set_text("You can change more settings with the lightdm-gtk-greeter-settings app")
+        hbox24_lbl.set_text(
+            "You can change more settings with the lightdm-gtk-greeter-settings app")
         hbox24.pack_start(hbox24_lbl, False, False, 10)
 
-        #lightdm
+        # lightdm
         hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         enable_lightdm = Gtk.Button(label="Enable Lightdm")
         enable_lightdm.connect("clicked", self.on_click_lightdm_enable)
@@ -366,7 +396,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         vboxStack2.pack_start(hbox24, False, False, 0)
 
     else:
-       #no lightdm installed
+       # no lightdm installed
         hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox32_lbl = Gtk.Label(xalign=0)
         hbox32_lbl.set_text("Lightdm is not installed")
@@ -383,7 +413,8 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         ls = Gtk.Label()
         ls.set_markup("<b>Lightdm does not seem to be installed</b>")
 
-        install_lightdm = Gtk.Button(label="Install Lightdm - auto reboot - do not forget to enable it")
+        install_lightdm = Gtk.Button(
+            label="Install Lightdm - auto reboot - do not forget to enable it")
         install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked)
 
         vboxStack2.pack_start(ls, False, False, 0)
@@ -409,15 +440,19 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         hbox160 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         label_lxdm_config = Gtk.Label(xalign=0)
-        label_lxdm_config.set_text("We recommend to use the default ATT Lxdm configuration setup")
+        label_lxdm_config.set_text(
+            "We recommend to use the default ATT Lxdm configuration setup")
         hbox160.pack_start(label_lxdm_config, False, False, 10)
 
         hbox170 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        reset_lxdm_original_att = Gtk.Button(label="Apply the Lxdm configuration from ATT - auto reboot")
-        reset_lxdm_original_att.set_size_request(100,30)
-        reset_lxdm_original_att.connect("clicked", self.on_click_lxdm_reset_original_att)
-        reset_lxdm_original = Gtk.Button(label="Apply your original Lxdm configuration - auto reboot")
-        reset_lxdm_original.set_size_request(100,30)
+        reset_lxdm_original_att = Gtk.Button(
+            label="Apply the Lxdm configuration from ATT - auto reboot")
+        reset_lxdm_original_att.set_size_request(100, 30)
+        reset_lxdm_original_att.connect(
+            "clicked", self.on_click_lxdm_reset_original_att)
+        reset_lxdm_original = Gtk.Button(
+            label="Apply your original Lxdm configuration - auto reboot")
+        reset_lxdm_original.set_size_request(100, 30)
         reset_lxdm_original.connect("clicked", self.on_click_lxdm_reset)
         hbox170.pack_start(reset_lxdm_original_att, False, False, 10)
         hbox170.pack_start(reset_lxdm_original, False, False, 10)
@@ -430,17 +465,22 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox52_lbl = Gtk.Label(xalign=0)
         hbox52_lbl.set_text("Autologin")
         self.autologin_lxdm = Gtk.Switch()
-        self.autologin_lxdm.connect("notify::active", self.on_autologin_lxdm_activated)
+        self.autologin_lxdm.connect(
+            "notify::active", self.on_autologin_lxdm_activated)
         hbox52.pack_start(hbox52_lbl, False, False, 10)
         hbox52.pack_end(self.autologin_lxdm, False, False, 10)
 
         hbox54 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox54_lbl = Gtk.Label(xalign=0)
         hbox54_lbl.set_text("Install more Lxdm ATT themes")
-        btn_install_arco_lxdm_theme_minimalo = Gtk.Button(label="Install ATT minimalo")
-        btn_install_arco_lxdm_theme_minimalo.connect ("clicked", self.on_click_install_att_lxdm_minimalo)
-        btn_remove_arco_lxdm_theme_minimalo = Gtk.Button(label="Remove ATT minimalo")
-        btn_remove_arco_lxdm_theme_minimalo.connect ("clicked", self.on_click_remove_att_lxdm_minimalo)
+        btn_install_arco_lxdm_theme_minimalo = Gtk.Button(
+            label="Install ATT minimalo")
+        btn_install_arco_lxdm_theme_minimalo.connect(
+            "clicked", self.on_click_install_att_lxdm_minimalo)
+        btn_remove_arco_lxdm_theme_minimalo = Gtk.Button(
+            label="Remove ATT minimalo")
+        btn_remove_arco_lxdm_theme_minimalo.connect(
+            "clicked", self.on_click_remove_att_lxdm_minimalo)
         hbox54.pack_start(hbox54_lbl, False, False, 10)
         hbox54.pack_end(btn_remove_arco_lxdm_theme_minimalo, False, False, 10)
         hbox54.pack_end(btn_install_arco_lxdm_theme_minimalo, False, False, 10)
@@ -449,14 +489,16 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox55_lbl = Gtk.Label(xalign=0)
         hbox55_lbl.set_text("Install more Lxdm themes")
         btn_install_lxdm_themes = Gtk.Button(label="Install lxdm-themes")
-        btn_install_lxdm_themes.connect ("clicked", self.on_click_install_lxdm_themes)
+        btn_install_lxdm_themes.connect(
+            "clicked", self.on_click_install_lxdm_themes)
         btn_remove_lxdm_themes = Gtk.Button(label="Remove lxdm-themes")
-        btn_remove_lxdm_themes.connect ("clicked", self.on_click_remove_lxdm_themes)
+        btn_remove_lxdm_themes.connect(
+            "clicked", self.on_click_remove_lxdm_themes)
         hbox55.pack_start(hbox55_lbl, False, False, 10)
         hbox55.pack_end(btn_remove_lxdm_themes, False, False, 10)
         hbox55.pack_end(btn_install_lxdm_themes, False, False, 10)
 
-        #lxdm
+        # lxdm
         hbox57 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox57_lbl = Gtk.Label(xalign=0)
         hbox57_lbl.set_text("Lxdm Gtk theme")
@@ -475,7 +517,8 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         hbox62 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox62_lbl = Gtk.Label(xalign=0)
-        hbox62_lbl.set_text("Show the panel at the bottom containing desktops? true/false")
+        hbox62_lbl.set_text(
+            "Show the panel at the bottom containing desktops? true/false")
         self.panel_lxdm = Gtk.Switch()
         #self.panel_lxdm.connect("notify::active", self.on_click_lxdm_panel)
         hbox62.pack_start(hbox62_lbl, False, False, 10)
@@ -483,7 +526,8 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         hbox56 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox56_lbl = Gtk.Label(xalign=0)
-        hbox56_lbl.set_text("You can change more settings with the lxdm-config app")
+        hbox56_lbl.set_text(
+            "You can change more settings with the lxdm-config app")
         hbox56.pack_start(hbox56_lbl, False, False, 10)
 
         hbox58 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -513,7 +557,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         vboxStack3.pack_end(hbox58, False, False, 0)
 
     else:
-       #no lxdm installed
+       # no lxdm installed
         hbox60 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox60_lbl = Gtk.Label(xalign=0)
         hbox60_lbl.set_text("Lxdm is not installed")
@@ -530,7 +574,8 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         ls = Gtk.Label()
         ls.set_markup("<b>Lxdm does not seem to be installed</b>")
 
-        install_lxdm = Gtk.Button(label="Install Lxdm - auto reboot - do not forget to enable it")
+        install_lxdm = Gtk.Button(
+            label="Install Lxdm - auto reboot - do not forget to enable it")
         install_lxdm.connect("clicked", self.on_click_att_lxdm_clicked)
 
         vboxStack3.pack_start(ls, False, False, 0)
@@ -593,9 +638,11 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
     else:
         label116.set_text("Install our selection of wallpapers")
     btn_att_plain_install = Gtk.Button(label="Install ATT plain backgrounds")
-    btn_att_plain_install.connect("clicked", self.on_install_att_plain_backgrounds)
+    btn_att_plain_install.connect(
+        "clicked", self.on_install_att_plain_backgrounds)
     btn_att_plain_remove = Gtk.Button(label="Remove ATT plain backgrounds")
-    btn_att_plain_remove.connect("clicked", self.on_remove_att_plain_backgrounds)
+    btn_att_plain_remove.connect(
+        "clicked", self.on_remove_att_plain_backgrounds)
     hbox116.pack_end(btn_att_plain_remove, False, False, 10)
     hbox116.pack_end(btn_att_plain_install, False, False, 10)
     hbox116.pack_start(label116, False, True, 10)
@@ -621,13 +668,16 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
     scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
     wallpaper_list = fn.get_login_wallpapers()
     self.login_wallpapers_combo = Gtk.ComboBoxText()
-    self.pop_login_wallpapers(self.login_wallpapers_combo, wallpaper_list, True)
+    self.pop_login_wallpapers(
+        self.login_wallpapers_combo, wallpaper_list, True)
     self.flowbox_wall.set_valign(Gtk.Align.START)
     self.flowbox_wall.set_max_children_per_line(6)
     self.flowbox_wall.set_selection_mode(Gtk.SelectionMode.SINGLE)
-    self.flowbox_wall.connect("child-activated", self.on_login_wallpaper_clicked)
+    self.flowbox_wall.connect(
+        "child-activated", self.on_login_wallpaper_clicked)
     scrolled.add(self.flowbox_wall)
-    self.login_wallpapers_combo.connect("changed", self.on_login_wallpaper_change)
+    self.login_wallpapers_combo.connect(
+        "changed", self.on_login_wallpaper_change)
 
     hbox119 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     login_apply = Gtk.Button(label="Select and apply background")

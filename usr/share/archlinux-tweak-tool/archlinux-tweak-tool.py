@@ -540,7 +540,7 @@ class Main(Gtk.Window):
 
         if fn.path.exists("/usr/bin/sddm"):
             # if any of the variables are missing we copy/paste
-            if sddm.check_sddmk_complete(self):
+            if sddm.check_sddmk_complete():
                 pass
             else:
                 fn.create_sddm_k_dir()
