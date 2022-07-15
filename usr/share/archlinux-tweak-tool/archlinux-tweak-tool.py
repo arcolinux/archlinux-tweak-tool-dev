@@ -1220,6 +1220,7 @@ class Main(Gtk.Window):
         print("Only Fish has been installed")
         print("Fish is installed without a configuration")
         GLib.idle_add(fn.show_in_app_notification, self, "Only the Fish package is installed without a configuration")
+        fn.restart_program()
 
     def on_arcolinux_fish_package_clicked(self,widget):
         fn.install_arcolinux_fish_package(self)
@@ -3728,6 +3729,7 @@ class Main(Gtk.Window):
     def on_reload_att_clicked(self,widget):
         sddm.pop_box(self, self.sessions_sddm)
         lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
+        termite.get_themes(self.term_themes)
 
     # ================================================================================
     # ================================================================================
