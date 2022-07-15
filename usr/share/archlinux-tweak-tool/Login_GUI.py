@@ -61,10 +61,10 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox14.pack_start(label_sddm_config, False, False, 10)
 
         hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        reset_sddm_original_att = Gtk.Button(label="Apply the Sddm configuration from ATT - autoreboot")
+        reset_sddm_original_att = Gtk.Button(label="Apply the Sddm configuration from ATT - auto reboot")
         reset_sddm_original_att.set_size_request(100,30)
         reset_sddm_original_att.connect("clicked", self.on_click_sddm_reset_original_att)
-        reset_sddm_original = Gtk.Button(label="Apply your original Sddm configuration - autoreboot")
+        reset_sddm_original = Gtk.Button(label="Apply your original Sddm configuration - auto reboot")
         reset_sddm_original.set_size_request(100,30)
         reset_sddm_original.connect("clicked", self.on_click_sddm_reset_original)
         hbox13.pack_start(reset_sddm_original_att, False, False, 10)
@@ -203,7 +203,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         ls = Gtk.Label()
         ls.set_markup("<b>Sddm does not seem to be installed</b>")
-        install_sddm = Gtk.Button(label="Install Sddm - autoreboot - do not forget to enable it")
+        install_sddm = Gtk.Button(label="Install Sddm - auto reboot - do not forget to enable it")
         install_sddm.connect("clicked", self.on_click_att_sddm_clicked)
 
         vboxStack1.pack_start(hbox31, False, False, 0)
@@ -238,10 +238,10 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox140.pack_start(label_lightdm_config, False, False, 10)
 
         hbox130 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        reset_lightdm_original_att = Gtk.Button(label="Apply the Lightdm configuration from ATT - autoreboot")
+        reset_lightdm_original_att = Gtk.Button(label="Apply the Lightdm configuration from ATT - auto reboot")
         reset_lightdm_original_att.set_size_request(100,30)
         reset_lightdm_original_att.connect("clicked", self.on_click_lightdm_reset_original_att)
-        reset_lightdm_original = Gtk.Button(label="Apply your original Lightdm configuration - autoreboot")
+        reset_lightdm_original = Gtk.Button(label="Apply your original Lightdm configuration - auto reboot")
         reset_lightdm_original.set_size_request(100,30)
         reset_lightdm_original.connect("clicked", self.on_click_reset_lightdm_lightdm_greeter)
         hbox130.pack_start(reset_lightdm_original_att, False, False, 10)
@@ -383,7 +383,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         ls = Gtk.Label()
         ls.set_markup("<b>Lightdm does not seem to be installed</b>")
 
-        install_lightdm = Gtk.Button(label="Install Lightdm - autoreboot - do not forget to enable it")
+        install_lightdm = Gtk.Button(label="Install Lightdm - auto reboot - do not forget to enable it")
         install_lightdm.connect("clicked", self.on_click_att_lightdm_clicked)
 
         vboxStack2.pack_start(ls, False, False, 0)
@@ -413,10 +413,10 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox160.pack_start(label_lxdm_config, False, False, 10)
 
         hbox170 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        reset_lxdm_original_att = Gtk.Button(label="Apply the Lxdm configuration from ATT - autoreboot")
+        reset_lxdm_original_att = Gtk.Button(label="Apply the Lxdm configuration from ATT - auto reboot")
         reset_lxdm_original_att.set_size_request(100,30)
         reset_lxdm_original_att.connect("clicked", self.on_click_lxdm_reset_original_att)
-        reset_lxdm_original = Gtk.Button(label="Apply your original Lxdm configuration - autoreboot")
+        reset_lxdm_original = Gtk.Button(label="Apply your original Lxdm configuration - auto reboot")
         reset_lxdm_original.set_size_request(100,30)
         reset_lxdm_original.connect("clicked", self.on_click_lxdm_reset)
         hbox170.pack_start(reset_lxdm_original_att, False, False, 10)
@@ -530,7 +530,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         ls = Gtk.Label()
         ls.set_markup("<b>Lxdm does not seem to be installed</b>")
 
-        install_lxdm = Gtk.Button(label="Install Lxdm - autoreboot - do not forget to enable it")
+        install_lxdm = Gtk.Button(label="Install Lxdm - auto reboot - do not forget to enable it")
         install_lxdm.connect("clicked", self.on_click_att_lxdm_clicked)
 
         vboxStack3.pack_start(ls, False, False, 0)

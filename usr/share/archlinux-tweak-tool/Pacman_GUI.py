@@ -22,7 +22,7 @@ def GUI(self, Gtk, vboxStack1, fn):
     reset_pacman_local.connect("clicked", self.reset_pacman_local)
     reset_pacman_online = Gtk.Button(label="Reset pacman online")
     reset_pacman_online.connect("clicked", self.reset_pacman_online)
-    blank_pacman = Gtk.Button(label="Blank pacman (autoreboot) and select")
+    blank_pacman = Gtk.Button(label="Blank pacman (auto reboot) and select")
     blank_pacman.connect("clicked", self.blank_pacman)
     label_backup = Gtk.Label(xalign=0)
     label_backup.set_text("You can find the backup at /etc/pacman.conf.bak")
@@ -67,7 +67,7 @@ def GUI(self, Gtk, vboxStack1, fn):
     label1 = Gtk.Label(xalign=0)
     label1.set_markup("# Enable ArcoLinux testing repo")
 
-    self.arcolinux_button = Gtk.Button(label="Install keys, mirrors and activate - autoreboot")
+    self.arcolinux_button = Gtk.Button(label="Install keys, mirrors and activate - auto reboot")
     self.arcolinux_button.connect("clicked", self.on_arcolinux_clicked)
 
     self.arepo_button = Gtk.Switch()
