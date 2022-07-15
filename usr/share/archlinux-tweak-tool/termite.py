@@ -1,9 +1,8 @@
 #============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
-
-import Functions as fn
 import numpy as np
+import Functions as fn
 import Settings
 
 # ====================================================================
@@ -82,7 +81,7 @@ def set_config(self, theme):
         configs = list(np.append(config, theme_list))
 
         if configs is not None:
-            with open(fn.termite_config, "w") as f:
+            with open(fn.termite_config, "w", encoding="utf-8") as f:
                 f.writelines(list(configs))
                 f.close()
 

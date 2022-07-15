@@ -1754,7 +1754,7 @@ def copy_samba(choice):
 #               SAMBA EDIT
 # =====================================================
 
-def save_samba_config(self,widget):
+def save_samba_config(self):
     #create smb.conf if there is none?
     if path.isfile(samba_config):
         if not path.isfile(samba_config + ".bak"):

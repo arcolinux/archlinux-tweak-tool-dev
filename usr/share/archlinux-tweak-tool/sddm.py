@@ -1,8 +1,9 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
 import Functions as fn
+
 
 def check_sddmk_complete(self):
     try:
@@ -37,10 +38,11 @@ def check_sddmk_complete(self):
             return True
         else:
             return False
-    except Exception as FileNotFoundError:
+    except FileNotFoundError:
         print("---------------------------------------------------------------------------")
         print("Type 'fix-sddm-conf' in a terminal and restart ATT")
         print("---------------------------------------------------------------------------")
+
 
 def check_sddmk_session(value):
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as myfile:
@@ -51,6 +53,7 @@ def check_sddmk_session(value):
         if value in line:
             return True
     return False
+
 
 def insert_session(text):
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
@@ -76,6 +79,7 @@ def check_sddmk_user(value):
             return True
     return False
 
+
 def insert_user(text):
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
         lines = f.readlines()
@@ -95,13 +99,16 @@ def check_sddm(lists, value):
     val = lists[pos].strip()
     return val
 
+
 def set_sddm_value(self, lists, value, session, state, theme, cursor):
     try:
-        com = fn.subprocess.run(["sh", "-c", "su - " + fn.sudo_username + " -c groups"], shell=False, stdout=fn.subprocess.PIPE)
+        com = fn.subprocess.run(["sh", "-c", "su - " + fn.sudo_username
+                                 + " -c groups"], shell=False, stdout=fn.subprocess.PIPE)
         groups = com.stdout.decode().strip().split(" ")
         # print(groups)
         if "autologin" not in groups:
-            fn.subprocess.run(["gpasswd", "-a", fn.sudo_username, "autologin"], shell=False)
+            fn.subprocess.run(
+                ["gpasswd", "-a", fn.sudo_username, "autologin"], shell=False)
 
         pos = fn.get_position(lists, "Session=")
         pos_session = fn.get_position(lists, "User=")
@@ -126,21 +133,25 @@ def set_sddm_value(self, lists, value, session, state, theme, cursor):
 
     except Exception as e:
         print(e)
-        fn.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
+        fn.MessageBox(
+            self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
+
 
 def set_user_autologin_value(self, lists, value, session, state):
     try:
-        com = fn.subprocess.run(["sh", "-c", "su - " + fn.sudo_username + " -c groups"], shell=False, stdout=fn.subprocess.PIPE)
+        com = fn.subprocess.run(["sh", "-c", "su - " + fn.sudo_username +
+                                " -c groups"], shell=False, stdout=fn.subprocess.PIPE)
         groups = com.stdout.decode().strip().split(" ")
         # print(groups)
         if "autologin" not in groups:
-            fn.subprocess.run(["gpasswd", "-a", fn.sudo_username, "autologin"], shell=False)
+            fn.subprocess.run(
+                ["gpasswd", "-a", fn.sudo_username, "autologin"], shell=False)
 
         pos_session = fn.get_positions(lists, "Session=")
-        #print(pos_session)
+        # print(pos_session)
         pos_session = pos_session[-1]
         pos_user = fn.get_position(lists, "User=" + value)
-        #print(pos_user)
+        # print(pos_user)
 
         if state:
             lists[pos_user] = "User=" + value + "\n"
@@ -156,7 +167,9 @@ def set_user_autologin_value(self, lists, value, session, state):
 
     except Exception as e:
         print(e)
-        fn.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
+        fn.MessageBox(
+            self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
+
 
 def get_sddm_lines(files):
     if fn.path.isfile(files):
@@ -193,15 +206,17 @@ def pop_box(self, combos):
     for i in range(len(comss)):
         combos.append_text(comss[i])
         if name.lower() == comss[i].lower():
-           combos.set_active(i)
+            combos.set_active(i)
+
 
 def pop_theme_box(self, combo):
     coms = []
     combo.get_model().clear()
 
-    if fn.path.exists("/usr/share/sddm") and fn.path.exists(fn.sddm_default_d2) and fn.path.exists(fn.sddm_default_d1):
+    if fn.path.exists("/usr/share/sddm") and fn.path.exists(fn.sddm_default_d2)\
+            and fn.path.exists(fn.sddm_default_d1):
         for items in fn.listdir("/usr/share/sddm/themes/"):
-            #coms.append(items.split(".")[0].lower())
+            # coms.append(items.split(".")[0].lower())
             coms.append(items.split(".")[0])
         lines = get_sddm_lines(fn.sddm_default_d2)
 
@@ -214,10 +229,11 @@ def pop_theme_box(self, combo):
         coms.sort()
         for i in range(len(coms)):
             #excludes = ['maya', 'maldives', 'elarun', '']
-            #if not coms[i] in excludes:
+            # if not coms[i] in excludes:
             combo.append_text(coms[i])
             if name.lower() == coms[i].lower():
                 combo.set_active(i)
+
 
 def pop_gtk_cursor_names(self, combo):
     coms = []
@@ -244,7 +260,8 @@ def pop_gtk_cursor_names(self, combo):
             if cursor_theme.lower() == coms[i].lower():
                 combo.set_active(i)
 
-def pop_login_managers_combo (self,combo):
+
+def pop_login_managers_combo(self, combo):
     options = ['sddm', 'lightdm', 'lxdm']
     for option in options:
         self.login_managers_combo.append_text(option)

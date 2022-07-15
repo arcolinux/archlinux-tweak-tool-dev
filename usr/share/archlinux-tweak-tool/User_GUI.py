@@ -2,7 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, fn):
+def GUI(self, Gtk, vboxStack10, user, fn):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Create User")
@@ -59,7 +59,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, fn):
     self.combo_account_type = Gtk.ComboBoxText()
 
     for i in range(len(fn.account_list)):
-            self.combo_account_type.append_text(fn.account_list[i])
+        self.combo_account_type.append_text(fn.account_list[i])
     self.combo_account_type.set_active(1)
 
     grid = Gtk.Grid()
@@ -81,8 +81,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, fn):
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl_information = Gtk.Label(xalign=0)
-    lbl_information.set_markup("The following groups are used for an administrator\n\
-audio,video,network,storage,rfkill,wheel,autologin,sambashare")
+    lbl_information.set_markup("The following groups are used for an administrator:\n\
+audio, video, network, storage, rfkill, wheel, autologin, sambashare")
     hbox9.pack_start(lbl_information, False, False, 0)
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -110,7 +110,7 @@ audio,video,network,storage,rfkill,wheel,autologin,sambashare")
     hbox8_label.set_text("Remove the selected user")
     button_delete_user = Gtk.Button(label="Remove the selected user")
     button_delete_user.connect ("clicked", self.on_click_delete_user)
-    button_delete_all_user = Gtk.Button(label="Remove the selected user and the homefolder")
+    button_delete_all_user = Gtk.Button(label="Remove the selected user and the home folder")
     button_delete_all_user.connect ("clicked", self.on_click_delete_all_user)
     self.cbt_users = Gtk.ComboBoxText()
     user.pop_cbt_users(self,self.cbt_users)

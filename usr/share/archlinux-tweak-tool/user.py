@@ -39,7 +39,7 @@ def create_user(self):
         GLib.idle_add(fn.show_in_app_notification, self, "Passwords are not the same")
         fn.MessageBox(self, "Message", "Passwords are not the same")
 
-def on_click_delete_user(self,widget):
+def on_click_delete_user(self):
     username = self.cbt_users.get_active_text()
     userdel = "userdel " + username
 
@@ -47,7 +47,7 @@ def on_click_delete_user(self,widget):
     print("User has been deleted - home folder has not been deleted")
     GLib.idle_add(fn.show_in_app_notification, self, "User has been deleted")
 
-def on_click_delete_all_user(self,widget):
+def on_click_delete_all_user(self):
     username = self.cbt_users.get_active_text()
     userdel = "userdel -r -f " + username
 

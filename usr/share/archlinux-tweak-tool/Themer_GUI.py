@@ -49,7 +49,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     # ==================================================================
 
     label3 = Gtk.Label()
-    label3.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes..\nInstall the desktop with ATT to theme it.")
+    label3.set_markup("Reload your window manager with <b>Super + Shift + R</b>\
+ after you make your changes..\nInstall the desktop with ATT to theme it.")
 
     label = Gtk.Label("Select theme")
     self.i3_combo = Gtk.ComboBoxText()
@@ -87,14 +88,18 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     hbox1.pack_start(label, False, False, 10)
     hbox1.pack_end(vbox2, False, False, 10)
 
-    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg", image_width, image_height)
+    pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/i3-sample.jpg",\
+        image_width, image_height)
     if self.i3_combo.get_active_text() is None:
         pass
-    elif fn.os.path.isfile(base_dir+"/themer_data/i3"+self.i3_combo.get_active_text()+".jpg"):
-        pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/i3/"+self.i3_combo.get_active_text()+".jpg", image_width, image_height)
+    elif fn.os.path.isfile(base_dir+"/themer_data/i3"\
+        + self.i3_combo.get_active_text()+".jpg"):
+        pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/i3/"\
+            + self.i3_combo.get_active_text()+".jpg", image_width, image_height)
     i3_image = Gtk.Image().new_from_pixbuf(pixbuf)
 
-    self.i3_combo.connect("changed", self.update_image, i3_image, "i3", base_dir, image_width, image_height)
+    self.i3_combo.connect("changed", self.update_image, i3_image,\
+        "i3", base_dir, image_width, image_height)
 
     hbox2.pack_end(applyi3, False, False, 0)
     hbox2.pack_end(reseti3, False, False, 0)
@@ -113,7 +118,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     # ==================================================================
 
     label4 = Gtk.Label()
-    label4.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes..\nInstall the desktop with ATT to theme it.")
+    label4.set_markup("Reload your window manager with <b>Super + Shift + R</b>\
+ after you make your changes..\nInstall the desktop with ATT to theme it.")
 
     label2 = Gtk.Label("Select theme")
     self.store = Gtk.ListStore(int, str)
@@ -172,15 +178,18 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     if fn.os.path.isfile(fn.awesome_config) \
         and fn.check_package_installed("arcolinux-awesome-git"):
         try:
-            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/" + name + ".jpg", image_width, image_height)  # noqa
+            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir\
+                + "/themer_data/awesomewm/" + name + ".jpg", image_width, image_height)  # noqa
             self.image.set_from_pixbuf(pimage)
         except:  # noqa
             pass
     else:
-            pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/themer_data/awesomewm/multicolor.jpg", image_width, image_height)  # noqa
-            self.image.set_from_pixbuf(pimage)
+        pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir\
+                + "/themer_data/awesomewm/multicolor.jpg", image_width, image_height)  # noqa
+        self.image.set_from_pixbuf(pimage)
 
-    self.awesome_combo.connect("changed", self.update_image, self.image, "awesome", base_dir, image_width, image_height)
+    self.awesome_combo.connect("changed", self.update_image, self.image,\
+        "awesome", base_dir, image_width, image_height)
 
     frame.set_name("awesome")
     frame.add(self.image)
@@ -194,8 +203,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
 
     if not fn.os.path.isfile(fn.awesome_config) \
         or not fn.check_package_installed("arcolinux-awesome-git"):
-            apply.set_sensitive(False)
-            reset.set_sensitive(False)
+        apply.set_sensitive(False)
+        reset.set_sensitive(False)
 
     hbox4.pack_end(apply, False, False, 0)
     hbox4.pack_end(reset, False, False, 0)
@@ -210,7 +219,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     # ==================================================================
 
     label5 = Gtk.Label()
-    label5.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.\nInstall the desktop with ATT to theme it.")
+    label5.set_markup("Reload your window manager with <b>Super + Shift\
+ + R</b> after you make your changes.\nInstall the desktop with ATT to theme it.")
 
     labelqt = Gtk.Label("Select theme")
     self.qtile_combo = Gtk.ComboBoxText()
@@ -233,8 +243,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
 
     if not fn.os.path.isfile(fn.qtile_config_theme) \
         or not fn.check_package_installed("arcolinux-qtile-git"):
-            applyqtile.set_sensitive(False)
-            resetqtile.set_sensitive(False)
+        applyqtile.set_sensitive(False)
+        resetqtile.set_sensitive(False)
 
 #   Commented out for now. TODO: implement theming for polybar under Qtile
 #   lbls = Gtk.Label(label="Toggle polybar")
@@ -247,14 +257,18 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     hbox8.pack_start(labelqt, False, False, 10)
     hbox8.pack_end(vbox4, False, False, 10)
 
-    qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/qtile-sample.jpg", image_width, image_height)
+    qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir\
+        + "/images/qtile-sample.jpg", image_width, image_height)
     if self.qtile_combo.get_active_text() is None:
         pass
-    elif fn.os.path.isfile(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg"):
-        qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/qtile/"+self.qtile_combo.get_active_text()+".jpg", image_width, image_height)
+    elif fn.os.path.isfile(base_dir+"/themer_data/qtile/" + self.qtile_combo.get_active_text()\
+        + ".jpg"):
+        qtile_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/qtile/"\
+            + self.qtile_combo.get_active_text()+".jpg", image_width, image_height)
     qtile_image = Gtk.Image().new_from_pixbuf(qtile_pixbuf)
 
-    self.qtile_combo.connect("changed", self.update_image, qtile_image, "qtile", base_dir, image_width, image_height)
+    self.qtile_combo.connect("changed", self.update_image, qtile_image, "qtile", base_dir,\
+        image_width, image_height)
 
     hbox9.pack_end(applyqtile, False, False, 0)
     hbox9.pack_end(resetqtile, False, False, 0)
@@ -273,9 +287,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
     #self.status_leftwm.set_markup("<b>Theme is installed and applied</b>")
 
     label6 = Gtk.Label()
-    label6.set_markup("Reload your window manager with <b>Super + Shift + R</b> after you make your changes.\n\
+    label6.set_markup("Reload your window manager with <b>Super + Shift + R</b>\
+ after you make your changes.\n\
 Sometimes you even need to logout to let the theme apply fully\n\
-Be patient if it is the first time you install the theme or use the scripts to install them in one go")
+Be patient if it is the first time you install the theme or use the scripts to \
+install them in one go")
 
     labellft = Gtk.Label("Select theme - candy is the default theme")
     self.leftwm_combo = Gtk.ComboBoxText()
@@ -306,22 +322,27 @@ Be patient if it is the first time you install the theme or use the scripts to i
 
     if not fn.os.path.isfile(fn.leftwm_config) \
         or not fn.check_package_installed("arcolinux-leftwm-git"):
-            applyleftwm.set_sensitive(False)
-            resetleftwm.set_sensitive(False)
-            removeleftwm.set_sensitive(False)
+        applyleftwm.set_sensitive(False)
+        resetleftwm.set_sensitive(False)
+        removeleftwm.set_sensitive(False)
 
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox11.pack_start(labellft, False, False, 10)
     hbox11.pack_end(vbox5, False, False, 10)
 
-    leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/leftwm-sample.jpg", image_width, image_height)
+    leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir\
+        + "/images/leftwm-sample.jpg", image_width, image_height)
     if self.leftwm_combo.get_active_text() is None:
         pass
-    elif fn.os.path.isfile(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg"):
-        leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir+"/themer_data/leftwm/"+self.leftwm_combo.get_active_text()+".jpg", image_width, image_height)
+    elif fn.os.path.isfile(base_dir+"/themer_data/leftwm/"\
+        + self.leftwm_combo.get_active_text()+".jpg"):
+        leftwm_pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir\
+            + "/themer_data/leftwm/"+self.leftwm_combo.get_active_text()\
+            + ".jpg", image_width, image_height)
     leftwm_image = Gtk.Image().new_from_pixbuf(leftwm_pixbuf)
 
-    self.leftwm_combo.connect("changed", self.update_image, leftwm_image, "leftwm", base_dir, image_width, image_height)
+    self.leftwm_combo.connect("changed", self.update_image, leftwm_image, "leftwm",\
+                            base_dir, image_width, image_height)
 
     hbox12.pack_end(applyleftwm, False, False, 0)
     hbox12.pack_end(resetleftwm, False, False, 0)

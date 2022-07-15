@@ -2,7 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack9, fn):
+def GUI(self, Gtk, vboxStack9, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -89,10 +89,12 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, fn):
     lolcat_switches.append(self.sysinfo_retro_lolcat)
     lolcat_switches.append(self.cpufetch_lolcat)
 
-    #This is used for the seperators in the grid. It's probably not the best way - but it keeps control with us.
+    #This is used for the seperators in the grid. It's probably not the best way
+    #but it keeps control with us.
     sep_text = "      "
 
-    #Colorscripts is unique in this list, as it does NOT need a lolcat toggle, so handled seperately.
+    #Colorscripts is unique in this list, as it does NOT need a lolcat toggle,
+    #so handled seperately.
     self.colorscript = Gtk.Switch()
     self.colorscript.connect("notify::active", self.util_toggle, "colorscript random")
     if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish" :
@@ -111,7 +113,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, fn):
     #Now we take all the prepared containers and switches, and create a page out of them.
     for i in range(len(utils)):
         grid.insert_row(i)
-        #These are the seperators using the spacing set above - need to be individually created or GTK errors.
+        #These are the seperators using the spacing set above
+        #need to be individually created or GTK errors.
         sep0 = Gtk.Label(xalign=0)
         sep0.set_markup(sep_text)
         sep1 = Gtk.Label(xalign=0)
@@ -128,7 +131,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack9, fn):
         util_label.set_markup(utils[i].capitalize())
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
         lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
-        #If we can't find the current shell config or if we don't know what the current shell is; disable all buttons.
+        #If we can't find the current shell config or if we don't know what
+        #the current shell is; disable all buttons.
         if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish":
             util_switches[i].set_sensitive(True)
             lolcat_switches[i].set_sensitive(True)
