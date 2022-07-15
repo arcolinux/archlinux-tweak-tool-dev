@@ -1300,11 +1300,11 @@ def install_desktop(self, desktop, state):
     # error = False
     # make backup of your .config
     now = datetime.datetime.now()
-    if not os.path.exists(fn.home + "/.config-att"):
-        os.makedirs(fn.home + "/.config-att")
+    if not fn.path.exists(fn.home + "/.config-att"):
+        fn.makedirs(fn.home + "/.config-att")
         fn.permissions(fn.home + "/.config-att")
     #for all users that have now root permissions
-    if os.path.exists(fn.home + "/.config-att"):
+    if fn.path.exists(fn.home + "/.config-att"):
         fn.permissions(fn.home + "/.config-att")
     fn.copy_func(fn.home + "/.config/", fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"), isdir=True)
     fn.permissions(fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"))
