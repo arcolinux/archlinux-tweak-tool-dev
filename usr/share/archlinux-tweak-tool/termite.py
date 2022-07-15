@@ -12,8 +12,8 @@ import Settings
 
 def get_themes(combo):  # noqa
     if fn.path.isdir(fn.home + "/.config/termite/themes/"):
-        themes = fn.listdir(fn.home + "/.config/termite/themes/")
         combo.get_model().clear()
+        themes = fn.listdir(fn.home + "/.config/termite/themes/")
         with open(fn.termite_config, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
@@ -33,7 +33,7 @@ def get_themes(combo):  # noqa
 
             coms.sort()
 
-            if fn.fn.path.isfile(fn.config):
+            if fn.path.isfile(fn.config):
                 themes = Settings.read_settings("TERMITE", "theme")
                 if len(themes) > 1:
                     active = themes
