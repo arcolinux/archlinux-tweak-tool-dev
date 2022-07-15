@@ -25,7 +25,7 @@ def insert_repo(self, text):
     with open(fn.pacman, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
-    pos = fn._get_position(lines, "[custom]")
+    pos = fn.get_position(lines, "[custom]")
     num = pos+3
 
     lines.insert(num, "\n" + text + "\n")

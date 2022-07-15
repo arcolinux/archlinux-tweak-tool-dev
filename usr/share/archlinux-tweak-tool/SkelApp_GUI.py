@@ -2,7 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, Functions):  # noqa
+def GUI(self, Gtk, GdkPixbuf, vboxStack9, skelapp, fn):  # noqa
 
     # ============================================
     #                   STACKS

@@ -6,8 +6,8 @@ import numpy as np
 import Functions as fn
 import Settings
 import gi
-import distro
-import os
+#import distro
+#import os
 import datetime
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib, Gtk  # noqa
@@ -66,7 +66,7 @@ copy = ["cp", "-Rv"]
 # =================================================================
 # =================================================================
 
-if distro.id() == "arcolinux":
+if fn.distr == "arcolinux":
     awesome = [
         "alacritty",
         "arcolinux-awesome-git",
@@ -833,9 +833,9 @@ if distro.id() == "arcolinux":
 # =================================================================
 # =================================================================
 
-# if distro.id() == "arch" or distro.id() == "endeavouros" or distro.id() == "manjaro"\
-#                 or distro.id() == "garudalinux":
-if not distro.id() == "arcolinux":
+# if fn.distr == "arch" or fn.distr == "endeavouros" or fn.distr == "manjaro"\
+#                 or fn.distr == "garudalinux":
+if not fn.distr == "arcolinux":
     awesome = [
         "alacritty",
         "arcolinux-awesome-git",
@@ -1230,7 +1230,7 @@ if not distro.id() == "arcolinux":
 
 def check_desktop(desktop):
     # /usr/share/xsessions/xfce.desktop
-    lst = fn.os.listdir("/usr/share/xsessions/")
+    lst = fn.listdir("/usr/share/xsessions/")
     for x in lst:
         if desktop + ".desktop" == x:
             return True
@@ -1254,7 +1254,7 @@ def uninstall_desktop(desktop):
     print("Uninstalling.....")
 
 def check_lock(self, desktop, state):
-    if fn.os.path.isfile("/var/lib/pacman/db.lck"):
+    if fn.path.isfile("/var/lib/pacman/db.lck"):
         md = Gtk.MessageDialog(parent=self,
                             flags=0,
                             message_type=Gtk.MessageType.INFO,
@@ -1267,7 +1267,7 @@ def check_lock(self, desktop, state):
         md.destroy()
 
         if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
-            fn.os.unlink("/var/lib/pacman/db.lck")
+            fn.unlink("/var/lib/pacman/db.lck")
             # print("YES")
             t1 = fn.threading.Thread(target=install_desktop,
                                     args=(self,
@@ -1288,7 +1288,7 @@ def check_lock(self, desktop, state):
 
 
 def check_package(self, path, package):
-    if fn.os.path.isfile(path + "/" + package):
+    if fn.path.isfile(path + "/" + package):
         with fn.subprocess.Popen(["sh", "-c", "yes | pkexec pacman -R " + package], bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
             for line in p.stdout:
                 GLib.idle_add(self.desktopr_stat.set_text, line.strip())
@@ -1462,12 +1462,12 @@ def install_desktop(self, desktop, state):
         print(src)
         if twm is True:
             for x in src:
-                if fn.os.path.isdir(x) or fn.os.path.isfile(x):
+                if fn.path.isdir(x) or fn.path.isfile(x):
                     print(x)
                     dest = x.replace("/etc/skel", fn.home)
                     # print(dest)
-                    if fn.os.path.isdir(x):
-                        dest = fn.os.path.split(dest)[0]
+                    if fn.path.isdir(x):
+                        dest = fn.path.split(dest)[0]
                     l1 = np.append(copy, [x])
                     l2 = np.append(l1, [dest])
                     GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)

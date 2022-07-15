@@ -2,9 +2,8 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import Functions as fn
 
-def GUI(self, Gtk, vboxStack2, Gtk_Functions, Functions):
+def GUI(self, Gtk, vboxStack2, Gtk_Functions, fn):
     # ==========================================================
     #                 TAB #2 GTK THEMES
     # ==========================================================

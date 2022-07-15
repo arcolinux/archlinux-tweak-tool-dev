@@ -2,27 +2,30 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import os
-import distro
 import sys
+import threading
 import shutil
 import psutil
 import datetime
-# import time
 import subprocess
-import threading  # noqa
+import distro
 import gi
-# import configparser
 gi.require_version('Gtk', '3.0')
-from gi.repository import GLib, Gtk  # noqa
+from gi.repository import GLib, Gtk
+import os
+from os import path,getlogin,mkdir,makedirs,listdir
+from os import unlink,walk,execl,getpid,system,stat,readlink
+from distro import id
+
+
 
 # =====================================================
 #              BEGIN DECLARATION OF VARIABLES
 # =====================================================
 
-distr = distro.id()
+distr = id()
 
-sudo_username = os.getlogin()
+sudo_username = getlogin()
 home = "/home/" + str(sudo_username)
 
 gpg_conf = "/etc/pacman.d/gnupg/gpg.conf"
@@ -101,11 +104,11 @@ bash_config = ""
 zsh_config = ""
 fish_config = ""
 
-if os.path.isfile(home + "/.config/fish/config.fish"):
+if path.isfile(home + "/.config/fish/config.fish"):
     fish_config = home + "/.config/fish/config.fish"
-if os.path.isfile(home + "/.zshrc"):
+if path.isfile(home + "/.zshrc"):
     zsh_config = home + "/.zshrc"
-if os.path.isfile(home + "/.bashrc"):
+if path.isfile(home + "/.bashrc"):
     bash_config = home + "/.bashrc"
 
 bashrc_arco = "/usr/share/archlinux-tweak-tool/data/arco/.bashrc"
@@ -224,7 +227,7 @@ leftwm_themes_list= ["arise",
 
 def get_lines(files):
     try:
-        if os.path.isfile(files):
+        if path.isfile(files):
             with open(files, "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 f.close()
@@ -233,7 +236,7 @@ def get_lines(files):
         print(e)
 
 # get position in list
-def _get_position(lists, value):
+def get_position(lists, value):
     data = [string for string in lists if value in string]
     if len(data) != 0:
         position = lists.index(data[0])
@@ -241,7 +244,7 @@ def _get_position(lists, value):
     return 0
 
 # get positions in list
-def _get_positions(lists, value):
+def get_positions(lists, value):
     data = [string for string in lists if value in string]
     position = []
     for d in data:
@@ -275,9 +278,9 @@ def check_value(list, value):
 
 # check backups
 def check_backups(now):
-    if not os.path.exists(home + "/" + bd + "/Backup-" +
+    if not path.exists(home + "/" + bd + "/Backup-" +
                           now.strftime("%Y-%m-%d %H")):
-        os.makedirs(home + "/" + bd + "/Backup-" +
+        makedirs(home + "/" + bd + "/Backup-" +
                     now.strftime("%Y-%m-%d %H"), 0o777)
         permissions(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
 
@@ -297,18 +300,18 @@ def checkIfProcessRunning(processName):
 # copytree
 def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
 
-    if not os.path.exists(dst):
-        os.makedirs(dst)
-    for item in os.listdir(src):
-        s = os.path.join(src, item)
-        d = os.path.join(dst, item)
-        if os.path.exists(d):
+    if not path.exists(dst):
+        makedirs(dst)
+    for item in listdir(src):
+        s = path.join(src, item)
+        d = path.join(dst, item)
+        if path.exists(d):
             try:
                 shutil.rmtree(d)
             except Exception as e:
                 print(e)
-                os.unlink(d)
-        if os.path.isdir(s):
+                unlink(d)
+        if path.isdir(s):
             try:
                 shutil.copytree(s, d, symlinks, ignore)
             except Exception as e:
@@ -334,7 +337,7 @@ def check_sddm_value(list, value):
 
 # check if file exists
 def file_check(file):
-    if os.path.isfile(file):
+    if path.isfile(file):
         return True
 
     return False
@@ -360,8 +363,7 @@ def check_content(value, file):         # noqa
                 else:
                     return False
         return False
-    except Exception as e:
-        #print(e)
+    except:
         return False
 
 # check if package is installed or not
@@ -370,7 +372,7 @@ def check_package_installed(package):         # noqa
         subprocess.check_output("pacman -Qi " + package,shell=True,stderr=subprocess.STDOUT)
         #package is installed
         return True
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         #package is not installed
         return False
 
@@ -379,6 +381,7 @@ def check_service(service):         # noqa
     try:
         command = "systemctl is-active " + service
         output = subprocess.run(command.split(" "),
+                        check=True,
                         shell=False,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
@@ -389,7 +392,7 @@ def check_service(service):         # noqa
         else:
             #print("Service is inactive")
             return False
-    except Exception as e:
+    except Exception:
         return False
 
 # list normal users
@@ -418,6 +421,7 @@ def check_group(group):
     try:
         groups = subprocess.run(["sh", "-c", "id " +
                                 sudo_username],
+                                check=True,
                                 shell=False,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
@@ -470,7 +474,8 @@ def install_package(self, package):
     #if more than one package - checf fails and will install
     if check_package_installed(package):
         print(package + " is/are already installed - nothing to do")
-        GLib.idle_add(show_in_app_notification,self,package + " is/are already installed - nothing to do")
+        GLib.idle_add(show_in_app_notification,self,package\
+            + " is/are already installed - nothing to do")
         pass
     else :
         try:
@@ -480,7 +485,8 @@ def install_package(self, package):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT)
             print(package + " is/are now installed")
-            GLib.idle_add(show_in_app_notification,self,package + " is/are now installed")
+            GLib.idle_add(show_in_app_notification,self,package\
+                + " is/are now installed")
         except Exception as e:
             print(e)
 
@@ -494,7 +500,8 @@ def install_local_package(self, package):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
         print(package + " is/are now installed")
-        GLib.idle_add(show_in_app_notification,self,package + " is/are now installed")
+        GLib.idle_add(show_in_app_notification,self,package\
+            + " is/are now installed")
     except Exception as e:
         print(e)
 
@@ -503,7 +510,8 @@ def install_arco_package(self, package):
         command = 'pacman -S ' + package + ' --noconfirm --needed'
         if check_package_installed(package):
             print(package + " is/are already installed - nothing to do")
-            GLib.idle_add(show_in_app_notification,self,package + " is already installed - nothing to do")
+            GLib.idle_add(show_in_app_notification,self,package\
+                + " is already installed - nothing to do")
             pass
         else :
             try:
@@ -513,14 +521,16 @@ def install_arco_package(self, package):
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
                 print(package + " is/are now installed")
-                GLib.idle_add(show_in_app_notification,self,package + " is/are now installed")
+                GLib.idle_add(show_in_app_notification,self,package\
+                    + " is/are now installed")
             except Exception as e:
                 print(e)
     else:
         print("You need to activate the ArcoLinux repos")
         print("Check the pacman tab of the ArchLinux Tweak Tool")
         print("and/or the content of /etc/pacman.conf")
-        GLib.idle_add(show_in_app_notification,self,"You need to activate the ArcoLinux repos")
+        GLib.idle_add(show_in_app_notification,self,\
+            "You need to activate the ArcoLinux repos")
 
 def remove_package(self, package):
     command = 'pacman -R ' + package + ' --noconfirm'
@@ -532,12 +542,14 @@ def remove_package(self, package):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT)
             print(package + " is now removed")
-            GLib.idle_add(show_in_app_notification,self,package + " is now removed")
+            GLib.idle_add(show_in_app_notification,\
+                self,package + " is now removed")
         except Exception as e:
             print(e)
     else :
         print(package + " is already removed")
-        GLib.idle_add(show_in_app_notification,self,package + " is already removed")
+        GLib.idle_add(show_in_app_notification,\
+            self,package + " is already removed")
         pass
 
 def remove_package_dep(self, package):
@@ -550,12 +562,14 @@ def remove_package_dep(self, package):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT)
             print(package + " is now removed")
-            GLib.idle_add(show_in_app_notification,self,package + " is now removed")
+            GLib.idle_add(show_in_app_notification,self,package\
+                + " is now removed")
         except Exception as e:
             print(e)
     else :
         print(package + " is already removed")
-        GLib.idle_add(show_in_app_notification,self,package + " is already removed")
+        GLib.idle_add(show_in_app_notification,self,package\
+            + " is already removed")
         pass
 
 def enable_login_manager(self, loginmanager):
@@ -568,19 +582,27 @@ def enable_login_manager(self, loginmanager):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT)
             print(loginmanager + " has been enabled - reboot")
-            GLib.idle_add(show_in_app_notification, self, loginmanager + " has been enabled - reboot")
+            GLib.idle_add(show_in_app_notification, self, loginmanager\
+                + " has been enabled - reboot")
         except Exception as e:
             print(e)
     else:
         print(loginmanager + " is not installed")
-        GLib.idle_add(show_in_app_notification, self, loginmanager + " is not installed")
+        GLib.idle_add(show_in_app_notification, self, loginmanager\
+            + " is not installed")
 
 def add_autologin_group(self):
-    com = subprocess.run(["sh", "-c", "su - " + sudo_username + " -c groups"], shell=False, stdout=subprocess.PIPE)
+    com = subprocess.run(["sh", "-c", "su - " + sudo_username\
+        + " -c groups"],\
+        check=True, shell=False, stdout=subprocess.PIPE)
     groups = com.stdout.decode().strip().split(" ")
     # print(groups)
     if "autologin" not in groups:
-        subprocess.run(["gpasswd", "-a", sudo_username, "autologin"], shell=False)
+        subprocess.run(["gpasswd", "-a",
+                        sudo_username,
+                        "autologin"],
+                        check=True,
+                        shell=False)
 
 # =====================================================
 #              CAJA SHARE PLUGIN
@@ -641,9 +663,9 @@ def clamp(x):
 
 def copy_func(src, dst, isdir=False):
     if isdir:
-        subprocess.run(["cp", "-Rp", src, dst], shell=False)
+        subprocess.run(["cp", "-Rp", src, dst], check=True, shell=False)
     else:
-        subprocess.run(["cp", "-p", src, dst], shell=False)
+        subprocess.run(["cp", "-p", src, dst], check=True, shell=False)
 
 # =====================================================
 #               DISTRO LABEL
@@ -693,7 +715,7 @@ def install_arcolinux_fish_package(self):
 def remove_fish(self):
     install = 'pacman -Rs fish arcolinux-fish-git --noconfirm'
 
-    if not os.path.exists("/usr/bin/fish") and os.path.exists("/etc/skel/.config/fish/config.fish") :
+    if not path.exists("/usr/bin/fish") and path.exists("/etc/skel/.config/fish/config.fish") :
         pass
     else:
         subprocess.call(install.split(" "),
@@ -706,15 +728,15 @@ def remove_fish(self):
 #                      GET DESKTOP
 # ====================================================================
 
-def get_desktop(self):
-    base_dir = os.path.dirname(os.path.realpath(__file__))
+# def get_desktop(self):
+#     base_dir = path.dirname(path.realpath(__file__))
 
-    desktop = subprocess.run(["sh", base_dir + "/get_desktop.sh", "-n"],
-                             shell=False,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
-    dsk = desktop.stdout.decode().strip().split("\n")
-    self.desktop = dsk[-1].strip()
+#     desktop = subprocess.run(["sh", base_dir + "/get_desktop.sh", "-n"],
+#                              shell=False,
+#                              stdout=subprocess.PIPE,
+#                              stderr=subprocess.STDOUT)
+#     dsk = desktop.stdout.decode().strip().split("\n")
+#     self.desktop = dsk[-1].strip()
 
 # ====================================================================
 #                      GRUB
@@ -738,8 +760,8 @@ def make_grub(self):
 # =====================================================
 
 def get_grub_wallpapers():
-    if os.path.isdir("/boot/grub/themes/Vimix"):
-        lists = os.listdir("/boot/grub/themes/Vimix")
+    if path.isdir("/boot/grub/themes/Vimix"):
+        lists = listdir("/boot/grub/themes/Vimix")
 
         rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png',
                 'terminal_box_c.png', 'terminal_box_s.png',
@@ -756,18 +778,18 @@ def get_grub_wallpapers():
         return new_list
 
 def set_grub_wallpaper(self, image):
-    if os.path.isfile(grub_theme_conf):
-        if not os.path.isfile(grub_theme_conf + ".bak"):
+    if path.isfile(grub_theme_conf):
+        if not path.isfile(grub_theme_conf + ".bak"):
             shutil.copy(grub_theme_conf, grub_theme_conf + ".bak")
         try:
             with open(grub_theme_conf, "r", encoding="utf-8") as f:
                 lists = f.readlines()
                 f.close()
 
-            val = _get_position(lists, "desktop-image: ")
-            lists[val] = "desktop-image: \"" + os.path.basename(image) + "\"" + "\n"
+            val = get_position(lists, "desktop-image: ")
+            lists[val] = "desktop-image: \"" + path.basename(image) + "\"" + "\n"
 
-            with open(grub_theme_conf, "w") as f:
+            with open(grub_theme_conf, "w", encoding="utf-8") as f:
                 f.writelines(lists)
                 f.close()
             print("Grub wallpaper saved")
@@ -780,17 +802,17 @@ def set_grub_wallpaper(self, image):
 def set_login_wallpaper(self, image):
     #if sddm
     if self.login_managers_combo.get_active_text() == "sddm":
-        if os.path.isfile(sddm_default_d2):
+        if path.isfile(sddm_default_d2):
             try:
                 with open(sddm_default_d2, "r", encoding="utf-8") as f:
                     lists = f.readlines()
                     f.close()
-                val = _get_position(lists, "Current=")
+                val = get_position(lists, "Current=")
                 theme = lists[val].strip('\n').split("=")[1]
             except:
                 pass
 
-            if not os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
+            if not path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
                 try:
                     with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
                         f.write("[General]\n")
@@ -801,14 +823,15 @@ def set_login_wallpaper(self, image):
                 except:
                     pass
 
-            if os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
+            if path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
                 try:
                     print("This is your current theme: " + theme)
-                    with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "r", encoding="utf-8") as f:
+                    with open("/usr/share/sddm/themes/" + theme\
+                        + "/theme.conf.user", "r", encoding="utf-8") as f:
                         lists = f.readlines()
                         f.close()
 
-                    val = _get_position(lists, "background=")
+                    val = get_position(lists, "background=")
                     lists[val] = "background=" + image + "\n"
                     print(lists[val])
 
@@ -825,13 +848,13 @@ def set_login_wallpaper(self, image):
 
     #if lightdm
     if self.login_managers_combo.get_active_text() == "lightdm":
-        if os.path.isfile(lightdm_greeter):
+        if path.isfile(lightdm_greeter):
             try:
                 with open(lightdm_greeter, "r", encoding="utf-8") as f:
                     lists = f.readlines()
                     f.close()
 
-                val = _get_position(lists, "background=")
+                val = get_position(lists, "background=")
                 lists[val] = "background=" + image + "\n"
                 print(lists[val])
 
@@ -846,13 +869,13 @@ def set_login_wallpaper(self, image):
             print("There is no /etc/lightdm/lightdm-gtk-greeter.conf")
             show_in_app_notification(self, "There is no /etc/lightdm/lightdm-gtk-greeter.conf")
 
-        if os.path.isfile(lightdm_slick_greeter):
+        if path.isfile(lightdm_slick_greeter):
             try:
                 with open(lightdm_slick_greeter, "r", encoding="utf-8") as f:
                     lists = f.readlines()
                     f.close()
 
-                val = _get_position(lists, "background=")
+                val = get_position(lists, "background=")
                 lists[val] = "background=" + image + "\n"
                 print(lists[val])
 
@@ -869,13 +892,13 @@ def set_login_wallpaper(self, image):
 
     #if lxdm
     if self.login_managers_combo.get_active_text() == "lxdm":
-        if os.path.isfile(lxdm_conf):
+        if path.isfile(lxdm_conf):
             try:
                 with open(lxdm_conf, "r", encoding="utf-8") as f:
                     lists = f.readlines()
                     f.close()
 
-                val = _get_position(lists, "bg=")
+                val = get_position(lists, "bg=")
                 lists[val] = "bg=" + image + "\n"
                 print(lists[val])
 
@@ -891,103 +914,111 @@ def set_login_wallpaper(self, image):
             show_in_app_notification(self, "There is no /etc/lxdm/lxdm.conf")
 
 def reset_login_wallpaper(self, image):
-    if os.path.isfile(sddm_default_d2):
+    if path.isfile(sddm_default_d2):
         try:
             with open(sddm_default_d2, "r", encoding="utf-8") as f:
                 lists = f.readlines()
                 f.close()
-            val = _get_position(lists, "Current=")
+            val = get_position(lists, "Current=")
             theme = lists[val].strip('\n').split("=")[1]
         except:
             pass
 
-    if os.path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
+    if path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
         try:
-            os.unlink("/usr/share/sddm/themes/" + theme + "/theme.conf.user")
+            unlink("/usr/share/sddm/themes/" + theme + "/theme.conf.user")
             print("Standard background has been reset")
             show_in_app_notification(self, "Background reset successfully")
         except:
             pass
 
 def set_default_grub_theme(self):
-    if os.path.isfile(grub_default_grub):
-        if not os.path.isfile(grub_default_grub + ".bak"):
+    if path.isfile(grub_default_grub):
+        if not path.isfile(grub_default_grub + ".bak"):
             shutil.copy(grub_default_grub, grub_default_grub + ".bak")
         try:
             with open(grub_default_grub, "r", encoding="utf-8") as f:
                 grubd = f.readlines()
                 f.close()
 
-            if distro.id() == "arch":
+            if distr == "arch":
                 try:
-                    val = _get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
+                    val = get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
-            if distro.id() == "arch":
+            if distr == "arch":
                 try:
                     # for Carli
-                    val = _get_position(grubd, 'GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt')
+                    val = get_position(grubd,\
+                        'GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
-            if distro.id() == "arcolinux":
+            if distr == "arcolinux":
                 try:
-                    val = _get_position(grubd, "#GRUB_THEME")
+                    val = get_position(grubd, "#GRUB_THEME")
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
-            if distro.id() == "endeavouros":
+            if distr == "endeavouros":
                 try:
-                    val = _get_position(grubd, "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt")
+                    val = get_position(grubd,\
+                        "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt")
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
-            if distro.id() == "garuda":
+            if distr == "garuda":
                 try:
-                    val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
+                    val = get_position(grubd,\
+                        'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
-                   pass
+                    pass
 
-            if distro.id() == "manjaro":
+            if distr == "manjaro":
                 try:
-                    val = _get_position(grubd, 'GRUB_THEME="/usr/share/grub/themes/manjaro/theme.txt"')
+                    val = get_position(grubd,\
+                        'GRUB_THEME="/usr/share/grub/themes/manjaro/theme.txt"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
-                   pass
+                    pass
 
-            if distro.id() == "xerolinux":
+            if distr == "xerolinux":
                 try:
-                    val = _get_position(grubd, 'GRUB_THEME="/boot/grub/themes/XeroKDE/theme.txt"')
+                    val = get_position(grubd,\
+                        'GRUB_THEME="/boot/grub/themes/XeroKDE/theme.txt"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
-                   pass
+                    pass
 
-            if distro.id() == "axyl":
+            if distr == "axyl":
                 try:
-                    val = _get_position(grubd, 'GRUB_THEME="/boot/grub/themes/axyl/theme.txt"')
+                    val = get_position(grubd,\
+                        'GRUB_THEME="/boot/grub/themes/axyl/theme.txt"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
-                   pass
+                    pass
 
-            if distro.id() == "archcraft":
+            if distr == "archcraft":
                 try:
-                    val = _get_position(grubd, 'GRUB_THEME="/boot/grub/themes/archcraft/theme.txt"')
+                    val = get_position(grubd,\
+                        'GRUB_THEME="/boot/grub/themes/archcraft/theme.txt"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
-                   pass
+                    pass
 
-            if distro.id() == "cachyos":
+            if distr == "cachyos":
                 try:
-                    val = _get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
+                    val = get_position(grubd,\
+                        '#GRUB_THEME="/path/to/gfxtheme"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
-                   pass
+                    pass
 
             with open(grub_default_grub, "w") as f:
                 f.writelines(grubd)
@@ -1008,7 +1039,7 @@ def set_grub_timeout(self,number):
             lists = f.readlines()
             f.close()
 
-        val = _get_position(lists, "GRUB_TIMEOUT=")
+        val = get_position(lists, "GRUB_TIMEOUT=")
         lists[val] = "GRUB_TIMEOUT=" + str(number) + "\n"
         print(lists[val])
 
@@ -1024,20 +1055,20 @@ def set_grub_timeout(self,number):
 #               GTK3 CONF
 # =====================================================
 
-def gtk_check_value(my_list, value):
-    data = [string for string in my_list if value in string]
-    if len(data) >= 1:
-        data1 = [string for string in data if "#" in string]
-        for i in data1:
-            if i[:4].find('#') != -1:
-                data.remove(i)
-    return data
+# def gtk_check_value(my_list, value):
+#     data = [string for string in my_list if value in string]
+#     if len(data) >= 1:
+#         data1 = [string for string in data if "#" in string]
+#         for i in data1:
+#             if i[:4].find('#') != -1:
+#                 data.remove(i)
+#     return data
 
 
-def gtk_get_position(my_list, value):
-    data = [string for string in my_list if value in string]
-    position = my_list.index(data[0])
-    return position
+# def gtk_get_position(my_list, value):
+#     data = [string for string in my_list if value in string]
+#     position = my_list.index(data[0])
+#     return position
 
 # =====================================================
 #               HBLOCK CONF
@@ -1046,7 +1077,7 @@ def gtk_get_position(my_list, value):
 def hblock_get_state(self):
     lines = int(subprocess.check_output('wc -l /etc/hosts',
                                         shell=True).strip().split()[0])
-    if os.path.exists("/usr/bin/hblock") and lines > 100:
+    if path.exists("/usr/bin/hblock") and lines > 100:
         return True
 
     self.firstrun = False
@@ -1064,8 +1095,8 @@ def set_hblock(self, toggle, state):
     timeout_id = None
     timeout_id = GLib.timeout_add(100, do_pulse, None, self.progress)
 
-    if not os.path.isfile("/etc/hosts.bak"):
-            shutil.copy("/etc/hosts", "/etc/hosts.bak")
+    if not path.isfile("/etc/hosts.bak"):
+        shutil.copy("/etc/hosts", "/etc/hosts.bak")
 
     try:
 
@@ -1073,7 +1104,7 @@ def set_hblock(self, toggle, state):
         enable = "/usr/bin/hblock"
 
         if state:
-            if os.path.exists("/usr/bin/hblock"):
+            if path.exists("/usr/bin/hblock"):
                 GLib.idle_add(self.label7.set_text, "Database update...")
                 subprocess.call([enable],
                                 shell=False,
@@ -1095,6 +1126,7 @@ def set_hblock(self, toggle, state):
             GLib.idle_add(self.label7.set_text, "Remove update...")
             subprocess.run(["sh", "-c",
                             "HBLOCK_SOURCES=\'\' /usr/bin/hblock"],
+                           check=True,
                            shell=False,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.STDOUT)
@@ -1119,13 +1151,13 @@ def set_hblock(self, toggle, state):
 # =====================================================
 
 def enable_slick_greeter(self):
-    if os.path.isfile(lightdm_conf):
+    if path.isfile(lightdm_conf):
         try:
             with open(lightdm_conf, "r", encoding="utf-8") as f:
                 lists = f.readlines()
                 f.close()
 
-            val = _get_position(lists, "#greeter-session=example-gtk-gnome")
+            val = get_position(lists, "#greeter-session=example-gtk-gnome")
             lists[val] = "greeter-session=lightdm-slick-greeter" + "\n"
 
             with open(lightdm_conf, "w") as f:
@@ -1135,13 +1167,13 @@ def enable_slick_greeter(self):
             print(e)
 
 def disable_slick_greeter(self):
-    if os.path.isfile(lightdm_conf):
+    if path.isfile(lightdm_conf):
         try:
             with open(lightdm_conf, "r", encoding="utf-8") as f:
                 lists = f.readlines()
                 f.close()
 
-            val = _get_position(lists, "greeter-session=lightdm-slick-greeter")
+            val = get_position(lists, "greeter-session=lightdm-slick-greeter")
             lists[val] = "#greeter-session=example-gtk-gnome" + "\n"
 
             with open(lightdm_conf, "w") as f:
@@ -1174,8 +1206,8 @@ def create_log(self):
 # =====================================================
 
 def get_login_wallpapers():
-    if os.path.isdir(login_backgrounds):
-        lists = os.listdir(login_backgrounds)
+    if path.isdir(login_backgrounds):
+        lists = listdir(login_backgrounds)
 
         rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png',
                 'terminal_box_c.png', 'terminal_box_s.png',
@@ -1306,7 +1338,8 @@ def close_in_app_notification(self):
 # =====================================================
 
 def copy_nsswitch(choice):
-    command ="cp /usr/share/archlinux-tweak-tool/data/" + choice + "/nsswitch.conf /etc/nsswitch.conf"
+    command ="cp /usr/share/archlinux-tweak-tool/data/"\
+        + choice + "/nsswitch.conf /etc/nsswitch.conf"
     print(command)
     subprocess.call(command.split(" "),
                     shell=False,
@@ -1320,13 +1353,13 @@ def copy_nsswitch(choice):
 # Get shortcuts index
 def get_shortcuts(conflist):
     sortcuts = _get_variable(conflist, "shortcuts")
-    shortcuts_index = _get_position(conflist, sortcuts[0])
+    shortcuts_index = get_position(conflist, sortcuts[0])
     return int(shortcuts_index)
 
 # Get commands index
 def get_commands(conflist):
     commands = _get_variable(conflist, "commands")
-    commands_index = _get_position(conflist, commands[0])
+    commands_index = get_position(conflist, commands[0])
     return int(commands_index)
 
 # =====================================================
@@ -1336,7 +1369,7 @@ def get_commands(conflist):
 def install_pace(self):
     install = 'pacman -S pace --noconfirm --needed'
 
-    if os.path.exists("/usr/bin/pace"):
+    if path.exists("/usr/bin/pace"):
         #print("Pace is already installed")
         pass
     else:
@@ -1354,7 +1387,7 @@ def install_pace(self):
 # =====================================================
 
 def install_chaotics(self):
-    base_dir = os.path.dirname(os.path.realpath(__file__))
+    base_dir = path.dirname(path.realpath(__file__))
     name1 = "chaotic-keyring-20220514-1-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --noconfirm'
@@ -1366,7 +1399,7 @@ def install_chaotics(self):
     except Exception as e:
         print(e)
 
-    base_dir = os.path.dirname(os.path.realpath(__file__))
+    base_dir = path.dirname(path.realpath(__file__))
     name1 = "chaotic-mirrorlist-20220504-2-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/garuda/packages/' + name1 + ' --noconfirm'
@@ -1379,7 +1412,7 @@ def install_chaotics(self):
         print(e)
 
 def install_endeavouros(self):
-    base_dir = os.path.dirname(os.path.realpath(__file__))
+    base_dir = path.dirname(path.realpath(__file__))
     name1 = "endeavouros-keyring-20220523-3-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
@@ -1391,7 +1424,7 @@ def install_endeavouros(self):
     except Exception as e:
         print(e)
 
-    base_dir = os.path.dirname(os.path.realpath(__file__))
+    base_dir = path.dirname(path.realpath(__file__))
     name1 = "endeavouros-mirrorlist-4.4.3-1-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
@@ -1404,9 +1437,9 @@ def install_endeavouros(self):
         print(e)
 
 def install_arcolinux(self):
-    base_dir = os.path.dirname(os.path.realpath(__file__))
+    base_dir = path.dirname(path.realpath(__file__))
     pathway = base_dir + "/data/arco/packages/arcolinux-keyring/"
-    file = os.listdir(pathway)
+    file = listdir(pathway)
 
     try:
         install = 'pacman -U ' + pathway + str(file).strip("[]'") + ' --noconfirm'
@@ -1420,7 +1453,7 @@ def install_arcolinux(self):
         print(e)
 
     pathway = base_dir + "/data/arco/packages/arcolinux-mirrorlist/"
-    file = os.listdir(pathway)
+    file = listdir(pathway)
     try:
         install = 'pacman -U ' + pathway + str(file).strip("[]'") + ' --noconfirm'
         subprocess.call(install.split(" "),
@@ -1432,7 +1465,7 @@ def install_arcolinux(self):
         print(e)
 
 def install_xerolinux(self):
-    base_dir = os.path.dirname(os.path.realpath(__file__))
+    base_dir = path.dirname(path.realpath(__file__))
     name1 = "xerolinux-mirrorlist-0.1.2-1-any.pkg.tar.zst"
     try:
         install = 'pacman -U ' + base_dir + '/data/xero/packages/' + name1 + ' --noconfirm'
@@ -1449,7 +1482,7 @@ def install_xerolinux(self):
 # =====================================================
 
 def test(dst):
-    for root, dirs, filesr in os.walk(dst):
+    for root, dirs, filesr in walk(dst):
         # print(root)
         for folder in dirs:
             pass
@@ -1463,14 +1496,9 @@ def test(dst):
 
 def permissions(dst):
     try:
-        # original_umask = os.umask(0)
-        # calls = subprocess.run(["sh", "-c", "cat /etc/passwd | grep " +
-        #                         sudo_username],
-        #                        shell=False,
-        #                        stdout=subprocess.PIPE,
-        #                        stderr=subprocess.STDOUT)
         groups = subprocess.run(["sh", "-c", "id " +
                                  sudo_username],
+                                check=True,
                                 shell=False,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
@@ -1478,13 +1506,8 @@ def permissions(dst):
             if "gid" in x:
                 g = x.split("(")[1]
                 group = g.replace(")", "").strip()
-        # print(group)
-        # name = calls.stdout.decode().split(":")[0].strip()
-        # group = calls.stdout.decode().split(":")[4].strip()
-
         subprocess.call(["chown", "-R",
                          sudo_username + ":" + group, dst], shell=False)
-
     except Exception as e:
         print(e)
 
@@ -1493,11 +1516,10 @@ def permissions(dst):
 # =====================================================
 
 def restart_program():
-    if os.path.exists("/tmp/att.lock"):
-        os.unlink("/tmp/att.lock")
+    if path.exists("/tmp/att.lock"):
+        unlink("/tmp/att.lock")
         python = sys.executable
-        os.execl(python, python, *sys.argv)
-
+        execl(python, python, *sys.argv)
 
 # =====================================================
 #               SERVICES - AVAHI
@@ -1584,8 +1606,8 @@ def remove_discovery(self):
 def install_samba(self):
     install = 'pacman -S samba gvfs-smb --needed --noconfirm'
 
-    if not os.path.isdir("/var/cache/samba"):
-                os.makedirs("/var/cache/samba", 0o755)
+    if not path.isdir("/var/cache/samba"):
+        makedirs("/var/cache/samba", 0o755)
 
     if check_package_installed("samba") and check_package_installed("gvfs-smb"):
         pass
@@ -1647,21 +1669,22 @@ def uninstall_samba(self):
 # =====================================================
 
 def copy_samba(choice):
-    command ="cp /usr/share/archlinux-tweak-tool/data/any/samba/" + choice + "/smb.conf /etc/samba/smb.conf"
+    command ="cp /usr/share/archlinux-tweak-tool/data/any/samba/"\
+        + choice + "/smb.conf /etc/samba/smb.conf"
     subprocess.call(command.split(" "),
                     shell=False,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT)
     if choice == "example":
-        if not os.path.isdir("/home/" + sudo_username + "/Shared"):
-            os.makedirs("/home/" + sudo_username + "/Shared", 0o755)
+        if not path.isdir("/home/" + sudo_username + "/Shared"):
+            makedirs("/home/" + sudo_username + "/Shared", 0o755)
         permissions("/home/" + sudo_username + "/Shared")
         try:
             with open(samba_config, "r", encoding="utf-8") as f:
                 lists = f.readlines()
                 f.close()
 
-            val = _get_position(lists, "[SAMBASHARE]")
+            val = get_position(lists, "[SAMBASHARE]")
             lists[val+1] = "path = " + "/home/" + sudo_username + "/Shared\n"
 
             print("You have choosen for the easy setup")
@@ -1679,8 +1702,8 @@ def copy_samba(choice):
 
     if choice == "usershares":
         #make folder
-        if not os.path.isdir("/var/lib/samba/usershares"):
-            os.makedirs("/var/lib/samba/usershares", 0o770)
+        if not path.isdir("/var/lib/samba/usershares"):
+            makedirs("/var/lib/samba/usershares", 0o770)
 
         #create system sambashare group
         try:
@@ -1733,8 +1756,8 @@ def copy_samba(choice):
 
 def save_samba_config(self,widget):
     #create smb.conf if there is none?
-    if os.path.isfile(samba_config):
-        if not os.path.isfile(samba_config + ".bak"):
+    if path.isfile(samba_config):
+        if not path.isfile(samba_config + ".bak"):
             shutil.copy(samba_config, samba_config + ".bak")
         try:
             with open(samba_config, "r", encoding="utf-8") as f:
@@ -1763,7 +1786,7 @@ def save_samba_config(self,widget):
             else:
                 writable = "no"
 
-            val = _get_position(lists, "[SAMBASHARE]")
+            val = get_position(lists, "[SAMBASHARE]")
             if lists[val] == ";[SAMBASHARE]\n":
                 lists[val] = "[SAMBASHARE]" +"\n"
             lists[val+1] = "path = " + path +"\n"
@@ -1798,9 +1821,9 @@ def save_samba_config(self,widget):
 # =====================================================
 
 def create_sddm_k_dir():
-    if not os.path.isdir(sddm_default_d2_dir):
+    if not path.isdir(sddm_default_d2_dir):
         try:
-            os.mkdir(sddm_default_d2_dir)
+            mkdir(sddm_default_d2_dir)
         except Exception as e:
             print(e)
 
@@ -1810,25 +1833,29 @@ def create_sddm_k_dir():
 
 def source_shell(self):
     process = subprocess.run(["sh", "-c", "echo \"$SHELL\""],
+                             check=True,
                              stdout=subprocess.PIPE)
 
     output = process.stdout.decode().strip()
     if output == "/bin/bash":
         subprocess.run(["bash", "-c", "su - " + sudo_username +
                         " -c \"source " + home + "/.bashrc\""],
+                       check=True,
                        stdout=subprocess.PIPE)
     elif output == "/bin/zsh":
         subprocess.run(["zsh", "-c", "su - " + sudo_username +
                         " -c \"source " + home + "/.zshrc\""],
+                       check=True,
                        stdout=subprocess.PIPE)
     elif output == "/usr/bin/fish":
         subprocess.run(["fish", "-c", "su - " + sudo_username +
                         " -c \"source " + home + "/.config/fish/config.fish\""],
+                       check=True,
                        stdout=subprocess.PIPE)
 
 def get_shell():
     process = subprocess.run(["su", "-", sudo_username,"-c","echo \"$SHELL\""],
-                             #shell=False,
+                             check=True,
                              stdout=subprocess.PIPE,
                              stderr=subprocess.STDOUT)
 
@@ -1871,7 +1898,8 @@ def install_arco_thunar_plugin(self, widget):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT)
             print("Arcolinux-thunar-shares-plugin is now installed - reboot")
-            GLib.idle_add(self.label7.set_text, "Arcolinux-thunar-shares-plugin is now installed - reboot")
+            GLib.idle_add(self.label7.set_text,\
+                "Arcolinux-thunar-shares-plugin is now installed - reboot")
             print("Other apps that might be interesting for sharing are :")
             print(" - arcolinux-nemo-share (cinnamon)")
             print(" - arcolinux-caja-share (mate)")
@@ -1886,7 +1914,7 @@ def install_arco_thunar_plugin(self, widget):
 # =====================================================
 
 def ublock_get_state(self):
-    if os.path.exists("/usr/lib/firefox/browser/extensions/uBlock0@raymondhill.net.xpi"):
+    if path.exists("/usr/lib/firefox/browser/extensions/uBlock0@raymondhill.net.xpi"):
         return True
     return False
 
@@ -1940,7 +1968,8 @@ def install_archlinux_login_backgrounds(self, widget):
 
     if check_package_installed("archlinux-login-backgrounds-git"):
         print("Archlinux-login-backgrounds-git is already installed")
-        GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is already installed")
+        GLib.idle_add(show_in_app_notification,\
+            self,"Archlinux-login-backgrounds-git is already installed")
         pass
     else:
         try:
@@ -1949,7 +1978,8 @@ def install_archlinux_login_backgrounds(self, widget):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT)
             print("Archlinux-login-backgrounds-git is now installed")
-            GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is now installed")
+            GLib.idle_add(show_in_app_notification,\
+                self,"Archlinux-login-backgrounds-git is now installed")
 
         except Exception as e:
             print(e)
@@ -1964,11 +1994,13 @@ def remove_archlinux_login_backgrounds(self, widget):
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT)
             print("Archlinux-login-backgrounds-git is now removed")
-            GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is now installed")
+            GLib.idle_add(show_in_app_notification,\
+                self,"Archlinux-login-backgrounds-git is now installed")
 
         except Exception as e:
             print(e)
     else:
         print("Archlinux-login-backgrounds-git is already removed")
-        GLib.idle_add(show_in_app_notification,self,"Archlinux-login-backgrounds-git is removed")
+        GLib.idle_add(show_in_app_notification,\
+            self,"Archlinux-login-backgrounds-git is removed")
         pass

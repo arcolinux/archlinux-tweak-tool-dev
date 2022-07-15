@@ -3,41 +3,44 @@
 #============================================================
 
 import Functions as fn
-from Functions import GLib
-import os
 
 def check_sddmk_complete(self):
-    with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-        f.close()
-    flag_a = False
-    flag_s = False
-    flag_u = False
-    flag_t = False
-    flag_c = False
-    flag_ct = False
-    flag_f = False
+    try:
+        with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            f.close()
+        flag_a = False
+        flag_s = False
+        flag_u = False
+        flag_t = False
+        flag_c = False
+        flag_ct = False
+        flag_f = False
 
-    for line in lines:
-        if "[Autologin]" in line:
-            flag_a = True
-        if "Session=" in line:
-            flag_s = True
-        if "User=" in line:
-            flag_u = True
-        if "[Theme]" in line:
-            flag_t = True
-        if "Current=" in line:
-            flag_c = True
-        if "CursorTheme=" in line:
-            flag_ct = True
-        if "Font=" in line:
-            flag_f = True
+        for line in lines:
+            if "[Autologin]" in line:
+                flag_a = True
+            if "Session=" in line:
+                flag_s = True
+            if "User=" in line:
+                flag_u = True
+            if "[Theme]" in line:
+                flag_t = True
+            if "Current=" in line:
+                flag_c = True
+            if "CursorTheme=" in line:
+                flag_ct = True
+            if "Font=" in line:
+                flag_f = True
 
-    if flag_a and flag_s and flag_u and flag_t and flag_c and flag_ct and flag_f:
-        return True
-    else:
-        return False
+        if flag_a and flag_s and flag_u and flag_t and flag_c and flag_ct and flag_f:
+            return True
+        else:
+            return False
+    except Exception as FileNotFoundError:
+        print("---------------------------------------------------------------------------")
+        print("Type 'fix-sddm-conf' in a terminal and restart ATT")
+        print("---------------------------------------------------------------------------")
 
 def check_sddmk_session(value):
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as myfile:
@@ -53,7 +56,7 @@ def insert_session(text):
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
-    pos = fn._get_position(lines, "[Autologin]")
+    pos = fn.get_position(lines, "[Autologin]")
     num = pos+2
 
     lines.insert(num, text + "\n")
@@ -77,7 +80,7 @@ def insert_user(text):
     with open(fn.sddm_default_d2, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
-    pos = fn._get_position(lines, "[Autologin]")
+    pos = fn.get_position(lines, "[Autologin]")
     num = pos+3
 
     lines.insert(num, text + "\n")
@@ -88,7 +91,7 @@ def insert_user(text):
 
 
 def check_sddm(lists, value):
-    pos = fn._get_position(lists, value)
+    pos = fn.get_position(lists, value)
     val = lists[pos].strip()
     return val
 
@@ -100,8 +103,8 @@ def set_sddm_value(self, lists, value, session, state, theme, cursor):
         if "autologin" not in groups:
             fn.subprocess.run(["gpasswd", "-a", fn.sudo_username, "autologin"], shell=False)
 
-        pos = fn._get_position(lists, "Session=")
-        pos_session = fn._get_position(lists, "User=")
+        pos = fn.get_position(lists, "Session=")
+        pos_session = fn.get_position(lists, "User=")
 
         if state:
             lists[pos_session] = "User=" + value + "\n"
@@ -111,10 +114,10 @@ def set_sddm_value(self, lists, value, session, state, theme, cursor):
                 lists[pos] = "#" + lists[pos]
                 lists[pos_session] = "#" + lists[pos_session]
 
-        pos_theme = fn._get_position(lists, "Current=")
+        pos_theme = fn.get_position(lists, "Current=")
         lists[pos_theme] = "Current=" + theme + "\n"
 
-        pos_theme = fn._get_position(lists, "CursorTheme=")
+        pos_theme = fn.get_position(lists, "CursorTheme=")
         lists[pos_theme] = "CursorTheme=" + cursor + "\n"
 
         with open(fn.sddm_default_d2, "w") as f:
@@ -133,10 +136,10 @@ def set_user_autologin_value(self, lists, value, session, state):
         if "autologin" not in groups:
             fn.subprocess.run(["gpasswd", "-a", fn.sudo_username, "autologin"], shell=False)
 
-        pos_session = fn._get_positions(lists, "Session=")
+        pos_session = fn.get_positions(lists, "Session=")
         #print(pos_session)
         pos_session = pos_session[-1]
-        pos_user = fn._get_position(lists, "User=" + value)
+        pos_user = fn.get_position(lists, "User=" + value)
         #print(pos_user)
 
         if state:
@@ -151,14 +154,12 @@ def set_user_autologin_value(self, lists, value, session, state):
             f.writelines(lists)
             f.close()
 
-#        GLib.idle_add(fn.show_in_app_notification, self, "Settings Saved Successfully")
-
     except Exception as e:
         print(e)
         fn.MessageBox(self, "Failed!!", "There seems to have been a problem in \"set_sddm_value\"")
 
 def get_sddm_lines(files):
-    if fn.os.path.isfile(files):
+    if fn.path.isfile(files):
         with open(files, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
@@ -169,7 +170,7 @@ def pop_box(self, combos):
     comss = []
     combos.get_model().clear()
 
-    for items in fn.os.listdir("/usr/share/xsessions/"):
+    for items in fn.listdir("/usr/share/xsessions/"):
         comss.append(items.split(".")[0].lower())
     lines = get_sddm_lines(fn.sddm_default_d2)
 
@@ -198,8 +199,8 @@ def pop_theme_box(self, combo):
     coms = []
     combo.get_model().clear()
 
-    if os.path.exists("/usr/share/sddm") and os.path.exists(fn.sddm_default_d2) and os.path.exists(fn.sddm_default_d1):
-        for items in fn.os.listdir("/usr/share/sddm/themes/"):
+    if fn.path.exists("/usr/share/sddm") and fn.path.exists(fn.sddm_default_d2) and fn.path.exists(fn.sddm_default_d1):
+        for items in fn.listdir("/usr/share/sddm/themes/"):
             #coms.append(items.split(".")[0].lower())
             coms.append(items.split(".")[0])
         lines = get_sddm_lines(fn.sddm_default_d2)
@@ -222,15 +223,15 @@ def pop_gtk_cursor_names(self, combo):
     coms = []
     combo.get_model().clear()
 
-    if fn.os.path.isfile(fn.sddm_default_d2):
-        for item in fn.os.listdir("/usr/share/icons/"):
+    if fn.path.isfile(fn.sddm_default_d2):
+        for item in fn.listdir("/usr/share/icons/"):
             if fn.path_check("/usr/share/icons/" + item + "/cursors/"):
                 coms.append(item)
                 coms.sort()
 
         lines = fn.get_lines(fn.sddm_default_d2)
 
-        pos = fn._get_position(lines, "CursorTheme=")
+        pos = fn.get_position(lines, "CursorTheme=")
         try:
             cursor_theme = check_sddm(lines, "CursorTheme=").split("=")[1]
         except IndexError:

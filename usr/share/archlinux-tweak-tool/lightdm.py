@@ -8,7 +8,7 @@ from Functions import GLib
 def check_lightdm(lists, value):
     if fn.os.path.isfile(fn.lightdm_conf):
         try:
-            pos = fn._get_position(lists, value)
+            pos = fn.get_position(lists, value)
             val = lists[pos].strip()
             return val
         except Exception as e:
@@ -17,7 +17,7 @@ def check_lightdm(lists, value):
 def check_lightdm_greeter(lists, value):
     if fn.os.path.isfile(fn.lightdm_greeter):
         try:
-            pos = fn._get_position(lists, value)
+            pos = fn.get_position(lists, value)
             val = lists[pos].strip()
             return val
         except Exception as e:
@@ -33,8 +33,8 @@ def set_lightdm_value(self, lists, value, session, state):
             if "autologin" not in groups:
                 fn.subprocess.run(["gpasswd", "-a", fn.sudo_username, "autologin"], shell=False)
 
-            pos = fn._get_position(lists, "autologin-user=")
-            pos_session = fn._get_position(lists, "autologin-session=")
+            pos = fn.get_position(lists, "autologin-user=")
+            pos_session = fn.get_position(lists, "autologin-session=")
 
             if state:
                 lists[pos] = "autologin-user=" + value + "\n"
@@ -58,9 +58,9 @@ def set_lightdm_value(self, lists, value, session, state):
 def set_lightdm_icon_theme_cursor(self, lists, theme, icon, cursor):
     if fn.os.path.isfile(fn.lightdm_greeter):
         try:
-            pos_theme = fn._get_position(lists, "theme-name=")
-            pos_icon_theme = fn._get_position(lists, "icon-theme-name=")
-            pos_cursor_theme = fn._get_position(lists, "cursor-theme-name=")
+            pos_theme = fn.get_position(lists, "theme-name=")
+            pos_icon_theme = fn.get_position(lists, "icon-theme-name=")
+            pos_cursor_theme = fn.get_position(lists, "cursor-theme-name=")
 
             lists[pos_theme] = "theme-name=" + theme + "\n"
             lists[pos_icon_theme] = "icon-theme-name=" + icon + "\n"
@@ -82,9 +82,9 @@ def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon, cursor):
     if fn.os.path.isfile(fn.lightdm_slick_greeter):
         try:
             # no cursor in slick greeter
-            pos_theme = fn._get_position(lists, "theme-name=")
-            pos_icon_theme = fn._get_position(lists, "icon-theme-name=")
-            pos_background = fn._get_position(lists, "background=")
+            pos_theme = fn.get_position(lists, "theme-name=")
+            pos_icon_theme = fn.get_position(lists, "icon-theme-name=")
+            pos_background = fn.get_position(lists, "background=")
 
 
             lists[pos_theme] = "theme-name=" + theme + "\n"
@@ -152,7 +152,7 @@ def pop_gtk_theme_names_lightdm(self, combo):
                 coms.sort()
         lines = fn.get_lines(fn.lightdm_greeter)
 
-        pos = fn._get_position(lines, "theme-name=")
+        pos = fn.get_position(lines, "theme-name=")
         try:
             theme_name = check_lightdm_greeter(lines, "theme-name=").split("=")[1]
         except IndexError:
@@ -177,7 +177,7 @@ def pop_gtk_icon_names_lightdm(self, combo):
                 coms.sort()
         lines = fn.get_lines(fn.lightdm_greeter)
 
-        pos = fn._get_position(lines, "icon-theme-name=")
+        pos = fn.get_position(lines, "icon-theme-name=")
         try:
             icon_theme_name = check_lightdm(lines, "icon-theme-name=").split("=")[1]
         except IndexError:
@@ -201,7 +201,7 @@ def pop_gtk_cursor_names(self, combo):
                 coms.sort()
 
         lines = fn.get_lines(fn.lightdm_greeter)
-        pos = fn._get_position(lines, "cursor-theme-name=")
+        pos = fn.get_position(lines, "cursor-theme-name=")
 
         try:
             cursor_theme = check_lightdm(lines, "cursor-theme-name=").split("=")[1]

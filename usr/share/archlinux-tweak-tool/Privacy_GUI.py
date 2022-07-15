@@ -2,7 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-def GUI(self, Gtk, vboxStack3, Functions):
+def GUI(self, Gtk, vboxStack3, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Privacy/Security")
@@ -36,7 +36,7 @@ def GUI(self, Gtk, vboxStack3, Functions):
     self.progress = Gtk.ProgressBar()
     self.progress.set_pulse_step(0.2)
 
-    state = Functions.hblock_get_state(self)
+    state = fn.hblock_get_state(self)
 
     self.hbswich = Gtk.Switch()
     self.hbswich.connect("notify::active", self.set_hblock)
@@ -60,7 +60,7 @@ def GUI(self, Gtk, vboxStack3, Functions):
     label_firefox_ublock.set_markup("Install/remove uBlock Origin")
     label_firefox_ublock.set_margin_left(30)
 
-    state = Functions.ublock_get_state(self)
+    state = fn.ublock_get_state(self)
 
     self.firefox_ublock_switch = Gtk.Switch()
     self.firefox_ublock_switch.connect("notify::active", self.set_ublock_firefox)

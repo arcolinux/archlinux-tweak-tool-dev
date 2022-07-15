@@ -2,7 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
+def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, fn, base_dir):
 
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     lbl1 = Gtk.Label(xalign=0)
@@ -20,7 +20,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, Functions, base_dir):
     lbls.set_text("Current content of ~/.config/autostart/")
     toplabelbox.pack_start(lbls, False, False, 0)
 
-    files = [x.replace(".desktop", "") for x in Functions.os.listdir(Functions.autostart)]
+    files = [x.replace(".desktop", "") for x in fn.listdir(fn.autostart)]
     mainbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     sw = Gtk.ScrolledWindow()

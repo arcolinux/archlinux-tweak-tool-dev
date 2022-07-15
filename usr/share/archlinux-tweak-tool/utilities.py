@@ -2,10 +2,10 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import os
 import Functions as fn
 
-#This function has one job, and one job only; ensure that check boxes match what is passed to it, based on the logic from the calling function
+#This function has one job, and one job only; ensure that check
+#boxes match what is passed to it, based on the logic from the calling function
 def set_util_state(self, util, util_state, lolcat_state):
     if util == "neofetch":
         self.neofetch_lolcat.set_state(lolcat_state)
@@ -161,15 +161,17 @@ def install_util(util):
                         stdout=fn.subprocess.PIPE,
                         stderr=fn.subprocess.STDOUT)
 
-def _get_position(lists, value):
+def get_position(lists, value):
     data = []
-    #Because we don't know EXACTLY how the app will process the rc file, we need to account for every variation.
+    #Because we don't know EXACTLY how the app will process the rc file,
+    #we need to account for every variation.
     suffixes = [" | lolcat", "\n", " | lolcat\n"] #
     prefix = "#"
 
     for string in lists:
         for item in suffixes:
-            if string == value+item or string == prefix+value+item or string == value or string == prefix+value:
+            if string == value+item or string == prefix+value+item\
+                or string == value or string == prefix+value:
                 data.append(string)
 
     if len(data)>0:
@@ -190,15 +192,15 @@ def write_configs(utility, util_str):
             lines = f.readlines()
             f.close()
             try:
-                pos = _get_position(lines, utility)
+                pos = get_position(lines, utility)
                 if pos >= 0:
                     lines[pos] = util_str + "\n"
                 else:
                     lines.append(util_str + "\n")
             #this will cover use cases where the util is not in the rc files
-            except Exception as e:
+            except:
                 lines.append("\n"+util_str)
-        with open(config, "w") as f:
+        with open(config, "w", encoding="utf-8") as f:
             f.writelines(lines)
             f.close()
 
@@ -215,7 +217,7 @@ def get_term_rc(value):
         with open(config_file, "r", encoding="utf-8") as myfile:
             lines = myfile.readlines()
             myfile.close()
-            pos = _get_position(lines, value)
+            pos = get_position(lines, value)
 
     if pos > 0 and lines[pos].startswith("#"):
         return False
@@ -225,10 +227,9 @@ def get_term_rc(value):
         return False
 
 def get_config_file():
-    #At the moment, this will only work for bash and zsh. Can be updated easily for fish/other shells. Update the fn.get_shell() function, and add a config file in fn.py
     if fn.get_shell() == "bash":
         return fn.bash_config
     elif fn.get_shell() == "zsh":
         return fn.zsh_config
-    elif fn.get_shell() == "fish":
+    else:
         return fn.fish_config

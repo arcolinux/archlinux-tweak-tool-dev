@@ -2,9 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import Functions as fn
-
-def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, Functions, login):
+def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, fn, login):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)

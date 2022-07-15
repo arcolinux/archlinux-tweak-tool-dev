@@ -5,23 +5,21 @@
 import Functions as fn
 import numpy as np
 import Settings
-from Functions import os
 
 # ====================================================================
 #                       TERMITE
 # ====================================================================
 
-
 def get_themes(combo):  # noqa
-    if os.path.isdir(fn.home + "/.config/termite/themes/"):
-        themes = os.listdir(fn.home + "/.config/termite/themes/")
+    if fn.path.isdir(fn.home + "/.config/termite/themes/"):
+        themes = fn.listdir(fn.home + "/.config/termite/themes/")
         combo.get_model().clear()
         with open(fn.termite_config, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
 
         try:
-            theme_line = lines[fn._get_position(lines, "[colors]") + 1]
+            theme_line = lines[fn.get_position(lines, "[colors]") + 1]
 
             active = ""
             coms = []
@@ -35,7 +33,7 @@ def get_themes(combo):  # noqa
 
             coms.sort()
 
-            if fn.os.path.isfile(fn.config):
+            if fn.fn.path.isfile(fn.config):
                 themes = Settings.read_settings("TERMITE", "theme")
                 if len(themes) > 1:
                     active = themes
@@ -48,11 +46,11 @@ def get_themes(combo):  # noqa
 
             pass
 
-    # print(lines[fn._get_position(lines, "[colors]") + 1])
+    # print(lines[fn.get_position(lines, "[colors]") + 1])
 
 
 def get_config():
-    if os.path.isfile(fn.termite_config):
+    if fn.path.isfile(fn.termite_config):
         with open(fn.termite_config, "r", encoding="utf-8") as f:
             lists = f.readlines()
             f.close()
@@ -67,7 +65,7 @@ def get_config():
 
 
 def set_config(self, theme):
-    if not os.path.isfile(fn.termite_config + ".bak"):
+    if not fn.path.isfile(fn.termite_config + ".bak"):
         fn.shutil.copy(fn.termite_config,
                               fn.termite_config + ".bak")
 
@@ -90,7 +88,7 @@ def set_config(self, theme):
 
             fn.show_in_app_notification(self,
                                                "Settings Saved Successfully")
-        if fn.os.path.isfile(fn.config):
+        if fn.path.isfile(fn.config):
             Settings.write_settings("TERMITE", "theme", theme)
 
     except Exception as e:

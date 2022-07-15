@@ -58,18 +58,6 @@ def create_samba_user(self,widget):
     #password = self.entry_password.get_text()
 
     if username:
-        #user_password = "echo " + username + ":" + password
-
-        # com = fn.subprocess.run(["sh", "-c", "su - " + fn.sudo_username + " -c groups"], shell=False, stdout=fn.subprocess.PIPE)
-        # groups = com.stdout.decode().strip().split(" ")
-        # # print(groups)
-        # if "sambashare" not in groups:
-        #     fn.subprocess.run(["gpasswd", "-a", fn.sudo_username, "sambashare"], shell=False)
-
-        # useradd ='useradd -m -G autologin,audio,video,network,storage,rfkill,wheel,sambashare -c "'  + username + '" -s /bin/bash ' + username
-        # fn.os.system(useradd)
-        # fn.os.system(user_password + " | " + "chpasswd -c SHA512")
-
         fn.install_package(self,"alacritty")
         print("Type in your password for the Sambashare")
         print("Although the user name is shared with Linux system, Samba uses a password")
@@ -109,7 +97,7 @@ def delete_user(self,widget):
 
     if username:
         userdel ='userdel ' + username
-        fn.os.system(userdel)
+        fn.system(userdel)
         print("The user " + username + " has been completely deleted from your system")
         GLib.idle_add(fn.show_in_app_notification, self, "User deleted from system")
     else:
@@ -119,7 +107,7 @@ def restart_smb(self,widget):
 
     if fn.check_service("smb"):
         restart ='systemctl restart smb'
-        fn.os.system(restart)
+        fn.system(restart)
         print("Restarting smb service...")
         GLib.idle_add(fn.show_in_app_notification, self, "Restarting smb service...")
     else:

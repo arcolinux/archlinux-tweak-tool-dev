@@ -52,9 +52,9 @@ def skel_run(self, cat):
             GLib.idle_add(setProgress, self.progressbar1, self.progressbar1.get_fraction() + prog)
             old = item[0]
             new = old.replace("/etc/skel", fn.home)
-            if os.path.isdir(old):
-                fn.copy_func(old,  os.path.split(new)[0], True)
-            if os.path.isfile(old):
+            if fn.path.isdir(old):
+                fn.copy_func(old,  fn.path.split(new)[0], True)
+            if fn.path.isfile(old):
                 fn.copy_func(old, new)
             fn.permissions(new)
     GLib.idle_add(button_toggles, self, True)
@@ -81,10 +81,10 @@ def restore_item(self):
             value = model.get_value(tree_iter,0)
             file_path = backup_path + value
         if value.__len__() > 0:
-            if os.path.isfile(file_path):
+            if fn.path.isfile(file_path):
                 fn.copy_func(file_path, fn.home + "/" + value.split("-backup")[0])
                 fn.permissions(fn.home + "/" + value.split("-backup")[0])
-            elif os.path.isdir(file_path):
+            elif fn.path.isdir(file_path):
                 dirs = fn.home + "/" +  value.split("-backup")[0]
                 # old_dir = fn.home + "/" + value
                 GLib.idle_add(setMessage,self.label_info, "Removing Existing Destination Folder ...")
@@ -102,12 +102,12 @@ def restore_item(self):
 #		DELETE BACKUP FUNCTION
 # ===========================================
 def Delete_Backup(self):
-    count = os.listdir(fn.home + "/" + fn.bd).__len__()
+    count = fn.listdir(fn.home + "/" + fn.bd).__len__()
 
     if count > 0:
         GLib.idle_add(setMessage,self.label_info, "Removing ...")
         GLib.idle_add(setProgress, self.progressbar, 0.3)
-        for filename in os.listdir(fn.home + "/" + fn.bd):
+        for filename in fn.listdir(fn.home + "/" + fn.bd):
             if filename == self.backs.get_active_text():
                 fn.shutil.rmtree(fn.home + "/" + fn.bd + "/" + filename)
         GLib.idle_add(refresh, self)
@@ -120,24 +120,24 @@ def Delete_Backup(self):
 
 
 def Delete_Inner_Backup(self):
-    count = os.listdir(fn.home + "/" + fn.bd).__len__()
+    count = fn.listdir(fn.home + "/" + fn.bd).__len__()
 
     if count > 0:
         GLib.idle_add(setMessage,self.label_info, "Removing ...")
         GLib.idle_add(setProgress, self.progressbar, 0.3)
         treeselect = self.treeView2.get_selection()
 
-        for filename in os.listdir(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text()):
+        for filename in fn.listdir(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text()):
             (model, pathlist) = treeselect.get_selected_rows()
             for path in pathlist :
                 tree_iter = model.get_iter(path)
                 value = model.get_value(tree_iter,0)
                 if filename == value:
                     # print(value)
-                    if os.path.isdir(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text() + "/" + filename):
+                    if fn.path.isdir(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text() + "/" + filename):
                         fn.shutil.rmtree(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text() + "/" + filename)
-                    elif os.path.isfile(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text() + "/" + filename):
-                        os.unlink(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text() + "/" + filename)
+                    elif fn.path.isfile(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text() + "/" + filename):
+                        fn.unlink(fn.home + "/" + fn.bd + "/" + self.backs.get_active_text() + "/" + filename)
 
         GLib.idle_add(refresh_inner, self)
         GLib.idle_add(setProgress, self.progressbar, 1)
@@ -147,13 +147,13 @@ def Delete_Inner_Backup(self):
     GLib.idle_add(setProgress, self.progressbar, 0)
 
 def Flush_All(self):
-    count = os.listdir(fn.home + "/" + fn.bd).__len__()
+    count = fn.listdir(fn.home + "/" + fn.bd).__len__()
 
     if count > 0:
         count = ((count/count)/count)
         GLib.idle_add(setMessage,self.label_info, "Deleting Backup")
-        for filename in os.listdir(fn.home + "/" + fn.bd):
-            if os.path.isdir(fn.home + "/" + fn.bd + "/" + filename):
+        for filename in fn.listdir(fn.home + "/" + fn.bd):
+            if fn.path.isdir(fn.home + "/" + fn.bd + "/" + filename):
                 GLib.idle_add(setProgress, self.progressbar, self.progressbar.get_fraction() + count)
                 fn.shutil.rmtree(fn.home + "/" + fn.bd + "/" + filename)
 
@@ -168,14 +168,14 @@ def Flush_All(self):
 #		REFRESH FUNCTION
 # ===========================================
 def refresh(self):
-    if not os.path.exists(fn.home + "/" + fn.bd):
-        os.makedirs(fn.home + "/" + fn.bd)
+    if not fn.path.exists(fn.home + "/" + fn.bd):
+        fn.makedirs(fn.home + "/" + fn.bd)
 
     self.backs.get_model().clear()
     BACKUPS_CATS = []
 
-    for filename in os.listdir(fn.home + "/" + fn.bd):
-        if os.path.isdir(fn.home + "/" + fn.bd + "/" + filename):
+    for filename in fn.listdir(fn.home + "/" + fn.bd):
+        if fn.path.isdir(fn.home + "/" + fn.bd + "/" + filename):
             BACKUPS_CATS.append(filename)
 
     for item in BACKUPS_CATS:
@@ -185,14 +185,14 @@ def refresh(self):
 
 
 def refresh_inner(self):
-    count = os.listdir(fn.home + "/" + fn.bd).__len__()
+    count = fn.listdir(fn.home + "/" + fn.bd).__len__()
     active_text = "".join([str(self.backs.get_active_text()), ""])
 
     if count > 0:
-        if os.path.isdir(fn.home + "/" + fn.bd + "/" + active_text):
+        if fn.path.isdir(fn.home + "/" + fn.bd + "/" + active_text):
             self.store2.clear()
 
-            for filename in os.listdir(fn.home + "/" + fn.bd + "/" + active_text):
+            for filename in fn.listdir(fn.home + "/" + fn.bd + "/" + active_text):
                 self.store2.append([filename])
 
     else:
@@ -206,7 +206,7 @@ def bash_upgrade(self):
 
     fn.check_backups(now)
 
-    if os.path.isfile(fn.home + '/.bashrc'):
+    if fn.path.isfile(fn.home + '/.bashrc'):
         fn.copy_func(
             fn.home + '/.bashrc', fn.home + "/" + fn.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.bashrc-backup-" +
             now.strftime("%Y-%m-%d %H:%M:%S"))
@@ -215,7 +215,7 @@ def bash_upgrade(self):
 
     GLib.idle_add(setMessage,self.label_info1, "Upgrading Bashrc")
 
-    if os.path.isfile("/etc/skel/.bashrc"):
+    if fn.path.isfile("/etc/skel/.bashrc"):
         fn.copy_func("/etc/skel/.bashrc", fn.home + "/.bashrc")
         fn.permissions(fn.home + "/.bashrc")
         GLib.idle_add(setMessage,self.label_info1, ".bashrc upgrade done")
@@ -285,7 +285,7 @@ def processing(self, active_text, label, progress):
     #       BASH
     # ============================
 
-    if os.path.isfile(fn.home + '/.bashrc'):
+    if fn.path.isfile(fn.home + '/.bashrc'):
         GLib.idle_add(setMessage,label, "Backing up .bashrc")
         fn.copy_func(
             fn.home + '/.bashrc', fn.home + "/" + fn.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.bashrc-backup-" +
@@ -297,7 +297,7 @@ def processing(self, active_text, label, progress):
     # ============================
     #       ZSH
     # ============================
-    if os.path.isfile(fn.home + '/.zshrc'):
+    if fn.path.isfile(fn.home + '/.zshrc'):
         GLib.idle_add(setMessage,label, "Backing up .zshrc")
         fn.copy_func(
             fn.home + '/.zshrc', fn.home + "/" + fn.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.zshrc-backup-" +
@@ -309,14 +309,14 @@ def processing(self, active_text, label, progress):
     # ============================
     #       CONKY
     # ============================
-    if os.path.exists(fn.home + '/.lua'):
+    if fn.path.exists(fn.home + '/.lua'):
         GLib.idle_add(setMessage,label, "Backing up .lua")
         fn.copy_func(fn.home + '/.lua', fn.home + '/' + fn.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.lua-backup-' +
                 now.strftime("%Y-%m-%d %H:%M:%S"), True)
         fn.permissions(fn.home + '/' + fn.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + '/.lua-backup-' +
                 now.strftime("%Y-%m-%d %H:%M:%S"))
 
-    if os.path.isfile(fn.home + '/.conkyrc'):
+    if fn.path.isfile(fn.home + '/.conkyrc'):
         GLib.idle_add(setMessage,label, "Backing up .cokyrc")
         fn.copy_func(
             fn.home + '/.conkyrc', fn.home + "/" + fn.bd + "/Backup-" + now.strftime("%Y-%m-%d %H") + "/.conkyrc-backup-" +

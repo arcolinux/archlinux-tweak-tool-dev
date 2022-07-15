@@ -2,10 +2,9 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-from types import FunctionType
 import Functions as fn
-import crypt
-import os
+#from types import FunctionType
+#import crypt
 from Functions import GLib
 
 def create_user(self):
@@ -28,12 +27,12 @@ def create_user(self):
     if password == confirm_password :
         if atype == "Administrator" :
             useradd ='useradd -m -G audio,video,network,storage,rfkill,wheel,autologin,sambashare -c "'  + name + '" -s /bin/bash ' + username
-            os.system(useradd)
-            os.system(user_password + " | " + "chpasswd -c SHA512")
+            fn.system(useradd)
+            fn.system(user_password + " | " + "chpasswd -c SHA512")
         else:
             useradd ='useradd -m -G audio,video,network,storage,rfkill,autologin,sambashare -c "'  + name + '" -s /bin/bash ' + username
-            os.system(useradd)
-            os.system(user_password + " | " + "chpasswd -c SHA512")
+            fn.system(useradd)
+            fn.system(user_password + " | " + "chpasswd -c SHA512")
         print("User has been created")
         GLib.idle_add(fn.show_in_app_notification, self, "User has been created")
     else:
@@ -44,7 +43,7 @@ def on_click_delete_user(self,widget):
     username = self.cbt_users.get_active_text()
     userdel = "userdel " + username
 
-    os.system(userdel)
+    fn.system(userdel)
     print("User has been deleted - home folder has not been deleted")
     GLib.idle_add(fn.show_in_app_notification, self, "User has been deleted")
 
@@ -52,7 +51,7 @@ def on_click_delete_all_user(self,widget):
     username = self.cbt_users.get_active_text()
     userdel = "userdel -r -f " + username
 
-    os.system(userdel)
+    fn.system(userdel)
     print("User has been deleted - home folder has been deleted")
     GLib.idle_add(fn.show_in_app_notification, self, "User and home folder has been deleted")
 

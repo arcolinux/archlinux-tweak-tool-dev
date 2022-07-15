@@ -2,9 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import Functions as fn
-
-def GUI(self, Gtk, GdkPixbuf, vboxStack4, Functions):
+def GUI(self, Gtk, GdkPixbuf, vboxStack4, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)

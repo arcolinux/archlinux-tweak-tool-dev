@@ -29,8 +29,8 @@ def set_shorcut(self, value, value_sk):
             lines = f.readlines()
             f.close()
         try:
-            shortcuts_pos = fn._get_position(lines, "[shortcuts]")
-            commandss_pos = fn._get_position(lines, "[commands]")
+            shortcuts_pos = fn.get_position(lines, "[shortcuts]")
+            commandss_pos = fn.get_position(lines, "[commands]")
             data1_shortcut = fn.check_value(lines[shortcuts_pos:commandss_pos], value)
 
             if not data1_shortcut:
@@ -38,7 +38,7 @@ def set_shorcut(self, value, value_sk):
                 pos = shortcuts_pos + 5
                 lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
             else:
-                pos = int(fn._get_position(lines[shortcuts_pos:commandss_pos], value))
+                pos = int(fn.get_position(lines[shortcuts_pos:commandss_pos], value))
                 lines[shortcuts_pos + pos] = value + ' = ' + str(value_sk) + '\n'
 
             with open(fn.oblogout_conf, 'w') as f:
@@ -120,10 +120,10 @@ def set_opacity(self, value):
         try:
             data = fn.check_value(lines, 'opacity')
             if not data:
-                pos = int(fn._get_position(lines, "[looks]")) + 1
+                pos = int(fn.get_position(lines, "[looks]")) + 1
                 lines.insert(pos, 'opacity = ' + str(int(value.split(".")[0])) + '\n')
             else:
-                pos = int(fn._get_position(lines, 'opacity'))
+                pos = int(fn.get_position(lines, 'opacity'))
                 lines[pos] = 'opacity = ' + str(value).split(".")[0] + '\n'
 
             with open(fn.oblogout_conf, 'w') as f:
@@ -194,13 +194,13 @@ def set_command(self, value, value_sk):
             lines = f.readlines()
             f.close()
         try:
-            commandss_pos = fn._get_position(lines, "[commands]")
+            commandss_pos = fn.get_position(lines, "[commands]")
             data_command = fn.check_value(lines[commandss_pos:], value)
             if not data_command:
                 pos = data_command + 4
                 lines.insert(pos, value + ' = ' + str(value_sk) + '\n')
             else:
-                pos = int(fn._get_position(lines[commandss_pos:], value))
+                pos = int(fn.get_position(lines[commandss_pos:], value))
                 lines[commandss_pos + pos] = value + ' = ' + str(value_sk) + '\n'
 
             with open(fn.oblogout_conf, 'w') as f:

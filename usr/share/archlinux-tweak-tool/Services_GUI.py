@@ -2,9 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import Functions as fn
-
-def GUI(self, Gtk, vboxStack14, Functions):
+def GUI(self, Gtk, vboxStack14, fn):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_label = Gtk.Label(xalign=0)

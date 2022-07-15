@@ -2,13 +2,12 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import gi
-import os
 import Functions as fn
+import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf
 
-base_dir = os.path.dirname(os.path.realpath(__file__))
+base_dir = fn.path.dirname(fn.path.realpath(__file__))
 
 
 class Support(Gtk.Dialog):
@@ -46,7 +45,7 @@ the right setting - the right config - the right application - at the right plac
         label2.set_markup("Support <b>ArcoLinux</b> - support this app")
 
         logo = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            os.path.join(base_dir, 'images/archlinux-tweak-tool.png'), 100, 100)
+            fn.path.join(base_dir, 'images/archlinux-tweak-tool.png'), 100, 100)
         logo_image = Gtk.Image().new_from_pixbuf(logo)
 
 
@@ -56,7 +55,7 @@ the right setting - the right config - the right application - at the right plac
 
         donatE = Gtk.EventBox() #paypal
         pbdisc = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            os.path.join(base_dir, 'images/donate.png'), 54, 54)
+            fn.path.join(base_dir, 'images/donate.png'), 54, 54)
         ppimage = Gtk.Image().new_from_pixbuf(pbdisc)
         donatE.add(ppimage)
         donatE.connect("button_press_event", self.on_support_click, "https://www.arcolinux.info/donation/")
@@ -65,7 +64,7 @@ the right setting - the right config - the right application - at the right plac
 
         patreonE = Gtk.EventBox() #patreon
         pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            os.path.join(base_dir, 'images/patreon.png'), 48, 48)
+            fn.path.join(base_dir, 'images/patreon.png'), 48, 48)
         pimage = Gtk.Image().new_from_pixbuf(pbp)
         patreonE.add(pimage)
         patreonE.connect("button_press_event", self.on_support_click, "https://www.patreon.com/arcolinux")
@@ -74,7 +73,7 @@ the right setting - the right config - the right application - at the right plac
 
         paypalE = Gtk.EventBox() #paypal
         pbpp = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            os.path.join(base_dir, 'images/paypal.png'), 54, 54)
+            fn.path.join(base_dir, 'images/paypal.png'), 54, 54)
         ppimage = Gtk.Image().new_from_pixbuf(pbpp)
         paypalE.add(ppimage)
         paypalE.connect("button_press_event", self.on_support_click, "https://www.paypal.com/paypalme/arcolinuxpaypal")
@@ -84,7 +83,7 @@ the right setting - the right config - the right application - at the right plac
 
         discordE = Gtk.EventBox() #paypal
         pbdisc = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            os.path.join(base_dir, 'images/discord.png'), 54, 54)
+            fn.path.join(base_dir, 'images/discord.png'), 54, 54)
         ppimage = Gtk.Image().new_from_pixbuf(pbdisc)
         discordE.add(ppimage)
         discordE.connect("button_press_event", self.on_support_click, "https://discord.gg/R2amEEz")
@@ -93,7 +92,7 @@ the right setting - the right config - the right application - at the right plac
 
         githubE = Gtk.EventBox() #paypal
         pbghub = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            os.path.join(base_dir, 'images/github.png'), 54, 54)
+            fn.path.join(base_dir, 'images/github.png'), 54, 54)
         ppimage = Gtk.Image().new_from_pixbuf(pbghub)
         githubE.add(ppimage)
         githubE.connect("button_press_event", self.on_support_click, "https://github.com/arcolinux/archlinux-tweak-tool-dev")

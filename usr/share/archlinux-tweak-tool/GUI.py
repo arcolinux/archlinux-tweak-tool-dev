@@ -4,16 +4,16 @@
 
 # ============Functions============
 import Functions as fn
+#import os
+
 import autostart
 import desktopr
-import fish
-import distro
+#import fish
 import fixes
 import lightdm
 import login
 import lxdm
 import neofetch
-import os
 import sddm
 import services
 import shell
@@ -285,7 +285,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Shell_GUI")
 
-    Shell_GUI.GUI(self, Gtk, vboxStack23, zsh_theme, fish, base_dir,GdkPixbuf, fn)
+    Shell_GUI.GUI(self, Gtk, vboxStack23, zsh_theme, base_dir,GdkPixbuf, fn)
 
     # ==========================================================
     #                        TEMPLATE
@@ -377,7 +377,7 @@ Then you will be able to set the mirrors of ArcoLinux")
 
     ivbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
-        os.path.join(base_dir, 'images/arcolinux-stock.png'), 45, 45)
+        fn.path.join(base_dir, 'images/arcolinux-stock.png'), 45, 45)
     image = Gtk.Image().new_from_pixbuf(pixbuf)
 
     # =====================================================
@@ -385,14 +385,14 @@ Then you will be able to set the mirrors of ArcoLinux")
     # =====================================================
 
     def on_quit(self):
-        os.unlink("/tmp/att.lock")
+        fn.unlink("/tmp/att.lock")
         Gtk.main_quit()
         print("Thanks for using ArchLinux Tweak Tool")
         print("Report issues to make it even better")
         print("---------------------------------------------------------------------------")
 
     lbl_distro = Gtk.Label(xalign=0)
-    lbl_distro.set_markup("Working on\n" + fn.change_distro_label(distro.id()))
+    lbl_distro.set_markup("Working on\n" + fn.change_distro_label(fn.distr))
     btnReloadAtt = Gtk.Button(label="Reload ATT")
     btnReloadAtt.set_size_request(100,30)
     btnReloadAtt.connect('clicked', self.on_reload_att_clicked)
@@ -409,7 +409,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     pE = Gtk.EventBox()
 
     pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
-        os.path.join(base_dir, 'images/support.png'), 58, 58)
+        fn.path.join(base_dir, 'images/support.png'), 58, 58)
     pimage = Gtk.Image().new_from_pixbuf(pbp)
 
     pE.add(pimage)

@@ -2,10 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import Functions as fn
-from os import link
-
-def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, Functions, base_dir):  # noqa
+def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
 
     #Image Dimensions. Change once here - apply to ALL the items in this GUI.
     image_width = 645
@@ -287,7 +284,7 @@ Be patient if it is the first time you install the theme or use the scripts to i
         self.leftwm_combo.append_text(theme)
     self.leftwm_combo.connect("changed", self.on_leftwm_combo_changed)
     if fn.path_check(fn.leftwm_config_theme_current):
-        link_theme = fn.os.path.basename(fn.os.readlink(fn.leftwm_config_theme_current))
+        link_theme = fn.os.path.basename(fn.readlink(fn.leftwm_config_theme_current))
         for i in range(len(fn.leftwm_themes_list)):
             if link_theme == fn.leftwm_themes_list[i]:
                 self.leftwm_combo.set_active(i)

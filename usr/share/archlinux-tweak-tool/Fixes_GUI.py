@@ -2,9 +2,6 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import Functions as fn
-import distro,os
-
 def GUI(self, Gtk, vboxStack19, fn, fixes):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -73,9 +70,9 @@ def GUI(self, Gtk, vboxStack19, fn, fixes):
         hbox40.pack_end(button_Install_Mirrors, False, False, 10)
     hbox40.pack_end(button_Install_Mirrors2, False, False, 10)
 
-    if not os.path.exists("/usr/bin/reflector"):
+    if not fn.path.exists("/usr/bin/reflector"):
         button_Apply_Mirrors.set_sensitive(False)
-    if not os.path.exists("/usr/bin/rate-mirrors"):
+    if not fn.path.exists("/usr/bin/rate-mirrors"):
         self.button_Apply_Mirrors2.set_sensitive(False)
 
     # hbox5 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -123,7 +120,7 @@ def GUI(self, Gtk, vboxStack19, fn, fixes):
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9_label = Gtk.Label(xalign=0)
-    hbox9_label.set_markup("<b>Distro specific:  </b>" + fn.change_distro_label(distro.id()))
+    hbox9_label.set_markup("<b>Distro specific:  </b>" + fn.change_distro_label(fn.distr))
     hbox9.pack_start(hbox9_label, False, False, 10)
 
     hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -150,7 +147,7 @@ def GUI(self, Gtk, vboxStack19, fn, fixes):
     vboxStack19.pack_start(hbox3, False, False, 0)
     if not fn.distr == "manjaro":
         vboxStack19.pack_start(hbox4, False, False, 0)
-    if not os.path.exists("/usr/bin/rate-mirrors"):
+    if not fn.path.exists("/usr/bin/rate-mirrors"):
         vboxStack19.pack_start(hbox40, False, False, 0)
     vboxStack19.pack_start(hbox7, False, False, 0)
     vboxStack19.pack_start(hbox8, False, False, 0)

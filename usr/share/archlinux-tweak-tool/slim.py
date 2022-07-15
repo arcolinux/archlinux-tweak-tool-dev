@@ -10,10 +10,9 @@ from Functions import os
 # ====================================================================
 # @threaded
 
-
 def get_slimlock(combo):
     coms = []
-    if os.path.isfile(fn.slimlock_conf):
+    if fn.path.isfile(fn.slimlock_conf):
         with open(fn.slimlock_conf, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
@@ -30,8 +29,8 @@ def get_slimlock(combo):
                     val = value[len(value)-1].lstrip().rstrip()
                     active = val.strip()
 
-        for folder in os.listdir("/usr/share/slim/themes/"):
-            if os.path.isdir("/usr/share/slim/themes/" + folder):
+        for folder in fn.listdir("/usr/share/slim/themes/"):
+            if fn.path.isdir("/usr/share/slim/themes/" + folder):
                 coms.append(folder)
 
         coms.sort()
@@ -45,12 +44,12 @@ def get_slimlock(combo):
 def reload_import(combo, theme):
     combo.get_model().clear()
     coms = []
-    if os.path.isfile(fn.slimlock_conf):
+    if fn.path.isfile(fn.slimlock_conf):
         # with open(fn.slimlock_conf, "r", encoding="utf-8") as f:
         #     lines = f.readlines()
         #     f.close()
-        for folder in os.listdir("/usr/share/slim/themes/"):
-            if os.path.isdir("/usr/share/slim/themes/" + folder):
+        for folder in fn.listdir("/usr/share/slim/themes/"):
+            if fn.path.isdir("/usr/share/slim/themes/" + folder):
                 coms.append(folder)
 
         coms.sort()
@@ -66,8 +65,8 @@ def remove_theme(name):
         lines = f.readlines()
         f.close()
     try:
-        pos = fn._get_position(lines, name)
-        pos2 = fn._get_position(lines, "  arcolinux_eyes")
+        pos = fn.get_position(lines, name)
+        pos2 = fn.get_position(lines, "  arcolinux_eyes")
 
         lines[pos2] = lines[pos2].replace("#", "")
 
@@ -83,7 +82,7 @@ def remove_theme(name):
 
 
 def set_slimlock(self, theme):
-    if not os.path.isfile(fn.slimlock_conf + ".bak"):
+    if not fn.path.isfile(fn.slimlock_conf + ".bak"):
         fn.shutil.copy(fn.slimlock_conf,
                               fn.slimlock_conf + ".bak")
 
@@ -100,7 +99,7 @@ def set_slimlock(self, theme):
     # current_theme       arcolinux
     data = fn.gtk_check_value(lines, theme)
     if not data:
-        themes = fn._get_position(lines, "current_theme       ")
+        themes = fn.get_position(lines, "current_theme       ")
         lines.insert(int(themes) + 1, "current_theme       " + theme + "\n")
     else:
         for i in range(0, len(lines)):

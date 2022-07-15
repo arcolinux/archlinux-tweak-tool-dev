@@ -1,13 +1,12 @@
 #============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
-
+import Functions as fn
 import gi
-import os
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GdkPixbuf, Gdk  # noqa
 
-base_dir = os.path.dirname(os.path.realpath(__file__))
+base_dir = fn.path.dirname(fn.path.realpath(__file__))
 
 
 class splashScreen(Gtk.Window):

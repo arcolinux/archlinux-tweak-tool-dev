@@ -2,7 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, Functions, base_dir):
+def GUI(self, Gtk, GdkPixbuf, vboxStack14, polybar, fn, base_dir):
     # =======================================================
     #                       GLOBALS
     # =======================================================

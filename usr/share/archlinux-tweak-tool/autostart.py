@@ -16,7 +16,7 @@ def get_startups(self, n):
 
     if fn.check_content("Hidden=",fn.autostart + n + ".desktop"):
         try:
-            pos = fn._get_position(lines, "Hidden=")
+            pos = fn.get_position(lines, "Hidden=")
             state = lines[pos].split("=")[1].strip()
 
             state = state.capitalize()

@@ -2,8 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-
-def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, Functions, os):
+def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, vboxStack6, oblogout, fn, os):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)

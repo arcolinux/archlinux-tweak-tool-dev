@@ -2,10 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import os
-import Functions as fn
-
-def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions):
+def GUI(self, Gtk, vboxStack23, zsh_themes, base_dir,GdkPixbuf, fn):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)
@@ -230,7 +227,7 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh-sample.jpg", image_width, image_height)
         if self.zsh_themes.get_active_text() is None:
             pass
-        elif fn.os.path.isfile(base_dir+"/images/zsh_previews/"+self.zsh_themes.get_active_text()+".jpg"):
+        elif fn.path.isfile(base_dir+"/images/zsh_previews/"+self.zsh_themes.get_active_text()+".jpg"):
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir + "/images/zsh_previews/"+self.zsh_themes.get_active_text()+".jpg", image_width, image_height)
         image = Gtk.Image().new_from_pixbuf(pixbuf)
         image.set_margin_top(0)
@@ -278,10 +275,10 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, fish, base_dir,GdkPixbuf, Functions)
         vboxStack2.pack_start(hbox23, False, False, 0)
         vboxStack2.pack_end(hbox24, False, False, 0)
 
-        if not fn.check_package_installed("oh-my-zsh-git") or not os.path.isfile(fn.zsh_config):
+        if not fn.check_package_installed("oh-my-zsh-git") or not fn.path.isfile(fn.zsh_config):
             self.termset.set_sensitive(False)
             termreset.set_sensitive(False)
-        if not os.path.isfile(fn.zsh_config):
+        if not fn.path.isfile(fn.zsh_config):
             termreset.set_sensitive(True)
 
     else:

@@ -2,9 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import Functions as fn
-
-def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, Functions):
+def GUI(self, Gtk, GdkPixbuf, vboxStack10, user, fn):
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Create User")

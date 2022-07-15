@@ -2,9 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 #============================================================
 
-import Functions as fn
-
-def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
+def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -161,7 +159,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, Functions):
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9_label = Gtk.Label(xalign=0)
-    hbox9_label.set_markup("<b>Distro specific:  </b>" + fn.change_distro_label(fn.distro.id()))
+    hbox9_label.set_markup("<b>Distro specific:  </b>" + fn.change_distro_label(fn.distr))
     hbox9.pack_start(hbox9_label, False, False, 10)
 
     hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)

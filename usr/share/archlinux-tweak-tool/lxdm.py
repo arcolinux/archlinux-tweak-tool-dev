@@ -9,7 +9,7 @@ import os
 def check_lxdm(lists, value):
     if fn.os.path.isfile(fn.lxdm_conf):
         try:
-            pos = fn._get_position(lists, value)
+            pos = fn.get_position(lists, value)
             val = lists[pos].strip()
             return val
         except Exception as e:
@@ -18,7 +18,7 @@ def check_lxdm(lists, value):
 def check_lxdm_last(lists, value):
     if fn.os.path.isfile(fn.lxdm_conf):
         try:
-            pos = fn._get_positions(lists, value)
+            pos = fn.get_positions(lists, value)
             pos = pos[-1]
             val = lists[pos].strip()
             return val
@@ -29,12 +29,12 @@ def set_lxdm_value(self, lists, username, gtk_theme, lxdm_theme, state, pane):
     if fn.os.path.isfile(fn.lxdm_conf):
         try:
             fn.add_autologin_group(self)
-            pos = fn._get_position(lists, "autologin=")
-            pos_gtk_theme = fn._get_position(lists, "gtk_theme=")
-            lxdm_list = fn._get_positions(lists, "theme=")
+            pos = fn.get_position(lists, "autologin=")
+            pos_gtk_theme = fn.get_position(lists, "gtk_theme=")
+            lxdm_list = fn.get_positions(lists, "theme=")
             #get last instance
             lxdm =lxdm_list[-1]
-            bot = fn._get_position(lists, "bottom_pane=")
+            bot = fn.get_position(lists, "bottom_pane=")
 
             if state:
                 lists[pos] = "autologin=" + username + "\n"
