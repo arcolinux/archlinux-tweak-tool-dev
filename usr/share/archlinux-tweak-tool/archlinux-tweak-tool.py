@@ -2152,19 +2152,19 @@ class Main(Gtk.Window):
 
     def on_click_install_att_lxdm_minimalo(self, widget):
         fn.install_arco_package(self, "arcolinux-lxdm-theme-minimalo-git")
-        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+        lxdm.pop_lxdm_theme_greeter(self.lxdm_theme_greeter)
 
     def on_click_remove_att_lxdm_minimalo(self, widget):
         fn.remove_package(self, "arcolinux-lxdm-theme-minimalo-git")
-        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+        lxdm.pop_lxdm_theme_greeter(self.lxdm_theme_greeter)
 
     def on_click_install_lxdm_themes(self, widget):
         fn.install_arco_package(self, "lxdm-themes")
-        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+        lxdm.pop_lxdm_theme_greeter(self.lxdm_theme_greeter)
 
     def on_click_remove_lxdm_themes(self, widget):
         fn.remove_package(self, "lxdm-themes")
-        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+        lxdm.pop_lxdm_theme_greeter(self.lxdm_theme_greeter)
 
     def on_click_lxdm_apply(self, widget):
         if (
@@ -3017,6 +3017,7 @@ class Main(Gtk.Window):
 
     def on_click_install_sddm_themes(self, widget):
         fn.install_arco_package(self, "arcolinux-meta-sddm-themes")
+        sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_remove_sddm_themes(self, widget):
         # TODO : if theme.conf.user present folder stays
@@ -3027,23 +3028,35 @@ class Main(Gtk.Window):
 
     def on_click_install_bibata_cursor(self, widget):
         fn.install_arco_package(self, "bibata-cursor-theme-bin")
-        sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
-        lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     def on_click_remove_bibata_cursor(self, widget):
         fn.remove_package(self, "bibata-cursor-theme-bin")
-        sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
-        lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     def on_click_install_bibatar_cursor(self, widget):
         fn.install_arco_package(self, "bibata-extra-cursor-theme")
-        sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
-        lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     def on_click_remove_bibatar_cursor(self, widget):
         fn.remove_package(self, "bibata-extra-cursor-theme")
-        sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
-        lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        if fn.check_package_installed("sddm"):
+            sddm.pop_gtk_cursor_names(self, self.sddm_cursor_themes)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_gtk_cursor_names(self, self.cursor_themes_lightdm)
+        fixes.pop_gtk_cursor_names(self.cursor_themes)
 
     # if no sddm - press 1
     def on_click_att_sddm_clicked(self, desktop):

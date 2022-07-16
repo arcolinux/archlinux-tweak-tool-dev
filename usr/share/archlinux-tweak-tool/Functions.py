@@ -412,8 +412,6 @@ def check_content(value, file):  # noqa
 
 
 # check if package is installed or not
-
-
 def check_package_installed(package):  # noqa
     try:
         subprocess.check_output(
