@@ -2053,6 +2053,8 @@ class Main(Gtk.Window):
         fn.restart_program()
 
     def on_click_lightdm_enable(self, desktop):
+        fn.install_package(self, "lightdm")
+        fn.install_package(self, "lightdm-gtk-greeter")
         fn.enable_login_manager(self, "lightdm")
 
     def on_click_install_slick_greeter(self, desktop):
@@ -2111,6 +2113,7 @@ class Main(Gtk.Window):
         fn.restart_program()
 
     def on_click_lxdm_enable(self, desktop):
+        fn.install_package(self, "lxdm")
         fn.enable_login_manager(self, "lxdm")
 
     def on_autologin_lxdm_activated(self, widget, gparam):
@@ -3058,6 +3061,7 @@ class Main(Gtk.Window):
         fn.restart_program()
 
     def on_click_sddm_enable(self, desktop):
+        fn.install_package(self, "sddm")
         fn.enable_login_manager(self, "sddm")
 
     def on_launch_adt_clicked(self, desktop):
