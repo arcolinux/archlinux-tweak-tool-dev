@@ -541,11 +541,11 @@ def install_package(self, package):
     command = "pacman -S " + package + " --noconfirm --needed"
     # if more than one package - checf fails and will install
     if check_package_installed(package):
-        print(package + " is/are already installed - nothing to do")
+        print(package + " is already installed - nothing to do")
         GLib.idle_add(
             show_in_app_notification,
             self,
-            package + " is/are already installed - nothing to do",
+            package + " is already installed - nothing to do",
         )
         pass
     else:
@@ -557,10 +557,8 @@ def install_package(self, package):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             )
-            print(package + " is/are now installed")
-            GLib.idle_add(
-                show_in_app_notification, self, package + " is/are now installed"
-            )
+            print(package + " is now installed")
+            GLib.idle_add(show_in_app_notification, self, package + " is now installed")
         except Exception as e:
             print(e)
 
@@ -576,8 +574,8 @@ def install_local_package(self, package):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print(package + " is/are now installed")
-        GLib.idle_add(show_in_app_notification, self, package + " is/are now installed")
+        print(package + " is now installed")
+        GLib.idle_add(show_in_app_notification, self, package + " is now installed")
     except Exception as e:
         print(e)
 
@@ -586,7 +584,7 @@ def install_arco_package(self, package):
     if check_arco_repos_active():
         command = "pacman -S " + package + " --noconfirm --needed"
         if check_package_installed(package):
-            print(package + " is/are already installed - nothing to do")
+            print(package + " is already installed - nothing to do")
             GLib.idle_add(
                 show_in_app_notification,
                 self,
@@ -602,9 +600,9 @@ def install_arco_package(self, package):
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                 )
-                print(package + " is/are now installed")
+                print(package + " is now installed")
                 GLib.idle_add(
-                    show_in_app_notification, self, package + " is/are now installed"
+                    show_in_app_notification, self, package + " is now installed"
                 )
             except Exception as e:
                 print(e)
@@ -876,7 +874,7 @@ def make_grub(self):
         )
         print("We will update your grub files")
         print("We update your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
-        print("Be patient...")
+        print("This can take a while...")
         show_in_app_notification(self, "We have updated your grub")
     except Exception as e:
         print(e)
