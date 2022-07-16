@@ -4149,9 +4149,13 @@ class Main(Gtk.Window):
         Gtk.main_quit()
 
     def on_reload_att_clicked(self, widget):
-        sddm.pop_box(self, self.sessions_sddm)
-        lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
-        termite.get_themes(self.term_themes)
+        if fn.check_package_installed("sddm"):
+            sddm.pop_box(self, self.sessions_sddm)
+        if fn.check_package_installed("lightdm"):
+            lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
+        if fn.check_package_installed("termite"):
+            termite.get_themes(self.term_themes)
+        print("Reloaded")
 
     # ================================================================================
     # ================================================================================
