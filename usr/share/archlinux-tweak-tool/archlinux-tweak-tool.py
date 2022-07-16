@@ -2045,6 +2045,12 @@ class Main(Gtk.Window):
             self,
             "Lightdm has been installed but not enabled",
         )
+        try:
+            fn.shutil.copy(fn.lightdm_conf_arco, fn.lightdm_conf)
+            fn.shutil.copy(fn.lightdm_greeter_arco, fn.lightdm_greeter)
+            fn.shutil.copy(fn.ligthdm_slick_greeter_arco, fn.lightdm_slick_greeter)
+        except Exception as e:
+            print(e)
         fn.restart_program()
 
     def on_click_lightdm_enable(self, desktop):
@@ -2053,12 +2059,12 @@ class Main(Gtk.Window):
     def on_click_install_slick_greeter(self, desktop):
         fn.install_package(self, "lightdm-slick-greeter")
         fn.enable_slick_greeter(self)
-        login.find_slick_greeter_label(self, self.lbl_slickgreeter)
+        login.find_slick_greeter_label(self.lbl_slickgreeter)
 
     def on_click_remove_slick_greeter(self, desktop):
         fn.remove_package(self, "lightdm-slick-greeter")
         fn.disable_slick_greeter(self)
-        login.find_slick_greeter_label(self, self.lbl_slickgreeter)
+        login.find_slick_greeter_label(self.lbl_slickgreeter)
 
     def on_click_lightdm_reset_original_att(self, widget):
         try:
@@ -2096,7 +2102,10 @@ class Main(Gtk.Window):
             fn.shutil.copy(fn.lxdm_conf_arco, fn.lxdm_conf)
         except Exception as e:
             print(e)
-
+        try:
+            fn.shutil.copy(fn.lxdm_conf_arco, fn.lxdm_conf)
+        except Exception as e:
+            print(e)
         print("--------------------------------------------")
         print("Do not forget to enable Lxdm")
         print("--------------------------------------------")
