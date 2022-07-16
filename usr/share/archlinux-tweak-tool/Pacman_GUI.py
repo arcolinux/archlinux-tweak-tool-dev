@@ -1,6 +1,6 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
 def GUI(self, Gtk, vboxStack1, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -63,11 +63,13 @@ def GUI(self, Gtk, vboxStack1, fn):
     frame3lbl.set_markup("<b>ArcoLinux repos</b>")
 
     self.atestrepo_button = Gtk.Switch()
-    self.atestrepo_button.connect("notify::active", self.on_pacman_atestrepo_toggle)
+    self.atestrepo_button.connect(
+        "notify::active", self.on_pacman_atestrepo_toggle)
     label1 = Gtk.Label(xalign=0)
     label1.set_markup("# Enable ArcoLinux testing repo")
 
-    self.arcolinux_button = Gtk.Button(label="Install keys, mirrors and activate - auto reboot")
+    self.arcolinux_button = Gtk.Button(
+        label="Install keys, mirrors and activate - auto reboot")
     self.arcolinux_button.connect("clicked", self.on_arcolinux_clicked)
 
     self.arepo_button = Gtk.Switch()
@@ -139,7 +141,8 @@ def GUI(self, Gtk, vboxStack1, fn):
     self.endeavouros_button = Gtk.Button(label="Install keys and mirrors")
     self.endeavouros_button.connect("clicked", self.on_endeavouros_clicked)
     self.endeavouros_switch = Gtk.Switch()
-    self.endeavouros_switch.connect("notify::active", self.on_endeavouros_toggle)
+    self.endeavouros_switch.connect(
+        "notify::active", self.on_endeavouros_toggle)
     label16 = Gtk.Label(xalign=0)
     label16.set_markup("Enable Endeavour repo")
 
@@ -305,8 +308,8 @@ def GUI(self, Gtk, vboxStack1, fn):
     vbox.pack_start(hboxStack16, False, False, 0)
     vbox.pack_start(hboxStack12, False, False, 0)
     vbox.pack_start(hboxStack14, False, False, 0)
-    vbox.pack_start(hboxStack6, False, False,0)
-    vbox.pack_start(hboxStack17, False, False,0)
+    vbox.pack_start(hboxStack6, False, False, 0)
+    vbox.pack_start(hboxStack17, False, False, 0)
     frame.add(vbox)
 
     # ========================================================

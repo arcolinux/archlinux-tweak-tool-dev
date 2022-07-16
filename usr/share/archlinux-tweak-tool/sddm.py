@@ -103,7 +103,10 @@ def check_sddm(lists, value):
 def set_sddm_value(self, lists, value, session, state, theme, cursor):
     try:
         com = fn.subprocess.run(["sh", "-c", "su - " + fn.sudo_username
-                                 + " -c groups"], check=True, shell=False, stdout=fn.subprocess.PIPE)
+                                 + " -c groups"],
+                                check=True,
+                                shell=False,
+                                stdout=fn.subprocess.PIPE)
         groups = com.stdout.decode().strip().split(" ")
         # print(groups)
         if "autologin" not in groups:

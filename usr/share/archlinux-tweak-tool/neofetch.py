@@ -1,47 +1,51 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
+#import os
 import Functions as fn
-import os
+
 
 # ====================================================================
 #                       NEOFETCH
 # ====================================================================
 
+
 def get_neofetch():
     lines = []
-    if os.path.isfile(fn.neofetch_config):
+    if fn.path.isfile(fn.neofetch_config):
         with open(fn.neofetch_config, "r", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
 
     return lines
 
-def pop_neofetch_box(combo):
-    if os.path.isfile(fn.neofetch_config):
-        com = []
-        for image in os.listdir(fn.home + "/.config/neofetch/"):
-            if ".png" in image:
-                com.append(image)
 
-        sorted_com = sorted(com)
-        active = 0
-        lines = get_neofetch()
+# def pop_neofetch_box(combo):
+#     if fn.path.isfile(fn.neofetch_config):
+#         com = []
+#         for image in fn.listdir(fn.home + "/.config/neofetch/"):
+#             if ".png" in image:
+#                 com.append(image)
 
-        for i in range(len(lines)):
-            if "image_source" in lines[i]:
-                if not "#" in lines[i]:
-                    line = lines[i].split("=")[1].replace("\"", "")
-                    active = i+1
+#         sorted_com = sorted(com)
+#         active = 0
+#         lines = get_neofetch()
 
-        for i in range(len(sorted_com)):
-            combo.append_text(sorted_com[i])
-            #if sorted_com[i] == active:
-        combo.set_active(i)
+#         for i in range(len(lines)):
+#             if "image_source" in lines[i]:
+#                 if not "#" in lines[i]:
+#                     line = lines[i].split("=")[1].replace("\"", "")
+#                     active = i+1
+
+#         for i in range(len(sorted_com)):
+#             combo.append_text(sorted_com[i])
+#             # if sorted_com[i] == active:
+#         combo.set_active(i)
+
 
 def check_backend():
-    if os.path.isfile(fn.neofetch_config):
+    if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
         for i in range(len(lines)):
             if "image_backend=" in lines[i]:
@@ -50,17 +54,19 @@ def check_backend():
                     return line
     return "ascii"
 
+
 def check_ascii():
     line = "auto"
-    if os.path.isfile(fn.neofetch_config):
+    if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
         for i in range(len(lines)):
             if "ascii_distro=" in lines[i]:
                 line = lines[i].split("=")[1].replace("\"", "").strip()
     return line
 
+
 def apply_config(self, backend, ascii_size):
-    if os.path.isfile(fn.neofetch_config):
+    if fn.path.isfile(fn.neofetch_config):
         lines = get_neofetch()
         # try:
         for i in range(len(lines)):
@@ -119,7 +125,8 @@ def apply_config(self, backend, ascii_size):
             if self.termfont.get_active():
                 fn.neofetch_set_value(lines, i, "info \"Terminal Font\"", True)
             else:
-                fn.neofetch_set_value(lines, i, "info \"Terminal Font\"", False)
+                fn.neofetch_set_value(
+                    lines, i, "info \"Terminal Font\"", False)
             if self.cpu.get_active():
                 fn.neofetch_set_value(lines, i, "info \"CPU\"", True)
             else:
@@ -176,30 +183,37 @@ def apply_config(self, backend, ascii_size):
                 fn.neofetch_set_value(lines, i, "info underline", False)
 
             if not backend == "ascii" and not backend == "off":
-                fn.neofetch_set_backend_value(lines, i, "image_backend=\"", "w3m")
+                fn.neofetch_set_backend_value(
+                    lines, i, "image_backend=\"", "w3m")
                 # fn.neofetch_set_backend_value(lines, i, "image_backend=\"ascii\"")
                 fn.neofetch_set_value(lines, i, "image_source=", False)
                 #fn.neofetch_set_value(lines, i, emblem, True)
 
             elif not backend == "w3m" and not backend == "off":
-                fn.neofetch_set_backend_value(lines, i, "image_backend=\"", "ascii")
+                fn.neofetch_set_backend_value(
+                    lines, i, "image_backend=\"", "ascii")
                 # fn.neofetch_set_value(lines, i, "image_backend=\"ascii\"", True)
                 # fn.neofetch_set_value(lines, i, "image_backend=\"" + backend_val + "\"", False)
                 if "ascii_distro=" in lines[i]:
                     lines[i] = "ascii_distro=\"" + ascii_size + "\"\n"
             else:
-                fn.neofetch_set_backend_value(lines, i, "image_backend=\"", "off")
+                fn.neofetch_set_backend_value(
+                    lines, i, "image_backend=\"", "off")
 
             if self.cblocks.get_active():
-                fn.neofetch_set_backend_value(lines, i, "color_blocks=\"", "on")
+                fn.neofetch_set_backend_value(
+                    lines, i, "color_blocks=\"", "on")
             else:
-                fn.neofetch_set_backend_value(lines, i, "color_blocks=\"", "off")
+                fn.neofetch_set_backend_value(
+                    lines, i, "color_blocks=\"", "off")
 
-        with open(fn.neofetch_config, "w") as f:
+        with open(fn.neofetch_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
             f.close()
         print("Neofetch settings saved successfully")
-        fn.show_in_app_notification(self, "Neofetch settings saved successfully")
+        fn.show_in_app_notification(
+            self, "Neofetch settings saved successfully")
+
 
 def get_state(value):
     lines = get_neofetch()
@@ -209,6 +223,7 @@ def get_state(value):
             if "#" in lines[i]:
                 return False
     return True
+
 
 def get_checkboxes(self):
     self.os.set_active(get_state("info \"OS\""))
@@ -248,6 +263,7 @@ def get_checkboxes(self):
     else:
         self.cblocks.set_active(False)
 
+
 def set_checkboxes_normal(self):
     self.os.set_active(True)
     self.host.set_active(True)
@@ -278,6 +294,7 @@ def set_checkboxes_normal(self):
     self.users.set_active(False)
     self.local.set_active(False)
     self.cblocks.set_active(True)
+
 
 def set_checkboxes_small(self):
     self.os.set_active(False)
@@ -310,6 +327,7 @@ def set_checkboxes_small(self):
     self.local.set_active(False)
     self.cblocks.set_active(False)
 
+
 def set_checkboxes_all(self):
     self.os.set_active(True)
     self.host.set_active(True)
@@ -340,6 +358,7 @@ def set_checkboxes_all(self):
     self.users.set_active(True)
     self.local.set_active(True)
     self.cblocks.set_active(True)
+
 
 def set_checkboxes_none(self):
     self.os.set_active(False)

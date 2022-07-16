@@ -1,8 +1,8 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, fn, base_dir):
+def GUI(self, Gtk, vboxStack13, fn):
 
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     lbl1 = Gtk.Label(xalign=0)
@@ -40,7 +40,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack13, autostart, fn, base_dir):
     lbl1 = Gtk.Label("Name")
     lbl2 = Gtk.Label("Command")
     lbl3 = Gtk.Label("Comment")
-
 
     self.txtbox1 = Gtk.Entry()  # Name
     self.txtbox2 = Gtk.Entry()  # EXEC

@@ -1,8 +1,8 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, fn):
+def GUI(self, Gtk, vboxStack8, neofetch, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
@@ -17,7 +17,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, fn):
 
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     warning_label = Gtk.Label(xalign=0)
-    warning_label.set_markup("<b>Some distros have their own configuration and/or application, investigate</b>")
+    warning_label.set_markup(
+        "<b>Some distros have their own configuration and/or application, investigate</b>")
     hbox23.pack_start(warning_label, False, False, 10)
 
     self.asci = Gtk.RadioButton(label="Enable ascii backend")
@@ -36,8 +37,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, fn):
     backend = neofetch.check_backend()
     asci = neofetch.check_ascii()
 
-    self.emblem = Gtk.ComboBoxText()
-    neofetch.pop_neofetch_box(self.emblem)
+    # self.emblem = Gtk.ComboBoxText()
+    # neofetch.pop_neofetch_box(self.emblem)
 
     applyneofetch = Gtk.Button(label="Apply your Neofetch configuration")
     resetnormalneofetch = Gtk.Button(label="Reset neofetch")
@@ -103,7 +104,6 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, fn):
     neo_util_label = Gtk.Label(xalign=0)
     neo_util_label.set_markup("Neofetch enabled")
 
-
     flowbox = Gtk.FlowBox()
     flowbox.set_valign(Gtk.Align.START)
     flowbox.set_max_children_per_line(10)
@@ -144,13 +144,16 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, fn):
     label21 = Gtk.Label()
     label21.set_text("Choose what to select with a button")
     btn_All_Selection = Gtk.Button(label="All")
-    btn_All_Selection.connect ("clicked", self.on_click_neofetch_all_selection)
+    btn_All_Selection.connect("clicked", self.on_click_neofetch_all_selection)
     btn_Normal_Selection = Gtk.Button(label="Normal")
-    btn_Normal_Selection.connect ("clicked", self.on_click_neofetch_normal_selection)
+    btn_Normal_Selection.connect(
+        "clicked", self.on_click_neofetch_normal_selection)
     btn_Small_Selection = Gtk.Button(label="Small")
-    btn_Small_Selection.connect ("clicked", self.on_click_neofetch_small_selection)
+    btn_Small_Selection.connect(
+        "clicked", self.on_click_neofetch_small_selection)
     btn_None_Selection = Gtk.Button(label="None")
-    btn_None_Selection.connect ("clicked", self.on_click_neofetch_none_selection)
+    btn_None_Selection.connect(
+        "clicked", self.on_click_neofetch_none_selection)
     hbox21.pack_start(label21, False, False, 10)
     hbox21.pack_end(btn_None_Selection, False, False, 10)
     hbox21.pack_end(btn_Small_Selection, False, False, 10)
@@ -159,7 +162,8 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack8, neofetch, fn):
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox9_label = Gtk.Label(xalign=0)
-    hbox9_label.set_markup("<b>Distro specific:  </b>" + fn.change_distro_label(fn.distr))
+    hbox9_label.set_markup("<b>Distro specific:  </b>" +
+                           fn.change_distro_label(fn.distr))
     hbox9.pack_start(hbox9_label, False, False, 10)
 
     hbox28 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -221,7 +225,7 @@ Switch to the default neofetch to use this tab - delete the ~/.config/neofetch/c
         self.big_ascii.set_sensitive(False)
         self.small_ascii.set_sensitive(False)
     else:
-        #self.w3m.set_active(True)
+        # self.w3m.set_active(True)
         self.big_ascii.set_sensitive(False)
         self.small_ascii.set_sensitive(False)
 

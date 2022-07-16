@@ -1,14 +1,18 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
+# pylint:disable=C0301
+
 
 import Functions as fn
+
 
 def get_list(fle):
     with open(fle, "r", encoding="utf-8") as f:
         lines = f.readlines()
         f.close()
     return lines
+
 
 def get_value(lists, types):
     try:
@@ -19,22 +23,24 @@ def get_value(lists, types):
     except Exception as e:
         print(e)
 
+
 def move_file(self, state):
     if state:
         if fn.os.path.isfile(fn.home + "/.config/i3/config-polybar"):
-            fn.subprocess.run(["mv", fn.home + "/.config/i3/config",\
-                fn.home + "/.config/i3/config-bar"], check=True)
-            fn.subprocess.run(["mv", fn.home + "/.config/i3/config-polybar",\
-                fn.home + "/.config/i3/config"], check=True)
+            fn.subprocess.run(["mv", fn.home + "/.config/i3/config",
+                               fn.home + "/.config/i3/config-bar"], check=True)
+            fn.subprocess.run(["mv", fn.home + "/.config/i3/config-polybar",
+                               fn.home + "/.config/i3/config"], check=True)
         else:
             fn.MessageBox(self, "OOPS!", "you dont seem to have <b>config-polybar</b>\
                 file in your <i>~/.config/i3</i> directory. So we can not enable this feature.")
             self.poly.set_active(False)
     else:
-        fn.subprocess.run(["mv", fn.home + "/.config/i3/config",\
-            fn.home + "/.config/i3/config-polybar"], check=True)
-        fn.subprocess.run(["mv", fn.home + "/.config/i3/config-bar",\
-            fn.home + "/.config/i3/config"], check=True)
+        fn.subprocess.run(["mv", fn.home + "/.config/i3/config",
+                           fn.home + "/.config/i3/config-polybar"], check=True)
+        fn.subprocess.run(["mv", fn.home + "/.config/i3/config-bar",
+                           fn.home + "/.config/i3/config"], check=True)
+
 
 def toggle_polybar(self, lines, state):
     if state:
@@ -43,6 +49,7 @@ def toggle_polybar(self, lines, state):
     else:
         if check_polybar(lines):
             move_file(self, False)
+
 
 def check_polybar(lines):
     try:
@@ -59,14 +66,16 @@ def check_polybar(lines):
 # =                  I3WM
 # =================================================================
 
+
 def get_i3_themes(combo, lines):
     combo.get_model().clear()
     try:
-        menu = [x for x in fn.os.listdir(fn.home + "/.config/i3") if ".theme" in x]
+        menu = [x for x in fn.os.listdir(
+            fn.home + "/.config/i3") if ".theme" in x]
 
         current_theme = fn.get_position(lines, "Theme name :")
         theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
-        #print(theme_name)
+        # print(theme_name)
         active = 0
         sorted_menu = sorted(menu)
         for i in range(len(sorted_menu)):
@@ -76,6 +85,7 @@ def get_i3_themes(combo, lines):
         combo.set_active(active)
     except Exception as e:
         print(e)
+
 
 def set_i3_themes(lines, theme):
     try:
@@ -119,6 +129,7 @@ def set_i3_themes_bar(lines, theme):
 # =                  AWESOME
 # =================================================================
 
+
 def get_awesome_themes(lines):
     theme_pos = fn.get_position(lines, "local themes = {")
     end_theme_pos = fn.get_position(lines, "local chosen_theme")
@@ -129,6 +140,7 @@ def get_awesome_themes(lines):
         theme_list.append(x.split("\"")[1].strip())
     return_list = sorted(theme_list)
     return return_list
+
 
 def set_awesome_theme(lines, val):
     theme_pos = fn.get_position(lines, "local chosen_theme")
@@ -145,11 +157,13 @@ def set_awesome_theme(lines, val):
 # =                  QTILE
 # =================================================================
 
+
 def get_qtile_themes(combo, lines):
     combo.get_model().clear()
     if fn.check_package_installed("arcolinux-qtile-git"):
         try:
-            menu = [x for x in fn.os.listdir(fn.home + "/.config/qtile/themes/") if ".theme" in x]
+            menu = [x for x in fn.os.listdir(
+                fn.home + "/.config/qtile/themes/") if ".theme" in x]
 
             current_theme = fn.get_position(lines, "Theme name :")
             theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
@@ -163,13 +177,15 @@ def get_qtile_themes(combo, lines):
         except Exception as e:
             print(e)
 
+
 def set_qtile_themes(lines, theme):
     if fn.check_package_installed("arcolinux-qtile-git"):
         try:
             pos1 = fn.get_position(lines, "# COLORS FOR THE BAR")
             pos2 = fn.get_position(lines, "colors = init_colors()")
             name = theme.lower().replace(" ", "-")
-            with open(fn.home + "/.config/qtile/themes/" + name + ".theme", "r", encoding="utf-8") as f:
+            with open(fn.home + "/.config/qtile/themes/" + name + ".theme", "r",
+                      encoding="utf-8") as f:
                 theme_lines = f.readlines()
                 f.close()
             pos3 = fn.get_position(theme_lines, "# COLORS FOR THE BAR")
@@ -187,11 +203,13 @@ def set_qtile_themes(lines, theme):
 # =                  LEFTWM
 # =================================================================
 
+
 def get_leftwm_themes(combo, lines):
     combo.get_model().clear()
     if fn.check_package_installed("arcolinux-qtile-git"):
         try:
-            menu = [x for x in fn.os.listdir(fn.home + "/.config/qtile/themes/") if ".theme" in x]
+            menu = [x for x in fn.os.listdir(
+                fn.home + "/.config/qtile/themes/") if ".theme" in x]
 
             current_theme = fn.get_position(lines, "Theme name :")
             theme_name = lines[current_theme].split(":")[1].strip().lower().replace(" ", "-")  # noqa
@@ -205,63 +223,66 @@ def get_leftwm_themes(combo, lines):
         except Exception as e:
             print(e)
 
+
 def set_leftwm_themes(theme):
-    #update
-    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-        + " -c \"leftwm-theme update" + "\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
-    #install
-    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-        + " -c \"leftwm-theme install " + theme + "\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
-    #apply
-    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-        + " -c \"leftwm-theme apply " + theme + "\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
+    # update
+    fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                       + " -c \"leftwm-theme update" + "\""],
+                      check=True,
+                      stdout=fn.subprocess.PIPE)
+    # install
+    fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                       + " -c \"leftwm-theme install " + theme + "\""],
+                      check=True,
+                      stdout=fn.subprocess.PIPE)
+    # apply
+    fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                       + " -c \"leftwm-theme apply " + theme + "\""],
+                      check=True,
+                      stdout=fn.subprocess.PIPE)
+
 
 def remove_leftwm_themes(theme):
-    #apply candy
-    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-        + " -c \"leftwm-theme apply candy\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
-    #remove
+    # apply candy
+    fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                       + " -c \"leftwm-theme apply candy\""],
+                      check=True,
+                      stdout=fn.subprocess.PIPE)
+    # remove
     if not theme == "candy":
-        fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-            + " -c \"leftwm-theme uninstall " + theme + " --noconfirm\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
+        fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                           + " -c \"leftwm-theme uninstall " + theme + " --noconfirm\""],
+                          check=True,
+                          stdout=fn.subprocess.PIPE)
+
 
 def reset_leftwm_themes(theme):
-    #apply candy
-    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-        + " -c \"leftwm-theme apply candy\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
+    # apply candy
+    fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                       + " -c \"leftwm-theme apply candy\""],
+                      check=True,
+                      stdout=fn.subprocess.PIPE)
 
-    #remove
+    # remove
     if not theme == "candy":
-        fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-            + " -c \"leftwm-theme uninstall " + theme + " --noconfirm\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
+        fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                           + " -c \"leftwm-theme uninstall " + theme + " --noconfirm\""],
+                          check=True,
+                          stdout=fn.subprocess.PIPE)
 
-    #update
-    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-        + " -c \"leftwm-theme update" + "\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
+    # update
+    fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                       + " -c \"leftwm-theme update" + "\""],
+                      check=True,
+                      stdout=fn.subprocess.PIPE)
 
-    #install
-    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-        + " -c \"leftwm-theme install " + theme + "\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
-    #apply
-    fn.subprocess.run(["bash", "-c", "su - " +  fn.sudo_username\
-        + " -c \"leftwm-theme apply " + theme + "\""],
-                check=True,
-                stdout=fn.subprocess.PIPE)
+    # install
+    fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                       + " -c \"leftwm-theme install " + theme + "\""],
+                      check=True,
+                      stdout=fn.subprocess.PIPE)
+    # apply
+    fn.subprocess.run(["bash", "-c", "su - " + fn.sudo_username
+                       + " -c \"leftwm-theme apply " + theme + "\""],
+                      check=True,
+                      stdout=fn.subprocess.PIPE)

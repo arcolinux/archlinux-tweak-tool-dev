@@ -1,8 +1,9 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
 import Functions as fn
+
 
 def get_themes(combo):
     if fn.check_package_installed("oh-my-zsh-git"):
@@ -14,13 +15,13 @@ def get_themes(combo):
                 theme_list = f.readlines()
                 f.close()
             pos = fn.get_position(theme_list, "ZSH_THEME=")
-            #stripping whitespace, and quotation marks
+            # stripping whitespace, and quotation marks
             name = theme_list[pos].split("=")[1].strip().strip('"')
             active = 0
             combo.append_text("random")
             for x in range(len(lists_sorted)):
                 if name in lists_sorted[x].replace(".zsh-theme", ""):
-                    active = x+1 #remember; arrays start at ZERO
+                    active = x+1  # remember; arrays start at ZERO
                 combo.append_text(lists_sorted[x].split(".")[0].strip())
             combo.set_active(active)
         except OSError:
@@ -29,6 +30,7 @@ def get_themes(combo):
             print("You may need to reload ATT to set the options in the zsh tab")
         except Exception as e:
             print(e)
+
 
 def set_config(self, theme):
     try:
@@ -45,10 +47,10 @@ def set_config(self, theme):
             f.close()
 
         fn.show_in_app_notification(self,
-                                           "Settings Saved Successfully")
+                                    "Settings Saved Successfully")
 
     except Exception as e:
         print(e)
         fn.MessageBox(self,
-                             "Error!!",
-                             "Something went wrong setting this theme.")
+                      "Error!!",
+                      "Something went wrong setting this theme.")

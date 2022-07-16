@@ -1,16 +1,17 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
+import datetime
 import numpy as np
+from gi.repository import GLib, Gtk  # noqa
 import Functions as fn
-import Settings
-import gi
+#import Settings
+#import gi
 #import distro
 #import os
-import datetime
-gi.require_version('Gtk', '3.0')
-from gi.repository import GLib, Gtk  # noqa
+
+#gi.require_version('Gtk', '3.0')
 
 default_app = [
     "nano"
@@ -667,7 +668,7 @@ if fn.distr == "arcolinux":
         "yakuake",
     ]
     qtile = [
-    "alacritty",
+        "alacritty",
         "arcolinux-config-all-desktops-git",
         "arcolinux-dconf-all-desktops-git",
         "arcolinux-gtk3-sardi-arc-git",
@@ -835,7 +836,7 @@ if fn.distr == "arcolinux":
 
 # if fn.distr == "arch" or fn.distr == "endeavouros" or fn.distr == "manjaro"\
 #                 or fn.distr == "garudalinux":
-if not fn.distr == "arcolinux":
+if fn.distr != "arcolinux":
     awesome = [
         "alacritty",
         "arcolinux-awesome-git",
@@ -1237,29 +1238,14 @@ def check_desktop(desktop):
 
     return False
 
-def uninstall_desktop_check(self, desktop):
-    dsk = Settings.read_settings("DESKTOP", "default")
-    if not desktop == dsk.strip():
-        if check_desktop(desktop):
-            uninstall_desktop(desktop)
-        else:
-            fn.show_in_app_notification(self,
-                                        "Not installed...")
-    else:
-        fn.show_in_app_notification(self,
-                                    "That is your default desktop!")
 
-
-def uninstall_desktop(desktop):
-    print("Uninstalling.....")
-
-def check_lock(self, desktop, state):
+def check_lock(self, state):
     if fn.path.isfile("/var/lib/pacman/db.lck"):
         md = Gtk.MessageDialog(parent=self,
-                            flags=0,
-                            message_type=Gtk.MessageType.INFO,
-                            buttons=Gtk.ButtonsType.YES_NO,
-                            text="Lock File Found")
+                               flags=0,
+                               message_type=Gtk.MessageType.INFO,
+                               buttons=Gtk.ButtonsType.YES_NO,
+                               text="Lock File Found")
         md.format_secondary_markup(
             "pacman lock file found, do you want to remove it and continue?")  # noqa
 
@@ -1270,9 +1256,9 @@ def check_lock(self, desktop, state):
             fn.unlink("/var/lib/pacman/db.lck")
             # print("YES")
             t1 = fn.threading.Thread(target=install_desktop,
-                                    args=(self,
-                                        self.d_combo.get_active_text(),
-                                        state))
+                                     args=(self,
+                                           self.d_combo.get_active_text(),
+                                           state))
             t1.daemon = True
             t1.start()
     else:
@@ -1289,9 +1275,12 @@ def check_lock(self, desktop, state):
 
 def check_package(self, path, package):
     if fn.path.isfile(path + "/" + package):
-        with fn.subprocess.Popen(["sh", "-c", "yes | pkexec pacman -R " + package], bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+        with fn.subprocess.Popen(["sh", "-c", "yes | pkexec pacman -R " + package],
+                                 bufsize=1, stdout=fn.subprocess.PIPE,
+                                 universal_newlines=True) as p:
             for line in p.stdout:
                 GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+
 
 def install_desktop(self, desktop, state):
 
@@ -1303,11 +1292,13 @@ def install_desktop(self, desktop, state):
     if not fn.path.exists(fn.home + "/.config-att"):
         fn.makedirs(fn.home + "/.config-att")
         fn.permissions(fn.home + "/.config-att")
-    #for all users that have now root permissions
+    # for all users that have now root permissions
     if fn.path.exists(fn.home + "/.config-att"):
         fn.permissions(fn.home + "/.config-att")
-    fn.copy_func(fn.home + "/.config/", fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"), isdir=True)
-    fn.permissions(fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S"))
+    fn.copy_func(fn.home + "/.config/", fn.home + "/.config-att/config-att-" +
+                 now.strftime("%Y-%m-%d-%H-%M-%S"), isdir=True)
+    fn.permissions(fn.home + "/.config-att/config-att-" +
+                   now.strftime("%Y-%m-%d-%H-%M-%S"))
     if desktop == "awesome":
         command = list(np.append(awesome, default_app))
         src.append("/etc/skel/.config/awesome")
@@ -1443,13 +1434,19 @@ def install_desktop(self, desktop, state):
         com1 = pkexec_reinstall
         if self.ch1.get_active():
             GLib.idle_add(self.desktopr_stat.set_text, "Clearing cache .....")
-            fn.subprocess.call(["sh", "-c", "yes | pkexec pacman -Scc"], shell=False, stdout=fn.subprocess.PIPE)
+            fn.subprocess.call(
+                ["sh", "-c", "yes | pkexec pacman -Scc"],
+                shell=False,
+                stdout=fn.subprocess.PIPE)
     else:
         com1 = pkexec
 
     # print(list(np.append(com1, command)))
-    GLib.idle_add(self.desktopr_stat.set_text, "Installing " + self.d_combo.get_active_text() + "...")
-    with fn.subprocess.Popen(list(np.append(com1, command)), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+    GLib.idle_add(self.desktopr_stat.set_text, "Installing " +
+                  self.d_combo.get_active_text() + "...")
+    with fn.subprocess.Popen(list(np.append(com1, command)),
+                             bufsize=1, stdout=fn.subprocess.PIPE,
+                             universal_newlines=True) as p:
         for line in p.stdout:
             GLib.idle_add(self.desktopr_stat.set_text, line.strip())
     print("----------------------------------------------------------------")
@@ -1470,25 +1467,34 @@ def install_desktop(self, desktop, state):
                         dest = fn.path.split(dest)[0]
                     l1 = np.append(copy, [x])
                     l2 = np.append(l1, [dest])
-                    GLib.idle_add(self.desktopr_stat.set_text, "Copying " + x + " to " + dest)
+                    GLib.idle_add(self.desktopr_stat.set_text,
+                                  "Copying " + x + " to " + dest)
 
-                    with fn.subprocess.Popen(list(l2), bufsize=1, stdout=fn.subprocess.PIPE, universal_newlines=True) as p:
+                    with fn.subprocess.Popen(list(l2),
+                                             bufsize=1,
+                                             stdout=fn.subprocess.PIPE,
+                                             universal_newlines=True) as p:
                         for line in p.stdout:
-                            GLib.idle_add(self.desktopr_stat.set_text, line.strip())
-                    # fn.subprocess.call(list(l2), shell=False, stdout=fn.subprocess.PIPE)
+                            GLib.idle_add(
+                                self.desktopr_stat.set_text, line.strip())
                     fn.permissions(dest)
 
         GLib.idle_add(self.desktopr_stat.set_text, "")
-        GLib.idle_add(self.desktop_status.set_text, "This desktop is installed")
-        GLib.idle_add(fn.show_in_app_notification, self, desktop + " has been installed")
+        GLib.idle_add(self.desktop_status.set_text,
+                      "This desktop is installed")
+        GLib.idle_add(fn.show_in_app_notification, self,
+                      desktop + " has been installed")
         print("----------------------------------------------------------------")
         print(desktop + " has been installed")
         print("----------------------------------------------------------------")
     else:
-        GLib.idle_add(self.desktop_status.set_markup, "This desktop is <b>NOT</b> installed")
-        GLib.idle_add(self.desktopr_error.set_text, "Install " + desktop + " via terminal")
+        GLib.idle_add(self.desktop_status.set_markup,
+                      "This desktop is <b>NOT</b> installed")
+        GLib.idle_add(self.desktopr_error.set_text,
+                      "Install " + desktop + " via terminal")
         # GLib.idle_add(self.desktopr_stat.set_text, "An error has occured in installation")
-        GLib.idle_add(fn.show_in_app_notification, self, desktop + " has not been installed")
+        GLib.idle_add(fn.show_in_app_notification, self,
+                      desktop + " has not been installed")
         print("----------------------------------------------------------------")
         print(desktop + " has NOT been installed")
         print("----------------------------------------------------------------")

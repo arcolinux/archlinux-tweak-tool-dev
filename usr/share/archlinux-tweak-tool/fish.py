@@ -1,12 +1,12 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
 #import os
 #import Functions as fn
 
-#This function has one job, and one job only; ensure that check boxes match
-#what is passed to it, based on the logic from the calling function
+# This function has one job, and one job only; ensure that check boxes match
+# what is passed to it, based on the logic from the calling function
 # def set_util_state(self, util, util_state):
 #     if util == "fish":
 #         self.fish.set_state(util_state)

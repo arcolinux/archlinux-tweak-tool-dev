@@ -3,34 +3,24 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
-
 import Functions as fn
 import datetime
 import signal
 import subprocess
 import os
-from subprocess import PIPE, STDOUT, call
-from time import sleep
-
-import gi
-
+from subprocess import call
 import autostart
 import desktopr
-#import Gtk_Functions
 import GUI
 import fixes
 import lightdm
 import login
 import lxdm
 import neofetch
-#import oblogout
 import pacman_functions
-#import polybar
 import sddm
 import services
 import Settings
-#import skelapp
-#import slim
 import Splash
 import Support
 import termite
@@ -38,9 +28,18 @@ import themer
 import user
 import utilities
 import zsh_theme
-
+import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, Pango  # noqa
+#from time import sleep
+#from subprocess import PIPE, STDOUT, call
+
+#import Gtk_Functions
+#import oblogout
+#import polybar
+#import skelapp
+#import slim
+
 
 base_dir = fn.path.dirname(fn.path.realpath(__file__))
 pmf = pacman_functions
@@ -119,17 +118,6 @@ class Main(Gtk.Window):
         # t.join()
 
         # print(self.desktop)
-
-        # =====================================================
-        #               PATREON LINK
-        # =====================================================
-
-        def on_social_clicked(self, widget, event):
-            sup = Support.Support(self)
-            response = sup.run()
-
-            if response == Gtk.ResponseType.DELETE_EVENT:
-                sup.destroy()
 
         # =====================================================
         #     ATT THEME DARK OR LIGHT - FOLLOW USER SELECTION
@@ -653,8 +641,8 @@ class Main(Gtk.Window):
                 "Server = https://mirror.jingk.ai/arcolinux/$repo/$arch")
             arco_mirror_aarnet = pmf.check_mirror(
                 "Server = https://mirror.aarnet.edu.au/pub/arcolinux/$repo/$arch")
-            arco_mirror_github = pmf.check_mirror(
-                "Server = https://arcolinux.github.io/$repo/$arch")
+            # arco_mirror_github = pmf.check_mirror(
+            #     "Server = https://arcolinux.github.io/$repo/$arch")
 
         # ========================ARCO MIRROR SET TOGGLE=====================
 
@@ -846,7 +834,7 @@ class Main(Gtk.Window):
                 # print("We will make backups of the current /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf if they exist")
 
         if not fn.path.isfile("/tmp/att.lock"):
-            with open("/tmp/att.lock", "w") as f:
+            with open("/tmp/att.lock", "w", encoding="utf-8") as f:
                 f.write("")
 
         # =====================================================
@@ -873,7 +861,7 @@ class Main(Gtk.Window):
                 # print("We will make backups of the current /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf if they exist")
 
         if not fn.path.isfile("/tmp/att.lock"):
-            with open("/tmp/att.lock", "w") as f:
+            with open("/tmp/att.lock", "w", encoding="utf8") as f:
                 f.write("")
 
         # =====================================================
@@ -949,13 +937,13 @@ class Main(Gtk.Window):
             pos = fn.get_position(lines, "Hidden=")
         except:
             failed = True
-            with open(fn.home + "/.config/autostart/" + text + ".desktop", "a") as f:
+            with open(fn.home + "/.config/autostart/" + text + ".desktop", "a", encoding="utf-8") as f:
                 f.write("Hidden=" + str(bools))
                 f.close()
         if not failed:
             val = lines[pos].split("=")[1].strip()
             lines[pos] = lines[pos].replace(val, str(bools).lower())
-            with open(fn.home + "/.config/autostart/" + text + ".desktop", "w") as f:
+            with open(fn.home + "/.config/autostart/" + text + ".desktop", "w", encoding="utf-8") as f:
                 f.writelines(lines)
                 f.close()
 
@@ -981,7 +969,7 @@ class Main(Gtk.Window):
                 pos = fn.get_position(lines, "Hidden=")
             except:
                 failed = True
-                with open(fn.autostart + lbl + ".desktop", "a") as f:
+                with open(fn.autostart + lbl + ".desktop", "a", encoding="utf-8") as f:
                     f.write("Hidden=" + str(not widget.get_active()).lower())
                     f.close()
         except:
@@ -991,7 +979,7 @@ class Main(Gtk.Window):
                 val = lines[pos].split("=")[1].strip()
                 lines[pos] = lines[pos].replace(
                     val, str(not widget.get_active()).lower())
-                with open(fn.autostart + lbl + ".desktop", "w") as f:
+                with open(fn.autostart + lbl + ".desktop", "w", encoding="utf-8") as f:
                     f.writelines(lines)
                     f.close()
             except Exception as e:
@@ -1225,7 +1213,6 @@ class Main(Gtk.Window):
 
     def on_install_clicked(self, widget, state):
         fn.create_log(self)
-        # if desktopr.check_desktop(self.d_combo.get_active_text()) is not True:
         print("installing {}".format(self.d_combo.get_active_text()))
         desktopr.check_lock(self, self.d_combo.get_active_text(), state)
 
@@ -1265,7 +1252,6 @@ class Main(Gtk.Window):
         print("Fish is installed without a configuration")
         GLib.idle_add(fn.show_in_app_notification, self,
                       "Only the Fish package is installed without a configuration")
-        fn.restart_program()
 
     def on_arcolinux_fish_package_clicked(self, widget):
         fn.install_arcolinux_fish_package(self)
@@ -1766,7 +1752,7 @@ class Main(Gtk.Window):
         print("PRIVACY")
 
     def set_hblock(self, widget, state):
-        if fn.check_arco_repos_active() == True:
+        if fn.check_arco_repos_active() is True:
             if self.firstrun is not True:
                 t = fn.threading.Thread(target=fn.set_hblock, args=(
                     self, widget, widget.get_active()))
@@ -2105,10 +2091,10 @@ class Main(Gtk.Window):
             utilities.install_util("lolcat")
             util_str = utility + " | lolcat"  # The space here is CRITICAL
             # If the utility is currently not acive, activate it
-            if utilities.get_util_state(self, utility) == False or utility == "neofetch":
+            if utilities.get_util_state(self, utility) is False or utility == "neofetch":
                 utilities.set_util_state(self, utility, True, True)
         # The below is to ensure that the check box on Neofetch always toggles to match correctly
-        elif widget.get_active() == False and utility == "neofetch":
+        elif widget.get_active() is False and utility == "neofetch":
             utilities.set_util_state(self, utility, True, False)
         utilities.write_configs(utility, util_str)
 
@@ -2149,64 +2135,64 @@ class Main(Gtk.Window):
     #               OBLOGOUT FUNCTIONS ALPHABETICAL
     # =====================================================
 
-    if debug:
-        print("OBLOGOUT")
+    # if debug:
+    #     print("OBLOGOUT")
 
-    def save_oblogout(self, widget):  # noqa
-        # widget.set_sensitive(False)
-        if not fn.path.isfile(fn.oblogout_conf + ".bak"):
-            fn.shutil.copy(fn.oblogout_conf,
-                           fn.oblogout_conf + ".bak")
-        try:
-            string = ""
-            if self.check_cancel.get_active():
-                string += "cancel "
-            if self.check_logout.get_active():
-                string += "logout "
-            if self.check_restart.get_active():
-                string += "restart "
-            if self.check_shut.get_active():
-                string += "shutdown "
-            if self.check_susp.get_active():
-                string += "suspend "
-            if self.check_hiber.get_active():
-                string += "hibernate "
-            if self.check_lock.get_active():
-                string += "lock "
+    # def save_oblogout(self, widget):  # noqa
+    #     # widget.set_sensitive(False)
+    #     if not fn.path.isfile(fn.oblogout_conf + ".bak"):
+    #         fn.shutil.copy(fn.oblogout_conf,
+    #                        fn.oblogout_conf + ".bak")
+    #     try:
+    #         string = ""
+    #         if self.check_cancel.get_active():
+    #             string += "cancel "
+    #         if self.check_logout.get_active():
+    #             string += "logout "
+    #         if self.check_restart.get_active():
+    #             string += "restart "
+    #         if self.check_shut.get_active():
+    #             string += "shutdown "
+    #         if self.check_susp.get_active():
+    #             string += "suspend "
+    #         if self.check_hiber.get_active():
+    #             string += "hibernate "
+    #         if self.check_lock.get_active():
+    #             string += "lock "
 
-            oblogout.set_buttons(self, string.strip().replace(" ", ", "))
-            oblogout.oblogout_change_theme(self, self.oblog.get_active_text())
-            oblogout.set_opacity(self, self.hscale.get_value())
-            # oblogout.set_command(self, "lock", self.lockBox.get_text())
-            oblogout.set_shorcut(self,
-                                 "shutdown",
-                                 self.tbshutdown.get_text().capitalize())
-            oblogout.set_shorcut(self,
-                                 "restart",
-                                 self.tbrestart.get_text().capitalize())
-            oblogout.set_shorcut(self,
-                                 "suspend",
-                                 self.tbsuspend.get_text().capitalize())
-            oblogout.set_shorcut(self,
-                                 "logout",
-                                 self.tblogout.get_text().capitalize())
-            oblogout.set_shorcut(self,
-                                 "cancel",
-                                 self.tbcancel.get_text().capitalize())
-            oblogout.set_shorcut(self,
-                                 "hibernate",
-                                 self.tbhibernate.get_text().capitalize())
-            oblogout.set_shorcut(self,
-                                 "lock",
-                                 self.tblock.get_text().capitalize())
-            # hex = fn.rgb_to_hex(
-            #     self.colorchooser.get_rgba().to_string())
-            # oblogout.set_color(self, hex.upper())
+    #         oblogout.set_buttons(self, string.strip().replace(" ", ", "))
+    #         oblogout.oblogout_change_theme(self, self.oblog.get_active_text())
+    #         oblogout.set_opacity(self, self.hscale.get_value())
+    #         # oblogout.set_command(self, "lock", self.lockBox.get_text())
+    #         oblogout.set_shorcut(self,
+    #                              "shutdown",
+    #                              self.tbshutdown.get_text().capitalize())
+    #         oblogout.set_shorcut(self,
+    #                              "restart",
+    #                              self.tbrestart.get_text().capitalize())
+    #         oblogout.set_shorcut(self,
+    #                              "suspend",
+    #                              self.tbsuspend.get_text().capitalize())
+    #         oblogout.set_shorcut(self,
+    #                              "logout",
+    #                              self.tblogout.get_text().capitalize())
+    #         oblogout.set_shorcut(self,
+    #                              "cancel",
+    #                              self.tbcancel.get_text().capitalize())
+    #         oblogout.set_shorcut(self,
+    #                              "hibernate",
+    #                              self.tbhibernate.get_text().capitalize())
+    #         oblogout.set_shorcut(self,
+    #                              "lock",
+    #                              self.tblock.get_text().capitalize())
+    #         # hex = fn.rgb_to_hex(
+    #         #     self.colorchooser.get_rgba().to_string())
+    #         # oblogout.set_color(self, hex.upper())
 
-            fn.show_in_app_notification(self,
-                                        "Oblogout settings saved successfully")
-        except Exception as e:
-            print(e)
+    #         fn.show_in_app_notification(self,
+    #                                     "Oblogout settings saved successfully")
+    #     except Exception as e:
+    #         print(e)
 
     # =====================================================
     #               PACMAN FUNCTIONS MIRROR
@@ -2271,13 +2257,13 @@ class Main(Gtk.Window):
                 pmf.toggle_mirrorlist(
                     self, widget.get_active(), "arco_mirror_aarnet")
 
-    def on_mirror_github_repo_toggle(self, widget, active):
-        if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
-            pmf.append_mirror(self, fn.seedhostmirror)
-        else:
-            if self.opened is False:
-                pmf.toggle_mirrorlist(self, widget.get_active(),
-                                      "arco_mirror_github")
+    # def on_mirror_github_repo_toggle(self, widget, active):
+    #     if not pmf.mirror_exist("Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"):
+    #         pmf.append_mirror(self, fn.seedhostmirror)
+    #     else:
+    #         if self.opened is False:
+    #             pmf.toggle_mirrorlist(self, widget.get_active(),
+    #                                   "arco_mirror_github")
 
     # =====================================================
     #               PACMAN CONF
@@ -2319,7 +2305,7 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_base")
-                if fn.check_arco_repos_active() == True:
+                if fn.check_arco_repos_active() is True:
                     self.button_install.set_sensitive(True)
                     self.button_reinstall.set_sensitive(True)
                 else:
@@ -2336,7 +2322,7 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(),
                                       "arco_a3p")
-                if fn.check_arco_repos_active() == True:
+                if fn.check_arco_repos_active() is True:
                     self.button_install.set_sensitive(True)
                     self.button_reinstall.set_sensitive(True)
                 else:
@@ -2589,78 +2575,78 @@ class Main(Gtk.Window):
     #                       POLYBAR
     # ====================================================================
 
-    if debug:
-        print("POLYBAR")
+    # if debug:
+    #     print("POLYBAR")
 
-    def on_polybar_apply_clicked(self, widget):
-        if self.pbrbutton.get_active():
-            state = True
-        else:
-            state = False
+    # def on_polybar_apply_clicked(self, widget):
+    #     if self.pbrbutton.get_active():
+    #         state = True
+    #     else:
+    #         state = False
 
-        polybar.set_config(self, self.pbcombo.get_active_text(), state)
-        if fn.path.isfile(polybar.launch):
-            fn.show_in_app_notification(self, "Restart polybar to see changes")
-        else:
-            fn.MessageBox(
-                self, "ERROR!!", "You dont seem to have a <b>launch.sh</b> file to launch/relaunch polybar")
+    #     polybar.set_config(self, self.pbcombo.get_active_text(), state)
+    #     if fn.path.isfile(polybar.launch):
+    #         fn.show_in_app_notification(self, "Restart polybar to see changes")
+    #     else:
+    #         fn.MessageBox(
+    #             self, "ERROR!!", "You dont seem to have a <b>launch.sh</b> file to launch/relaunch polybar")
 
-    def on_pb_browse_config(self, widget):
-        dialog = Gtk.FileChooserDialog(
-            title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
-        dialog.set_select_multiple(False)
+    # def on_pb_browse_config(self, widget):
+    #     dialog = Gtk.FileChooserDialog(
+    #         title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
+    #     dialog.set_select_multiple(False)
 
-        dialog.set_current_folder(fn.home)
-        dialog.add_buttons(
-            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
-        dialog.connect("response", self.open_config_response)
+    #     dialog.set_current_folder(fn.home)
+    #     dialog.add_buttons(
+    #         Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
+    #     dialog.connect("response", self.open_config_response)
 
-        dialog.show()
+    #     dialog.show()
 
-    def on_pb_browse_image(self, widget):
-        dialog = Gtk.FileChooserDialog(
-            title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
-        dialog.set_select_multiple(False)
-        filter = Gtk.FileFilter()
-        filter.set_name("IMAGE Files")
-        filter.add_mime_type("image/png")
-        filter.add_mime_type("image/jpg")
-        filter.add_mime_type("image/jpeg")
-        dialog.set_filter(filter)
-        dialog.set_current_folder(fn.home)
-        dialog.add_buttons(
-            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
-        dialog.connect("response", self.open_image_response)
+    # def on_pb_browse_image(self, widget):
+    #     dialog = Gtk.FileChooserDialog(
+    #         title="Please choose a file", action=Gtk.FileChooserAction.OPEN)
+    #     dialog.set_select_multiple(False)
+    #     filter = Gtk.FileFilter()
+    #     filter.set_name("IMAGE Files")
+    #     filter.add_mime_type("image/png")
+    #     filter.add_mime_type("image/jpg")
+    #     filter.add_mime_type("image/jpeg")
+    #     dialog.set_filter(filter)
+    #     dialog.set_current_folder(fn.home)
+    #     dialog.add_buttons(
+    #         Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open", Gtk.ResponseType.OK)
+    #     dialog.connect("response", self.open_image_response)
 
-        dialog.show()
+    #     dialog.show()
 
-    def open_image_response(self, dialog, response):
+    # def open_image_response(self, dialog, response):
 
-        if response == Gtk.ResponseType.OK:
-            self.pbtextbox2.set_text(dialog.get_filename())
-            dialog.destroy()
-        elif response == Gtk.ResponseType.CANCEL:
-            dialog.destroy()
+    #     if response == Gtk.ResponseType.OK:
+    #         self.pbtextbox2.set_text(dialog.get_filename())
+    #         dialog.destroy()
+    #     elif response == Gtk.ResponseType.CANCEL:
+    #         dialog.destroy()
 
-    def open_config_response(self, dialog, response):
+    # def open_config_response(self, dialog, response):
 
-        if response == Gtk.ResponseType.OK:
-            self.pbtextbox1.set_text(dialog.get_filename())
-            dialog.destroy()
-        elif response == Gtk.ResponseType.CANCEL:
-            dialog.destroy()
+    #     if response == Gtk.ResponseType.OK:
+    #         self.pbtextbox1.set_text(dialog.get_filename())
+    #         dialog.destroy()
+    #     elif response == Gtk.ResponseType.CANCEL:
+    #         dialog.destroy()
 
-    def on_pb_import_clicked(self, widget):
-        polybar.import_config(
-            self, self.pbtextbox1.get_text(), self.pbtextbox2.get_text())
+    # def on_pb_import_clicked(self, widget):
+    #     polybar.import_config(
+    #         self, self.pbtextbox1.get_text(), self.pbtextbox2.get_text())
 
-    def on_pb_change_item(self, widget):
-        try:
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
-                fn.config_dir + '/images/' + widget.get_active_text() + '.jpg', 385, 385)
-            self.pbimage.set_from_pixbuf(pixbuf)
-        except:
-            self.pbimage.set_from_pixbuf(None)
+    # def on_pb_change_item(self, widget):
+    #     try:
+    #         pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
+    #             fn.config_dir + '/images/' + widget.get_active_text() + '.jpg', 385, 385)
+    #         self.pbimage.set_from_pixbuf(pixbuf)
+    #     except:
+    #         self.pbimage.set_from_pixbuf(None)
 
     # ====================================================================
     #                       SDDM
@@ -2900,7 +2886,7 @@ class Main(Gtk.Window):
 
     def on_click_install_arco_thunar_plugin(self, widget):
         if fn.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active() == True:
+            if fn.check_arco_repos_active() is True:
                 fn.install_arco_thunar_plugin(self, widget)
             else:
                 print("Activate the ArcoLinux repos")
@@ -2913,7 +2899,7 @@ class Main(Gtk.Window):
 
     def on_click_install_arco_caja_plugin(self, widget):
         if fn.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active() == True:
+            if fn.check_arco_repos_active() is True:
                 fn.install_arco_caja_plugin(self, widget)
             else:
                 print("Activate the ArcoLinux repos")
@@ -2926,7 +2912,7 @@ class Main(Gtk.Window):
 
     def on_click_install_arco_nemo_plugin(self, widget):
         if fn.path.isfile(fn.arcolinux_mirrorlist):
-            if fn.check_arco_repos_active() == True:
+            if fn.check_arco_repos_active() is True:
                 fn.install_arco_nemo_plugin(self, widget)
             else:
                 print("Activate the ArcoLinux repos")
@@ -3247,7 +3233,8 @@ class Main(Gtk.Window):
             themer.toggle_polybar(self, themer.get_list(fn.i3wm_config), True)
         else:
             themer.toggle_polybar(self, themer.get_list(fn.i3wm_config), False)
-            fn.subprocess.run(["killall", "-q", "polybar"], shell=False)
+            fn.subprocess.run(["killall", "-q", "polybar"],
+                              check=True, shell=False)
 
     def awesome_apply_clicked(self, widget):
         if not fn.path.isfile(fn.awesome_config + ".bak"):
@@ -3628,8 +3615,11 @@ class Main(Gtk.Window):
             fn.show_in_app_notification(self, "First choose a wallpaper image")
         else:
             excludes = ["att-01.jpg", "att-02.jpg", "att-03.jpg", "att-04.jpg", "att-05.jpg",
-                        "att-06.jpg", "att-07.jpg",
-                        "background01.jpg", "background02.jpg", "background03.jpg", "background04.jpg",
+                        "att-06.jpg", "att-07.jpg", "att-08.jpg", "att-08.jpg", "att-09.jpg",
+                        "att-plain-01.png", "att-plain-02.png", "att-plain-03.png",
+                        "att-plain-04.png", "att-plain-05.png", "att-plain-06.png",
+                        "background01.jpg", "background02.jpg", "background03.jpg",
+                        "background04.jpg",
                         "background05.jpg", "background06.jpg", "background07.jpg",
                         "background08.jpg", "background09.jpg", "background10.jpg",
                         "background11.jpg", "background12.jpg", "background13.jpg",
@@ -3913,7 +3903,7 @@ if __name__ == "__main__":
     except:
         os_function_support = False
     if not fn.path.isfile("/tmp/att.lock") and os_function_support:
-        with open("/tmp/att.pid", "w") as f:
+        with open("/tmp/att.pid", "w", encoding="utf-8") as f:
             f.write(str(fn.getpid()))
             f.close()
         style_provider = Gtk.CssProvider()

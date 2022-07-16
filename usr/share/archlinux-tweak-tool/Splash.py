@@ -1,11 +1,12 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+
+
 import Functions as fn
 import gi
+from gi.repository import Gtk, GdkPixbuf
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GdkPixbuf, Gdk  # noqa
-
 base_dir = fn.path.dirname(fn.path.realpath(__file__))
 
 

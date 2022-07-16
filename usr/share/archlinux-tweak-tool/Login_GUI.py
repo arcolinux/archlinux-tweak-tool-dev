@@ -2,7 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, fn, login):
+def GUI(self, Gtk, vboxStack22, sddm, lightdm, lxdm, fn, login):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)
@@ -55,9 +55,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack22, sddm, lightdm, lxdm, os, fn, login):
 
         hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         label_sddm_config = Gtk.Label(xalign=0)
-        label_sddm_config.set_text("We recommend to use the default sddm configuration setup\nSddm configuration \
-split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
-/etc/sddm.conf.d/kde_settings.conf contains all the parameters - We will backup your files")
+        label_sddm_config.set_text("We recommend to use the default sddm \
+configuration setup\nSddm configuration split into two files : /etc/sddm.conf \
+and /etc/sddm.conf.d/kde_settings.conf\n\
+/etc/sddm.conf.d/kde_settings.conf contains all the parameters - We will \
+backup your files")
         hbox14.pack_start(label_sddm_config, False, False, 10)
 
         hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -190,7 +192,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         vboxStack1.pack_start(hbox13, False, False, 0)
         vboxStack1.pack_start(hbox05, False, False, 0)
 
-        if fn.os.path.isfile(fn.sddm_default_d2):
+        if fn.path.isfile(fn.sddm_default_d2):
             vboxStack1.pack_start(hbox, False, False, 0)
             vboxStack1.pack_start(hbox3, False, False, 0)
             vboxStack1.pack_start(hbox18, False, False, 0)
@@ -301,7 +303,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
 
         hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         self.lbl_slickgreeter = Gtk.Label(xalign=0)
-        login.find_label(self, self.lbl_slickgreeter)
+        login.find_slick_greeter_label(self.lbl_slickgreeter)
         btn_install_slick_greeter = Gtk.Button(label="Install slickgreeter")
         btn_install_slick_greeter.connect(
             "clicked", self.on_click_install_slick_greeter)
@@ -503,7 +505,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox57_lbl = Gtk.Label(xalign=0)
         hbox57_lbl.set_text("Lxdm Gtk theme")
         self.lxdm_gtk_theme = Gtk.ComboBoxText()
-        lxdm.pop_gtk_theme_names_lxdm(self, self.lxdm_gtk_theme)
+        lxdm.pop_gtk_theme_names_lxdm(self.lxdm_gtk_theme)
         hbox57.pack_start(hbox57_lbl, False, False, 10)
         hbox57.pack_end(self.lxdm_gtk_theme, False, False, 10)
 
@@ -511,7 +513,7 @@ split into two files : /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf\n\
         hbox59_label = Gtk.Label(xalign=0)
         hbox59_label.set_text("Lxdm theme greeter")
         self.lxdm_theme_greeter = Gtk.ComboBoxText()
-        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
+        lxdm.pop_lxdm_theme_greeter(self.lxdm_theme_greeter)
         hbox59.pack_start(hbox59_label, False, False, 10)
         hbox59.pack_end(self.lxdm_theme_greeter, False, False, 10)
 

@@ -1,6 +1,6 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 
 def GUI(self, Gtk, vboxStack3, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -22,15 +22,18 @@ def GUI(self, Gtk, vboxStack3, fn):
     hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
     label_top = Gtk.Label()
-    label_top.set_markup("Improve your <b>security</b> and <b>privacy</b> by blocking ads, tracking and malware domains")
+    label_top.set_markup("Improve your <b>security</b> and <b>privacy</b> \
+by blocking ads, tracking and malware domains")
     hbox8.pack_start(label_top, False, False, 10)
 
     instructions = Gtk.Label()
-    instructions.set_markup("To update your hblock hosts file, please disable and enable hblock")
+    instructions.set_markup(
+        "To update your hblock hosts file, please disable and enable hblock")
     hbox11.pack_start(instructions, False, False, 10)
 
     label_hblock = Gtk.Label()
-    label_hblock.set_text("Enable/install hblock - Your orignal /etc/hosts file can be found in /etc/hosts.bak")
+    label_hblock.set_text(
+        "Enable/install hblock - Your orignal /etc/hosts file can be found in /etc/hosts.bak")
 
     self.label7 = Gtk.Label(xalign=0)
     self.progress = Gtk.ProgressBar()
@@ -63,7 +66,8 @@ def GUI(self, Gtk, vboxStack3, fn):
     state = fn.ublock_get_state(self)
 
     self.firefox_ublock_switch = Gtk.Switch()
-    self.firefox_ublock_switch.connect("notify::active", self.set_ublock_firefox)
+    self.firefox_ublock_switch.connect(
+        "notify::active", self.set_ublock_firefox)
     self.firefox_ublock_switch.set_active(state)
 
     # if state:
@@ -77,7 +81,6 @@ def GUI(self, Gtk, vboxStack3, fn):
     # ==========================================================
     #                      VSTACK
     # ==========================================================
-
 
     vboxStack3.pack_start(hbox3, False, False, 0)
     vboxStack3.pack_start(hbox4, False, False, 0)

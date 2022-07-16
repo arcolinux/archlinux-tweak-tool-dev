@@ -79,9 +79,12 @@ def GUI(self, Gtk, vboxStack14, fn):
     hbox_header_samba = Gtk.Box(
         orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox_header_samba = Gtk.Label(xalign=0)
-    hbox_header_samba.set_markup("You install a samba server if you need to share a folder and its contents in your home network\n\
-The purpose is to create <b>one</b> shared folder - the current user can later access this folder from other computers\n\
-The easy configuration will create the folder 'Shared' in your home directory if it is not already there\n\
+    hbox_header_samba.set_markup("You install a samba server if you need to \
+share a folder and its contents in your home network\n\
+The purpose is to create <b>one</b> shared folder - the current user can later \
+access this folder from other computers\n\
+The easy configuration will create the folder 'Shared' in your home directory \
+if it is not already there\n\
 The usershares configuration will not create a 'Shared' folder - you share any folder you like\n\
 Follow the instruction numbers below - <b>we recommend the easy configuration</b>")
 
@@ -132,8 +135,10 @@ Follow the instruction numbers below - <b>we recommend the easy configuration</b
 
     hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox18_label = Gtk.Label(xalign=0)
-    hbox18_label.set_markup("If you choose '<b>usershares</b>' then we recommend you install also thunar and its plugin and \
-right-click to share any folder in your home directory\nThere are other filemanagers with their plugins at the bottom")
+    hbox18_label.set_markup("If you choose '<b>usershares</b>' then we recommend you install \
+also thunar and its plugin and \
+right-click to share any folder in your home directory\nThere are other filemanagers with \
+their plugins at the bottom")
     hbox18.pack_start(hbox18_label, False, False, 10)
 
     hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -193,7 +198,8 @@ right-click to share any folder in your home directory\nThere are other filemana
     hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox7_label = Gtk.Label(xalign=0)
     hbox7_label.set_text(
-        "A terminal will open upon creating a new Samba user\nNow type the password the user will need to access Samba")
+        "A terminal will open upon creating a new Samba user\nNow type the password \
+the user will need to access Samba")
     hbox7.pack_start(hbox7_label, False, False, 10)
 
     hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -256,7 +262,9 @@ right-click to share any folder in your home directory\nThere are other filemana
     hbox91 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox91_label = Gtk.Label(xalign=0)
     hbox91_label.set_text(
-        "With the Avahi daemon (network discovery) running on both the server and client,\nthe file manager on the client should automatically find the server- Beware of firewalls")
+        "With the Avahi daemon (network discovery) running on both the server \
+and client,\nthe file manager on the client should automatically find the server - \
+Beware of firewalls")
     restart_smb = Gtk.Button(label="Restart Smb")
     restart_smb.connect("clicked", self.on_click_restart_smb)
     hbox91.pack_start(hbox91_label, False, False, 10)
@@ -300,7 +308,8 @@ right-click to share any folder in your home directory\nThere are other filemana
 
     hbox95 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox95_label = Gtk.Label(xalign=0)
-    hbox95_label.set_text("With the Avahi daemon (network discovery) running on both the server and client,\n\
+    hbox95_label.set_text("With the Avahi daemon (network discovery) running on both \
+the server and client,\n\
 the file manager on the client should automatically find the server- Beware of firewalls\n\
 All computers in your network must have a unique name /etc/hostname")
     restart_smb = Gtk.Button(label="Restart Smb")

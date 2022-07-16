@@ -235,13 +235,17 @@ def GUI(self, Gtk, vboxStack23, zsh_themes, base_dir, GdkPixbuf, fn):
         image_width = 500
         image_height = 380
         pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir
-                                                          + "/images/zsh-sample.jpg", image_width, image_height)
+                                                          + "/images/zsh-sample.jpg",
+                                                          image_width, image_height)
         if self.zsh_themes.get_active_text() is None:
             pass
         elif fn.path.isfile(base_dir+"/images/zsh_previews/"
                             + self.zsh_themes.get_active_text()+".jpg"):
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(base_dir
-                                                              + "/images/zsh_previews/"+self.zsh_themes.get_active_text()+".jpg", image_width, image_height)
+                                                              + "/images/zsh_previews/"
+                                                              + self.zsh_themes.get_active_text()
+                                                              + ".jpg",
+                                                              image_width, image_height)
         image = Gtk.Image().new_from_pixbuf(pixbuf)
         image.set_margin_top(0)
 

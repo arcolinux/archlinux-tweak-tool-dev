@@ -1,6 +1,6 @@
-#============================================================
+# ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
-#============================================================
+# ============================================================
 import numpy as np
 import Functions as fn
 import Settings
@@ -8,6 +8,7 @@ import Settings
 # ====================================================================
 #                       TERMITE
 # ====================================================================
+
 
 def get_themes(combo):  # noqa
     if fn.path.isdir(fn.home + "/.config/termite/themes/"):
@@ -66,7 +67,7 @@ def get_config():
 def set_config(self, theme):
     if not fn.path.isfile(fn.termite_config + ".bak"):
         fn.shutil.copy(fn.termite_config,
-                              fn.termite_config + ".bak")
+                       fn.termite_config + ".bak")
 
     try:
         config = get_config()
@@ -86,12 +87,12 @@ def set_config(self, theme):
                 f.close()
 
             fn.show_in_app_notification(self,
-                                               "Settings Saved Successfully")
+                                        "Settings Saved Successfully")
         if fn.path.isfile(fn.config):
             Settings.write_settings("TERMITE", "theme", theme)
 
     except Exception as e:
         print(e)
         fn.MessageBox(self,
-                             "Error!!",
-                             "Something went wrong setting this theme.")
+                      "Error!!",
+                      "Something went wrong setting this theme.")
