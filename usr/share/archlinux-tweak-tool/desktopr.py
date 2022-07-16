@@ -1238,7 +1238,7 @@ def check_desktop(desktop):
     return False
 
 
-def check_lock(self, state):
+def check_lock(self, desktop, state):
     if fn.path.isfile("/var/lib/pacman/db.lck"):
         md = Gtk.MessageDialog(
             parent=self,
