@@ -57,22 +57,24 @@ def create_user(self):
 
 def on_click_delete_user(self):
     username = self.cbt_users.get_active_text()
-    userdel = "userdel " + username
+    if username is not None:
+        userdel = "userdel " + username
 
-    fn.system(userdel)
-    print("User has been deleted - home folder has not been deleted")
-    GLib.idle_add(fn.show_in_app_notification, self, "User has been deleted")
+        fn.system(userdel)
+        print("User has been deleted - home folder has not been deleted")
+        GLib.idle_add(fn.show_in_app_notification, self, "User has been deleted")
 
 
 def on_click_delete_all_user(self):
     username = self.cbt_users.get_active_text()
-    userdel = "userdel -r -f " + username
+    if username is not None:
+        userdel = "userdel -r -f " + username
 
-    fn.system(userdel)
-    print("User has been deleted - home folder has been deleted")
-    GLib.idle_add(
-        fn.show_in_app_notification, self, "User and home folder has been deleted"
-    )
+        fn.system(userdel)
+        print("User has been deleted - home folder has been deleted")
+        GLib.idle_add(
+            fn.show_in_app_notification, self, "User and home folder has been deleted"
+        )
 
 
 def pop_cbt_users(self, combo):
