@@ -82,10 +82,24 @@ def set_lightdm_icon_theme_cursor(self, lists, theme, icon, cursor):
             pos_theme = fn.get_position(lists, "theme-name=")
             pos_icon_theme = fn.get_position(lists, "icon-theme-name=")
             pos_cursor_theme = fn.get_position(lists, "cursor-theme-name=")
+            pos_background = fn.get_position(lists, "background=")
 
             lists[pos_theme] = "theme-name=" + theme + "\n"
             lists[pos_icon_theme] = "icon-theme-name=" + icon + "\n"
             lists[pos_cursor_theme] = "cursor-theme-name=" + cursor + "\n"
+
+            hexa = fn.rgb_to_hex(
+                self.slick_greeter_color.get_current_rgba().to_string()
+            ).upper()
+            if self.slick_greeter_color_checkbutton.get_active():
+                lists[pos_background] = "background=" + hexa + "\n"
+            else:
+                lists[pos_background] = (
+                    "# background=Background file to use, either an \
+image path or a color (e.g. #772953)"
+                    + hexa
+                    + "\n"
+                )
 
             with open(fn.lightdm_greeter, "w", encoding="utf-8") as f:
                 f.writelines(lists)
@@ -105,7 +119,7 @@ def set_lightdm_icon_theme_cursor(self, lists, theme, icon, cursor):
             )
 
 
-def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon, cursor):
+def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon):
     if fn.os.path.isfile(fn.lightdm_slick_greeter):
         try:
             # no cursor in slick greeter
@@ -124,7 +138,7 @@ def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon, cursor):
             else:
                 lists[pos_background] = (
                     "# background=Background file to use, either an \
-                    image path or a color (e.g. #772953)"
+image path or a color (e.g. #772953)"
                     + hexa
                     + "\n"
                 )

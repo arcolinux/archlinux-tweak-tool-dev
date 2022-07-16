@@ -310,7 +310,7 @@ backup your files"
         hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         self.lbl_slickgreeter = Gtk.Label(xalign=0)
         login.find_slick_greeter_label(self.lbl_slickgreeter)
-        btn_install_slick_greeter = Gtk.Button(label="Install slickgreeter")
+        btn_install_slick_greeter = Gtk.Button(label="Install/enable slickgreeter")
         btn_install_slick_greeter.connect(
             "clicked", self.on_click_install_slick_greeter
         )
@@ -355,7 +355,7 @@ backup your files"
 
         hbox34 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         hbox34_label = Gtk.Label(xalign=0)
-        hbox34_label.set_text("Only the Slickgreeter background color can be set")
+        hbox34_label.set_text("Background color can be set for both")
         self.slick_greeter_color_checkbutton = Gtk.CheckButton(
             label="Select it to use it"
         )

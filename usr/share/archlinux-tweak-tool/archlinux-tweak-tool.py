@@ -1980,7 +1980,6 @@ class Main(Gtk.Window):
                     fn.get_lines(fn.lightdm_slick_greeter),
                     self.gtk_theme_names_lightdm.get_active_text(),
                     self.gtk_icon_names_lightdm.get_active_text(),
-                    self.cursor_themes_lightdm.get_active_text(),
                 ),
             )
             t1.daemon = True
