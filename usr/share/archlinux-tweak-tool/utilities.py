@@ -127,44 +127,46 @@ def get_lolcat_state(self, util):
 def install_util(util):
     command = ""
     if util == "neofetch":
-        command = 'pacman -S neofetch arcolinux-neofetch-git --noconfirm --needed'
+        command = "pacman -S neofetch arcolinux-neofetch-git --noconfirm --needed"
     elif util == "screenfetch":
-        command = 'pacman -S screenfetch --noconfirm --needed'
+        command = "pacman -S screenfetch --noconfirm --needed"
     elif util == "ufetch":
-        command = 'pacman -S ufetch-git --noconfirm --needed'
+        command = "pacman -S ufetch-git --noconfirm --needed"
     elif util == "ufetch-arco":
-        command = 'pacman -S ufetch-arco-git --noconfirm --needed'
+        command = "pacman -S ufetch-arco-git --noconfirm --needed"
     elif util == "pfetch":
-        command = 'pacman -S pfetch --noconfirm --needed'
+        command = "pacman -S pfetch --noconfirm --needed"
     elif util == "paleofetch":
-        command = 'pacman -S arcolinux-paleofetch-git --noconfirm --needed'
+        command = "pacman -S arcolinux-paleofetch-git --noconfirm --needed"
     elif util == "alsi":
-        command = 'pacman -S alsi --noconfirm --needed'
+        command = "pacman -S alsi --noconfirm --needed"
     elif util == "hfetch":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "sfetch":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "fetch":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "sysinfo":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "sysinfo-retro":
-        command = 'pacman -S arcolinux-bin-git --noconfirm --needed'
+        command = "pacman -S arcolinux-bin-git --noconfirm --needed"
     elif util == "lolcat":
-        command = 'pacman -S lolcat --noconfirm --needed'
+        command = "pacman -S lolcat --noconfirm --needed"
     elif util == "cpufetch":
-        command = 'pacman -S cpufetch --noconfirm --needed'
+        command = "pacman -S cpufetch --noconfirm --needed"
     elif util == "colorscript random":
-        command = 'pacman -S shell-color-scripts --noconfirm --needed'
+        command = "pacman -S shell-color-scripts --noconfirm --needed"
     else:
         pass
 
     # This is just protection to avoid unneeded errors.
     if len(command) > 0:
-        fn.subprocess.call(command.split(" "),
-                           shell=False,
-                           stdout=fn.subprocess.PIPE,
-                           stderr=fn.subprocess.STDOUT)
+        fn.subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=fn.subprocess.PIPE,
+            stderr=fn.subprocess.STDOUT,
+        )
 
 
 def get_position(lists, value):
@@ -176,8 +178,12 @@ def get_position(lists, value):
 
     for string in lists:
         for item in suffixes:
-            if string == value+item or string == prefix+value+item\
-                    or string == value or string == prefix+value:
+            if (
+                string == value + item
+                or string == prefix + value + item
+                or string == value
+                or string == prefix + value
+            ):
                 data.append(string)
 
     if len(data) > 0:
@@ -206,10 +212,11 @@ def write_configs(utility, util_str):
                     lines.append(util_str + "\n")
             # this will cover use cases where the util is not in the rc files
             except:
-                lines.append("\n"+util_str)
+                lines.append("\n" + util_str)
         with open(config, "w", encoding="utf-8") as f:
             f.writelines(lines)
             f.close()
+
 
 # We only read the bashrc here,as this is used to turn on/off the lolcat option.
 # Assumption; both .bashrc and .zshrc are set identically.

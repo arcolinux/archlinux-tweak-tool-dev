@@ -59,14 +59,18 @@ def set_lxdm_value(self, lists, username, gtk_theme, lxdm_theme, state, pane):
                 f.writelines(lists)
                 f.close()
 
-            GLib.idle_add(fn.show_in_app_notification, self,
-                          "Settings Saved Successfully")
+            GLib.idle_add(
+                fn.show_in_app_notification, self, "Settings Saved Successfully"
+            )
 
             # GLib.idle_add(fn.MessageBox,self, "Success!!", "Settings applied successfully")
         except Exception as e:
             print(e)
             fn.MessageBox(
-                self, "Failed!!", "There seems to have been a problem in \"set_lxdm_value\"")
+                self,
+                "Failed!!",
+                'There seems to have been a problem in "set_lxdm_value"',
+            )
 
 
 def pop_gtk_theme_names_lxdm(combo):

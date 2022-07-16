@@ -2,12 +2,12 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
+
 def GUI(self, Gtk, vboxStack21, fn):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)
-    hbox1_lbl.set_markup(
-        "Template - if you see this I have forgotten to hide it")
+    hbox1_lbl.set_markup("Template - if you see this I have forgotten to hide it")
     hbox1_lbl.set_name("title")
     hbox1.pack_start(hbox1_lbl, False, False, 10)
 
@@ -19,7 +19,7 @@ def GUI(self, Gtk, vboxStack21, fn):
 
     vboxStack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxStack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    #vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    # vboxStack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     stack = Gtk.Stack()
     stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP_DOWN)
@@ -39,7 +39,8 @@ def GUI(self, Gtk, vboxStack21, fn):
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox2_lbl = Gtk.Label(xalign=0)
     hbox2_lbl.set_markup(
-        "Discover other computers in your network (to access other computers)")
+        "Discover other computers in your network (to access other computers)"
+    )
     btn_install_discovery = Gtk.Button(label="Install network discovery")
     btn_install_discovery.connect("clicked", self.on_install_discovery_clicked)
     btn_remove_discovery = Gtk.Button(label="Uninstall network discovery")
@@ -50,10 +51,9 @@ def GUI(self, Gtk, vboxStack21, fn):
 
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox3_lbl = Gtk.Label(xalign=0)
-    hbox3_lbl.set_markup(
-        "Change the /etc/nsswitch.conf to connect to computers/NAS")
+    hbox3_lbl.set_markup("Change the /etc/nsswitch.conf to connect to computers/NAS")
     self.nsswitch_choices = Gtk.ComboBoxText()
-    options = ['ArcoLinux', 'Garuda', 'Arch Linux', 'EndeavourOS']
+    options = ["ArcoLinux", "Garuda", "Arch Linux", "EndeavourOS"]
     for option in options:
         self.nsswitch_choices.append_text(option)
     self.nsswitch_choices.set_active(0)
@@ -90,7 +90,7 @@ def GUI(self, Gtk, vboxStack21, fn):
     hbox12_lbl = Gtk.Label(xalign=0)
     hbox12_lbl.set_markup("2. Apply the /etc/samba/smb.conf of your choice")
     self.samba_choices = Gtk.ComboBoxText()
-    options_samba = ['Easy', 'Usershares', 'Windows', 'ArcoLinux', 'Original']
+    options_samba = ["Easy", "Usershares", "Windows", "ArcoLinux", "Original"]
     for option in options_samba:
         self.samba_choices.append_text(option)
     self.samba_choices.set_active(0)
@@ -106,9 +106,9 @@ def GUI(self, Gtk, vboxStack21, fn):
     hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox13_lbl = Gtk.Label(xalign=0)
     hbox13_lbl.set_markup(
-        "3. Create a password for the current user to be able to access the Samba server")
-    btn_create_samba_user = Gtk.Button(
-        label="Create a password for the current user")
+        "3. Create a password for the current user to be able to access the Samba server"
+    )
+    btn_create_samba_user = Gtk.Button(label="Create a password for the current user")
     btn_create_samba_user.connect("clicked", self.on_click_create_samba_user)
     hbox13.pack_start(hbox13_lbl, False, False, 10)
     hbox13.pack_start(btn_create_samba_user, False, False, 10)
@@ -116,15 +116,18 @@ def GUI(self, Gtk, vboxStack21, fn):
     hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox14_lbl = Gtk.Label(xalign=0)
     hbox14_lbl.set_markup(
-        "You can now reboot and enjoy the <b>'Shared'</b> folder if you choose '<b>easy</b>' ")
+        "You can now reboot and enjoy the <b>'Shared'</b> folder if you choose '<b>easy</b>' "
+    )
     hbox14.pack_start(hbox14_lbl, False, False, 10)
 
     hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox15_lbl = Gtk.Label(xalign=0)
-    hbox15_lbl.set_markup("If you choose '<b>usershares</b>' then we recommend you \
+    hbox15_lbl.set_markup(
+        "If you choose '<b>usershares</b>' then we recommend you \
 install also thunar and its plugin and \
 right-click to share any folder in your home directory\nThere are other filemanagers with \
-their plugins at the bottom")
+their plugins at the bottom"
+    )
     hbox15.pack_start(hbox15_lbl, False, False, 10)
 
     # ==================================================================
@@ -135,7 +138,8 @@ their plugins at the bottom")
     hbox90 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox90_lbl = Gtk.Label(xalign=0)
     hbox90_lbl.set_markup(
-        "<span foreground=\"red\" size=\"large\">We found a firewall on your system</span>")
+        '<span foreground="red" size="large">We found a firewall on your system</span>'
+    )
     hbox90.pack_start(hbox90_lbl, False, False, 10)
 
     # vboxStack1
@@ -143,7 +147,8 @@ their plugins at the bottom")
     hbox91_lbl = Gtk.Label(xalign=0)
     hbox91_lbl.set_markup(
         "With the Avahi daemon (network discovery) running on both the server and client,\n\
-the file manager on the client should automatically find the server- Beware of firewalls")
+the file manager on the client should automatically find the server- Beware of firewalls"
+    )
     restart_smb = Gtk.Button(label="Restart Smb")
     restart_smb.connect("clicked", self.on_click_restart_smb)
     hbox91.pack_start(hbox91_lbl, False, False, 10)
@@ -151,18 +156,14 @@ the file manager on the client should automatically find the server- Beware of f
 
     # vboxStack2
     hbox92 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    install_arco_thunar_plugin = Gtk.Button(
-        label="Install ArcoLinux Thunar plugin")
+    install_arco_thunar_plugin = Gtk.Button(label="Install ArcoLinux Thunar plugin")
     install_arco_thunar_plugin.connect(
-        "clicked", self.on_click_install_arco_thunar_plugin)
-    install_arco_nemo_plugin = Gtk.Button(
-        label="Install ArcoLinux Nemo plugin")
-    install_arco_nemo_plugin.connect(
-        "clicked", self.on_click_install_arco_nemo_plugin)
-    install_arco_caja_plugin = Gtk.Button(
-        label="Install ArcoLinux Caja plugin")
-    install_arco_caja_plugin.connect(
-        "clicked", self.on_click_install_arco_caja_plugin)
+        "clicked", self.on_click_install_arco_thunar_plugin
+    )
+    install_arco_nemo_plugin = Gtk.Button(label="Install ArcoLinux Nemo plugin")
+    install_arco_nemo_plugin.connect("clicked", self.on_click_install_arco_nemo_plugin)
+    install_arco_caja_plugin = Gtk.Button(label="Install ArcoLinux Caja plugin")
+    install_arco_caja_plugin.connect("clicked", self.on_click_install_arco_caja_plugin)
     hbox92.pack_start(install_arco_thunar_plugin, False, False, 10)
     hbox92.pack_start(install_arco_nemo_plugin, False, False, 10)
     hbox92.pack_start(install_arco_caja_plugin, False, False, 10)

@@ -2,6 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
+
 def GUI(self, Gtk, vboxStack4, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -68,10 +69,12 @@ def GUI(self, Gtk, vboxStack4, fn):
     self.grub_theme_combo.connect("changed", self.on_grub_theme_change)
 
     hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    install_rebornos_grub = \
-        Gtk.Button(label="Install original grub theme of RebornOS - auto reboot")
+    install_rebornos_grub = Gtk.Button(
+        label="Install original grub theme of RebornOS - auto reboot"
+    )
     install_rebornos_grub.connect(
-        "clicked", self.on_click_install_orignal_grub_rebornos)
+        "clicked", self.on_click_install_orignal_grub_rebornos
+    )
     hbox16.pack_end(install_rebornos_grub, False, False, 10)
 
     hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)

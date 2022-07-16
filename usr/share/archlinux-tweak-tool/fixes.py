@@ -30,14 +30,18 @@ def set_global_cursor(self, cursor):
                 f.writelines(lines)
                 f.close()
 
-            GLib.idle_add(fn.show_in_app_notification, self,
-                          "Settings Saved Successfully")
+            GLib.idle_add(
+                fn.show_in_app_notification, self, "Settings Saved Successfully"
+            )
 
             # GLib.idle_add(fn.MessageBox,self, "Success!!", "Settings applied successfully")
         except Exception as e:
             print(e)
-            fn.MessageBox(self, "Failed!!",
-                          "There seems to have been a problem in \"set_lightdm_value\"")
+            fn.MessageBox(
+                self,
+                "Failed!!",
+                'There seems to have been a problem in "set_lightdm_value"',
+            )
 
 
 def pop_gtk_cursor_names(combo):
@@ -49,7 +53,7 @@ def pop_gtk_cursor_names(combo):
             coms.sort()
 
     lines = fn.get_lines(fn.icons_default)
-    #pos = fn.get_position(lines, "Inherits=")
+    # pos = fn.get_position(lines, "Inherits=")
 
     try:
         cursor_theme = check_cursor_global(lines, "Inherits=").split("=")[1]

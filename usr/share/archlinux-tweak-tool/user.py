@@ -4,8 +4,9 @@
 # pylint:disable=C0301,W0104
 
 import Functions as fn
-#from types import FunctionType
-#import crypt
+
+# from types import FunctionType
+# import crypt
 from Functions import GLib
 
 
@@ -19,30 +20,30 @@ def create_user(self):
 
     try:
         command = "groupadd -r sambashare"
-        fn.subprocess.call(command.split(" "),
-                           shell=False,
-                           stdout=fn.subprocess.PIPE,
-                           stderr=fn.subprocess.STDOUT)
+        fn.subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=fn.subprocess.PIPE,
+            stderr=fn.subprocess.STDOUT,
+        )
     except Exception as e:
         print(e)
 
     if password == confirm_password:
         if atype == "Administrator":
             useradd = 'useradd -m -G audio,video,network,storage,rfkill,wheel,autologin,sambashare -c "'
-            + name + '" -s /bin/bash ' + username
+            +name + '" -s /bin/bash ' + username
             fn.system(useradd)
             fn.system(user_password + " | " + "chpasswd -c SHA512")
         else:
             useradd = 'useradd -m -G audio,video,network,storage,rfkill,autologin,sambashare -c "'
-            + name + '" -s /bin/bash ' + username
+            +name + '" -s /bin/bash ' + username
             fn.system(useradd)
             fn.system(user_password + " | " + "chpasswd -c SHA512")
         print("User has been created")
-        GLib.idle_add(fn.show_in_app_notification,
-                      self, "User has been created")
+        GLib.idle_add(fn.show_in_app_notification, self, "User has been created")
     else:
-        GLib.idle_add(fn.show_in_app_notification, self,
-                      "Passwords are not the same")
+        GLib.idle_add(fn.show_in_app_notification, self, "Passwords are not the same")
         fn.MessageBox(self, "Message", "Passwords are not the same")
 
 
@@ -61,8 +62,9 @@ def on_click_delete_all_user(self):
 
     fn.system(userdel)
     print("User has been deleted - home folder has been deleted")
-    GLib.idle_add(fn.show_in_app_notification, self,
-                  "User and home folder has been deleted")
+    GLib.idle_add(
+        fn.show_in_app_notification, self, "User and home folder has been deleted"
+    )
 
 
 def pop_cbt_users(self, combo):

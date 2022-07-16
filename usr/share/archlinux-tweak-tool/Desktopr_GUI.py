@@ -2,6 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
+
 def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, fn, base_dir, Pango):
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -28,9 +29,11 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, fn, base_dir, Pango):
     #               DROPDOWN
     # =======================================
     label_warning = Gtk.Label(xalign=0)
-    label_warning.set_markup("<b>Make sure the ArcoLinux repos are active \
+    label_warning.set_markup(
+        "<b>Make sure the ArcoLinux repos are active \
     - see Pacman tab</b>\n\nSome of the desktops can only be installed\nif we \
-    can access the ArcoLinux repositories")
+    can access the ArcoLinux repositories"
+    )
     label = Gtk.Label(xalign=0)
     label.set_text("Select a desktop")
 
@@ -98,13 +101,15 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, fn, base_dir, Pango):
     message = "On Archcraft first remove picom-ibhagwan-git \
 and re-install the default picom"
     warning_archcraft.set_markup(
-        "<span foreground=\"red\" size=\"x-large\">" + message + "</span>")
+        '<span foreground="red" size="x-large">' + message + "</span>"
+    )
     warning_archcraft.set_line_wrap(True)
 
     noice = Gtk.Label(xalign=0)
     noice.set_markup(
         "We will backup and overwrite your ~/.config when installing desktops\n\
-Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux")
+Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux"
+    )
     noice.set_line_wrap(True)
     self.desktopr_error = Gtk.Label(xalign=0)
 
@@ -120,11 +125,11 @@ Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux")
     #               FRAME PREVIEW
     # =======================================
     try:
-        pixbuf3 = GdkPixbuf.Pixbuf().\
-            new_from_file_at_size(base_dir +
-                                  "/desktop_data/" +
-                                  self.d_combo.get_active_text() + ".jpg",
-                                  345, 345)
+        pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(
+            base_dir + "/desktop_data/" + self.d_combo.get_active_text() + ".jpg",
+            345,
+            345,
+        )
         self.image_DE.set_from_pixbuf(pixbuf3)
     except:
         pass

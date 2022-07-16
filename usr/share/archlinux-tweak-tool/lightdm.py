@@ -25,26 +25,27 @@ def check_lightdm_greeter(lists, value):
         except Exception as e:
             print(e)
 
+
 # for autologin and session in lightdm.conf
 
 
 def set_lightdm_value(self, lists, value, session, state):
     if fn.os.path.isfile(fn.lightdm_conf):
         try:
-            com = fn.subprocess.run(["sh", "-c",
-                                     "su - " + fn.sudo_username + " -c groups"],
-                                    check=True,
-                                    shell=False,
-                                    stdout=fn.subprocess.PIPE)
+            com = fn.subprocess.run(
+                ["sh", "-c", "su - " + fn.sudo_username + " -c groups"],
+                check=True,
+                shell=False,
+                stdout=fn.subprocess.PIPE,
+            )
             groups = com.stdout.decode().strip().split(" ")
             # print(groups)
             if "autologin" not in groups:
-                fn.subprocess.run(["gpasswd",
-                                   "-a",
-                                   fn.sudo_username,
-                                   "autologin"],
-                                  check=True,
-                                  shell=False)
+                fn.subprocess.run(
+                    ["gpasswd", "-a", fn.sudo_username, "autologin"],
+                    check=True,
+                    shell=False,
+                )
 
             pos = fn.get_position(lists, "autologin-user=")
             pos_session = fn.get_position(lists, "autologin-session=")
@@ -61,14 +62,18 @@ def set_lightdm_value(self, lists, value, session, state):
                 f.writelines(lists)
                 f.close()
 
-            GLib.idle_add(fn.show_in_app_notification, self,
-                          "Settings Saved Successfully")
+            GLib.idle_add(
+                fn.show_in_app_notification, self, "Settings Saved Successfully"
+            )
 
             # GLib.idle_add(fn.MessageBox,self, "Success!!", "Settings applied successfully")
         except Exception as e:
             print(e)
-            fn.MessageBox(self, "Failed!!",
-                          "There seems to have been a problem in \"set_lightdm_value\"")
+            fn.MessageBox(
+                self,
+                "Failed!!",
+                'There seems to have been a problem in "set_lightdm_value"',
+            )
 
 
 def set_lightdm_icon_theme_cursor(self, lists, theme, icon, cursor):
@@ -86,15 +91,18 @@ def set_lightdm_icon_theme_cursor(self, lists, theme, icon, cursor):
                 f.writelines(lists)
                 f.close()
 
-            GLib.idle_add(fn.show_in_app_notification, self,
-                          "Settings Saved Successfully")
+            GLib.idle_add(
+                fn.show_in_app_notification, self, "Settings Saved Successfully"
+            )
 
             # GLib.idle_add(fn.MessageBox,self, "Success!!", "Settings applied successfully")
         except Exception as e:
             print(e)
             fn.MessageBox(
-                self, "Failed!!",
-                "There seems to have been a problem in \"set_lightdm_value\"")
+                self,
+                "Failed!!",
+                'There seems to have been a problem in "set_lightdm_value"',
+            )
 
 
 def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon, cursor):
@@ -109,27 +117,34 @@ def set_lightdm_icon_theme_cursor_slick(self, lists, theme, icon, cursor):
             lists[pos_icon_theme] = "icon-theme-name=" + icon + "\n"
 
             hexa = fn.rgb_to_hex(
-                self.slick_greeter_color.get_current_rgba().to_string()).upper()
+                self.slick_greeter_color.get_current_rgba().to_string()
+            ).upper()
             if self.slick_greeter_color_checkbutton.get_active():
                 lists[pos_background] = "background=" + hexa + "\n"
             else:
-                lists[
-                    pos_background] = "# background=Background file to use, either an \
-                    image path or a color (e.g. #772953)" + hexa + "\n"
+                lists[pos_background] = (
+                    "# background=Background file to use, either an \
+                    image path or a color (e.g. #772953)"
+                    + hexa
+                    + "\n"
+                )
 
             with open(fn.lightdm_slick_greeter, "w", encoding="utf-8") as f:
                 f.writelines(lists)
                 f.close()
 
-            GLib.idle_add(fn.show_in_app_notification, self,
-                          "Settings Saved Successfully")
+            GLib.idle_add(
+                fn.show_in_app_notification, self, "Settings Saved Successfully"
+            )
 
             # GLib.idle_add(fn.MessageBox,self, "Success!!", "Settings applied successfully")
         except Exception as e:
             print(e)
             fn.MessageBox(
-                self, "Failed!!",
-                "There seems to have been a problem in \"set_lightdm_value\"")
+                self,
+                "Failed!!",
+                'There seems to have been a problem in "set_lightdm_value"',
+            )
 
 
 def pop_box_sessions_lightdm(self, combo):
@@ -146,14 +161,14 @@ def pop_box_sessions_lightdm(self, combo):
         except IndexError:
             name = ""
 
-        if 'i3-with-shmlog' in coms:
-            coms.remove('i3-with-shmlog')
-        if 'openbox-kde' in coms:
-            coms.remove('openbox-kde')
-        if 'cinnamon2d' in coms:
-            coms.remove('cinnamon2d')
-        if 'icewm-session' in coms:
-            coms.remove('icewm-session')
+        if "i3-with-shmlog" in coms:
+            coms.remove("i3-with-shmlog")
+        if "openbox-kde" in coms:
+            coms.remove("openbox-kde")
+        if "cinnamon2d" in coms:
+            coms.remove("cinnamon2d")
+        if "icewm-session" in coms:
+            coms.remove("icewm-session")
         coms.sort()
 
         for i in range(len(coms)):
@@ -178,10 +193,9 @@ def pop_gtk_theme_names_lightdm(self, combo):
                 coms.sort()
         lines = fn.get_lines(fn.lightdm_greeter)
 
-        #pos = fn.get_position(lines, "theme-name=")
+        # pos = fn.get_position(lines, "theme-name=")
         try:
-            theme_name = check_lightdm_greeter(
-                lines, "theme-name=").split("=")[1]
+            theme_name = check_lightdm_greeter(lines, "theme-name=").split("=")[1]
         except IndexError:
             theme_name = ""
 
@@ -204,10 +218,9 @@ def pop_gtk_icon_names_lightdm(self, combo):
                 coms.sort()
         lines = fn.get_lines(fn.lightdm_greeter)
 
-        #pos = fn.get_position(lines, "icon-theme-name=")
+        # pos = fn.get_position(lines, "icon-theme-name=")
         try:
-            icon_theme_name = check_lightdm(
-                lines, "icon-theme-name=").split("=")[1]
+            icon_theme_name = check_lightdm(lines, "icon-theme-name=").split("=")[1]
         except IndexError:
             icon_theme_name = ""
 
@@ -229,11 +242,10 @@ def pop_gtk_cursor_names(self, combo):
                 coms.sort()
 
         lines = fn.get_lines(fn.lightdm_greeter)
-        #pos = fn.get_position(lines, "cursor-theme-name=")
+        # pos = fn.get_position(lines, "cursor-theme-name=")
 
         try:
-            cursor_theme = check_lightdm(
-                lines, "cursor-theme-name=").split("=")[1]
+            cursor_theme = check_lightdm(lines, "cursor-theme-name=").split("=")[1]
         except IndexError:
             cursor_theme = ""
 

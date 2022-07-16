@@ -9,7 +9,7 @@ import Functions as fn
 def get_startups(self, n):
 
     try:
-        with open(fn.autostart + n + ".desktop", encoding='utf-8') as f:
+        with open(fn.autostart + n + ".desktop", encoding="utf-8") as f:
             lines = f.readlines()
             f.close()
         state = True
@@ -32,23 +32,35 @@ def get_startups(self, n):
 
 
 def add_autostart(self, name, com, comnt):
-    #lists = [x for x in fn.os.listdir(fn.home + "/.config/autostart/")]
-    lists = list(fn.listdir(fn.home + '/.config/autostart'))
+    # lists = [x for x in fn.os.listdir(fn.home + "/.config/autostart/")]
+    lists = list(fn.listdir(fn.home + "/.config/autostart"))
     if not (name + ".desktop") in lists:
-        content = "[Desktop Entry]\n\
+        content = (
+            "[Desktop Entry]\n\
 Encoding=UTF-8\n\
 Version=1.0\n\
 Type=Application\n\
-Name=" + name + "\n\
-Comment=" + comnt + "\n\
-Exec=" + com + "\n\
-TryExec=" + com + "\n\
+Name="
+            + name
+            + "\n\
+Comment="
+            + comnt
+            + "\n\
+Exec="
+            + com
+            + "\n\
+TryExec="
+            + com
+            + "\n\
 StartupNotify=false\n\
 X-GNOME-Autostart-enabled=true\n\
 Terminal=false\n\
 Hidden=false\n"
+        )
 
-        with open(fn.home + "/.config/autostart/" + name + ".desktop", "w", encoding="UTF-8") as f:
+        with open(
+            fn.home + "/.config/autostart/" + name + ".desktop", "w", encoding="UTF-8"
+        ) as f:
             f.write(content)
             f.close()
         self.add_row(name)

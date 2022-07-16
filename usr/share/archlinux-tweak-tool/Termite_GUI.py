@@ -2,6 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
+
 def GUI(self, Gtk, vboxStack7, termite):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -23,8 +24,7 @@ def GUI(self, Gtk, vboxStack7, termite):
     hbox01.pack_start(label01, False, False, 10)
 
     label23 = Gtk.Label()
-    label23.set_text(
-        "Urxvt themes - Change the settings of ~/.Xresources manually")
+    label23.set_text("Urxvt themes - Change the settings of ~/.Xresources manually")
     hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     hbox23.pack_start(label23, False, False, 10)
 
@@ -37,7 +37,8 @@ def GUI(self, Gtk, vboxStack7, termite):
     hbox06 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label06 = Gtk.Label()
     label06.set_markup(
-        "Choose your <b>Alcritty</b> theme - type <b>'alacritty-themes'</b> in the terminal")
+        "Choose your <b>Alcritty</b> theme - type <b>'alacritty-themes'</b> in the terminal"
+    )
     hbox06.pack_start(label06, False, False, 10)
 
     hbox07 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -51,13 +52,16 @@ def GUI(self, Gtk, vboxStack7, termite):
     hbox03 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     label03 = Gtk.Label()
     label03.set_markup(
-        "Install Alacritty themes (activate ArcoLinux repos to install all of them)")
+        "Install Alacritty themes (activate ArcoLinux repos to install all of them)"
+    )
     btn_install_alacritty_themes = Gtk.Button(label="Install Alacritty themes")
     btn_install_alacritty_themes.connect(
-        "clicked", self.on_clicked_install_alacritty_themes)
+        "clicked", self.on_clicked_install_alacritty_themes
+    )
     btn_remove_alacritty_themes = Gtk.Button(label="Remove Alacritty themes")
     btn_remove_alacritty_themes.connect(
-        "clicked", self.on_clicked_remove_alacritty_themes)
+        "clicked", self.on_clicked_remove_alacritty_themes
+    )
     hbox03.pack_start(label03, False, False, 10)
     hbox03.pack_end(btn_remove_alacritty_themes, False, False, 10)
     hbox03.pack_end(btn_install_alacritty_themes, False, False, 10)
@@ -65,7 +69,8 @@ def GUI(self, Gtk, vboxStack7, termite):
     hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     btn_set_att_alacritty_theme = Gtk.Button(label="Set ATT Alacritty-theme")
     btn_set_att_alacritty_theme.connect(
-        "clicked", self.on_clicked_set_arcolinux_alacritty_theme_config)
+        "clicked", self.on_clicked_set_arcolinux_alacritty_theme_config
+    )
     btn_reset_alacritty = Gtk.Button(label="Reset Alacritty theme")
     btn_reset_alacritty.connect("clicked", self.on_clicked_reset_alacritty)
     hbox26.pack_end(btn_set_att_alacritty_theme, False, False, 10)
@@ -81,16 +86,17 @@ def GUI(self, Gtk, vboxStack7, termite):
     label27 = Gtk.Label()
     label27.set_markup(
         "Choose your <b>Xfce4-terminal</b> theme in the preferences,\
-        colors, presets of Xfce4-terminal")
+        colors, presets of Xfce4-terminal"
+    )
     hbox27.pack_start(label27, False, False, 10)
 
     hbox2 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     btn_install_xfce4_terminal = Gtk.Button(label="Install Xfce4-terminal")
     btn_install_xfce4_terminal.connect(
-        "clicked", self.on_clicked_install_xfce4_terminal)
+        "clicked", self.on_clicked_install_xfce4_terminal
+    )
     btn_remove_xfce4_terminal = Gtk.Button(label="Remove Xfce4-terminal")
-    btn_remove_xfce4_terminal.connect(
-        "clicked", self.on_clicked_remove_xfce4_terminal)
+    btn_remove_xfce4_terminal.connect("clicked", self.on_clicked_remove_xfce4_terminal)
     hbox2.pack_end(btn_remove_xfce4_terminal, False, False, 10)
     hbox2.pack_end(btn_install_xfce4_terminal, False, False, 10)
 
@@ -98,21 +104,22 @@ def GUI(self, Gtk, vboxStack7, termite):
     label08 = Gtk.Label()
     label08.set_markup("Activate ArcoLinux repos to install all of them")
     btn_install_xfce4_terminal_themes = Gtk.Button(
-        label="Install Xfce4-terminal themes")
+        label="Install Xfce4-terminal themes"
+    )
     btn_install_xfce4_terminal_themes.connect(
-        "clicked", self.on_clicked_install_xfce4_themes)
-    btn_remove_xfce4_terminal_themes = Gtk.Button(
-        label="Remove Xfce4-terminal themes")
+        "clicked", self.on_clicked_install_xfce4_themes
+    )
+    btn_remove_xfce4_terminal_themes = Gtk.Button(label="Remove Xfce4-terminal themes")
     btn_remove_xfce4_terminal_themes.connect(
-        "clicked", self.on_clicked_remove_xfce4_themes)
+        "clicked", self.on_clicked_remove_xfce4_themes
+    )
     hbox28.pack_start(label08, False, False, 10)
     hbox28.pack_end(btn_remove_xfce4_terminal_themes, False, False, 10)
     hbox28.pack_end(btn_install_xfce4_terminal_themes, False, False, 10)
 
     hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
     btn_choose_xfce4_theme = Gtk.Button(label="Reset xfce4-terminal theme")
-    btn_choose_xfce4_theme.connect(
-        "clicked", self.on_clicked_reset_xfce4_terminal)
+    btn_choose_xfce4_theme.connect("clicked", self.on_clicked_reset_xfce4_terminal)
     hbox29.pack_end(btn_choose_xfce4_theme, False, False, 10)
 
     hbox05 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -137,10 +144,10 @@ def GUI(self, Gtk, vboxStack7, termite):
     label21.set_markup("Install Termite themes")
     btn_install_termite_themes = Gtk.Button(label="Install Termite themes")
     btn_install_termite_themes.connect(
-        "clicked", self.on_clicked_install_termite_themes)
+        "clicked", self.on_clicked_install_termite_themes
+    )
     btn_remove_termite_themes = Gtk.Button(label="Remove Termite themes")
-    btn_remove_termite_themes.connect(
-        "clicked", self.on_clicked_remove_termite_themes)
+    btn_remove_termite_themes.connect("clicked", self.on_clicked_remove_termite_themes)
     hbox21.pack_start(label21, False, False, 10)
     hbox21.pack_end(btn_remove_termite_themes, False, False, 10)
     hbox21.pack_end(btn_install_termite_themes, False, False, 10)

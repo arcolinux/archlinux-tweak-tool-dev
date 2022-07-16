@@ -2,8 +2,8 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-#import os
-#import Functions as fn
+# import os
+# import Functions as fn
 
 # This function has one job, and one job only; ensure that check boxes match
 # what is passed to it, based on the logic from the calling function

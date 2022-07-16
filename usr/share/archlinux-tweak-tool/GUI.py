@@ -4,10 +4,12 @@
 
 # ============Functions============
 import Functions as fn
+
 # import os
 
 # import autostart
 import desktopr
+
 # import fish
 import fixes
 import lightdm
@@ -15,13 +17,16 @@ import login
 import lxdm
 import neofetch
 import sddm
+
 # import services
 # import shell
 import termite
+
 # import template
 import themer
 import user
 import zsh_theme
+
 # import polybar
 # import slim
 # import Gtk_Functions
@@ -39,12 +44,14 @@ import Neofetch_GUI
 import Pacman_GUI
 import Privacy_GUI
 import Termite_GUI
+
 # import Template_GUI
 import Utilities_GUI
 import Services_GUI
 import Shell_GUI
 import Themer_GUI
 import User_GUI
+
 # import Oblogout_GUI
 # import Slimlock_GUI
 # import Polybar_GUI
@@ -68,7 +75,7 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
 
     self.notification_label = Gtk.Label()
 
-    pb_panel = GdkPixbuf.Pixbuf().new_from_file(base_dir + '/images/panel.png')
+    pb_panel = GdkPixbuf.Pixbuf().new_from_file(base_dir + "/images/panel.png")
     panel = Gtk.Image().new_from_pixbuf(pb_panel)
 
     overlayFrame = Gtk.Overlay()
@@ -142,8 +149,10 @@ def GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):  # noqa
         hbox41.pack_start(hseparator, True, True, 0)
 
         lbl2 = Gtk.Label()
-        lbl2.set_markup("First install the ArcoLinux Mirrors and ArcoLinux keys\n\
-Then you will be able to set the mirrors of ArcoLinux")
+        lbl2.set_markup(
+            "First install the ArcoLinux Mirrors and ArcoLinux keys\n\
+Then you will be able to set the mirrors of ArcoLinux"
+        )
 
         vboxStack16.pack_start(hbox31, False, False, 0)
         vboxStack16.pack_start(hbox41, False, False, 0)
@@ -165,8 +174,7 @@ Then you will be able to set the mirrors of ArcoLinux")
     if debug:
         print("Desktopr_GUI")
 
-    Desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr,
-                     fn, base_dir, Pango)
+    Desktopr_GUI.GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, fn, base_dir, Pango)
 
     # # ==========================================================
     # #               FIXES
@@ -198,19 +206,23 @@ Then you will be able to set the mirrors of ArcoLinux")
         vboxStack4.pack_start(hbox31, False, False, 0)
         vboxStack4.pack_start(hbox41, False, False, 0)
         ls = Gtk.Label()
-        ls.set_markup("<b>We did not find the application arcolinux-grub-theme-vimix-git</b>\n\
+        ls.set_markup(
+            "<b>We did not find the application arcolinux-grub-theme-vimix-git</b>\n\
 <b>First activate the ArcoLinux repos in the Pacman tab</b>\n\
 Then you can choose all kinds of wallpapers\n\
-We will reload the ATT automatically")
+We will reload the ATT automatically"
+        )
 
         if fn.check_systemd_boot():
-            ls.set_markup("<b>We believe you are on a system that uses systemd boot</b>\n\
-<b>Grub can not be used</b>")
+            ls.set_markup(
+                "<b>We believe you are on a system that uses systemd boot</b>\n\
+<b>Grub can not be used</b>"
+            )
 
         install_arco_vimix = Gtk.Button(
-            label="Install the grub Vimix theme and ATT will reboot automatically")
-        install_arco_vimix.connect(
-            "clicked", self.on_click_install_arco_vimix_clicked)
+            label="Install the grub Vimix theme and ATT will reboot automatically"
+        )
+        install_arco_vimix.connect("clicked", self.on_click_install_arco_vimix_clicked)
         if fn.check_systemd_boot():
             vboxStack4.pack_start(ls, True, False, 0)
         else:
@@ -224,8 +236,7 @@ We will reload the ATT automatically")
     if debug:
         print("Login_GUI")
 
-    Login_GUI.GUI(self, Gtk, vboxStack22,
-                  sddm, lightdm, lxdm, fn, login)
+    Login_GUI.GUI(self, Gtk, vboxStack22, sddm, lightdm, lxdm, fn, login)
 
     # # ==========================================================
     # #               NEOFETCH
@@ -250,7 +261,8 @@ We will reload the ATT automatically")
         ls = Gtk.Label()
         ls.set_markup(
             "If you install <b>Neofetch</b> and the <i>ArcoLinux \
-themes</i> you can customize <b>Neofetch</b>")
+themes</i> you can customize <b>Neofetch</b>"
+        )
         vboxStack8.pack_start(ls, True, False, 0)
 
     # ==========================================================
@@ -364,8 +376,7 @@ themes</i> you can customize <b>Neofetch</b>")
 
     stack.add_titled(vboxStack7, "stack8", "Terminals")  # Termite themes
 
-    stack.add_titled(vboxStack20, "stack20",
-                     "Terminal Fun")  # lolcat and others
+    stack.add_titled(vboxStack20, "stack20", "Terminal Fun")  # lolcat and others
 
     stack.add_titled(vboxStack10, "stack11", "Themes")  # Theme changer
 
@@ -393,19 +404,21 @@ themes</i> you can customize <b>Neofetch</b>")
         Gtk.main_quit()
         print("Thanks for using ArchLinux Tweak Tool")
         print("Report issues to make it even better")
-        print("---------------------------------------------------------------------------")
+        print(
+            "---------------------------------------------------------------------------"
+        )
 
     lbl_distro = Gtk.Label(xalign=0)
     lbl_distro.set_markup("Working on\n" + fn.change_distro_label(fn.distr))
     btnReloadAtt = Gtk.Button(label="Reload ATT")
     btnReloadAtt.set_size_request(100, 30)
-    btnReloadAtt.connect('clicked', self.on_reload_att_clicked)
+    btnReloadAtt.connect("clicked", self.on_reload_att_clicked)
     btnReStartAtt = Gtk.Button(label="Restart ATT")
     btnReStartAtt.set_size_request(100, 30)
-    btnReStartAtt.connect('clicked', self.on_refresh_att_clicked)
+    btnReStartAtt.connect("clicked", self.on_refresh_att_clicked)
     btnQuitAtt = Gtk.Button(label="Quit ATT")
     btnQuitAtt.set_size_request(100, 30)
-    btnQuitAtt.connect('clicked', on_quit)
+    btnQuitAtt.connect("clicked", on_quit)
 
     # =====================================================
     #               SUPPORT LINK
@@ -413,7 +426,8 @@ themes</i> you can customize <b>Neofetch</b>")
     pE = Gtk.EventBox()
 
     pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
-        fn.path.join(base_dir, 'images/support.png'), 58, 58)
+        fn.path.join(base_dir, "images/support.png"), 58, 58
+    )
     pimage = Gtk.Image().new_from_pixbuf(pbp)
 
     pE.add(pimage)
@@ -421,8 +435,7 @@ themes</i> you can customize <b>Neofetch</b>")
     pE.connect("button_press_event", self.on_social_clicked)
     pE.set_property("has-tooltip", True)
 
-    pE.connect("query-tooltip", self.tooltip_callback,
-               "Support or get support")
+    pE.connect("query-tooltip", self.tooltip_callback, "Support or get support")
 
     # =====================================================
     #                      PACKS

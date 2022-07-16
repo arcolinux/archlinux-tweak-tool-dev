@@ -2,6 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
+
 def GUI(self, Gtk, vboxStack9, fn):
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox4 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -20,28 +21,52 @@ def GUI(self, Gtk, vboxStack9, fn):
     lbl6 = Gtk.Label(xalign=0)
 
     if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish":
-        lbl2.set_markup("  Once you have selected and deselected the utilities you want, \
-please open a terminal to see how it looks")
-        lbl3.set_markup("  We recommend using not more than two utilities at the same time, \
-due to screen real estate")
-        lbl4.set_markup("  For some of these packages you will need to add the <b>ArcoLinux \
-repositories</b>")
-        lbl5.set_markup("  Without the ArcoLinux repositories only neofetch and screenfetch \
-are available")
+        lbl2.set_markup(
+            "  Once you have selected and deselected the utilities you want, \
+please open a terminal to see how it looks"
+        )
+        lbl3.set_markup(
+            "  We recommend using not more than two utilities at the same time, \
+due to screen real estate"
+        )
+        lbl4.set_markup(
+            "  For some of these packages you will need to add the <b>ArcoLinux \
+repositories</b>"
+        )
+        lbl5.set_markup(
+            "  Without the ArcoLinux repositories only neofetch and screenfetch \
+are available"
+        )
         lbl6.set_markup(
-            "  At the end of .bashrc, .zshrc or fish.config we will add the utility")
+            "  At the end of .bashrc, .zshrc or fish.config we will add the utility"
+        )
 
     else:
         lbl2.set_markup(
             "  Arcolinux Tweak Tool was unable to detect your Shell, or was unable to obtain \
-your shells config file.")
+your shells config file."
+        )
         lbl3.set_markup(
             "  Arcolinux Tweak Tool only supports BASH, ZSH and FISH currently. If you are \
-using something else, you are unable to use these tools from ATT.")
+using something else, you are unable to use these tools from ATT."
+        )
 
     # Every util needs to have a util switch, and a lolcat switch.
-    utils = ["neofetch", "screenfetch", "alsi", "paleofetch", "fetch", "hfetch",
-             "sfetch", "ufetch", "ufetch-arco", "pfetch", "sysinfo", "sysinfo-retro", "cpufetch"]
+    utils = [
+        "neofetch",
+        "screenfetch",
+        "alsi",
+        "paleofetch",
+        "fetch",
+        "hfetch",
+        "sfetch",
+        "ufetch",
+        "ufetch-arco",
+        "pfetch",
+        "sysinfo",
+        "sysinfo-retro",
+        "cpufetch",
+    ]
 
     util_switches = []
     self.neofetch_util = Gtk.Switch()
@@ -106,8 +131,7 @@ using something else, you are unable to use these tools from ATT.")
     # Colorscripts is unique in this list, as it does NOT need a lolcat toggle,
     # so handled seperately.
     self.colorscript = Gtk.Switch()
-    self.colorscript.connect(
-        "notify::active", self.util_toggle, "colorscript random")
+    self.colorscript.connect("notify::active", self.util_toggle, "colorscript random")
     if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish":
         self.colorscript.set_sensitive(True)
     else:
@@ -141,11 +165,14 @@ using something else, you are unable to use these tools from ATT.")
         util_label = Gtk.Label(xalign=0)
         util_label.set_markup(utils[i].capitalize())
         util_switches[i].connect("notify::active", self.util_toggle, utils[i])
-        lolcat_switches[i].connect(
-            "notify::active", self.lolcat_toggle, utils[i])
+        lolcat_switches[i].connect("notify::active", self.lolcat_toggle, utils[i])
         # If we can't find the current shell config or if we don't know what
         # the current shell is; disable all buttons.
-        if fn.get_shell() == "bash" or fn.get_shell() == "zsh" or fn.get_shell() == "fish":
+        if (
+            fn.get_shell() == "bash"
+            or fn.get_shell() == "zsh"
+            or fn.get_shell() == "fish"
+        ):
             util_switches[i].set_sensitive(True)
             lolcat_switches[i].set_sensitive(True)
         else:
@@ -154,26 +181,19 @@ using something else, you are unable to use these tools from ATT.")
         grid.attach(sep0, 0, i, 2, 1)
         grid.attach_next_to(util_label, sep0, Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(sep1, util_label, Gtk.PositionType.RIGHT, 1, 1)
-        grid.attach_next_to(
-            util_switches[i], sep1, Gtk.PositionType.RIGHT, 1, 1)
-        grid.attach_next_to(
-            sep2, util_switches[i], Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(util_switches[i], sep1, Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(sep2, util_switches[i], Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(lolcat_label, sep2, Gtk.PositionType.RIGHT, 1, 1)
         grid.attach_next_to(sep3, lolcat_label, Gtk.PositionType.RIGHT, 1, 1)
-        grid.attach_next_to(
-            lolcat_switches[i], sep3, Gtk.PositionType.RIGHT, 1, 1)
-        grid.attach_next_to(
-            sep4, lolcat_switches[i], Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(lolcat_switches[i], sep3, Gtk.PositionType.RIGHT, 1, 1)
+        grid.attach_next_to(sep4, lolcat_switches[i], Gtk.PositionType.RIGHT, 1, 1)
         # We add colorscripts at the end.
-        if i == len(utils)-1:
-            grid.insert_row(i+1)
-            grid.attach(cs_sep0, 0, i+1, 2, 1)
-            grid.attach_next_to(cs_label, cs_sep0,
-                                Gtk.PositionType.RIGHT, 1, 1)
-            grid.attach_next_to(cs_sep1, cs_label,
-                                Gtk.PositionType.RIGHT, 1, 1)
-            grid.attach_next_to(self.colorscript, cs_sep1,
-                                Gtk.PositionType.RIGHT, 1, 1)
+        if i == len(utils) - 1:
+            grid.insert_row(i + 1)
+            grid.attach(cs_sep0, 0, i + 1, 2, 1)
+            grid.attach_next_to(cs_label, cs_sep0, Gtk.PositionType.RIGHT, 1, 1)
+            grid.attach_next_to(cs_sep1, cs_label, Gtk.PositionType.RIGHT, 1, 1)
+            grid.attach_next_to(self.colorscript, cs_sep1, Gtk.PositionType.RIGHT, 1, 1)
 
     vbox14.pack_start(lbl2, False, False, 0)
     vbox14.pack_start(lbl3, False, False, 0)

@@ -5,13 +5,13 @@
 import Functions as fn
 from gi.repository import Gtk, GdkPixbuf
 import gi
-gi.require_version('Gtk', '3.0')
+
+gi.require_version("Gtk", "3.0")
 
 base_dir = fn.path.dirname(fn.path.realpath(__file__))
 
 
 class Support(Gtk.Dialog):
-
     def __init__(self, parent):
         Gtk.Dialog.__init__(self, "Credits - Support Development", parent, 0)
 
@@ -29,7 +29,8 @@ class Support(Gtk.Dialog):
         label = Gtk.Label()
         label.set_line_wrap(True)
         label.set_justify(Gtk.Justification.CENTER)
-        label.set_markup("Big thanks to <b>Brad Heffernan</b> who was the driving\
+        label.set_markup(
+            "Big thanks to <b>Brad Heffernan</b> who was the driving\
             force behind the ArchLinux Tweak Tool.\n\
 After his departure <b>Cameron Percival</b> and <b>Erik Dubois</b> kept developing\
 this easy and efficient tool.\n\n\
@@ -38,14 +39,16 @@ You can support the project with providing code, fixes, ideas, ... via github.\n
 You can give support via donations.\n\
 Nowadays the goal of the app is to bridge all Arch Linux based systems.\n\n\
 IT is all Arch Linux\n\
-the right setting - the right config - the right application - at the right place")
+the right setting - the right config - the right application - at the right place"
+        )
 
         label2 = Gtk.Label()
         label2.set_justify(Gtk.Justification.CENTER)
         label2.set_markup("Support <b>ArcoLinux</b> - support this app")
 
-        logo = GdkPixbuf.Pixbuf().new_from_file_at_size(fn.path.join(base_dir,
-                                                                     'images/archlinux-tweak-tool.png'), 100, 100)
+        logo = GdkPixbuf.Pixbuf().new_from_file_at_size(
+            fn.path.join(base_dir, "images/archlinux-tweak-tool.png"), 100, 100
+        )
         logo_image = Gtk.Image().new_from_pixbuf(logo)
 
         # ghE = Gtk.EventBox()  # github
@@ -53,58 +56,83 @@ the right setting - the right config - the right application - at the right plac
 
         donatE = Gtk.EventBox()  # paypal
         pbdisc = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            fn.path.join(base_dir, 'images/donate.png'), 54, 54)
+            fn.path.join(base_dir, "images/donate.png"), 54, 54
+        )
         ppimage = Gtk.Image().new_from_pixbuf(pbdisc)
         donatE.add(ppimage)
-        donatE.connect("button_press_event", self.on_support_click,
-                       "https://www.arcolinux.info/donation/")
+        donatE.connect(
+            "button_press_event",
+            self.on_support_click,
+            "https://www.arcolinux.info/donation/",
+        )
         donatE.set_property("has-tooltip", True)
-        donatE.connect("query-tooltip", self.tooltip_callback,
-                       "Different ways to support")
+        donatE.connect(
+            "query-tooltip", self.tooltip_callback, "Different ways to support"
+        )
 
         patreonE = Gtk.EventBox()  # patreon
         pbp = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            fn.path.join(base_dir, 'images/patreon.png'), 48, 48)
+            fn.path.join(base_dir, "images/patreon.png"), 48, 48
+        )
         pimage = Gtk.Image().new_from_pixbuf(pbp)
         patreonE.add(pimage)
-        patreonE.connect("button_press_event", self.on_support_click,
-                         "https://www.patreon.com/arcolinux")
+        patreonE.connect(
+            "button_press_event",
+            self.on_support_click,
+            "https://www.patreon.com/arcolinux",
+        )
         patreonE.set_property("has-tooltip", True)
-        patreonE.connect("query-tooltip", self.tooltip_callback,
-                         "Support ArcoLinux on Patreon")
+        patreonE.connect(
+            "query-tooltip", self.tooltip_callback, "Support ArcoLinux on Patreon"
+        )
 
         paypalE = Gtk.EventBox()  # paypal
         pbpp = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            fn.path.join(base_dir, 'images/paypal.png'), 54, 54)
+            fn.path.join(base_dir, "images/paypal.png"), 54, 54
+        )
         ppimage = Gtk.Image().new_from_pixbuf(pbpp)
         paypalE.add(ppimage)
-        paypalE.connect("button_press_event", self.on_support_click,
-                        "https://www.paypal.com/paypalme/arcolinuxpaypal")
+        paypalE.connect(
+            "button_press_event",
+            self.on_support_click,
+            "https://www.paypal.com/paypalme/arcolinuxpaypal",
+        )
         paypalE.set_property("has-tooltip", True)
-        paypalE.connect("query-tooltip", self.tooltip_callback,
-                        "Donate to this project via paypal")
+        paypalE.connect(
+            "query-tooltip", self.tooltip_callback, "Donate to this project via paypal"
+        )
 
         discordE = Gtk.EventBox()  # paypal
         pbdisc = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            fn.path.join(base_dir, 'images/discord.png'), 54, 54)
+            fn.path.join(base_dir, "images/discord.png"), 54, 54
+        )
         ppimage = Gtk.Image().new_from_pixbuf(pbdisc)
         discordE.add(ppimage)
-        discordE.connect("button_press_event",
-                         self.on_support_click, "https://discord.gg/R2amEEz")
+        discordE.connect(
+            "button_press_event", self.on_support_click, "https://discord.gg/R2amEEz"
+        )
         discordE.set_property("has-tooltip", True)
-        discordE.connect("query-tooltip", self.tooltip_callback,
-                         "Get ATT support on Discord")
+        discordE.connect(
+            "query-tooltip", self.tooltip_callback, "Get ATT support on Discord"
+        )
 
         githubE = Gtk.EventBox()  # paypal
         pbghub = GdkPixbuf.Pixbuf().new_from_file_at_size(
-            fn.path.join(base_dir, 'images/github.png'), 54, 54)
+            fn.path.join(base_dir, "images/github.png"), 54, 54
+        )
         ppimage = Gtk.Image().new_from_pixbuf(pbghub)
         githubE.add(ppimage)
-        githubE.connect("button_press_event", self.on_support_click,
-                        "https://github.com/arcolinux/archlinux-tweak-tool-dev")
+        githubE.connect(
+            "button_press_event",
+            self.on_support_click,
+            "https://github.com/arcolinux/archlinux-tweak-tool-dev",
+        )
         githubE.set_property("has-tooltip", True)
-        githubE.connect("query-tooltip", self.tooltip_callback,
-                        "Donate time and code to this project")
+        githubE.connect(
+            "query-tooltip",
+            self.tooltip_callback,
+            "Donate time and code to this project",
+        )
 
         # vbox1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
@@ -132,18 +160,45 @@ the right setting - the right config - the right application - at the right plac
 
     def weblink(self, link):
         if fn.check_package_installed("firefox"):
-            fn.subprocess.call(["sudo", "-H", "-u", fn.sudo_username,
-                               "bash", "-c", "firefox --new-tab " + link],
-                               shell=False)
+            fn.subprocess.call(
+                [
+                    "sudo",
+                    "-H",
+                    "-u",
+                    fn.sudo_username,
+                    "bash",
+                    "-c",
+                    "firefox --new-tab " + link,
+                ],
+                shell=False,
+            )
         else:
             if fn.check_package_installed("chromium"):
                 fn.subprocess.call(
-                    ["sudo", "-H", "-u", fn.sudo_username,
-                        "bash", "-c", "chromium " + link],
-                    shell=False)
+                    [
+                        "sudo",
+                        "-H",
+                        "-u",
+                        fn.sudo_username,
+                        "bash",
+                        "-c",
+                        "chromium " + link,
+                    ],
+                    shell=False,
+                )
             else:
-                fn.subprocess.call(["sudo", "-H", "-u", fn.sudo_username, "bash",
-                                   "-c", "exo-open --launch webbrowser " + link], shell=False)
+                fn.subprocess.call(
+                    [
+                        "sudo",
+                        "-H",
+                        "-u",
+                        fn.sudo_username,
+                        "bash",
+                        "-c",
+                        "exo-open --launch webbrowser " + link,
+                    ],
+                    shell=False,
+                )
 
     def tooltip_callback(self, widget, x, y, keyboard_mode, tooltip, text):
         tooltip.set_text(text)

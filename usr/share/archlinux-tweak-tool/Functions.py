@@ -1,6 +1,9 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+import gi
+
+gi.require_version("Gtk", "3.0")
 
 from os import unlink, walk, execl, getpid, system, stat, readlink
 from os import path, getlogin, mkdir, makedirs, listdir
@@ -13,9 +16,6 @@ import shutil
 import psutil
 import datetime
 import subprocess
-import distro
-import gi
-gi.require_version('Gtk', '3.0')
 
 
 # =====================================================
@@ -42,7 +42,9 @@ sddm_default_d2 = "/etc/sddm.conf.d/kde_settings.conf"
 sddm_default_d2_bak = "/etc/bak.kde_settings.conf"
 sddm_default_d2_dir = "/etc/sddm.conf.d/"
 sddm_default_d1_arco = "/usr/share/archlinux-tweak-tool/data/arco/sddm/sddm.conf"
-sddm_default_d2_arco = "/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf"
+sddm_default_d2_arco = (
+    "/usr/share/archlinux-tweak-tool/data/arco/sddm.conf.d/kde_settings.conf"
+)
 # lightdm
 lightdm_conf = "/etc/lightdm/lightdm.conf"
 lightdm_conf_bak = "/etc/bak.lightdm.conf"
@@ -51,8 +53,12 @@ lightdm_greeter_bak = "/etc/bak.lightdm-gtk-greeter.conf"
 lightdm_slick_greeter = "/etc/lightdm/slick-greeter.conf"
 lightdm_slick_greeter_bak = "/etc/bak.slick-greeter.conf"
 lightdm_conf_arco = "/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm.conf"
-lightdm_greeter_arco = "/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm-gtk-greeter.conf"
-ligthdm_slick_greeter_arco = "/usr/share/archlinux-tweak-tool/data/arco/lightdm/slick-greeter.conf"
+lightdm_greeter_arco = (
+    "/usr/share/archlinux-tweak-tool/data/arco/lightdm/lightdm-gtk-greeter.conf"
+)
+ligthdm_slick_greeter_arco = (
+    "/usr/share/archlinux-tweak-tool/data/arco/lightdm/slick-greeter.conf"
+)
 # lxdm
 lxdm_conf = "/etc/lxdm/lxdm.conf"
 lxdm_conf_bak = "/etc/bak.lxdm.conf"
@@ -65,7 +71,9 @@ samba_config = "/etc/samba/smb.conf"
 mirrorlist = "/etc/pacman.d/mirrorlist"
 arcolinux_mirrorlist = "/etc/pacman.d/arcolinux-mirrorlist"
 xerolinux_mirrorlist = "/etc/pacman.d/xerolinux-mirrorlist"
-arcolinux_mirrorlist_original = "/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist"
+arcolinux_mirrorlist_original = (
+    "/usr/share/archlinux-tweak-tool/data/arco/arcolinux-mirrorlist"
+)
 pacman = "/etc/pacman.conf"
 pacman_arch = "/usr/share/archlinux-tweak-tool/data/arch/pacman/pacman.conf"
 pacman_arco = "/usr/share/archlinux-tweak-tool/data/arco/pacman/pacman.conf"
@@ -74,7 +82,9 @@ pacman_garuda = "/usr/share/archlinux-tweak-tool/data/garuda/pacman/pacman.conf"
 blank_pacman_arch = "/usr/share/archlinux-tweak-tool/data/arch/pacman/blank/pacman.conf"
 blank_pacman_arco = "/usr/share/archlinux-tweak-tool/data/arco/pacman/blank/pacman.conf"
 blank_pacman_eos = "/usr/share/archlinux-tweak-tool/data/eos/pacman/blank/pacman.conf"
-blank_pacman_garuda = "/usr/share/archlinux-tweak-tool/data/garuda/pacman/blank/pacman.conf"
+blank_pacman_garuda = (
+    "/usr/share/archlinux-tweak-tool/data/garuda/pacman/blank/pacman.conf"
+)
 neofetch_arco = "/usr/share/archlinux-tweak-tool/data/arco/neofetch/config.conf"
 alacritty_arco = "/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml"
 
@@ -186,33 +196,35 @@ Include = /etc/pacman.d/mirrorlist"
 arch_multilib_repo = "[multilib]\n\
 Include = /etc/pacman.d/mirrorlist"
 
-leftwm_themes_list = ["arise",
-                      "candy",
-                      "db",
-                      "db-color-dev",
-                      "db-comic",
-                      "db-labels",
-                      "db-nemesis",
-                      "db-scifi",
-                      "docky",
-                      "doublebar",
-                      "eden",
-                      "forest",
-                      "grayblocks",
-                      "greyblocks",
-                      "halo",
-                      "kittycafe-dm",
-                      "kittycafe-sm",
-                      "material",
-                      "matrix",
-                      "mesh",
-                      "parker",
-                      "pi",
-                      "sb-horror",
-                      "shades",
-                      "smooth",
-                      "space",
-                      "starwars"]
+leftwm_themes_list = [
+    "arise",
+    "candy",
+    "db",
+    "db-color-dev",
+    "db-comic",
+    "db-labels",
+    "db-nemesis",
+    "db-scifi",
+    "docky",
+    "doublebar",
+    "eden",
+    "forest",
+    "grayblocks",
+    "greyblocks",
+    "halo",
+    "kittycafe-dm",
+    "kittycafe-sm",
+    "material",
+    "matrix",
+    "mesh",
+    "parker",
+    "pi",
+    "sb-horror",
+    "shades",
+    "smooth",
+    "space",
+    "starwars",
+]
 
 # =====================================================
 #              END DECLARATION OF VARIABLES
@@ -235,6 +247,7 @@ def get_lines(files):
     except Exception as e:
         print(e)
 
+
 # get position in list
 
 
@@ -245,6 +258,7 @@ def get_position(lists, value):
         return position
     return 0
 
+
 # get positions in list
 
 
@@ -254,6 +268,7 @@ def get_positions(lists, value):
     for d in data:
         position.append(lists.index(d))
     return position
+
 
 # get variable from list
 
@@ -266,11 +281,12 @@ def _get_variable(lists, value):
         data1 = [string for string in data if "#" in string]
 
         for i in data1:
-            if i[:4].find('#') != -1:
+            if i[:4].find("#") != -1:
                 data.remove(i)
     if data:
-        data_clean = [data[0].strip('\n').replace(" ", "")][0].split("=")
+        data_clean = [data[0].strip("\n").replace(" ", "")][0].split("=")
     return data_clean
+
 
 # Check  value exists
 
@@ -280,19 +296,19 @@ def check_value(list, value):
     if len(data) >= 1:
         data1 = [string for string in data if "#" in string]
         for i in data1:
-            if i[:4].find('#') != -1:
+            if i[:4].find("#") != -1:
                 data.remove(i)
     return data
+
 
 # check backups
 
 
 def check_backups(now):
-    if not path.exists(home + "/" + bd + "/Backup-" +
-                       now.strftime("%Y-%m-%d %H")):
-        makedirs(home + "/" + bd + "/Backup-" +
-                 now.strftime("%Y-%m-%d %H"), 0o777)
+    if not path.exists(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H")):
+        makedirs(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H"), 0o777)
         permissions(home + "/" + bd + "/Backup-" + now.strftime("%Y-%m-%d %H"))
+
 
 # check process is running
 
@@ -300,14 +316,13 @@ def check_backups(now):
 def checkIfProcessRunning(processName):
     for proc in psutil.process_iter():
         try:
-            pinfo = proc.as_dict(attrs=['pid', 'name', 'create_time'])
-            if processName == pinfo['pid']:
+            pinfo = proc.as_dict(attrs=["pid", "name", "create_time"])
+            if processName == pinfo["pid"]:
                 return True
-        except (psutil.NoSuchProcess,
-                psutil.AccessDenied,
-                psutil.ZombieProcess):
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
     return False
+
 
 # copytree
 
@@ -339,6 +354,7 @@ def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
                 print("ERROR3")
                 self.ecode = 1
 
+
 # check lightdm value
 
 
@@ -346,12 +362,14 @@ def check_lightdm_value(list, value):
     data = [string for string in list if value in string]
     return data
 
+
 # check sddm value
 
 
 def check_sddm_value(list, value):
     data = [string for string in list if value in string]
     return data
+
 
 # check if file exists
 
@@ -362,6 +380,7 @@ def file_check(file):
 
     return False
 
+
 # check if path exists
 
 
@@ -371,10 +390,11 @@ def path_check(path):
 
     return False
 
+
 # check if value is true or false in file
 
 
-def check_content(value, file):         # noqa
+def check_content(value, file):  # noqa
     try:
         with open(file, "r", encoding="utf-8") as myfile:
             lines = myfile.readlines()
@@ -390,39 +410,45 @@ def check_content(value, file):         # noqa
     except:
         return False
 
+
 # check if package is installed or not
 
 
-def check_package_installed(package):         # noqa
+def check_package_installed(package):  # noqa
     try:
-        subprocess.check_output("pacman -Qi " + package,
-                                shell=True, stderr=subprocess.STDOUT)
-        #package is installed
+        subprocess.check_output(
+            "pacman -Qi " + package, shell=True, stderr=subprocess.STDOUT
+        )
+        # package is installed
         return True
     except subprocess.CalledProcessError:
-        #package is not installed
+        # package is not installed
         return False
+
 
 # check if service is active
 
 
-def check_service(service):         # noqa
+def check_service(service):  # noqa
     try:
         command = "systemctl is-active " + service
-        output = subprocess.run(command.split(" "),
-                                check=True,
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+        output = subprocess.run(
+            command.split(" "),
+            check=True,
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         status = output.stdout.decode().strip()
         if status == "active":
-            #print("Service is active")
+            # print("Service is active")
             return True
         else:
-            #print("Service is inactive")
+            # print("Service is inactive")
             return False
     except Exception:
         return False
+
 
 # list normal users
 
@@ -447,17 +473,19 @@ def list_users(filename):  # noqa
     except Exception as e:
         print(e)
 
+
 # check if user is part of the group
 
 
 def check_group(group):
     try:
-        groups = subprocess.run(["sh", "-c", "id " +
-                                sudo_username],
-                                check=True,
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+        groups = subprocess.run(
+            ["sh", "-c", "id " + sudo_username],
+            check=True,
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         for x in groups.stdout.decode().split(" "):
             if group in x:
                 return True
@@ -468,10 +496,14 @@ def check_group(group):
 
 
 def check_systemd_boot():
-    if path_check("/boot/loader") is True and file_check("/boot/loader/loader.conf") is True:
+    if (
+        path_check("/boot/loader") is True
+        and file_check("/boot/loader/loader.conf") is True
+    ):
         return True
     else:
         return False
+
 
 # =====================================================
 #               END GLOBAL FUNCTIONS
@@ -488,7 +520,7 @@ def check_arco_repos_active():
 
         arco_base = "[arcolinux_repo]"
         arco_3p = "[arcolinux_repo_3party]"
-        #arco_xl = "[arcolinux_repo_xlarge]"
+        # arco_xl = "[arcolinux_repo_xlarge]"
 
     for line in lines:
         if arco_base in line:
@@ -506,145 +538,167 @@ def check_arco_repos_active():
 
 
 def install_package(self, package):
-    command = 'pacman -S ' + package + ' --noconfirm --needed'
+    command = "pacman -S " + package + " --noconfirm --needed"
     # if more than one package - checf fails and will install
     if check_package_installed(package):
         print(package + " is/are already installed - nothing to do")
-        GLib.idle_add(show_in_app_notification, self, package
-                      + " is/are already installed - nothing to do")
+        GLib.idle_add(
+            show_in_app_notification,
+            self,
+            package + " is/are already installed - nothing to do",
+        )
         pass
     else:
         try:
             print(command)
-            subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             print(package + " is/are now installed")
-            GLib.idle_add(show_in_app_notification, self, package
-                          + " is/are now installed")
+            GLib.idle_add(
+                show_in_app_notification, self, package + " is/are now installed"
+            )
         except Exception as e:
             print(e)
 
 
 def install_local_package(self, package):
-    command = 'pacman -U ' + package + ' --noconfirm'
+    command = "pacman -U " + package + " --noconfirm"
     # if more than one package - checf fails and will install
     try:
         print(command)
-        subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print(package + " is/are now installed")
-        GLib.idle_add(show_in_app_notification, self, package
-                      + " is/are now installed")
+        GLib.idle_add(show_in_app_notification, self, package + " is/are now installed")
     except Exception as e:
         print(e)
 
 
 def install_arco_package(self, package):
     if check_arco_repos_active():
-        command = 'pacman -S ' + package + ' --noconfirm --needed'
+        command = "pacman -S " + package + " --noconfirm --needed"
         if check_package_installed(package):
             print(package + " is/are already installed - nothing to do")
-            GLib.idle_add(show_in_app_notification, self, package
-                          + " is already installed - nothing to do")
+            GLib.idle_add(
+                show_in_app_notification,
+                self,
+                package + " is already installed - nothing to do",
+            )
             pass
         else:
             try:
                 print(command)
-                subprocess.call(command.split(" "),
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+                subprocess.call(
+                    command.split(" "),
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                )
                 print(package + " is/are now installed")
-                GLib.idle_add(show_in_app_notification, self, package
-                              + " is/are now installed")
+                GLib.idle_add(
+                    show_in_app_notification, self, package + " is/are now installed"
+                )
             except Exception as e:
                 print(e)
     else:
         print("You need to activate the ArcoLinux repos")
         print("Check the pacman tab of the ArchLinux Tweak Tool")
         print("and/or the content of /etc/pacman.conf")
-        GLib.idle_add(show_in_app_notification, self,
-                      "You need to activate the ArcoLinux repos")
+        GLib.idle_add(
+            show_in_app_notification, self, "You need to activate the ArcoLinux repos"
+        )
 
 
 def remove_package(self, package):
-    command = 'pacman -R ' + package + ' --noconfirm'
+    command = "pacman -R " + package + " --noconfirm"
     if check_package_installed(package):
         print(command)
         try:
-            subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             print(package + " is now removed")
-            GLib.idle_add(show_in_app_notification,
-                          self, package + " is now removed")
+            GLib.idle_add(show_in_app_notification, self, package + " is now removed")
         except Exception as e:
             print(e)
     else:
         print(package + " is already removed")
-        GLib.idle_add(show_in_app_notification,
-                      self, package + " is already removed")
+        GLib.idle_add(show_in_app_notification, self, package + " is already removed")
         pass
 
 
 def remove_package_dep(self, package):
-    command = 'pacman -Rss ' + package + ' --noconfirm'
+    command = "pacman -Rss " + package + " --noconfirm"
     if check_package_installed(package):
         print(command)
         try:
-            subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             print(package + " is now removed")
-            GLib.idle_add(show_in_app_notification, self, package
-                          + " is now removed")
+            GLib.idle_add(show_in_app_notification, self, package + " is now removed")
         except Exception as e:
             print(e)
     else:
         print(package + " is already removed")
-        GLib.idle_add(show_in_app_notification, self, package
-                      + " is already removed")
+        GLib.idle_add(show_in_app_notification, self, package + " is already removed")
         pass
 
 
 def enable_login_manager(self, loginmanager):
     if check_package_installed(loginmanager):
         try:
-            command = 'systemctl enable ' + loginmanager + '.service -f'
+            command = "systemctl enable " + loginmanager + ".service -f"
             print(command)
-            subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             print(loginmanager + " has been enabled - reboot")
-            GLib.idle_add(show_in_app_notification, self, loginmanager
-                          + " has been enabled - reboot")
+            GLib.idle_add(
+                show_in_app_notification,
+                self,
+                loginmanager + " has been enabled - reboot",
+            )
         except Exception as e:
             print(e)
     else:
         print(loginmanager + " is not installed")
-        GLib.idle_add(show_in_app_notification, self, loginmanager
-                      + " is not installed")
+        GLib.idle_add(
+            show_in_app_notification, self, loginmanager + " is not installed"
+        )
 
 
 def add_autologin_group(self):
-    com = subprocess.run(["sh", "-c", "su - " + sudo_username
-                          + " -c groups"],
-                         check=True, shell=False, stdout=subprocess.PIPE)
+    com = subprocess.run(
+        ["sh", "-c", "su - " + sudo_username + " -c groups"],
+        check=True,
+        shell=False,
+        stdout=subprocess.PIPE,
+    )
     groups = com.stdout.decode().strip().split(" ")
     # print(groups)
     if "autologin" not in groups:
-        subprocess.run(["gpasswd", "-a",
-                        sudo_username,
-                        "autologin"],
-                       check=True,
-                       shell=False)
+        subprocess.run(
+            ["gpasswd", "-a", sudo_username, "autologin"], check=True, shell=False
+        )
+
 
 # =====================================================
 #              CAJA SHARE PLUGIN
@@ -652,24 +706,28 @@ def add_autologin_group(self):
 
 
 def install_arco_caja_plugin(self, widget):
-    install = 'pacman -S caja arcolinux-caja-share --noconfirm'
+    install = "pacman -S caja arcolinux-caja-share --noconfirm"
 
     if check_package_installed("arcolinux-caja-share"):
         print("Arcolinux-caja-share is already installed")
         pass
     else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Arcolinux-caja-share is now installed - reboot")
-        GLib.idle_add(self.label7.set_text,
-                      "Arcolinux-caja-share is now installed - reboot")
+        GLib.idle_add(
+            self.label7.set_text, "Arcolinux-caja-share is now installed - reboot"
+        )
     print("Other apps that might be interesting for sharing are :")
     print(" - arcolinux-thunar-share-plugin (thunar)")
     print(" - arcolinux-nemo-share (cinnamon)")
     print(" - arcolinux-nautilus-share (gnome - budgie)")
     print(" - kdenetwork-filesharing (plasma)")
+
 
 # =====================================================
 #              CHANGE SHELL
@@ -677,14 +735,17 @@ def install_arco_caja_plugin(self, widget):
 
 
 def change_shell(self, shell):
-    command = 'sudo chsh ' + sudo_username + ' -s /bin/' + shell
-    subprocess.call(command,
-                    shell=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "sudo chsh " + sudo_username + " -s /bin/" + shell
+    subprocess.call(
+        command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+    )
     print("Shell changed to " + shell + " for the user - logout")
-    GLib.idle_add(show_in_app_notification, self,
-                  "Shell changed to " + shell + " for user - logout")
+    GLib.idle_add(
+        show_in_app_notification,
+        self,
+        "Shell changed to " + shell + " for user - logout",
+    )
+
 
 # =====================================================
 #               CONVERT COLOR
@@ -695,14 +756,15 @@ def rgb_to_hex(rgb):
     if "rgb" in rgb:
         rgb = rgb.replace("rgb(", "").replace(")", "")
         vals = rgb.split(",")
-        return "#{0:02x}{1:02x}{2:02x}".format(clamp(int(vals[0])),
-                                               clamp(int(vals[1])),
-                                               clamp(int(vals[2])))
+        return "#{0:02x}{1:02x}{2:02x}".format(
+            clamp(int(vals[0])), clamp(int(vals[1])), clamp(int(vals[2]))
+        )
     return rgb
 
 
 def clamp(x):
     return max(0, min(x, 255))
+
 
 # =====================================================
 #               COPY FUNCTION
@@ -715,12 +777,13 @@ def copy_func(src, dst, isdir=False):
     else:
         subprocess.run(["cp", "-p", src, dst], check=True, shell=False)
 
+
 # =====================================================
 #               DISTRO LABEL
 # =====================================================
 
 
-def change_distro_label(name):      # noqa
+def change_distro_label(name):  # noqa
     if name == "arcolinux":
         name = "ArcoLinux"
     if name == "garuda":
@@ -745,35 +808,43 @@ def change_distro_label(name):      # noqa
         name = "CachyOS"
     return name
 
+
 # =====================================================
 #               FISH + PACKAGES (ARCOLINUXD)
 # =====================================================
 
 
 def install_arcolinux_fish_package(self):
-    install = 'pacman -S arcolinux-fish-git --needed --noconfirm'
+    install = "pacman -S arcolinux-fish-git --needed --noconfirm"
 
     try:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("ArcoLinux Fish has been installed")
     except Exception as e:
         print(e)
 
 
 def remove_fish(self):
-    install = 'pacman -Rs fish arcolinux-fish-git --noconfirm'
+    install = "pacman -Rs fish arcolinux-fish-git --noconfirm"
 
-    if not path.exists("/usr/bin/fish") and path.exists("/etc/skel/.config/fish/config.fish"):
+    if not path.exists("/usr/bin/fish") and path.exists(
+        "/etc/skel/.config/fish/config.fish"
+    ):
         pass
     else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
     self.tobash_apply(self)
+
 
 # ====================================================================
 #                      GET DESKTOP
@@ -796,17 +867,20 @@ def remove_fish(self):
 
 def make_grub(self):
     try:
-        command = 'grub-mkconfig -o /boot/grub/grub.cfg'
-        subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        command = "grub-mkconfig -o /boot/grub/grub.cfg"
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("We will update your grub files")
         print("We update your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         print("Be patient...")
         show_in_app_notification(self, "We have updated your grub")
     except Exception as e:
         print(e)
+
 
 # =====================================================
 #               GRUB CONF
@@ -817,14 +891,22 @@ def get_grub_wallpapers():
     if path.isdir("/boot/grub/themes/Vimix"):
         lists = listdir("/boot/grub/themes/Vimix")
 
-        rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png',
-                'terminal_box_c.png', 'terminal_box_s.png',
-                'select_w.png', 'terminal_box_nw.png',
-                'terminal_box_w.png', 'terminal_box_ne.png',
-                'terminal_box_sw.png', 'terminal_box_n.png',
-                'terminal_box_e.png']
+        rems = [
+            "select_e.png",
+            "terminal_box_se.png",
+            "select_c.png",
+            "terminal_box_c.png",
+            "terminal_box_s.png",
+            "select_w.png",
+            "terminal_box_nw.png",
+            "terminal_box_w.png",
+            "terminal_box_ne.png",
+            "terminal_box_sw.png",
+            "terminal_box_n.png",
+            "terminal_box_e.png",
+        ]
 
-        ext = ['.png', '.jpeg', '.jpg']
+        ext = [".png", ".jpeg", ".jpg"]
 
         new_list = [x for x in lists if x not in rems for y in ext if y in x]
 
@@ -842,8 +924,7 @@ def set_grub_wallpaper(self, image):
                 f.close()
 
             val = get_position(lists, "desktop-image: ")
-            lists[val] = "desktop-image: \"" + \
-                path.basename(image) + "\"" + "\n"
+            lists[val] = 'desktop-image: "' + path.basename(image) + '"' + "\n"
 
             with open(grub_theme_conf, "w", encoding="utf-8") as f:
                 f.writelines(lists)
@@ -865,13 +946,15 @@ def set_login_wallpaper(self, image):
                     lists = f.readlines()
                     f.close()
                 val = get_position(lists, "Current=")
-                theme = lists[val].strip('\n').split("=")[1]
+                theme = lists[val].strip("\n").split("=")[1]
             except:
                 pass
 
             if not path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
                 try:
-                    with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
+                    with open(
+                        "/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w"
+                    ) as f:
                         f.write("[General]\n")
                         f.write("background=\n")
                         f.write("type=image\n")
@@ -883,8 +966,11 @@ def set_login_wallpaper(self, image):
             if path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
                 try:
                     print("This is your current theme: " + theme)
-                    with open("/usr/share/sddm/themes/" + theme
-                              + "/theme.conf.user", "r", encoding="utf-8") as f:
+                    with open(
+                        "/usr/share/sddm/themes/" + theme + "/theme.conf.user",
+                        "r",
+                        encoding="utf-8",
+                    ) as f:
                         lists = f.readlines()
                         f.close()
 
@@ -892,7 +978,9 @@ def set_login_wallpaper(self, image):
                     lists[val] = "background=" + image + "\n"
                     print(lists[val])
 
-                    with open("/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w") as f:
+                    with open(
+                        "/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w"
+                    ) as f:
                         f.writelines(lists)
                         f.close()
                     print("Login wallpaper saved")
@@ -925,7 +1013,8 @@ def set_login_wallpaper(self, image):
         else:
             print("There is no /etc/lightdm/lightdm-gtk-greeter.conf")
             show_in_app_notification(
-                self, "There is no /etc/lightdm/lightdm-gtk-greeter.conf")
+                self, "There is no /etc/lightdm/lightdm-gtk-greeter.conf"
+            )
 
         if path.isfile(lightdm_slick_greeter):
             try:
@@ -947,7 +1036,8 @@ def set_login_wallpaper(self, image):
         else:
             print("There is no /etc/lightdm/lightdm-gtk-greeter.conf")
             show_in_app_notification(
-                self, "There is no /etc/lightdm/lightdm-gtk-greeter.conf")
+                self, "There is no /etc/lightdm/lightdm-gtk-greeter.conf"
+            )
 
     # if lxdm
     if self.login_managers_combo.get_active_text() == "lxdm":
@@ -980,7 +1070,7 @@ def reset_login_wallpaper(self, image):
                 lists = f.readlines()
                 f.close()
             val = get_position(lists, "Current=")
-            theme = lists[val].strip('\n').split("=")[1]
+            theme = lists[val].strip("\n").split("=")[1]
         except:
             pass
 
@@ -1004,8 +1094,7 @@ def set_default_grub_theme(self):
 
             if distr == "arch":
                 try:
-                    val = get_position(
-                        grubd, '#GRUB_THEME="/path/to/gfxtheme"')
+                    val = get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
@@ -1013,8 +1102,9 @@ def set_default_grub_theme(self):
             if distr == "arch":
                 try:
                     # for Carli
-                    val = get_position(grubd,
-                                       'GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt')
+                    val = get_position(
+                        grubd, "GRUB_THEME=/usr/share/grub/themes/poly-dark/theme.txt"
+                    )
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
@@ -1028,56 +1118,61 @@ def set_default_grub_theme(self):
 
             if distr == "endeavouros":
                 try:
-                    val = get_position(grubd,
-                                       "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt")
+                    val = get_position(
+                        grubd, "GRUB_THEME=/boot/grub/themes/EndeavourOS/theme.txt"
+                    )
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
             if distr == "garuda":
                 try:
-                    val = get_position(grubd,
-                                       'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"')
+                    val = get_position(
+                        grubd, 'GRUB_THEME="/usr/share/grub/themes/garuda/theme.txt"'
+                    )
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
             if distr == "manjaro":
                 try:
-                    val = get_position(grubd,
-                                       'GRUB_THEME="/usr/share/grub/themes/manjaro/theme.txt"')
+                    val = get_position(
+                        grubd, 'GRUB_THEME="/usr/share/grub/themes/manjaro/theme.txt"'
+                    )
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
             if distr == "xerolinux":
                 try:
-                    val = get_position(grubd,
-                                       'GRUB_THEME="/boot/grub/themes/XeroKDE/theme.txt"')
+                    val = get_position(
+                        grubd, 'GRUB_THEME="/boot/grub/themes/XeroKDE/theme.txt"'
+                    )
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
             if distr == "axyl":
                 try:
-                    val = get_position(grubd,
-                                       'GRUB_THEME="/boot/grub/themes/axyl/theme.txt"')
+                    val = get_position(
+                        grubd, 'GRUB_THEME="/boot/grub/themes/axyl/theme.txt"'
+                    )
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
             if distr == "archcraft":
                 try:
-                    val = get_position(grubd,
-                                       'GRUB_THEME="/boot/grub/themes/archcraft/theme.txt"')
+                    val = get_position(
+                        grubd, 'GRUB_THEME="/boot/grub/themes/archcraft/theme.txt"'
+                    )
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
 
             if distr == "cachyos":
                 try:
-                    val = get_position(grubd,
-                                       '#GRUB_THEME="/path/to/gfxtheme"')
+                    val = get_position(grubd, '#GRUB_THEME="/path/to/gfxtheme"')
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:
                     pass
@@ -1091,8 +1186,7 @@ def set_default_grub_theme(self):
             print("This line has changed in /etc/default/grub")
             print('GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"')
 
-            show_in_app_notification(
-                self, "Grub settings saved in /etc/default/grub")
+            show_in_app_notification(self, "Grub settings saved in /etc/default/grub")
         except Exception as e:
             print(e)
 
@@ -1114,6 +1208,7 @@ def set_grub_timeout(self, number):
         show_in_app_notification(self, "Grub timeout in seconds saved")
     except Exception as e:
         print(e)
+
 
 # =====================================================
 #               GTK3 CONF
@@ -1138,9 +1233,11 @@ def set_grub_timeout(self, number):
 #               HBLOCK CONF
 # =====================================================
 
+
 def hblock_get_state(self):
-    lines = int(subprocess.check_output('wc -l /etc/hosts',
-                                        shell=True).strip().split()[0])
+    lines = int(
+        subprocess.check_output("wc -l /etc/hosts", shell=True).strip().split()[0]
+    )
     if path.exists("/usr/bin/hblock") and lines > 100:
         return True
 
@@ -1166,36 +1263,43 @@ def set_hblock(self, toggle, state):
 
     try:
 
-        install = 'pacman -S arcolinux-hblock-git --needed --noconfirm'
+        install = "pacman -S arcolinux-hblock-git --needed --noconfirm"
         enable = "/usr/bin/hblock"
 
         if state:
             if path.exists("/usr/bin/hblock"):
                 GLib.idle_add(self.label7.set_text, "Database update...")
-                subprocess.call([enable],
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+                subprocess.call(
+                    [enable],
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                )
             else:
                 GLib.idle_add(self.label7.set_text, "Install Hblock......")
-                subprocess.call(install.split(" "),
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+                subprocess.call(
+                    install.split(" "),
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                )
                 GLib.idle_add(self.label7.set_text, "Database update...")
-                subprocess.call([enable],
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+                subprocess.call(
+                    [enable],
+                    shell=False,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                )
 
         else:
             GLib.idle_add(self.label7.set_text, "Remove update...")
-            subprocess.run(["sh", "-c",
-                            "HBLOCK_SOURCES=\'\' /usr/bin/hblock"],
-                           check=True,
-                           shell=False,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT)
+            subprocess.run(
+                ["sh", "-c", "HBLOCK_SOURCES='' /usr/bin/hblock"],
+                check=True,
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
 
         GLib.idle_add(self.label7.set_text, "Complete")
         GLib.source_remove(timeout_id)
@@ -1211,6 +1315,7 @@ def set_hblock(self, toggle, state):
     except Exception as e:
         MessageBox(self, "ERROR!!", str(e))
         print(e)
+
 
 # =====================================================
 #               LIGHTDM SLICK GREETER
@@ -1250,6 +1355,7 @@ def disable_slick_greeter(self):
         except Exception as e:
             print(e)
 
+
 # =====================================================
 #               LOG FILE CREATION
 # =====================================================
@@ -1260,16 +1366,16 @@ att_log_dir = "/var/log/archlinux/att/"
 
 
 def create_log(self):
-    print('Making log in /var/log/archlinux')
+    print("Making log in /var/log/archlinux")
     now = datetime.datetime.now()
     time = now.strftime("%Y-%m-%d-%H-%M-%S")
-    destination = att_log_dir + 'att-log-' + time
-    command = 'sudo pacman -Q > ' + destination
-    subprocess.call(command,
-                    shell=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
-    #GLib.idle_add(show_in_app_notification, self, "Log file created")
+    destination = att_log_dir + "att-log-" + time
+    command = "sudo pacman -Q > " + destination
+    subprocess.call(
+        command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+    )
+    # GLib.idle_add(show_in_app_notification, self, "Log file created")
+
 
 # =====================================================
 #               LOGIN WALL
@@ -1280,19 +1386,28 @@ def get_login_wallpapers():
     if path.isdir(login_backgrounds):
         lists = listdir(login_backgrounds)
 
-        rems = ['select_e.png', 'terminal_box_se.png', 'select_c.png',
-                'terminal_box_c.png', 'terminal_box_s.png',
-                'select_w.png', 'terminal_box_nw.png',
-                'terminal_box_w.png', 'terminal_box_ne.png',
-                'terminal_box_sw.png', 'terminal_box_n.png',
-                'terminal_box_e.png']
+        rems = [
+            "select_e.png",
+            "terminal_box_se.png",
+            "select_c.png",
+            "terminal_box_c.png",
+            "terminal_box_s.png",
+            "select_w.png",
+            "terminal_box_nw.png",
+            "terminal_box_w.png",
+            "terminal_box_ne.png",
+            "terminal_box_sw.png",
+            "terminal_box_n.png",
+            "terminal_box_e.png",
+        ]
 
-        ext = ['.png', '.jpeg', '.jpg']
+        ext = [".png", ".jpeg", ".jpg"]
 
         new_list = [x for x in lists if x not in rems for y in ext if y in x]
 
         new_list.sort()
         return new_list
+
 
 # =====================================================
 #               LXDM
@@ -1300,28 +1415,33 @@ def get_login_wallpapers():
 
 
 def install_att_lxdm_theme_minimalo(self):
-    install = 'pacman -S arcolinux-lxdm-theme-minimalo-git --noconfirm --needed'
+    install = "pacman -S arcolinux-lxdm-theme-minimalo-git --noconfirm --needed"
     try:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Arcolinux-lxdm-theme-minimalo-git is now installed")
     except Exception as e:
         print(e)
 
 
 def remove_att_lxdm_theme_minimalo(self):
-    install = 'pacman -R arcolinux-lxdm-theme-minimalo-git --noconfirm'
+    install = "pacman -R arcolinux-lxdm-theme-minimalo-git --noconfirm"
 
     try:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Arcolinux-lxdm-theme-minimalo-git is now removed")
     except Exception as e:
         print(e)
+
 
 # =====================================================
 #               MESSAGEBOX
@@ -1329,14 +1449,17 @@ def remove_att_lxdm_theme_minimalo(self):
 
 
 def MessageBox(self, title, message):
-    md2 = Gtk.MessageDialog(parent=self,
-                            flags=0,
-                            message_type=Gtk.MessageType.INFO,
-                            buttons=Gtk.ButtonsType.OK,
-                            text=title)
+    md2 = Gtk.MessageDialog(
+        parent=self,
+        flags=0,
+        message_type=Gtk.MessageType.INFO,
+        buttons=Gtk.ButtonsType.OK,
+        text=title,
+    )
     md2.format_secondary_markup(message)
     md2.run()
     md2.destroy()
+
 
 # =====================================================
 #              NEMO SHARE PLUGIN
@@ -1344,24 +1467,28 @@ def MessageBox(self, title, message):
 
 
 def install_arco_nemo_plugin(self, widget):
-    install = 'pacman -S nemo arcolinux-nemo-share --noconfirm'
+    install = "pacman -S nemo arcolinux-nemo-share --noconfirm"
 
     if check_package_installed("arcolinux-nemo-share"):
         print("Arcolinux-nemo-share is already installed")
         pass
     else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Arcolinux-nemo-share is now installed - reboot")
-        GLib.idle_add(self.label7.set_text,
-                      "Arcolinux-nemo-share is now installed - reboot")
+        GLib.idle_add(
+            self.label7.set_text, "Arcolinux-nemo-share is now installed - reboot"
+        )
     print("Other apps that might be interesting for sharing are :")
     print(" - arcolinux-thunar-share-plugin (thunar)")
     print(" - arcolinux-caja-share (mate)")
     print(" - kdenetwork-filesharing (plasma)")
     print(" - arcolinux-nautilus-share (gnome - budgie)")
+
 
 # =====================================================
 #               NEOFETCH CONF
@@ -1383,7 +1510,8 @@ def neofetch_set_value(lists, pos, text, state):
 
 def neofetch_set_backend_value(lists, pos, text, value):
     if text in lists[pos] and "#" not in lists[pos]:
-        lists[pos] = text + value + "\"\n"
+        lists[pos] = text + value + '"\n'
+
 
 # =====================================================
 #               NOTIFICATIONS
@@ -1395,8 +1523,9 @@ def show_in_app_notification(self, message):
         GLib.source_remove(self.timeout_id)
         self.timeout_id = None
 
-    self.notification_label.set_markup("<span foreground=\"white\">" +
-                                       message + "</span>")
+    self.notification_label.set_markup(
+        '<span foreground="white">' + message + "</span>"
+    )
     self.notification_revealer.set_reveal_child(True)
     self.timeout_id = GLib.timeout_add(3000, timeOut, self)
 
@@ -1410,20 +1539,27 @@ def close_in_app_notification(self):
     GLib.source_remove(self.timeout_id)
     self.timeout_id = None
 
+
 # =====================================================
 #               NSSWITCH CONF COPY
 # =====================================================
 
 
 def copy_nsswitch(choice):
-    command = "cp /usr/share/archlinux-tweak-tool/data/"\
-        + choice + "/nsswitch.conf /etc/nsswitch.conf"
+    command = (
+        "cp /usr/share/archlinux-tweak-tool/data/"
+        + choice
+        + "/nsswitch.conf /etc/nsswitch.conf"
+    )
     print(command)
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     print("/etc/nsswitch.conf has been overwritten - reboot")
+
 
 # =====================================================
 #               OBLOGOUT CONF
@@ -1436,6 +1572,7 @@ def get_shortcuts(conflist):
     shortcuts_index = get_position(conflist, sortcuts[0])
     return int(shortcuts_index)
 
+
 # Get commands index
 
 
@@ -1444,26 +1581,30 @@ def get_commands(conflist):
     commands_index = get_position(conflist, commands[0])
     return int(commands_index)
 
+
 # =====================================================
 #               PACE INSTALLATION
 # =====================================================
 
 
 def install_pace(self):
-    install = 'pacman -S pace --noconfirm --needed'
+    install = "pacman -S pace --noconfirm --needed"
 
     if path.exists("/usr/bin/pace"):
-        #print("Pace is already installed")
+        # print("Pace is already installed")
         pass
     else:
         try:
-            subprocess.call(install.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                install.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             print("Pace is now installed")
         except Exception as e:
             print(e)
+
 
 # =====================================================
 #               PACMAN EXTRA KEYS AND MIRRORS
@@ -1474,12 +1615,15 @@ def install_chaotics(self):
     base_dir = path.dirname(path.realpath(__file__))
     name1 = "chaotic-keyring-20220514-1-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + \
-            '/data/garuda/packages/' + name1 + ' --noconfirm'
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        install = (
+            "pacman -U " + base_dir + "/data/garuda/packages/" + name1 + " --noconfirm"
+        )
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Chaotics keyring is now installed")
     except Exception as e:
         print(e)
@@ -1487,12 +1631,15 @@ def install_chaotics(self):
     base_dir = path.dirname(path.realpath(__file__))
     name1 = "chaotic-mirrorlist-20220504-2-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + \
-            '/data/garuda/packages/' + name1 + ' --noconfirm'
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        install = (
+            "pacman -U " + base_dir + "/data/garuda/packages/" + name1 + " --noconfirm"
+        )
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Chaotics mirrorlist is now installed")
     except Exception as e:
         print(e)
@@ -1502,11 +1649,15 @@ def install_endeavouros(self):
     base_dir = path.dirname(path.realpath(__file__))
     name1 = "endeavouros-keyring-20220523-3-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        install = (
+            "pacman -U " + base_dir + "/data/eos/packages/" + name1 + " --noconfirm"
+        )
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("EndeavourOS keyring is now installed")
     except Exception as e:
         print(e)
@@ -1514,11 +1665,15 @@ def install_endeavouros(self):
     base_dir = path.dirname(path.realpath(__file__))
     name1 = "endeavouros-mirrorlist-4.4.3-1-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/eos/packages/' + name1 + ' --noconfirm'
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        install = (
+            "pacman -U " + base_dir + "/data/eos/packages/" + name1 + " --noconfirm"
+        )
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("EndeavourOS mirrorlist is now installed")
     except Exception as e:
         print(e)
@@ -1530,13 +1685,14 @@ def install_arcolinux(self):
     file = listdir(pathway)
 
     try:
-        install = 'pacman -U ' + pathway + \
-            str(file).strip("[]'") + ' --noconfirm'
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
         print(install)
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("ArcoLinux keyring is now installed")
     except Exception as e:
         print(e)
@@ -1544,12 +1700,13 @@ def install_arcolinux(self):
     pathway = base_dir + "/data/arco/packages/arcolinux-mirrorlist/"
     file = listdir(pathway)
     try:
-        install = 'pacman -U ' + pathway + \
-            str(file).strip("[]'") + ' --noconfirm'
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("ArcoLinux mirrorlist is now installed")
     except Exception as e:
         print(e)
@@ -1559,14 +1716,19 @@ def install_xerolinux(self):
     base_dir = path.dirname(path.realpath(__file__))
     name1 = "xerolinux-mirrorlist-0.1.2-1-any.pkg.tar.zst"
     try:
-        install = 'pacman -U ' + base_dir + '/data/xero/packages/' + name1 + ' --noconfirm'
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        install = (
+            "pacman -U " + base_dir + "/data/xero/packages/" + name1 + " --noconfirm"
+        )
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Xerolinux mirrorlist is now installed")
     except Exception as e:
         print(e)
+
 
 # =====================================================
 #               PERMISSIONS
@@ -1589,20 +1751,21 @@ def test(dst):
 
 def permissions(dst):
     try:
-        groups = subprocess.run(["sh", "-c", "id " +
-                                 sudo_username],
-                                check=True,
-                                shell=False,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT)
+        groups = subprocess.run(
+            ["sh", "-c", "id " + sudo_username],
+            check=True,
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         for x in groups.stdout.decode().split(" "):
             if "gid" in x:
                 g = x.split("(")[1]
                 group = g.replace(")", "").strip()
-        subprocess.call(["chown", "-R",
-                         sudo_username + ":" + group, dst], shell=False)
+        subprocess.call(["chown", "-R", sudo_username + ":" + group, dst], shell=False)
     except Exception as e:
         print(e)
+
 
 # =====================================================
 #               RESTART PROGRAM
@@ -1615,85 +1778,108 @@ def restart_program():
         python = sys.executable
         execl(python, python, *sys.argv)
 
+
 # =====================================================
 #               SERVICES - AVAHI
 # =====================================================
 
 
 def install_discovery(self):
-    install = 'pacman -S avahi nss-mdns gvfs-smb --needed --noconfirm'
+    install = "pacman -S avahi nss-mdns gvfs-smb --needed --noconfirm"
 
-    if check_package_installed("avahi") and check_package_installed("nss-mdns") \
-            and check_package_installed("gvfs-smb"):
+    if (
+        check_package_installed("avahi")
+        and check_package_installed("nss-mdns")
+        and check_package_installed("gvfs-smb")
+    ):
         pass
     else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Avahi, nss-mdns and gvfs-smb is now installed")
 
-    command = 'systemctl enable avahi-daemon.service -f --now'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl enable avahi-daemon.service -f --now"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     print("We enabled avahi-daemon.service")
 
 
 def remove_discovery(self):
 
-    command = 'systemctl stop avahi-daemon.service -f --now'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl stop avahi-daemon.service -f --now"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
-    command = 'systemctl disable avahi-daemon.service -f --now'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl disable avahi-daemon.service -f --now"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     print("We disabled avahi-daemon.service")
 
-    command = 'systemctl stop avahi-daemon.socket -f'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl stop avahi-daemon.socket -f"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
-    command = 'systemctl disable avahi-daemon.socket -f'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl disable avahi-daemon.socket -f"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     print("We disabled avahi-daemon.socket")
 
-    command = 'pacman -Rs avahi --noconfirm'
+    command = "pacman -Rs avahi --noconfirm"
     if check_package_installed("avahi"):
-        subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Avahi was removed")
 
-    command = 'pacman -Rs nss-mdns --noconfirm'
+    command = "pacman -Rs nss-mdns --noconfirm"
     if check_package_installed("nss-mdns"):
-        subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("nss-mdns was removed")
 
-    command = 'pacman -Rs gvfs-smb --noconfirm'
+    command = "pacman -Rs gvfs-smb --noconfirm"
     if check_package_installed("gvfs-smb"):
-        subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("gvfs-smb was removed")
     else:
         pass
+
 
 # =====================================================
 #               SERVICES - SAMBA
@@ -1701,7 +1887,7 @@ def remove_discovery(self):
 
 
 def install_samba(self):
-    install = 'pacman -S samba gvfs-smb --needed --noconfirm'
+    install = "pacman -S samba gvfs-smb --needed --noconfirm"
 
     if not path.isdir("/var/cache/samba"):
         makedirs("/var/cache/samba", 0o755)
@@ -1709,58 +1895,73 @@ def install_samba(self):
     if check_package_installed("samba") and check_package_installed("gvfs-smb"):
         pass
     else:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Samba and gvfs-smb are now installed")
 
-    command = 'systemctl enable smb.service -f --now'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl enable smb.service -f --now"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     print("We enabled smb.service")
 
-    command = 'systemctl enable nmb.service -f --now'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl enable nmb.service -f --now"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     print("We enabled nmb.service")
 
 
 def uninstall_samba(self):
 
-    command = 'systemctl disable smb.service -f --now'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl disable smb.service -f --now"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     print("We disabled smb.service")
 
-    command = 'systemctl disable nmb.service -f --now'
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = "systemctl disable nmb.service -f --now"
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     print("We disabled nmb.service")
 
-    command = 'pacman -Rs samba --noconfirm'
+    command = "pacman -Rs samba --noconfirm"
     if check_package_installed("samba"):
-        subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("Samba was removed if there were no dependencies")
 
-    command = 'pacman -Rs gvfs-smb --noconfirm'
+    command = "pacman -Rs gvfs-smb --noconfirm"
     if check_package_installed("nss-mdns"):
-        subprocess.call(command.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
         print("gvfs-smb was removed")
+
 
 # =====================================================
 #               SAMBA CONF COPY
@@ -1768,12 +1969,17 @@ def uninstall_samba(self):
 
 
 def copy_samba(choice):
-    command = "cp /usr/share/archlinux-tweak-tool/data/any/samba/"\
-        + choice + "/smb.conf /etc/samba/smb.conf"
-    subprocess.call(command.split(" "),
-                    shell=False,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT)
+    command = (
+        "cp /usr/share/archlinux-tweak-tool/data/any/samba/"
+        + choice
+        + "/smb.conf /etc/samba/smb.conf"
+    )
+    subprocess.call(
+        command.split(" "),
+        shell=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
     if choice == "example":
         if not path.isdir("/home/" + sudo_username + "/Shared"):
             makedirs("/home/" + sudo_username + "/Shared", 0o755)
@@ -1784,14 +1990,14 @@ def copy_samba(choice):
                 f.close()
 
             val = get_position(lists, "[SAMBASHARE]")
-            lists[val+1] = "path = " + "/home/" + sudo_username + "/Shared\n"
+            lists[val + 1] = "path = " + "/home/" + sudo_username + "/Shared\n"
 
             print("You have choosen for the easy setup")
             print("We have added a folder called 'Shared' to your home directory")
             print("You can access this folder from any computer in your network")
             print("You can write and remove items from the shared folder")
             print("Reboot or restart smb first")
-            print(lists[val+1])
+            print(lists[val + 1])
 
             with open(samba_config, "w") as f:
                 f.writelines(lists)
@@ -1811,10 +2017,12 @@ def copy_samba(choice):
             else:
                 try:
                     command = "groupadd -r sambashare"
-                    subprocess.call(command.split(" "),
-                                    shell=False,
-                                    stdout=subprocess.PIPE,
-                                    stderr=subprocess.STDOUT)
+                    subprocess.call(
+                        command.split(" "),
+                        shell=False,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT,
+                    )
                 except Exception as e:
                     print(e)
 
@@ -1824,30 +2032,37 @@ def copy_samba(choice):
         # add user to group
         try:
             command = "gpasswd -a " + sudo_username + " sambashare"
-            subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
         except Exception as e:
             print(e)
 
         try:
             command = "chown root:sambashare /var/lib/samba/usershares"
-            subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
         except Exception as e:
             print(e)
 
         try:
             command = "chmod 1770 /var/lib/samba/usershares"
-            subprocess.call(command.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
         except Exception as e:
             print(e)
+
 
 # =====================================================
 #               SAMBA EDIT
@@ -1889,20 +2104,20 @@ def save_samba_config(self):
             val = get_position(lists, "[SAMBASHARE]")
             if lists[val] == ";[SAMBASHARE]\n":
                 lists[val] = "[SAMBASHARE]" + "\n"
-            lists[val+1] = "path = " + path + "\n"
-            lists[val+2] = "browseable  = " + browseable + "\n"
-            lists[val+3] = "guest ok = " + guest + "\n"
-            lists[val+4] = "public = " + public + "\n"
-            lists[val+5] = "writable = " + writable + "\n"
+            lists[val + 1] = "path = " + path + "\n"
+            lists[val + 2] = "browseable  = " + browseable + "\n"
+            lists[val + 3] = "guest ok = " + guest + "\n"
+            lists[val + 4] = "public = " + public + "\n"
+            lists[val + 5] = "writable = " + writable + "\n"
 
             print("These lines have been saved at the end of /etc/samba/smb.conf")
             print("Edit this file to add more shares")
             print(lists[val])
-            print(lists[val+1])
-            print(lists[val+2])
-            print(lists[val+3])
-            print(lists[val+4])
-            print(lists[val+5])
+            print(lists[val + 1])
+            print(lists[val + 2])
+            print(lists[val + 3])
+            print(lists[val + 4])
+            print(lists[val + 5])
 
             with open(samba_config, "w") as f:
                 f.writelines(lists)
@@ -1914,8 +2129,10 @@ def save_samba_config(self):
             pass
     else:
         print(
-            "Choose or create your own smb.conf in /etc/samba/smb.conf then change settings")
+            "Choose or create your own smb.conf in /etc/samba/smb.conf then change settings"
+        )
         show_in_app_notification(self, "Choose or create your own smb.conf")
+
 
 # =====================================================
 #                       SDDM
@@ -1929,41 +2146,59 @@ def create_sddm_k_dir():
         except Exception as e:
             print(e)
 
+
 # =====================================================
 #                       SHELL
 # =====================================================
 
 
 def source_shell(self):
-    process = subprocess.run(["sh", "-c", "echo \"$SHELL\""],
-                             check=True,
-                             stdout=subprocess.PIPE)
+    process = subprocess.run(
+        ["sh", "-c", 'echo "$SHELL"'], check=True, stdout=subprocess.PIPE
+    )
 
     output = process.stdout.decode().strip()
     if output == "/bin/bash":
-        subprocess.run(["bash", "-c", "su - " + sudo_username +
-                        " -c \"source " + home + "/.bashrc\""],
-                       check=True,
-                       stdout=subprocess.PIPE)
+        subprocess.run(
+            [
+                "bash",
+                "-c",
+                "su - " + sudo_username + ' -c "source ' + home + '/.bashrc"',
+            ],
+            check=True,
+            stdout=subprocess.PIPE,
+        )
     elif output == "/bin/zsh":
-        subprocess.run(["zsh", "-c", "su - " + sudo_username +
-                        " -c \"source " + home + "/.zshrc\""],
-                       check=True,
-                       stdout=subprocess.PIPE)
+        subprocess.run(
+            ["zsh", "-c", "su - " + sudo_username + ' -c "source ' + home + '/.zshrc"'],
+            check=True,
+            stdout=subprocess.PIPE,
+        )
     elif output == "/usr/bin/fish":
-        subprocess.run(["fish", "-c", "su - " + sudo_username +
-                        " -c \"source " + home + "/.config/fish/config.fish\""],
-                       check=True,
-                       stdout=subprocess.PIPE)
+        subprocess.run(
+            [
+                "fish",
+                "-c",
+                "su - "
+                + sudo_username
+                + ' -c "source '
+                + home
+                + '/.config/fish/config.fish"',
+            ],
+            check=True,
+            stdout=subprocess.PIPE,
+        )
 
 
 def get_shell():
-    process = subprocess.run(["su", "-", sudo_username, "-c", "echo \"$SHELL\""],
-                             check=True,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.STDOUT)
+    process = subprocess.run(
+        ["su", "-", sudo_username, "-c", 'echo "$SHELL"'],
+        check=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
 
-    output = process.stdout.decode().strip().strip('\n')
+    output = process.stdout.decode().strip().strip("\n")
     if output == "/bin/bash" or output == "/usr/bin/bash":
         return "bash"
     elif output == "/bin/zsh" or output == "/usr/bin/zsh":
@@ -1977,15 +2212,18 @@ def run_as_user(script):
 
 
 def install_extra_shell(package):
-    install = 'pacman -S ' + package + ' --needed --noconfirm'
+    install = "pacman -S " + package + " --needed --noconfirm"
     print(install)
     try:
-        subprocess.call(install.split(" "),
-                        shell=False,
-                        stdout=subprocess.PIPE,
-                        stderr=subprocess.STDOUT)
+        subprocess.call(
+            install.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
     except Exception as e:
         print(e)
+
 
 # =====================================================
 #               THUNAR SHARE PLUGIN
@@ -1993,20 +2231,24 @@ def install_extra_shell(package):
 
 
 def install_arco_thunar_plugin(self, widget):
-    install = 'pacman -S thunar arcolinux-thunar-shares-plugin --noconfirm'
+    install = "pacman -S thunar arcolinux-thunar-shares-plugin --noconfirm"
 
     if check_package_installed("arcolinux-thunar-shares-plugin"):
         print("Arcolinux-thunar-shares-plugin is already installed")
         pass
     else:
         try:
-            subprocess.call(install.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                install.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             print("Arcolinux-thunar-shares-plugin is now installed - reboot")
-            GLib.idle_add(self.label7.set_text,
-                          "Arcolinux-thunar-shares-plugin is now installed - reboot")
+            GLib.idle_add(
+                self.label7.set_text,
+                "Arcolinux-thunar-shares-plugin is now installed - reboot",
+            )
             print("Other apps that might be interesting for sharing are :")
             print(" - arcolinux-nemo-share (cinnamon)")
             print(" - arcolinux-caja-share (mate)")
@@ -2015,6 +2257,7 @@ def install_arco_thunar_plugin(self, widget):
 
         except Exception as e:
             print(e)
+
 
 # =====================================================
 #               UBLOCK ORIGIN
@@ -2038,20 +2281,24 @@ def set_firefox_ublock(self, toggle, state):
     try:
 
         install_ublock = "pacman -S firefox-ublock-origin --needed --noconfirm"
-        uninstall_ublock = 'pacman -Rs firefox-ublock-origin --noconfirm'
+        uninstall_ublock = "pacman -Rs firefox-ublock-origin --noconfirm"
 
         if state:
             GLib.idle_add(self.label7.set_text, "Installing ublock Origin...")
-            subprocess.call(install_ublock.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                install_ublock.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
         else:
             GLib.idle_add(self.label7.set_text, "Removing ublock Origin...")
-            subprocess.call(uninstall_ublock.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                uninstall_ublock.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
 
         GLib.idle_add(self.label7.set_text, "Complete")
         GLib.source_remove(timeout_id)
@@ -2068,50 +2315,65 @@ def set_firefox_ublock(self, toggle, state):
         MessageBox(self, "ERROR!!", str(e))
         print(e)
 
+
 # =====================================================
 #               WALL
 # =====================================================
 
 
 def install_archlinux_login_backgrounds(self, widget):
-    install = 'pacman -S archlinux-login-backgrounds-git --noconfirm'
+    install = "pacman -S archlinux-login-backgrounds-git --noconfirm"
 
     if check_package_installed("archlinux-login-backgrounds-git"):
         print("Archlinux-login-backgrounds-git is already installed")
-        GLib.idle_add(show_in_app_notification,
-                      self, "Archlinux-login-backgrounds-git is already installed")
+        GLib.idle_add(
+            show_in_app_notification,
+            self,
+            "Archlinux-login-backgrounds-git is already installed",
+        )
         pass
     else:
         try:
-            subprocess.call(install.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                install.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             print("Archlinux-login-backgrounds-git is now installed")
-            GLib.idle_add(show_in_app_notification,
-                          self, "Archlinux-login-backgrounds-git is now installed")
+            GLib.idle_add(
+                show_in_app_notification,
+                self,
+                "Archlinux-login-backgrounds-git is now installed",
+            )
 
         except Exception as e:
             print(e)
 
 
 def remove_archlinux_login_backgrounds(self, widget):
-    install = 'pacman -R archlinux-login-backgrounds-git --noconfirm'
+    install = "pacman -R archlinux-login-backgrounds-git --noconfirm"
 
     if check_package_installed("archlinux-login-backgrounds-git"):
         try:
-            subprocess.call(install.split(" "),
-                            shell=False,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.STDOUT)
+            subprocess.call(
+                install.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             print("Archlinux-login-backgrounds-git is now removed")
-            GLib.idle_add(show_in_app_notification,
-                          self, "Archlinux-login-backgrounds-git is now installed")
+            GLib.idle_add(
+                show_in_app_notification,
+                self,
+                "Archlinux-login-backgrounds-git is now installed",
+            )
 
         except Exception as e:
             print(e)
     else:
         print("Archlinux-login-backgrounds-git is already removed")
-        GLib.idle_add(show_in_app_notification,
-                      self, "Archlinux-login-backgrounds-git is removed")
+        GLib.idle_add(
+            show_in_app_notification, self, "Archlinux-login-backgrounds-git is removed"
+        )
         pass
