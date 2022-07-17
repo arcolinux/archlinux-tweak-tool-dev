@@ -3,12 +3,14 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+# pylint:disable=C0103,C0115,C0116,C0411,C0413,E1101,I1101,R0902,R0904,R1705,W0621,W0622
+# pylint:disable=C0301 #line too long
 
 import zsh_theme
 import utilities
 import user
 import themer
-import termite
+import terminals
 import support
 import splash
 import settings
@@ -32,7 +34,8 @@ import functions as fn
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, Pango  # noqa
+from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, Pango
+from os import readlink
 
 # from time import sleep
 # from subprocess import PIPE, STDOUT, call
@@ -116,7 +119,7 @@ class Main(Gtk.Window):
         self.fb = Gtk.FlowBox()
         self.flowbox_wall = Gtk.FlowBox()
 
-        splScr = splash.splashScreen()
+        splScr = splash.SplashScreen()
 
         while Gtk.events_pending():
             Gtk.main_iteration()
@@ -137,26 +140,26 @@ class Main(Gtk.Window):
         if not fn.path.isdir("/root/.config/"):
             try:
                 fn.makedirs("/root/.config", 0o766)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         if not fn.path.isdir("/root/.config/gtk-3.0"):
             try:
                 fn.makedirs("/root/.config/gtk-3.0", 0o766)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         if not fn.path.isdir("/root/.config/gtk-4.0"):
             try:
                 fn.makedirs("/root/.config/gtk-4.0", 0o766)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         if not fn.path.isdir("/root/.config/xsettingsd"):
             try:
                 fn.makedirs("/root/.config/xsettingsd", 0o766)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         if fn.path.isdir(fn.home + "/.config/gtk-3.0"):
             try:
@@ -164,8 +167,8 @@ class Main(Gtk.Window):
                 fn.shutil.copytree(
                     fn.home + "/.config/gtk-3.0", "/root/.config/gtk-3.0"
                 )
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         if fn.path.isdir(fn.home + "/.config/gtk-4.0/"):
             try:
@@ -173,8 +176,8 @@ class Main(Gtk.Window):
                 fn.shutil.copytree(
                     fn.home + "/.config/gtk-4.0/", "/root/.config/gtk-4.0/"
                 )
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         if fn.path.isdir("/root/.config/xsettingsd/xsettingsd.conf"):
             try:
@@ -183,8 +186,8 @@ class Main(Gtk.Window):
                     fn.shutil.copytree(
                         fn.home + "/.config/xsettingsd/", "/root/.config/xsettingsd/"
                     )
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # =====================================================
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
@@ -194,39 +197,39 @@ class Main(Gtk.Window):
         if not fn.path.isdir(fn.log_dir):
             try:
                 fn.mkdir(fn.log_dir)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # make directory if it doesn't exist
         if not fn.path.isdir(fn.att_log_dir):
             try:
                 fn.mkdir(fn.att_log_dir)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # ensuring we have a neofetch directory
         if not fn.path.exists(fn.home + "/.config/neofetch"):
             try:
                 fn.makedirs(fn.home + "/.config/neofetch", 0o766)
                 fn.permissions(fn.home + "/.config/neofetch")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # ensuring we have .autostart
         if not fn.path.exists(fn.home + "/.config/autostart"):
             try:
                 fn.makedirs(fn.home + "/.config/autostart", 0o766)
                 fn.permissions(fn.home + "/.config/autostart")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # ensuring we have a directory for backups
         if not fn.path.isdir(fn.home + "/.config/archlinux-tweak-tool"):
             try:
                 fn.makedirs(fn.home + "/.config/archlinux-tweak-tool", 0o766)
                 fn.permissions(fn.home + "/.config/archlinux-tweak-tool")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # =====================================================
         #                   MAKING BACKUPS
@@ -239,14 +242,14 @@ class Main(Gtk.Window):
             if not fn.path.isfile(fn.sddm_default_d1_bak):
                 try:
                     fn.shutil.copy(fn.sddm_default_d1, fn.sddm_default_d1_bak)
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         if fn.path.isfile(fn.sddm_default_d2):
             if not fn.path.isfile(fn.sddm_default_d2_bak):
                 try:
                     fn.shutil.copy(fn.sddm_default_d2, fn.sddm_default_d2_bak)
-                except Exception as e:
+                except Exception as error:
                     pass
 
         # start cleanup
@@ -257,7 +260,7 @@ class Main(Gtk.Window):
                 print("There can be only one file in /etc/sddm.conf.d")
                 print("kde_settings.conf")
                 print("Other files will be deleted")
-            except Exception as e:
+            except Exception as error:
                 pass
         if fn.path.isfile("/etc/sddm.conf.d/kde_settings.conf.bak"):
             try:
@@ -265,7 +268,7 @@ class Main(Gtk.Window):
                 print("There can be only one file in /etc/sddm.conf.d")
                 print("kde_settings.conf")
                 print("Other files will be deleted")
-            except Exception as e:
+            except Exception as error:
                 pass
         if fn.path.isfile("/etc/sddm.conf.d/kde_settings.conf.backup"):
             try:
@@ -273,7 +276,7 @@ class Main(Gtk.Window):
                 print("There can be only one file in /etc/sddm.conf.d")
                 print("kde_settings.conf")
                 print("Other files will be deleted")
-            except Exception as e:
+            except Exception as error:
                 pass
         if fn.path.isfile("/etc/sddm.conf.d/kde_settings.conf-backup"):
             try:
@@ -281,7 +284,7 @@ class Main(Gtk.Window):
                 print("There can be only one file in /etc/sddm.conf.d")
                 print("kde_settings.conf")
                 print("Other files will be deleted")
-            except Exception as e:
+            except Exception as error:
                 pass
         if fn.path.isfile("/etc/sddm.conf.d/backup-kde_settings.conf"):
             try:
@@ -289,7 +292,7 @@ class Main(Gtk.Window):
                 print("There can be only one file in /etc/sddm.conf.d")
                 print("kde_settings.conf")
                 print("Other files will be deleted")
-            except Exception as e:
+            except Exception as error:
                 pass
         # end cleanup
 
@@ -298,16 +301,16 @@ class Main(Gtk.Window):
             if not fn.path.isfile(fn.lightdm_conf_bak):
                 try:
                     fn.shutil.copy(fn.lightdm_conf, fn.lightdm_conf_bak)
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of /etc/lightdm/lightdm-gtk-greeter.conf
         if fn.path.isfile(fn.lightdm_greeter):
             if not fn.path.isfile(fn.lightdm_greeter_bak):
                 try:
                     fn.shutil.copy(fn.lightdm_greeter, fn.lightdm_greeter_bak)
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of /etc/lightdm/slick-greeter.conf
         if fn.path.isfile(fn.lightdm_slick_greeter):
@@ -316,16 +319,16 @@ class Main(Gtk.Window):
                     fn.shutil.copy(
                         fn.lightdm_slick_greeter, fn.lightdm_slick_greeter_bak
                     )
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of /etc/lxdm/lxdm.conf
         if fn.path.isfile(fn.lxdm_conf):
             if not fn.path.isfile(fn.lxdm_conf_bak):
                 try:
                     fn.shutil.copy(fn.lxdm_conf, fn.lxdm_conf_bak)
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of index.theme
         if fn.path.exists("/usr/share/icons/default/index.theme"):
@@ -335,8 +338,8 @@ class Main(Gtk.Window):
                         "/usr/share/icons/default/index.theme",
                         "/usr/share/icons/default/index.theme" + ".bak",
                     )
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of samba.conf
         if fn.path.exists("/etc/samba/smb.conf"):
@@ -345,16 +348,16 @@ class Main(Gtk.Window):
                     fn.shutil.copy(
                         "/etc/samba/smb.conf", "/etc/samba/smb.conf" + ".bak"
                     )
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of the nsswitch.conf
         if fn.path.exists("/etc/nsswitch.conf"):
             if not fn.path.isfile("/etc/nsswitch.conf" + ".bak"):
                 try:
                     fn.shutil.copy("/etc/nsswitch.conf", "/etc/nsswitch.conf" + ".bak")
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of the config.fish
         if not fn.path.isfile(
@@ -366,8 +369,8 @@ class Main(Gtk.Window):
                     fn.home + "/.config/fish/config.fish" + ".bak",
                 )
                 fn.permissions(fn.home + "/.config/fish/config.fish.bak")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # ensuring we have a backup or the arcolinux mirrorlist
         if fn.path.isfile(fn.arcolinux_mirrorlist):
@@ -376,8 +379,8 @@ class Main(Gtk.Window):
                     fn.shutil.copy(
                         fn.arcolinux_mirrorlist, fn.arcolinux_mirrorlist + ".bak"
                     )
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup or the xerolinux mirrorlist
         if fn.path.isfile(fn.xerolinux_mirrorlist):
@@ -386,24 +389,24 @@ class Main(Gtk.Window):
                     fn.shutil.copy(
                         fn.xerolinux_mirrorlist, fn.xerolinux_mirrorlist + ".bak"
                     )
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of the archlinux mirrorlist
         if fn.path.isfile(fn.mirrorlist):
             if not fn.path.isfile(fn.mirrorlist + ".bak"):
                 try:
                     fn.shutil.copy(fn.mirrorlist, fn.mirrorlist + ".bak")
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # ensuring we have a backup of current /etc/hosts
         if fn.path.isfile("/etc/hosts"):
             try:
                 if not fn.path.isfile("/etc/hosts" + ".bak"):
                     fn.shutil.copy("/etc/hosts", "/etc/hosts" + ".bak")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # ensuring we have a backup of current neofetch
         if fn.path.isfile(fn.neofetch_config):
@@ -411,8 +414,8 @@ class Main(Gtk.Window):
                 if not fn.path.isfile(fn.neofetch_config + ".bak"):
                     fn.shutil.copy(fn.neofetch_config, fn.neofetch_config + ".bak")
                     fn.permissions(fn.neofetch_config + ".bak")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # make backup of ~/.bashrc
         if fn.path.isfile(fn.bash_config):
@@ -420,8 +423,8 @@ class Main(Gtk.Window):
                 if not fn.path.isfile(fn.bash_config + ".bak"):
                     fn.shutil.copy(fn.bash_config, fn.bash_config + ".bak")
                     fn.permissions(fn.home + "/.bashrc.bak")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # make backup of ~/.zshrc
         if fn.path.isfile(fn.zsh_config):
@@ -429,32 +432,32 @@ class Main(Gtk.Window):
                 if not fn.path.isfile(fn.zsh_config + ".bak"):
                     fn.shutil.copy(fn.zsh_config, fn.zsh_config + ".bak")
                     fn.permissions(fn.home + "/.zshrc.bak")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # put usable .zshrc file there if nothing
         if not fn.path.isfile(fn.zsh_config):
             try:
                 fn.shutil.copy(fn.zshrc_arco, fn.home)
                 fn.permissions(fn.home + "/.zshrc")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # make backup of /etc/default/grub
         if fn.path.isfile(fn.grub_default_grub):
             if not fn.path.isfile(fn.grub_default_grub + ".bak"):
                 try:
                     fn.shutil.copy(fn.grub_default_grub, fn.grub_default_grub + ".bak")
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # make backup of /etc/pacman.conf
         if fn.path.isfile(fn.pacman):
             if not fn.path.isfile(fn.pacman + ".bak"):
                 try:
                     fn.shutil.copy(fn.pacman, fn.pacman + ".bak")
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
         # make backup of .config/xfce4/terminal/terminalrc
         if fn.file_check(fn.xfce4_terminal_config):
@@ -464,8 +467,8 @@ class Main(Gtk.Window):
                         fn.xfce4_terminal_config, fn.xfce4_terminal_config + ".bak"
                     )
                     fn.permissions(fn.xfce4_terminal_config + ".bak")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # make backup of .config/alacritty/alacritty.yml
         if fn.file_check(fn.alacritty_config):
@@ -473,8 +476,8 @@ class Main(Gtk.Window):
                 if not fn.path.isfile(fn.alacritty_config + ".bak"):
                     fn.shutil.copy(fn.alacritty_config, fn.alacritty_config + ".bak")
                     fn.permissions(fn.alacritty_config + ".bak")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # =====================================================
         #               CATCHING ERRORS
@@ -490,8 +493,8 @@ class Main(Gtk.Window):
                     if fn.path.getsize(fn.sddm_default_d1) == 0:
                         fn.shutil.copy(fn.sddm_default_d1_arco, fn.sddm_default_d1)
                         fn.shutil.copy(fn.sddm_default_d2_arco, fn.sddm_default_d2)
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
             # if there is NO sddm.conf at all - both are not there
             if not fn.path.exists(fn.sddm_default_d1) and not fn.path.exists(
@@ -562,8 +565,8 @@ class Main(Gtk.Window):
             try:
                 fn.shutil.copy(fn.neofetch_arco, fn.neofetch_config)
                 fn.permissions(fn.neofetch_config)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # ensuring permissions
         a1 = fn.stat(fn.home + "/.config/autostart")
@@ -735,14 +738,14 @@ class Main(Gtk.Window):
                     val = fn.get_position(lists, "GRUB_TIMEOUT=")
                     number = int(lists[val].split("=")[1])
                     self.scale.set_value(number)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # ========================NEOFETCH LOLCAT TOGGLE===================
 
         shell = fn.get_shell()
 
-        if shell == "zsh" or shell == "bash" or shell == "fish":
+        if shell in ("zsh", "bash", "fish"):
 
             # ========================TERMINAL UTILITIES TOGGLES========================
             # screenfetch
@@ -812,8 +815,8 @@ class Main(Gtk.Window):
                 else:
                     self.autologin_lightdm.set_active(True)
                     self.sessions_lightdm.set_sensitive(True)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         # =====================================================
         #                        SDDM
@@ -834,10 +837,8 @@ class Main(Gtk.Window):
                         else:
                             self.autologin_sddm.set_active(True)
                             self.sessions_sddm.set_sensitive(True)
-            except Exception as e:
+            except:
                 pass
-                # print("Run 'fix-sddm-conf' in a terminal")
-                # print("We will make backups of the current /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf if they exist")
 
         if not fn.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w", encoding="utf-8") as f:
@@ -857,10 +858,8 @@ class Main(Gtk.Window):
                         self.panel_lxdm.set_active(True)
                     else:
                         self.panel_lxdm.set_active(False)
-            except Exception as e:
+            except Exception as error:
                 pass
-                # print("Run 'fix-sddm-conf' in a terminal")
-                # print("We will make backups of the current /etc/sddm.conf and /etc/sddm.conf.d/kde_settings.conf if they exist")
 
         if not fn.path.isfile("/tmp/att.lock"):
             with open("/tmp/att.lock", "w", encoding="utf8") as f:
@@ -988,7 +987,7 @@ class Main(Gtk.Window):
                 with open(fn.autostart + lbl + ".desktop", "w", encoding="utf-8") as f:
                     f.writelines(lines)
                     f.close()
-            except Exception as e:
+            except:
                 # non .desktop files
                 pass
 
@@ -998,8 +997,8 @@ class Main(Gtk.Window):
             fn.unlink(fn.autostart + lbl + ".desktop")
             print("Removed item from ~/.config/autostart/")
             self.vvbox.remove(listbox)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
             print("We were unable to remove it")
             print("Evaluate if it can/should be removed")
             print("Then remove it manually")
@@ -1136,7 +1135,6 @@ class Main(Gtk.Window):
         if fn.path.isfile(fn.arcolinux_mirrorlist):
             if fn.check_arco_repos_active():
                 fn.install_pace(self)
-                # subprocess.Popen("/usr/bin/pace",shell=False)
                 call("pace", shell=True)
             else:
                 print("Activate the ArcoLinux repos")
@@ -1178,8 +1176,8 @@ class Main(Gtk.Window):
                 fn.shutil.copy(fn.bashrc_arco, fn.bash_config)
                 fn.permissions(fn.home + "/.bashrc")
             fn.source_shell(self)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         print("ATT ~/.bashrc is applied")
         GLib.idle_add(fn.show_in_app_notification, self, "ATT ~/.bashrc is applied")
@@ -1189,8 +1187,8 @@ class Main(Gtk.Window):
             if fn.path.isfile(fn.bash_config + ".bak"):
                 fn.shutil.copy(fn.bash_config + ".bak", fn.bash_config)
                 fn.permissions(fn.home + "/.bashrc")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         print("Your personal ~/.bashrc is applied again - logout")
         GLib.idle_add(
@@ -1229,13 +1227,13 @@ class Main(Gtk.Window):
     def on_default_clicked(self, widget):
         fn.create_log(self)
         if desktopr.check_desktop(self.d_combo.get_active_text()) is True:
-            secs = Settings.read_section()
+            secs = settings.read_section()
             if "DESKTOP" in secs:
-                Settings.write_settings(
+                settings.write_settings(
                     "DESKTOP", "default", self.d_combo.get_active_text()
                 )
             else:
-                Settings.new_settings(
+                settings.new_settings(
                     "DESKTOP", {"default": self.d_combo.get_active_text()}
                 )
         else:
@@ -1315,8 +1313,8 @@ class Main(Gtk.Window):
             try:
                 fn.mkdir(fn.home + "/.config/fish/")
                 fn.permissions(fn.home + "/.config/fish/")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         if fn.path.isfile(fn.fish_arco):
             fn.shutil.copy(fn.fish_arco, fn.home + "/.config/fish/config.fish")
@@ -1352,87 +1350,6 @@ class Main(Gtk.Window):
         )
         print("Fish is removed - remove the folder in ~/.config/fish manually")
 
-    # The intent behind this function is to be a centralised image changer for all portions of ATT that need it
-    # Currently utilising an if tree - this is not best practice: it should be a match: case tree.
-    # But I have not yet got that working.
-
-    def update_image(
-        self, widget, image, theme_type, att_base, image_width, image_height
-    ):
-        sample_path = ""
-        preview_path = ""
-        random_option = False
-        # THIS CODE IS KEPT ON PURPOSE. DO NOT DELETE.
-        # Once Python 3.10 is released and used widely, delete the if statements below the match blocks
-        # and use the match instead. It is faster, and easier to maintain.
-        #    match "zsh":
-        #        case 'zsh':
-        #            sample_path = att_base+"/images/zsh-sample.jpg"
-        #            preview_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
-        #        case 'qtile':
-        #            sample_path = att_base+"/images/zsh-sample.jpg"
-        #            previe_path = att_base+"/images/zsh_previews/"+widget.get_active_text() + ".jpg"
-        #        case 'i3':
-        #            sample_path = att_base+"/images/i3-sample.jpg"
-        #            preview_path = att_base+"/themer_data/i3/"+widget.get_active_text() + ".jpg"
-        #        case 'awesome':
-        #            sample_path = att_base+"/images/i3-sample.jpg"
-        #            preview_path = att_base+"/themer_data/awesomewm/"+widget.get_active_text() + ".jpg"
-        #        case 'neofetch':
-        #            sample_path = att_base + widget.get_active_text()
-        #            preview_path = att_base + widget.get_active_text()
-        #        case unknown_command:
-        #            print("Function update_image passed an incorrect value for theme_type. Value passed was: " + theme_type)
-        #            print("Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height.")
-        if theme_type == "zsh":
-            sample_path = att_base + "/images/zsh-sample.jpg"
-            preview_path = (
-                att_base + "/images/zsh_previews/" + widget.get_active_text() + ".jpg"
-            )
-            if widget.get_active_text() == "random":
-                random_option = True
-        elif theme_type == "qtile":
-            sample_path = att_base + "/images/qtile-sample.jpg"
-            preview_path = (
-                att_base + "/themer_data/qtile/" + widget.get_active_text() + ".jpg"
-            )
-        elif theme_type == "i3":
-            sample_path = att_base + "/images/i3-sample.jpg"
-            preview_path = (
-                att_base + "/themer_data/i3/" + widget.get_active_text() + ".jpg"
-            )
-        elif theme_type == "awesome":
-            # Awesome section doesn't use a ComboBoxText, but a ComboBox - which has different properties.
-            tree_iter = self.awesome_combo.get_active_iter()
-            if tree_iter is not None:
-                model = self.awesome_combo.get_model()
-                row_id, name = model[tree_iter][:2]
-
-            sample_path = att_base + "/images/i3-sample.jpg"
-            preview_path = att_base + "/themer_data/awesomewm/" + name + ".jpg"
-        elif theme_type == "neofetch":
-            sample_path = att_base + widget.get_active_text()
-            preview_path = att_base + widget.get_active_text()
-        else:
-            # If we are doing our job correctly, this should never be shown to users. If it does, we have done something wrong as devs.
-            print(
-                "Function update_image passed an incorrect value for theme_type. Value passed was: "
-                + theme_type
-            )
-            print(
-                "Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height."
-            )
-        source_pixbuf = image.get_pixbuf()
-        if fn.path.isfile(preview_path) and not random_option:
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
-                preview_path, image_width, image_height
-            )
-        else:
-            pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
-                sample_path, image_width, image_height
-            )
-        image.set_from_pixbuf(pixbuf)
-
     def tofish_apply(self, widget):
         fn.change_shell(self, "fish")
 
@@ -1461,15 +1378,15 @@ class Main(Gtk.Window):
             )
             print("Downloading the package")
             GLib.idle_add(fn.show_in_app_notification, self, "Downloading the package")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         file = fn.listdir(pathway)
         fn.install_local_package(self, pathway + str(file).strip("[]'"))
         try:
             fn.shutil.rmtree(pathway)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
     def on_click_fix_pacman_keys(self, widget):
         fn.install_package(self, "alacritty")
@@ -1482,8 +1399,8 @@ class Main(Gtk.Window):
             )
             print("Pacman has been reset (gpg, libraries,keys)")
             GLib.idle_add(fn.show_in_app_notification, self, "Pacman keys fixed")
-        except Exception as e:
-            print("Install Alacritty")
+        except Exception as error:
+            print(error)
 
     def on_click_fix_mainstream(self, widget):
         fn.install_package(self, "alacritty")
@@ -1499,15 +1416,15 @@ class Main(Gtk.Window):
             GLib.idle_add(
                 fn.show_in_app_notification, self, "Mainstream servers have been saved"
             )
-        except Exception as e:
-            print("Install Alacritty")
+        except Exception as error:
+            print(error)
 
     def on_click_reset_mirrorlist(self, widget):
         try:
             if fn.path.isfile(fn.mirrorlist + ".bak"):
                 fn.shutil.copy(fn.mirrorlist + ".bak", fn.mirrorlist)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
         print("Your original mirrorlist is back")
         GLib.idle_add(
             fn.show_in_app_notification, self, "Your original mirrorlist is back"
@@ -1529,7 +1446,7 @@ class Main(Gtk.Window):
                 self,
                 "Fastest Arch Linux servers saved - reflector",
             )
-        except Exception as e:
+        except:
             print("Install alacritty")
 
     def on_click_get_arch_mirrors2(self, widget):
@@ -1547,8 +1464,8 @@ class Main(Gtk.Window):
                 self,
                 "Fastest Arch Linux servers saved - rate-mirrors",
             )
-        except Exception as e:
-            print("Install alacritty")
+        except Exception as error:
+            print(error)
 
     def on_click_fix_sddm_conf(self, widget):
         fn.install_package(self, "alacritty")
@@ -1569,7 +1486,7 @@ class Main(Gtk.Window):
                 self,
                 "Saved the original SDDM configuration",
             )
-        except Exception as e:
+        except:
             print("Install alacritty")
 
     def on_click_fix_pacman_conf(self, widget):
@@ -1585,8 +1502,8 @@ class Main(Gtk.Window):
             GLib.idle_add(
                 fn.show_in_app_notification, self, "Saved the original /etc/pacman.conf"
             )
-        except Exception as e:
-            print("Install alacritty")
+        except Exception as error:
+            print(error)
 
     def on_click_fix_pacman_gpg_conf(self, widget):
         if not fn.path.isfile(fn.gpg_conf + ".bak"):
@@ -1605,15 +1522,15 @@ class Main(Gtk.Window):
             try:
                 fn.makedirs(fn.home + "/.gnupg", 0o766)
                 fn.permissions(fn.home + "/.gnupg")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         if not fn.path.isfile(fn.gpg_conf_local + ".bak"):
             try:
                 fn.shutil.copy(fn.gpg_conf_local, fn.gpg_conf_local + ".bak")
                 fn.permissions(fn.gpg_conf_local + ".bak")
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
         fn.shutil.copy(fn.gpg_conf_local_original, fn.gpg_conf_local)
         fn.permissions(fn.gpg_conf_local)
@@ -1708,8 +1625,8 @@ class Main(Gtk.Window):
             )
             print(widget.get_active_text())
             self.image_grub.set_from_pixbuf(pixbuf3)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
     def on_import_wallpaper(self, widget):
         text = self.tbimage.get_text()
@@ -1963,8 +1880,8 @@ class Main(Gtk.Window):
                     stdout=fn.subprocess.PIPE,
                     stderr=fn.subprocess.STDOUT,
                 )
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
             # print("We added the group autologin or checked that it exists")
             self.sessions_lightdm.set_sensitive(True)
@@ -1988,8 +1905,8 @@ class Main(Gtk.Window):
             fn.shutil.copy(fn.lightdm_conf_arco, fn.lightdm_conf)
             fn.shutil.copy(fn.lightdm_greeter_arco, fn.lightdm_greeter)
             fn.shutil.copy(fn.ligthdm_slick_greeter_arco, fn.lightdm_slick_greeter)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
         fn.restart_program()
 
     def on_click_lightdm_enable(self, desktop):
@@ -2012,8 +1929,8 @@ class Main(Gtk.Window):
             fn.shutil.copy(fn.lightdm_conf_arco, fn.lightdm_conf)
             fn.shutil.copy(fn.lightdm_greeter_arco, fn.lightdm_greeter)
             fn.shutil.copy(fn.ligthdm_slick_greeter_arco, fn.lightdm_slick_greeter)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         print(
             "All files have been changed /etc/lightdm.conf, /etc/lightdm-gtk-greeter.conf"
@@ -2041,12 +1958,12 @@ class Main(Gtk.Window):
         fn.install_package(self, "lxdm")
         try:
             fn.shutil.copy(fn.lxdm_conf_arco, fn.lxdm_conf)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
         try:
             fn.shutil.copy(fn.lxdm_conf_arco, fn.lxdm_conf)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
         print("--------------------------------------------")
         print("Do not forget to enable Lxdm")
         print("--------------------------------------------")
@@ -2066,14 +1983,14 @@ class Main(Gtk.Window):
                     stdout=fn.subprocess.PIPE,
                     stderr=fn.subprocess.STDOUT,
                 )
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
     def on_click_lxdm_reset_original_att(self, widget):
         try:
             fn.shutil.copy(fn.lxdm_conf_arco, fn.lxdm_conf)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         print("ATT Lxdm configuration file has been saved /etc/lxdm/lxdm.conf")
         print("Now change the configuration like you want it to be and save")
@@ -2671,7 +2588,7 @@ class Main(Gtk.Window):
     #     if fn.path.isfile(polybar.launch):
     #         fn.show_in_app_notification(self, "Restart polybar to see changes")
     #     else:
-    #         fn.MessageBox(
+    #         fn.messagebox(
     #             self, "ERROR!!", "You dont seem to have a <b>launch.sh</b> file to launch/relaunch polybar")
 
     # def on_pb_browse_config(self, widget):
@@ -2810,8 +2727,8 @@ class Main(Gtk.Window):
         try:
             fn.shutil.copy(fn.sddm_default_d1_arco, fn.sddm_default_d1)
             fn.shutil.copy(fn.sddm_default_d2_arco, fn.sddm_default_d2)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         print("The ATT sddm configuration is now applied")
         print(
@@ -2830,8 +2747,8 @@ class Main(Gtk.Window):
                 fn.shutil.copy(fn.sddm_default_d1_bak, fn.sddm_default_d1)
             if fn.path.isfile(fn.sddm_default_d2_bak):
                 fn.shutil.copy(fn.sddm_default_d2_bak, fn.sddm_default_d2)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         print("Your orignal sddm configuration is now applied")
         print(
@@ -2862,8 +2779,8 @@ class Main(Gtk.Window):
                     stdout=fn.subprocess.PIPE,
                     stderr=fn.subprocess.STDOUT,
                 )
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
             # print("We added the group autologin or checked that it exists")
             self.sessions_sddm.set_sensitive(True)
@@ -2879,6 +2796,7 @@ class Main(Gtk.Window):
         fn.remove_package_dep(self, "arcolinux-meta-sddm-themes")
         if self.keep_default_theme.get_active() is True:
             fn.install_arco_package(self, "arcolinux-sddm-simplicity-git")
+        fn.remove_package_remnants("arcolinux-meta-sddm-themes")
         sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_install_bibata_cursor(self, widget):
@@ -2940,7 +2858,7 @@ class Main(Gtk.Window):
                 fn.show_in_app_notification, self, "ArcoLinux Desktop Trasher launched"
             )
             print("We started ADT")
-        except Exception as e:
+        except:
             pass
 
     # ====================================================================
@@ -2981,8 +2899,8 @@ class Main(Gtk.Window):
     def on_click_delete_samba_user(self, widget):
         services.delete_samba_user(self)
 
-    def on_click_delete_user(self, widget):
-        services.delete_user(self)
+    # def on_click_delete_user(self, widget):
+    #     services.delete_user(self)
 
     def on_click_restart_smb(self, widget):
         services.restart_smb(self)
@@ -3120,6 +3038,7 @@ class Main(Gtk.Window):
             awesome_lines = themer.get_awesome_themes(awesome_list)
 
             self.store.clear()
+            # TODO: enumerate
             for x in range(len(awesome_lines)):
                 self.store.append([x, awesome_lines[x]])
             val = int(
@@ -3199,7 +3118,7 @@ class Main(Gtk.Window):
         )
 
     def on_leftwm_combo_changed(self, widget):
-        link_theme = fn.path.basename(fn.readlink(fn.leftwm_config_theme_current))
+        link_theme = fn.path.basename(readlink(fn.leftwm_config_theme_current))
         # print(link_theme)
         theme = self.leftwm_combo.get_active_text()
         if fn.path_check(fn.leftwm_config_theme + theme):
@@ -3231,8 +3150,8 @@ class Main(Gtk.Window):
                 try:
                     fn.mkdir(fn.alacritty_config_dir)
                     fn.permissions(fn.alacritty_config_dir)
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
             fn.shutil.copy(fn.alacritty_arco, fn.alacritty_config)
             fn.permissions(fn.home + "/.config/alacritty")
@@ -3297,31 +3216,31 @@ class Main(Gtk.Window):
 
     def on_clicked_install_termite(self, widget):
         fn.install_arco_package(self, "termite")
-        termite.get_themes(self.term_themes)
+        terminals.get_themes(self.term_themes)
 
     def on_clicked_remove_termite(self, widget):
         fn.remove_package(self, "termite")
-        termite.get_themes(self.term_themes)
+        terminals.get_themes(self.term_themes)
 
     def on_clicked_install_termite_themes(self, widget):
         fn.install_arco_package(self, "termite")
         fn.install_arco_package(self, "arcolinux-termite-themes-git")
         fn.copy_func("/etc/skel/.config/termite", fn.home + "/.config/", True)
         fn.permissions(fn.home + "/.config/termite")
-        termite.get_themes(self.term_themes)
+        terminals.get_themes(self.term_themes)
         print("Termite  themes installed")
         GLib.idle_add(fn.show_in_app_notification, self, "Termite themes installed")
 
     def on_clicked_remove_termite_themes(self, widget):
         fn.remove_package(self, "arcolinux-termite-themes-git")
-        termite.get_themes(self.term_themes)
+        terminals.get_themes(self.term_themes)
         print("Termite  themes removed")
         GLib.idle_add(fn.show_in_app_notification, self, "Termite themes removed")
 
     def on_term_apply(self, widget):
         if self.term_themes.get_active_text() is not None:
             widget.set_sensitive(False)
-            termite.set_config(self, self.term_themes.get_active_text())
+            terminals.set_config(self, self.term_themes.get_active_text())
             widget.set_sensitive(True)
 
     def on_term_reset(self, widget):
@@ -3329,8 +3248,8 @@ class Main(Gtk.Window):
             fn.shutil.copy(fn.termite_config + ".bak", fn.termite_config)
             fn.show_in_app_notification(self, "Default Settings Applied")
             if fn.path.isfile(fn.config):
-                Settings.write_settings("TERMITE", "theme", "")
-                termite.get_themes(self.term_themes)
+                settings.write_settings("TERMITE", "theme", "")
+                terminals.get_themes(self.term_themes)
 
     # ====================================================================
     #                       USER
@@ -3384,8 +3303,8 @@ class Main(Gtk.Window):
             )
             print(widget.get_active_text())
             self.image_grub.set_from_pixbuf(pixbuf3)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
     def on_import_login_wallpaper(self, widget):
         text = self.login_image.get_text()
@@ -3399,8 +3318,8 @@ class Main(Gtk.Window):
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                 )
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
 
             self.pop_login_wallpapers(
                 self.login_managers_combo, fn.get_login_wallpapers(), False
@@ -3598,8 +3517,8 @@ class Main(Gtk.Window):
                 fn.shutil.copy(fn.zshrc_arco, fn.zsh_config)
                 fn.permissions(fn.home + "/.zshrc")
             fn.source_shell(self)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         print("ATT ~/.zshrc is applied")
         GLib.idle_add(fn.show_in_app_notification, self, "ATT ~/.zshrc is applied")
@@ -3609,8 +3528,8 @@ class Main(Gtk.Window):
             if fn.path.isfile(fn.zsh_config + ".bak"):
                 fn.shutil.copy(fn.zsh_config + ".bak", fn.zsh_config)
                 fn.permissions(fn.home + "/.zshrc")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         print("Your personal ~/.zshrc is applied again - logout")
         GLib.idle_add(
@@ -3763,7 +3682,7 @@ class Main(Gtk.Window):
         if fn.check_package_installed("lightdm"):
             lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
         if fn.check_package_installed("termite"):
-            termite.get_themes(self.term_themes)
+            terminals.get_themes(self.term_themes)
         print("Reloaded")
 
     # ================================================================================
@@ -3853,14 +3772,14 @@ if __name__ == "__main__":
                 f.close()
 
             try:
-                if fn.checkIfProcessRunning(int(pid)):
-                    fn.MessageBox(
+                if fn.check_if_process_is_running(int(pid)):
+                    fn.messagebox(
                         "Application Running!",
                         "You first need to close the existing application",
-                    )  # noqa
+                    )
                 else:
                     fn.unlink("/tmp/att.lock")
-            except Exception as e:
+            except:
                 print(
                     "Make sure there is just one instance of ArchLinux Tweak Tool running"
                 )

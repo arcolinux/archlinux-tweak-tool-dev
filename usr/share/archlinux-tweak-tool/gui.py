@@ -20,7 +20,7 @@ import sddm
 
 # import services
 # import shell
-import termite
+import terminals
 
 # import template
 import themer
@@ -43,7 +43,7 @@ import arcolinuxmirrors_gui
 import neofetch_gui
 import pacman_gui
 import privacy_gui
-import termite_gui
+import terminals_gui
 
 # import Template_GUI
 import utilities_gui
@@ -274,10 +274,10 @@ themes</i> you can customize <b>Neofetch</b>"
     # Template_GUI.gui(self, Gtk, vboxstack21, fn)
 
     # # ==========================================================
-    # #               TERMINALS - TERMITE CONFIG
+    # #                 TERMINALS
     # # ==========================================================
 
-    termite_gui.gui(self, Gtk, vboxstack7, termite)
+    terminals_gui.gui(self, Gtk, vboxstack7, terminals)
 
     # # ==========================================================
     # #               TERMINAL FUN
@@ -327,7 +327,7 @@ themes</i> you can customize <b>Neofetch</b>"
 
     # stack.add_titled(vboxstack21, "stack21", "Template")  # template
 
-    stack.add_titled(vboxstack7, "stack8", "Terminals")  # Termite themes
+    stack.add_titled(vboxstack7, "stack8", "Terminals")  # Terminals
 
     stack.add_titled(vboxstack20, "stack20", "Terminal Fun")  # lolcat and others
 

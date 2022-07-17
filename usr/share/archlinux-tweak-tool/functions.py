@@ -1,11 +1,14 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+# pylint:disable=C0103,C0116,C0411,C0413,R1705,W0621,W0622
 import gi
+
+# from yaml import DirectiveToken
 
 gi.require_version("Gtk", "3.0")
 
-from os import unlink, walk, execl, getpid, system, stat, readlink
+from os import rmdir, unlink, walk, execl, getpid, system, stat, readlink
 from os import path, getlogin, mkdir, makedirs, listdir
 from distro import id
 import os
@@ -244,8 +247,8 @@ def get_lines(files):
                 lines = f.readlines()
                 f.close()
             return lines
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # get position in list
@@ -313,7 +316,7 @@ def check_backups(now):
 # check process is running
 
 
-def checkIfProcessRunning(processName):
+def check_if_process_is_running(processName):
     for proc in psutil.process_iter():
         try:
             pinfo = proc.as_dict(attrs=["pid", "name", "create_time"])
@@ -337,14 +340,14 @@ def copytree(self, src, dst, symlinks=False, ignore=None):  # noqa
         if path.exists(d):
             try:
                 shutil.rmtree(d)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
                 unlink(d)
         if path.isdir(s):
             try:
                 shutil.copytree(s, d, symlinks, ignore)
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
                 print("ERROR2")
                 self.ecode = 1
         else:
@@ -389,6 +392,19 @@ def path_check(path):
         return True
 
     return False
+
+
+# check if directory is empty
+
+
+def is_empty_directory(path):
+    if os.path.exists(path) and not os.path.isfile(path):
+        if not os.listdir(path):
+            # print("Empty directory")
+            return True
+        else:
+            # print("Not empty directory")
+            return False
 
 
 # check if value is true or false in file
@@ -468,8 +484,8 @@ def list_users(filename):  # noqa
                     data.append(line.split(":")[0])
             data.sort()
             return data
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # check if user is part of the group
@@ -489,8 +505,8 @@ def check_group(group):
                 return True
             else:
                 return False
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def check_systemd_boot():
@@ -545,7 +561,6 @@ def install_package(self, package):
             self,
             package + " is already installed - nothing to do",
         )
-        pass
     else:
         try:
             print(command)
@@ -557,8 +572,8 @@ def install_package(self, package):
             )
             print(package + " is now installed")
             GLib.idle_add(show_in_app_notification, self, package + " is now installed")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def install_local_package(self, package):
@@ -574,8 +589,8 @@ def install_local_package(self, package):
         )
         print(package + " is now installed")
         GLib.idle_add(show_in_app_notification, self, package + " is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def install_arco_package(self, package):
@@ -588,7 +603,6 @@ def install_arco_package(self, package):
                 self,
                 package + " is already installed - nothing to do",
             )
-            pass
         else:
             try:
                 print(command)
@@ -602,8 +616,8 @@ def install_arco_package(self, package):
                 GLib.idle_add(
                     show_in_app_notification, self, package + " is now installed"
                 )
-            except Exception as e:
-                print(e)
+            except Exception as error:
+                print(error)
     else:
         print("You need to activate the ArcoLinux repos")
         print("Check the pacman tab of the ArchLinux Tweak Tool")
@@ -626,12 +640,11 @@ def remove_package(self, package):
             )
             print(package + " is now removed")
             GLib.idle_add(show_in_app_notification, self, package + " is now removed")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
     else:
         print(package + " is already removed")
         GLib.idle_add(show_in_app_notification, self, package + " is already removed")
-        pass
 
 
 def remove_package_dep(self, package):
@@ -647,12 +660,65 @@ def remove_package_dep(self, package):
             )
             print(package + " is now removed")
             GLib.idle_add(show_in_app_notification, self, package + " is now removed")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
     else:
         print(package + " is already removed")
         GLib.idle_add(show_in_app_notification, self, package + " is already removed")
-        pass
+
+
+def remove_package_remnants(package):
+    """remove theme.conf.user from folder - ATT shows names of empty folders"""
+    # TODO: clean up for any theme
+    # scan folders
+    # if theme.conf is not present and theme.conf.user is delete
+    if package == "arcolinux-meta-sddm-themes":
+        themes = (
+            "arcolinux-futuristic",
+            "arcolinux-materia",
+            "arcolinux-materia-dark",
+            "arcolinux-simplicity",
+            "arcolinux-slice",
+            "arcolinux-sugar-candy",
+            "arcolinux-urbanlifestyle",
+        )
+        for theme in themes:
+            file = "/usr/share/sddm/themes/" + theme + "/theme.conf.user"
+            directory = "/usr/share/sddm/themes/" + theme
+
+            if file_check(file):
+                print("Also remove - " + file)
+                unlink(file)
+                try:
+                    rmdir(directory)
+                except:
+                    print("Manually remove any files in " + directory)
+
+    # clean up two of the ATT themes
+    # clean up if directory exists and if directory is not empty
+    if check_package_installed("arcolinux-sddm-breeze-minimal-git") is False:
+        file = "/usr/share/sddm/themes/arcolinux-breeze-minimal/theme.conf.user"
+        directory = "/usr/share/sddm/themes/arcolinux-breeze-minimal"
+        if path_check(directory):
+            if file_check(file):
+                try:
+                    unlink(file)
+                    if is_empty_directory(directory):
+                        rmdir(directory)
+                except:
+                    print("Manually remove any files in " + directory)
+
+    if check_package_installed("arcolinux-sddm-breeze-git") is False:
+        file = "/usr/share/sddm/themes/arcolinux-breeze/theme.conf.user"
+        directory = "/usr/share/sddm/themes/arcolinux-breeze"
+        if path_check(directory):
+            if file_check(file):
+                try:
+                    unlink(file)
+                    if is_empty_directory(directory):
+                        rmdir(directory)
+                except:
+                    print("Manually remove any files in " + directory)
 
 
 def enable_login_manager(self, loginmanager):
@@ -672,8 +738,8 @@ def enable_login_manager(self, loginmanager):
                 self,
                 loginmanager + " has been enabled - reboot",
             )
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
     else:
         print(loginmanager + " is not installed")
         GLib.idle_add(
@@ -706,7 +772,6 @@ def install_arco_caja_plugin(self, widget):
 
     if check_package_installed("arcolinux-caja-share"):
         print("Arcolinux-caja-share is already installed")
-        pass
     else:
         subprocess.call(
             install.split(" "),
@@ -821,8 +886,8 @@ def install_arcolinux_fish_package(self):
             stderr=subprocess.STDOUT,
         )
         print("ArcoLinux Fish has been installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def remove_fish(self):
@@ -874,8 +939,8 @@ def make_grub(self):
         print("We update your grub with 'sudo grub-mkconfig -o /boot/grub/grub.cfg'")
         print("This can take a while...")
         show_in_app_notification(self, "We have updated your grub")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # =====================================================
@@ -928,7 +993,7 @@ def set_grub_wallpaper(self, image):
             print("Grub wallpaper saved")
             print(image)
             show_in_app_notification(self, "Grub wallpaper saved")
-            # MessageBox(self, "Success!!", "Settings Saved Successfully")
+            # messagebox(self, "Success!!", "Settings Saved Successfully")
         except:  # noqa
             pass
 
@@ -949,7 +1014,9 @@ def set_login_wallpaper(self, image):
             if not path.isfile("/usr/share/sddm/themes/" + theme + "/theme.conf.user"):
                 try:
                     with open(
-                        "/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w"
+                        "/usr/share/sddm/themes/" + theme + "/theme.conf.user",
+                        "w",
+                        encoding="utf-8",
                     ) as f:
                         f.write("[General]\n")
                         f.write("background=\n")
@@ -975,7 +1042,9 @@ def set_login_wallpaper(self, image):
                     print(lists[val])
 
                     with open(
-                        "/usr/share/sddm/themes/" + theme + "/theme.conf.user", "w"
+                        "/usr/share/sddm/themes/" + theme + "/theme.conf.user",
+                        "w",
+                        encoding="utf-8",
                     ) as f:
                         f.writelines(lists)
                         f.close()
@@ -1173,7 +1242,7 @@ def set_default_grub_theme(self):
                 except IndexError:
                     pass
 
-            with open(grub_default_grub, "w") as f:
+            with open(grub_default_grub, "w", encoding="utf-8") as f:
                 f.writelines(grubd)
                 f.close()
 
@@ -1183,8 +1252,8 @@ def set_default_grub_theme(self):
             print('GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"')
 
             show_in_app_notification(self, "Grub settings saved in /etc/default/grub")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def set_grub_timeout(self, number):
@@ -1197,13 +1266,13 @@ def set_grub_timeout(self, number):
         lists[val] = "GRUB_TIMEOUT=" + str(number) + "\n"
         print(lists[val])
 
-        with open(grub_default_grub, "w") as f:
+        with open(grub_default_grub, "w", encoding="utf-8") as f:
             f.writelines(lists)
             f.close()
         print("Grub timeout in seconds saved - /etc/default/grub")
         show_in_app_notification(self, "Grub timeout in seconds saved")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # =====================================================
@@ -1308,9 +1377,9 @@ def set_hblock(self, toggle, state):
         else:
             GLib.idle_add(self.label7.set_text, "HBlock Inactive")
 
-    except Exception as e:
-        MessageBox(self, "ERROR!!", str(e))
-        print(e)
+    except Exception as error:
+        messagebox(self, "ERROR!!", str(error))
+        print(error)
 
 
 # =====================================================
@@ -1328,11 +1397,11 @@ def enable_slick_greeter(self):
             val = get_position(lists, "#greeter-session=example-gtk-gnome")
             lists[val] = "greeter-session=lightdm-slick-greeter" + "\n"
 
-            with open(lightdm_conf, "w") as f:
+            with open(lightdm_conf, "w", encoding="utf-8") as f:
                 f.writelines(lists)
                 f.close()
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def disable_slick_greeter(self):
@@ -1345,11 +1414,11 @@ def disable_slick_greeter(self):
             val = get_position(lists, "greeter-session=lightdm-slick-greeter")
             lists[val] = "#greeter-session=example-gtk-gnome" + "\n"
 
-            with open(lightdm_conf, "w") as f:
+            with open(lightdm_conf, "w", encoding="utf-8") as f:
                 f.writelines(lists)
                 f.close()
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 # =====================================================
@@ -1420,8 +1489,8 @@ def install_att_lxdm_theme_minimalo(self):
             stderr=subprocess.STDOUT,
         )
         print("Arcolinux-lxdm-theme-minimalo-git is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def remove_att_lxdm_theme_minimalo(self):
@@ -1435,8 +1504,8 @@ def remove_att_lxdm_theme_minimalo(self):
             stderr=subprocess.STDOUT,
         )
         print("Arcolinux-lxdm-theme-minimalo-git is now removed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # =====================================================
@@ -1444,7 +1513,7 @@ def remove_att_lxdm_theme_minimalo(self):
 # =====================================================
 
 
-def MessageBox(self, title, message):
+def messagebox(self, title, message):
     md2 = Gtk.MessageDialog(
         parent=self,
         flags=0,
@@ -1467,7 +1536,6 @@ def install_arco_nemo_plugin(self, widget):
 
     if check_package_installed("arcolinux-nemo-share"):
         print("Arcolinux-nemo-share is already installed")
-        pass
     else:
         subprocess.call(
             install.split(" "),
@@ -1598,8 +1666,8 @@ def install_pace(self):
                 stderr=subprocess.STDOUT,
             )
             print("Pace is now installed")
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 # =====================================================
@@ -1621,8 +1689,8 @@ def install_chaotics(self):
             stderr=subprocess.STDOUT,
         )
         print("Chaotics keyring is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
     base_dir = path.dirname(path.realpath(__file__))
     name1 = "chaotic-mirrorlist-20220504-2-any.pkg.tar.zst"
@@ -1637,8 +1705,8 @@ def install_chaotics(self):
             stderr=subprocess.STDOUT,
         )
         print("Chaotics mirrorlist is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def install_endeavouros(self):
@@ -1655,8 +1723,8 @@ def install_endeavouros(self):
             stderr=subprocess.STDOUT,
         )
         print("EndeavourOS keyring is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
     base_dir = path.dirname(path.realpath(__file__))
     name1 = "endeavouros-mirrorlist-4.4.3-1-any.pkg.tar.zst"
@@ -1671,8 +1739,8 @@ def install_endeavouros(self):
             stderr=subprocess.STDOUT,
         )
         print("EndeavourOS mirrorlist is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def install_arcolinux(self):
@@ -1690,8 +1758,8 @@ def install_arcolinux(self):
             stderr=subprocess.STDOUT,
         )
         print("ArcoLinux keyring is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
     pathway = base_dir + "/data/arco/packages/arcolinux-mirrorlist/"
     file = listdir(pathway)
@@ -1704,8 +1772,8 @@ def install_arcolinux(self):
             stderr=subprocess.STDOUT,
         )
         print("ArcoLinux mirrorlist is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 def install_xerolinux(self):
@@ -1722,8 +1790,8 @@ def install_xerolinux(self):
             stderr=subprocess.STDOUT,
         )
         print("Xerolinux mirrorlist is now installed")
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # =====================================================
@@ -1759,8 +1827,8 @@ def permissions(dst):
                 g = x.split("(")[1]
                 group = g.replace(")", "").strip()
         subprocess.call(["chown", "-R", sudo_username + ":" + group, dst], shell=False)
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # =====================================================
@@ -1995,11 +2063,11 @@ def copy_samba(choice):
             print("Reboot or restart smb first")
             print(lists[val + 1])
 
-            with open(samba_config, "w") as f:
+            with open(samba_config, "w", encoding="utf-8") as f:
                 f.writelines(lists)
                 f.close()
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
     if choice == "usershares":
         # make folder
@@ -2019,11 +2087,11 @@ def copy_samba(choice):
                         stdout=subprocess.PIPE,
                         stderr=subprocess.STDOUT,
                     )
-                except Exception as e:
-                    print(e)
+                except Exception as error:
+                    print(error)
 
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         # add user to group
         try:
@@ -2034,8 +2102,8 @@ def copy_samba(choice):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             )
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         try:
             command = "chown root:sambashare /var/lib/samba/usershares"
@@ -2045,8 +2113,8 @@ def copy_samba(choice):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             )
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
         try:
             command = "chmod 1770 /var/lib/samba/usershares"
@@ -2056,8 +2124,8 @@ def copy_samba(choice):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
             )
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 # =====================================================
@@ -2115,7 +2183,7 @@ def save_samba_config(self):
             print(lists[val + 4])
             print(lists[val + 5])
 
-            with open(samba_config, "w") as f:
+            with open(samba_config, "w", encoding="utf-8") as f:
                 f.writelines(lists)
                 f.close()
 
@@ -2139,8 +2207,8 @@ def create_sddm_k_dir():
     if not path.isdir(sddm_default_d2_dir):
         try:
             mkdir(sddm_default_d2_dir)
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 # =====================================================
@@ -2195,11 +2263,11 @@ def get_shell():
     )
 
     output = process.stdout.decode().strip().strip("\n")
-    if output == "/bin/bash" or output == "/usr/bin/bash":
+    if output in ("/bin/bash", "/usr/bin/bash"):
         return "bash"
-    elif output == "/bin/zsh" or output == "/usr/bin/zsh":
+    elif output in ("/bin/zsh", "/usr/bin/zsh"):
         return "zsh"
-    elif output == "/bin/fish" or output == "/usr/bin/fish":
+    elif output in ("/bin/fish", "/usr/bin/fish"):
         return "fish"
 
 
@@ -2217,8 +2285,8 @@ def install_extra_shell(package):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-    except Exception as e:
-        print(e)
+    except Exception as error:
+        print(error)
 
 
 # =====================================================
@@ -2231,7 +2299,6 @@ def install_arco_thunar_plugin(self, widget):
 
     if check_package_installed("arcolinux-thunar-shares-plugin"):
         print("Arcolinux-thunar-shares-plugin is already installed")
-        pass
     else:
         try:
             subprocess.call(
@@ -2251,8 +2318,8 @@ def install_arco_thunar_plugin(self, widget):
             print(" - arcolinux-nautilus-share (gnome - budgie)")
             print(" - kdenetwork-filesharing (plasma)")
 
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 # =====================================================
@@ -2307,9 +2374,9 @@ def set_firefox_ublock(self, toggle, state):
         else:
             GLib.idle_add(self.label7.set_text, "uBlock Origin removed")
 
-    except Exception as e:
-        MessageBox(self, "ERROR!!", str(e))
-        print(e)
+    except Exception as error:
+        messagebox(self, "ERROR!!", str(error))
+        print(error)
 
 
 # =====================================================
@@ -2327,7 +2394,6 @@ def install_archlinux_login_backgrounds(self, widget):
             self,
             "Archlinux-login-backgrounds-git is already installed",
         )
-        pass
     else:
         try:
             subprocess.call(
@@ -2343,8 +2409,8 @@ def install_archlinux_login_backgrounds(self, widget):
                 "Archlinux-login-backgrounds-git is now installed",
             )
 
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
 
 
 def remove_archlinux_login_backgrounds(self, widget):
@@ -2365,11 +2431,10 @@ def remove_archlinux_login_backgrounds(self, widget):
                 "Archlinux-login-backgrounds-git is now installed",
             )
 
-        except Exception as e:
-            print(e)
+        except Exception as error:
+            print(error)
     else:
         print("Archlinux-login-backgrounds-git is already removed")
         GLib.idle_add(
             show_in_app_notification, self, "Archlinux-login-backgrounds-git is removed"
         )
-        pass

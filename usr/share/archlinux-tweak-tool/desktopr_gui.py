@@ -3,7 +3,7 @@
 # ============================================================
 
 
-def gui(self, Gtk, GdkPixbuf, vboxStack12, desktopr, fn, base_dir, Pango):
+def gui(self, Gtk, GdkPixbuf, vboxstack12, desktopr, fn, base_dir, Pango):
     """create a gui"""
 
     hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -161,6 +161,6 @@ Backup is in ~/.config-att folder\nLog files are located in /var/log/archlinux"
     # =======================================
     #               PACK TO WINDOW
     # =======================================
-    vboxStack12.pack_start(hbox3, False, False, 0)
-    vboxStack12.pack_start(hbox4, False, False, 0)
-    vboxStack12.pack_start(vbox1, True, True, 0)
+    vboxstack12.pack_start(hbox3, False, False, 0)
+    vboxstack12.pack_start(hbox4, False, False, 0)
+    vboxstack12.pack_start(vbox1, True, True, 0)

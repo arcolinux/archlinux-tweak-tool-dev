@@ -59,7 +59,7 @@ def gui(self, Gtk, vboxStack10, user, fn):
     self.hbox_confirm_password.set_visibility(False)
 
     self.combo_account_type = Gtk.ComboBoxText()
-
+    # TODO: enumerate
     for i in range(len(fn.account_list)):
         self.combo_account_type.append_text(fn.account_list[i])
     self.combo_account_type.set_active(1)
