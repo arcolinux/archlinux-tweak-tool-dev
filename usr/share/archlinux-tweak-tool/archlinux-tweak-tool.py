@@ -1547,7 +1547,7 @@ class Main(Gtk.Window):
 
     def on_click_install_arch_mirrors2(self, widget):
         fn.install_arco_package(self, "rate-mirrors-bin")
-        self.button_Apply_Mirrors2.set_sensitive(True)
+        self.btn_run_rate_mirrors.set_sensitive(True)
 
     def on_click_apply_global_cursor(self, widget):
         cursor = self.cursor_themes.get_active_text()
