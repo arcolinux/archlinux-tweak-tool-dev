@@ -1426,7 +1426,13 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.xmonad")
         src.append("/etc/skel/.config/polybar")
         twm = True
-    # fn.subprocess.call(list(np.append(pkexec, command)))
+
+    # archcraft and amos
+    if fn.check_package_installed("picom-ibhagwan-git"):
+        try:
+            command = list(np.remove("picom"))
+        except Exception as e:
+            print(e)
 
     GLib.idle_add(self.desktopr_prog.set_fraction, 0.2)
 

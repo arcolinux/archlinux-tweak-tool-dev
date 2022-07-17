@@ -98,7 +98,7 @@ def GUI(self, Gtk, GdkPixbuf, vboxStack12, desktopr, fn, base_dir, Pango):
     self.desktopr_stat.set_ellipsize(Pango.EllipsizeMode.MIDDLE)
 
     warning_archcraft = Gtk.Label(xalign=0)
-    message = "On Archcraft first remove picom-ibhagwan-git \
+    message = "On Archcraft/Amos first remove picom-ibhagwan-git \
 and re-install the default picom"
     warning_archcraft.set_markup(
         '<span foreground="red" size="x-large">' + message + "</span>"
