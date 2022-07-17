@@ -3,8 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack14, fn):
-
+def gui(self, Gtk, vboxStack14, fn):
+    """create a gui"""
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_label = Gtk.Label(xalign=0)
     hbox1_label.set_text("Services")

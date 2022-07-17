@@ -3,7 +3,7 @@
 # ============================================================
 
 import configparser
-from Functions import config
+from functions import config
 
 settings = config
 

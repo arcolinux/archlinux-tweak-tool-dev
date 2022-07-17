@@ -4,7 +4,7 @@
 # pylint:disable=C0301
 
 
-import Functions as fn
+import functions as fn
 
 
 def get_list(fle):

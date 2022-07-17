@@ -9,9 +9,9 @@ import utilities
 import user
 import themer
 import termite
-import Support
-import Splash
-import Settings
+import support
+import splash
+import settings
 import services
 import sddm
 import pacman_functions
@@ -20,7 +20,7 @@ import lxdm
 import login
 import lightdm
 import fixes
-import GUI
+import gui
 import desktopr
 import autostart
 from subprocess import call
@@ -28,7 +28,7 @@ import os
 import subprocess
 import signal
 import datetime
-import Functions as fn
+import functions as fn
 import gi
 
 gi.require_version("Gtk", "3.0")
@@ -46,9 +46,6 @@ from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, Pango  # noqa
 
 base_dir = fn.path.dirname(fn.path.realpath(__file__))
 pmf = pacman_functions
-
-# debug = True
-debug = False
 
 
 class Main(Gtk.Window):
@@ -119,7 +116,7 @@ class Main(Gtk.Window):
         self.fb = Gtk.FlowBox()
         self.flowbox_wall = Gtk.FlowBox()
 
-        splScr = Splash.splashScreen()
+        splScr = splash.splashScreen()
 
         while Gtk.events_pending():
             Gtk.main_iteration()
@@ -135,9 +132,6 @@ class Main(Gtk.Window):
         # =====================================================
         #     ATT THEME DARK OR LIGHT - FOLLOW USER SELECTION
         # ====================================================
-
-        if debug:
-            print("ATT THEME DARK OR LIGHT - FOLLOW USER SELECTION")
 
         # ensuring we have a directory
         if not fn.path.isdir("/root/.config/"):
@@ -196,9 +190,6 @@ class Main(Gtk.Window):
         #     ENSURING WE HAVE THE DIRECTORIES WE NEED
         # =====================================================
 
-        if debug:
-            print("ENSURING WE HAVE THE DIRECTORIES WE NEED")
-
         # make directory if it doesn't exist
         if not fn.path.isdir(fn.log_dir):
             try:
@@ -240,9 +231,6 @@ class Main(Gtk.Window):
         # =====================================================
         #                   MAKING BACKUPS
         # =====================================================
-
-        if debug:
-            print("MAKING BACUPS")
 
         # ensuring we have a backup of /etc/sddm.conf.d/kde_settings.conf
         # no backups in this folder - it confuses sddm.conf.d
@@ -492,9 +480,6 @@ class Main(Gtk.Window):
         #               CATCHING ERRORS
         # =====================================================
 
-        if debug:
-            print("CATCHING ERRORS")
-
         # make directory if it doesn't exist'
         if fn.path.exists("/usr/bin/sddm"):
             fn.create_sddm_k_dir()
@@ -612,21 +597,18 @@ class Main(Gtk.Window):
 
         if not fn.path.isfile(fn.config):
             key = {"theme": ""}
-            Settings.make_file("TERMITE", key)
+            settings.make_file("TERMITE", key)
             fn.permissions(fn.config)
 
         # =====================================================
         #      LAUNCHING GUI AND SETTING ALL THE OBJECTS
         # =====================================================
 
-        GUI.GUI(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
+        gui.gui(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango)
 
         # =====================================================
         #               READING AND SETTING
         # =====================================================
-
-        if debug:
-            print("READING AND SETTING")
 
         # ========================ARCO REPO=============================
 
@@ -743,9 +725,6 @@ class Main(Gtk.Window):
         #                        GRUB
         # =====================================================
 
-        if debug:
-            print("GRUB")
-
         if fn.check_package_installed("arcolinux-grub-theme-vimix-git"):
             try:
                 if fn.check_content("GRUB_TIMEOUT=", fn.grub_default_grub):
@@ -823,9 +802,6 @@ class Main(Gtk.Window):
         #                     LIGHTDM
         # =====================================================
 
-        if debug:
-            print("LIGHTDM")
-
         if fn.path.isfile(fn.lightdm_conf):
             try:
                 if "#" in lightdm.check_lightdm(
@@ -842,9 +818,6 @@ class Main(Gtk.Window):
         # =====================================================
         #                        SDDM
         # =====================================================
-
-        if debug:
-            print("SDDM")
 
         if fn.path.exists("/usr/bin/sddm"):
             try:
@@ -873,9 +846,6 @@ class Main(Gtk.Window):
         # =====================================================
         #                        LXDM
         # =====================================================
-
-        if debug:
-            print("LXDM")
 
         if fn.path.exists("/usr/bin/lxdm"):
             try:
@@ -915,9 +885,6 @@ class Main(Gtk.Window):
     # =====================================================
     #     CREATE AUTOSTART_GUI
     # =====================================================
-
-    if debug:
-        print("CREATE AUTOSTART_GUI")
 
     def create_autostart_columns(self, treeView):
         rendererText = Gtk.CellRendererText()
@@ -992,9 +959,6 @@ class Main(Gtk.Window):
     #                       AUTOSTART
     # ====================================================================
 
-    if debug:
-        print("AUTOSTART")
-
     def on_comment_changed(self, widget):
         if len(self.txtbox1.get_text()) >= 3 and len(self.txtbox2.get_text()) >= 3:
             self.abutton.set_sensitive(True)
@@ -1060,7 +1024,7 @@ class Main(Gtk.Window):
 
         swtch = Gtk.Switch()
         swtch.connect("notify::active", self.on_auto_toggle, lbl.get_text())
-        swtch.set_active(autostart.get_startups(self, lbl.get_text()))
+        swtch.set_active(autostart.get_startups(lbl.get_text()))
 
         listbox = Gtk.ListBox()
 
@@ -1168,9 +1132,6 @@ class Main(Gtk.Window):
     #                       ARCOLINUX MIRRORLIST
     # ====================================================================
 
-    if debug:
-        print("ARCOLINUX MIRRORLIST")
-
     def on_click_launch_pace(self, widget):
         if fn.path.isfile(fn.arcolinux_mirrorlist):
             if fn.check_arco_repos_active():
@@ -1199,9 +1160,6 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       BASH
     # ====================================================================
-
-    if debug:
-        print("BASH")
 
     def tobash_apply(self, widget):
         fn.change_shell(self, "bash")
@@ -1245,9 +1203,6 @@ class Main(Gtk.Window):
     #    #                       DESKTOPR
     #    #====================================================================
 
-    if debug:
-        print("DESKTOPR")
-
     def on_d_combo_changed(self, widget):
         try:
             pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(
@@ -1290,9 +1245,6 @@ class Main(Gtk.Window):
     #    #====================================================================
     #    #                       FISH
     #    #====================================================================
-
-    if debug:
-        print("FISH")
 
     def on_install_only_fish_clicked(self, widget):
         install = "pacman -S fish --needed --noconfirm"
@@ -1487,9 +1439,6 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       FIXES
     # ====================================================================
-
-    if debug:
-        print("FIXES")
 
     def on_click_install_arch_keyring(self, widget):
         pathway = base_dir + "/data/arch/packages/"
@@ -1697,9 +1646,6 @@ class Main(Gtk.Window):
     #                       GRUB
     # ====================================================================
 
-    if debug:
-        print("GRUB")
-
     def on_grub_item_clicked(self, widget, data):
         for x in data:
             self.grub_image_path = x.get_name()
@@ -1878,9 +1824,6 @@ class Main(Gtk.Window):
     #                            PRIVACY
     # ====================================================================
 
-    if debug:
-        print("PRIVACY")
-
     def set_hblock(self, widget, state):
         if fn.check_arco_repos_active() is True:
             if self.firstrun is not True:
@@ -1910,9 +1853,6 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       LIGHTDM
     # ====================================================================
-
-    if debug:
-        print("LIGHTDM")
 
     def on_click_lightdm_apply(self, widget):
 
@@ -2194,9 +2134,6 @@ class Main(Gtk.Window):
     #                        NEOFETCH CONFIG
     # ====================================================================
 
-    if debug:
-        print("NEOFETCH")
-
     def on_install_neo(self, widget):
         fn.install_package(self, "neofetch")
 
@@ -2308,76 +2245,6 @@ class Main(Gtk.Window):
         print("You have not selected any Neofetch switch")
         neofetch.set_checkboxes_none(self)
 
-    # =====================================================
-    #               OBLOGOUT FUNCTIONS ALPHABETICAL
-    # =====================================================
-
-    # if debug:
-    #     print("OBLOGOUT")
-
-    # def save_oblogout(self, widget):  # noqa
-    #     # widget.set_sensitive(False)
-    #     if not fn.path.isfile(fn.oblogout_conf + ".bak"):
-    #         fn.shutil.copy(fn.oblogout_conf,
-    #                        fn.oblogout_conf + ".bak")
-    #     try:
-    #         string = ""
-    #         if self.check_cancel.get_active():
-    #             string += "cancel "
-    #         if self.check_logout.get_active():
-    #             string += "logout "
-    #         if self.check_restart.get_active():
-    #             string += "restart "
-    #         if self.check_shut.get_active():
-    #             string += "shutdown "
-    #         if self.check_susp.get_active():
-    #             string += "suspend "
-    #         if self.check_hiber.get_active():
-    #             string += "hibernate "
-    #         if self.check_lock.get_active():
-    #             string += "lock "
-
-    #         oblogout.set_buttons(self, string.strip().replace(" ", ", "))
-    #         oblogout.oblogout_change_theme(self, self.oblog.get_active_text())
-    #         oblogout.set_opacity(self, self.hscale.get_value())
-    #         # oblogout.set_command(self, "lock", self.lockBox.get_text())
-    #         oblogout.set_shorcut(self,
-    #                              "shutdown",
-    #                              self.tbshutdown.get_text().capitalize())
-    #         oblogout.set_shorcut(self,
-    #                              "restart",
-    #                              self.tbrestart.get_text().capitalize())
-    #         oblogout.set_shorcut(self,
-    #                              "suspend",
-    #                              self.tbsuspend.get_text().capitalize())
-    #         oblogout.set_shorcut(self,
-    #                              "logout",
-    #                              self.tblogout.get_text().capitalize())
-    #         oblogout.set_shorcut(self,
-    #                              "cancel",
-    #                              self.tbcancel.get_text().capitalize())
-    #         oblogout.set_shorcut(self,
-    #                              "hibernate",
-    #                              self.tbhibernate.get_text().capitalize())
-    #         oblogout.set_shorcut(self,
-    #                              "lock",
-    #                              self.tblock.get_text().capitalize())
-    #         # hex = fn.rgb_to_hex(
-    #         #     self.colorchooser.get_rgba().to_string())
-    #         # oblogout.set_color(self, hex.upper())
-
-    #         fn.show_in_app_notification(self,
-    #                                     "Oblogout settings saved successfully")
-    #     except Exception as e:
-    #         print(e)
-
-    # =====================================================
-    #               PACMAN FUNCTIONS MIRROR
-    # =====================================================
-
-    if debug:
-        print("PACMAN FUNCTIONS MIRROR")
-
     def on_mirror_seed_repo_toggle(self, widget, active):
         if not pmf.mirror_exist(
             "Server = https://ant.seedhost.eu/arcolinux/$repo/$arch"
@@ -2452,9 +2319,6 @@ class Main(Gtk.Window):
     # =====================================================
     #               PACMAN CONF
     # =====================================================
-
-    if debug:
-        print("PACMAN CONF")
 
     def on_arcolinux_clicked(self, widget):
         fn.install_arcolinux(self)
@@ -2782,11 +2646,8 @@ class Main(Gtk.Window):
     #               PATREON LINK
     # =====================================================
 
-    if debug:
-        print("PATREON LINK")
-
     def on_social_clicked(self, widget, event):
-        sup = Support.Support(self)
+        sup = support.Support(self)
         response = sup.run()
 
         if response == Gtk.ResponseType.DELETE_EVENT:
@@ -2799,9 +2660,6 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       POLYBAR
     # ====================================================================
-
-    # if debug:
-    #     print("POLYBAR")
 
     # def on_polybar_apply_clicked(self, widget):
     #     if self.pbrbutton.get_active():
@@ -2876,9 +2734,6 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       SDDM
     # ====================================================================
-
-    if debug:
-        print("SDDM")
 
     def on_click_sddm_apply(self, widget):
         fn.create_sddm_k_dir()
@@ -3092,9 +2947,6 @@ class Main(Gtk.Window):
     #                       SERVICES - NSSWITCH
     # ====================================================================
 
-    if debug:
-        print("SERVICES - NSSWITCH")
-
     def on_install_discovery_clicked(self, widget):
         fn.install_discovery(self)
         GLib.idle_add(
@@ -3122,9 +2974,6 @@ class Main(Gtk.Window):
     # ====================================================================
     #                       SERVICES - SAMBA
     # ====================================================================
-
-    if debug:
-        print("SERVICES - SAMBA")
 
     def on_click_create_samba_user(self, widget):
         services.create_samba_user(self)
@@ -3203,9 +3052,6 @@ class Main(Gtk.Window):
     #                       SHELLS EXTRA
     # ====================================================================
 
-    if debug:
-        print("SHELLS EXTRA")
-
     def on_extra_shell_applications_clicked(self, widget):
         if self.expac.get_active():
             fn.install_extra_shell("expac")
@@ -3241,239 +3087,9 @@ class Main(Gtk.Window):
             self.rate_mirrors.set_active(True)
             self.most.set_active(True)
 
-    # ====================================================================
-    #                       SKEL
-    # ====================================================================
-
-    if debug:
-        print("SKEL")
-
-    # def on_bashrc_upgrade(self, widget):
-    #     skelapp.button_toggles(self, False)
-    #     t1 = fn.threading.Thread(target=skelapp.bash_upgrade,
-    #                                     args=(self,))
-    #     t1.daemon = True
-    #     t1.start()
-
-    # ======REMOVE ITEMS TO TREEVIEW=============
-
-    # def on_remove_fixed(self, widget):
-    #     selection = self.treeView.get_selection()
-    #     model, paths = selection.get_selected_rows()
-
-    #     # Get the TreeIter instance for each path
-    #     for path in paths:
-    #         iter = model.get_iter(path)
-    #         # Remove the ListStore row referenced by iter
-    #         model.remove(iter)
-
-    # ======ADD ITEMS TO TREEVIEW================
-
-    # def on_browse_fixed(self, widget):
-    #     if self.rbutton3.get_active():
-    #         dialog = Gtk.FileChooserDialog(
-    #             title="Please choose a file",
-    #             action=Gtk.FileChooserAction.OPEN)
-    #     elif self.rbutton4.get_active():
-    #         dialog = Gtk.FileChooserDialog(
-    #             title="Please choose a folder",
-    #             action=Gtk.FileChooserAction.SELECT_FOLDER)
-
-    #     dialog.set_select_multiple(True)
-    #     dialog.set_show_hidden(True)
-    #     dialog.set_current_folder("/etc/skel")
-    #     dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open",
-    #                        Gtk.ResponseType.OK)
-    #     dialog.connect("response", self.open_response_skel)
-
-    #     dialog.show()
-
-    # def open_response_skel(self, dialog, response):
-    #     if response == Gtk.ResponseType.OK:
-    #         print(dialog.get_filenames())
-    #         foldername = dialog.get_filenames()
-    #         # for item in foldername:
-    #         self.stores.append(foldername)
-    #         dialog.destroy()
-    #     elif response == Gtk.ResponseType.CANCEL:
-    #         dialog.destroy()
-
-    # ===============RUN SKEL================
-
-    # def on_button_fetch_clicked(self, widget):
-    #     skelapp.button_toggles(self, False)
-    #     skelapp.skel_check(self)
-
-    # def on_backup_clicked(self, widget):
-    #     skelapp.button_toggles(self, False)
-    #     skelapp.setMessage(self.label_info, "Running Backup")
-    #     t1 = fn.threading.Thread(target=skelapp.processing,
-    #                                     args=(self,
-    #                                           "BACKUP",
-    #                                           self.label_info,
-    #                                           self.progressbar,))
-    #     t1.daemon = True
-    #     t1.start()
-
-    # def backs_changed(self, widget):
-    #     skelapp.refresh_inner(self)
-
-    # def on_refresh_clicked(self, widget):
-    #     skelapp.refresh(self)
-
-    # def on_restore_inner_clicked(self, widget):
-    #     skelapp.button_toggles(self, False)
-    #     skelapp.setMessage(self.label_info, "Running Restore ....")
-
-    #     t1 = fn.threading.Thread(target=skelapp.restore_item,
-    #                                     args=(self,))
-    #     t1.daemon = True
-    #     t1.start()
-
-    # ===========================================
-    # 			DELETE BACKUP SECTION
-    # ===========================================
-
-    # def on_delete_inner_clicked(self, widget):
-    #     skelapp.button_toggles(self, False)
-    #     t1 = fn.threading.Thread(
-    #         target=skelapp.Delete_Inner_Backup, args=(self,))
-    #     t1.daemon = True
-    #     t1.start()
-
-    # def on_delete_clicked(self, widget):
-    #     skelapp.button_toggles(self, False)
-    #     t1 = fn.threading.Thread(target=skelapp.Delete_Backup,
-    #                                     args=(self,))
-    #     t1.daemon = True
-    #     t1.start()
-
-    # ===========================================
-    # 		DELETE ALL BACKUP SECTION
-    # ===========================================
-
-    # def on_flush_clicked(self, widget):
-    #     skelapp.button_toggles(self, False)
-    #     md = Gtk.MessageDialog(parent=self, flags=0,
-    #                            message_type=Gtk.MessageType.INFO,
-    #                            buttons=Gtk.ButtonsType.YES_NO,
-    #                            text="Are you Sure?")
-    #     md.format_secondary_markup(
-    #         "Are you sure you want to delete all your backups?")
-
-    #     result = md.run()
-
-    #     md.destroy()
-
-    #     if result in (Gtk.ResponseType.OK, Gtk.ResponseType.YES):
-    #         # self.button_toggles(False)
-    #         t1 = fn.threading.Thread(target=skelapp.Flush_All,
-    #                                         args=(self,))
-    #         t1.daemon = True
-    #         t1.start()
-    #     else:
-    #         skelapp.button_toggles(self, True)
-
-    # ====================================================================
-    #                       SLIMLOCK
-    # ====================================================================
-
-    # if debug:
-    #     print("SLIMLOCK")
-
-    # def on_slim_apply(self, widget):
-    #     if not fn.path.isfile(fn.slimlock_conf + ".bak"):
-    #         fn.shutil.copy(fn.slimlock_conf,
-    #                               fn.slimlock_conf + ".bak")
-    #     slim.set_slimlock(self, self.slimbox.get_active_text())
-
-    # def on_slim_reset(self, widget):
-    #     if fn.path.isfile(fn.slimlock_conf + ".bak"):
-    #         fn.shutil.copy(fn.slimlock_conf + ".bak",
-    #                               fn.slimlock_conf)
-    #     slim.get_slimlock(self.slimbox)
-    #     fn.show_in_app_notification(self, "Default Settings Applied")
-
-    # def on_slim_theme_change(self, widget, image):
-    #     try:
-    #         path = '/usr/share/slim/themes/' + widget.get_active_text()
-    #         pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(path + "/background.png", 345, 345)  # noqa
-    #         self.image2.set_from_pixbuf(pixbuf4)
-    #     except Exception as e:
-    #         print(e)
-
-    # def on_browser_clicked(self, widget):
-    #     dialog = Gtk.FileChooserDialog(
-    #                                    title="Please choose a file",
-    #                                    action=Gtk.FileChooserAction.OPEN,)
-    #     filter = Gtk.FileFilter()
-    #     filter.set_name("IMAGE Files")
-    #     filter.add_mime_type("image/png")
-    #     dialog.set_filter(filter)
-    #     dialog.set_current_folder(fn.home)
-    #     dialog.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, "Open",
-    #                        Gtk.ResponseType.OK)
-    #     dialog.connect("response", self.open_response_slim)
-
-    #     dialog.show()
-
-    # def open_response_slim(self, dialog, response):
-    #     if response == Gtk.ResponseType.OK:
-    #         self.slimtext.set_text(dialog.get_filename())
-    #         pixbuf4 = GdkPixbuf.Pixbuf().new_from_file_at_size(self.slimtext.get_text(), 345, 345)  # noqa
-    #         self.image5.set_from_pixbuf(pixbuf4)
-    #         dialog.destroy()
-    #     elif response == Gtk.ResponseType.CANCEL:
-    #         dialog.destroy()
-
-    # def on_create_theme_clicked(self, widget):
-    #     path = "/usr/share/slim/themes/"
-    #     if fn.path.isdir(path):
-    #         if len(self.slimtheme.get_text()) >= 3 and len(self.slimtext.get_text()) > 3:  # noqa
-    #             try:
-    #                 fn.mkdir(path + self.slimtheme.get_text())
-    #             except Exception as e:
-    #                 print(e)
-
-    #             fn.shutil.copy(base_dir + "/slim_data/info.txt",
-    #                                   path + self.slimtheme.get_text() +
-    #                                   "/info.txt")
-    #             fn.shutil.copy(base_dir + "/slim_data/panel.png",
-    #                                   path + self.slimtheme.get_text() +
-    #                                   "/panel.png")
-    #             fn.shutil.copy(base_dir + "/slim_data/slim.theme",
-    #                                   path + self.slimtheme.get_text() +
-    #                                   "/slim.theme")
-    #             fn.shutil.copy(self.slimtext.get_text(),
-    #                                   path + self.slimtheme.get_text() +
-    #                                   "/background.png")
-
-    #             slim.reload_import(self.slimbox, self.slimtheme.get_text())
-    #             self.image5.set_from_pixbuf(None)
-    #             fn.show_in_app_notification(self,
-    #                                                "Theme imported successfully")  # noqa
-
-    # def on_remove_theme(self, widget):
-    #     path = "/usr/share/slim/themes/"
-    #     try:
-    #         if "arcolinux" not in self.slimbox.get_active_text():
-    #             fn.shutil.rmtree(path + self.slimbox.get_active_text())
-    #             slim.remove_theme(self.slimbox.get_active_text())
-    #             slim.reload_import(self.slimbox, "arcolinux_eyes")
-    #             fn.show_in_app_notification(self,
-    #                                                "Slim settings saved successfully")  # noqa
-    #         else:
-    #             fn.show_in_app_notification(self,
-    #                                                "You can not remove that theme")  # noqa
-    #     except Exception as e:
-    #         print(e)
-
     # =====================================================
     #               THEMER FUNCTIONS
     # =====================================================
-
-    if debug:
-        print("THEMER FUNCTIONS")
 
     def on_polybar_toggle(self, widget, active):
         if widget.get_active():
@@ -3598,9 +3214,6 @@ class Main(Gtk.Window):
     #                       TERMINALS
     # ====================================================================
 
-    if debug:
-        print("TERMINALS")
-
     def on_clicked_install_alacritty(self, widget):
         fn.install_package(self, "alacritty")
 
@@ -3682,9 +3295,6 @@ class Main(Gtk.Window):
     #                      TERMITE
     # ====================================================================
 
-    if debug:
-        print("TERMITE")
-
     def on_clicked_install_termite(self, widget):
         fn.install_arco_package(self, "termite")
         termite.get_themes(self.term_themes)
@@ -3726,9 +3336,6 @@ class Main(Gtk.Window):
     #                       USER
     # ====================================================================
 
-    if debug:
-        print("USER")
-
     def on_click_user_apply(self, widget):
         user.create_user(self)
         user.pop_cbt_users(self, self.cbt_users)
@@ -3744,9 +3351,6 @@ class Main(Gtk.Window):
     # ====================================================================
     #                      WALL - WALLPAPER
     # ====================================================================
-
-    if debug:
-        print("WALL")
 
     def on_login_wallpaper_clicked(self, widget, data):
         for x in data:
@@ -3978,9 +3582,6 @@ class Main(Gtk.Window):
     #                      ZSH THEMES
     # ====================================================================
 
-    if debug:
-        print("ZSH THEMES")
-
     def on_clicked_install_only_zsh(self, widget):
         fn.install_package(self, "zsh")
         fn.restart_program()
@@ -4047,23 +3648,6 @@ class Main(Gtk.Window):
 
     def tozsh_apply(self, widget):
         fn.change_shell(self, "zsh")
-        # install missing applications
-        # fn.install_zsh(self)
-        # # first make backup if there is a file
-        # #keep this check in
-        # if not fn.path.isfile(fn.zsh_config + ".bak") and fn.path.isfile(fn.zsh_config):
-        #     fn.shutil.copy(fn.zsh_config,
-        #                       fn.zsh_config + ".bak")
-        #     fn.permissions(fn.home + "/.zshrc")
-        #     fn.permissions(fn.home + "/.zshrc.bak")
-        #     print("We created a backup")
-        # if not fn.path.isfile(fn.zsh_config):
-        #     try:
-        #         fn.shutil.copy("/usr/share/archlinux-tweak-tool/data/arco/.zshrc", fn.home + "/.zshrc")
-        #         fn.permissions(fn.home + "/.zshrc")
-        #         print("Providing a valid zshrc")
-        #     except Exception as e:
-        #         print(e)
 
     def install_oh_my_zsh(self, widget):
         fn.install_arco_package(self, "oh-my-zsh-git")

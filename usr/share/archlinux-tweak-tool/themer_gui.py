@@ -3,8 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
-
+def gui(self, Gtk, GdkPixbuf, vboxStack10, themer, fn, base_dir):  # noqa
+    """create a gui"""
     # Image Dimensions. Change once here - apply to ALL the items in this GUI.
     image_width = 645
     image_height = 645

@@ -3,8 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack22, sddm, lightdm, lxdm, fn, login):
-
+def gui(self, Gtk, vboxStack22, sddm, lightdm, lxdm, fn, login):
+    """create a gui"""
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)
     hbox1_lbl.set_markup("Login Managers")

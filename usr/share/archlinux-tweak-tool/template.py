@@ -2,8 +2,8 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-import Functions as fn
-from Functions import GLib
+import functions as fn
+from functions import GLib
 
 
 def choose_nsswitch(self, widget):

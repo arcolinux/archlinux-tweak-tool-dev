@@ -2,8 +2,8 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 import numpy as np
-import Functions as fn
-import Settings
+import functions as fn
+import settings
 
 # ====================================================================
 #                       TERMITE

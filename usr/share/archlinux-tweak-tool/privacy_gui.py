@@ -3,7 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack3, fn):
+def gui(self, Gtk, vboxStack3, fn):
+    """create a gui"""
     hbox3 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     lbl1 = Gtk.Label(xalign=0)
     lbl1.set_text("Privacy/Security")

@@ -4,7 +4,7 @@
 
 
 from gi.repository import Gtk, GdkPixbuf
-import Functions as fn
+import functions as fn
 import gi
 
 gi.require_version("Gtk", "3.0")

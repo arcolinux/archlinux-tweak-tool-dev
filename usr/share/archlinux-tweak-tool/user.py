@@ -3,11 +3,11 @@
 # ============================================================
 # pylint:disable=C0301,W0104
 
-import Functions as fn
+import functions as fn
 
 # from types import FunctionType
 # import crypt
-from Functions import GLib
+from functions import GLib
 
 
 def create_user(self):

@@ -3,7 +3,7 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack23, zsh_themes, base_dir, GdkPixbuf, fn):
+def gui(self, Gtk, vboxStack23, zsh_themes, base_dir, GdkPixbuf, fn):
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)

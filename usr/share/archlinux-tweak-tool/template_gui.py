@@ -3,8 +3,8 @@
 # ============================================================
 
 
-def GUI(self, Gtk, vboxStack21, fn):
-
+def gui(self, Gtk, vboxStack21, fn):
+    """create a gui"""
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox1_lbl = Gtk.Label(xalign=0)
     hbox1_lbl.set_markup("Template - if you see this I have forgotten to hide it")

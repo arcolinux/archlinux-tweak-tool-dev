@@ -2,7 +2,7 @@
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
 
-import Functions as fn
+import functions as fn
 
 
 def append_repo(self, text):
