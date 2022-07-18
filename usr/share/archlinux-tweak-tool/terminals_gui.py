@@ -87,7 +87,7 @@ def gui(self, Gtk, vboxStack7, termite):
     label27 = Gtk.Label()
     label27.set_markup(
         "Choose your <b>Xfce4-terminal</b> theme in the preferences,\
-        colors, presets of Xfce4-terminal"
+colors, presets of Xfce4-terminal"
     )
     hbox27.pack_start(label27, False, False, 10)
 

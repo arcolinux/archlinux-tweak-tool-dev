@@ -3,7 +3,7 @@
 # ============================================================
 
 
-def gui(self, Gtk, vboxstack23, zsh_themes, base_dir, GdkPixbuf, fn):
+def gui(self, Gtk, vboxstack23, zsh_theme, base_dir, GdkPixbuf, fn):
     """create a gui"""
 
     hbox1 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -222,7 +222,7 @@ def gui(self, Gtk, vboxstack23, zsh_themes, base_dir, GdkPixbuf, fn):
         hbox21_lbl.set_markup("Zsh themes")
         self.zsh_themes = Gtk.ComboBoxText()
         self.zsh_themes.set_size_request(300, 20)
-        zsh_themes.get_themes(self.zsh_themes)
+        zsh_theme.get_themes(self.zsh_themes)
         hbox21.pack_start(hbox21_lbl, False, False, 10)
         hbox21.pack_end(self.zsh_themes, False, False, 10)
 
@@ -282,22 +282,18 @@ If you just switched shell, log-out first</b>\n"
         tozsh = Gtk.Button(label="Apply zsh")
         tobash = Gtk.Button(label="Apply bash")
         tofish = Gtk.Button(label="Apply fish")
-        # install_oh_my_zsh = Gtk.Button(label="Install oh-my-zsh")
         termreset = Gtk.Button(label="Reset or create ~/.zshrc")
 
         tozsh.connect("clicked", self.tozsh_apply)
         tobash.connect("clicked", self.tobash_apply)
         tofish.connect("clicked", self.tofish_apply)
-        # install_oh_my_zsh.connect("clicked", self.install_oh_my_zsh)
         termreset.connect("clicked", self.on_zsh_reset)
 
         hbox24.pack_start(tozsh, False, False, 0)
         hbox24.pack_start(tobash, False, False, 0)
         if not fn.distr == "archcraft":
             hbox24.pack_start(tofish, False, False, 0)
-        # hbox24.pack_end(termset, False, False, 0)
         hbox24.pack_end(termreset, False, False, 0)
-        # hbox24.pack_end(install_oh_my_zsh, False, False, 0)
 
         vboxstack2.pack_start(hbox19, False, False, 0)
         vboxstack2.pack_start(hbox20, False, False, 0)
@@ -465,7 +461,7 @@ Restart Att to see the information</b>"
         )
 
         install_only_fish = Gtk.Button(label="Install Fish - auto reboot")
-        install_only_fish.connect("clicked", self.on_install_only_fish_clicked)
+        install_only_fish.connect("clicked", self.on_install_only_fish_clicked_reboot)
 
         vboxstack3.pack_start(hbox36, False, False, 0)
         vboxstack3.pack_start(hbox37, False, False, 0)

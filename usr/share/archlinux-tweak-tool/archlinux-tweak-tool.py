@@ -1244,6 +1244,27 @@ class Main(Gtk.Window):
     #    #                       FISH
     #    #====================================================================
 
+    def on_install_only_fish_clicked_reboot(self, widget):
+        install = "pacman -S fish --needed --noconfirm"
+
+        if fn.path.exists("/usr/bin/fish"):
+            pass
+        else:
+            subprocess.call(
+                install.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+        print("Only Fish has been installed")
+        print("Fish is installed without a configuration")
+        GLib.idle_add(
+            fn.show_in_app_notification,
+            self,
+            "Only the Fish package is installed without a configuration",
+        )
+        fn.restart_program()
+
     def on_install_only_fish_clicked(self, widget):
         install = "pacman -S fish --needed --noconfirm"
 
@@ -1544,6 +1565,7 @@ class Main(Gtk.Window):
 
     def on_click_install_arch_mirrors(self, widget):
         fn.install_package(self, "reflector")
+        self.btn_run_reflector.set_sensitive(True)
 
     def on_click_install_arch_mirrors2(self, widget):
         fn.install_arco_package(self, "rate-mirrors-bin")
@@ -3544,9 +3566,9 @@ class Main(Gtk.Window):
             fn.shutil.copy(fn.zshrc_arco, fn.zsh_config)
             fn.permissions(fn.home + "/.zshrc")
 
-        if self.zsh_themes.get_active_text() is not None:
+        if self.zsh_theme.get_active_text() is not None:
             # widget.set_sensitive(False)
-            zsh_theme.set_config(self, self.zsh_themes.get_active_text())
+            zsh_theme.set_config(self, self.zsh_theme.get_active_text())
             widget.set_sensitive(True)
             print("Applying zsh theme")
 
@@ -3571,7 +3593,7 @@ class Main(Gtk.Window):
     def install_oh_my_zsh(self, widget):
         fn.install_arco_package(self, "oh-my-zsh-git")
         self.termset.set_sensitive(True)
-        self.zsh_themes.set_sensitive(True)
+        self.zsh_theme.set_sensitive(True)
         zsh_theme.get_themes(self.zsh_themes)
 
     # The intent behind this function is to be a centralised image changer for all portions of ATT that need it
@@ -3677,12 +3699,21 @@ class Main(Gtk.Window):
         Gtk.main_quit()
 
     def on_reload_att_clicked(self, widget):
+        # login
         if fn.check_package_installed("sddm"):
             sddm.pop_box(self, self.sessions_sddm)
         if fn.check_package_installed("lightdm"):
             lightdm.pop_box_sessions_lightdm(self, self.sessions_lightdm)
+        # terminal
         if fn.check_package_installed("termite"):
             terminals.get_themes(self.term_themes)
+        # themes
+        if fn.check_package_installed("arcolinux-leftwm-git"):
+            terminals.get_themes(self.term_themes)
+        if fn.os.path.isfile(fn.qtile_config_theme) and fn.check_package_installed(
+            "arcolinux-qtile-git"
+        ):
+            themer.get_qtile_themes(self.qtile_combo, self.qtile_list)
         print("Reloaded")
 
     # ================================================================================

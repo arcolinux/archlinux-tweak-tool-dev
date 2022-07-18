@@ -29,7 +29,7 @@ def gui(self, Gtk, GdkPixbuf, vboxstack10, themer, fn, base_dir):  # noqa
     if fn.os.path.isfile(fn.qtile_config_theme) and fn.check_package_installed(
         "arcolinux-qtile-git"
     ):
-        qtile_list = themer.get_list(fn.qtile_config)
+        self.qtile_list = themer.get_list(fn.qtile_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
@@ -276,7 +276,7 @@ def gui(self, Gtk, GdkPixbuf, vboxstack10, themer, fn, base_dir):  # noqa
     if fn.os.path.isfile(fn.qtile_config_theme) and fn.check_package_installed(
         "arcolinux-qtile-git"
     ):
-        themer.get_qtile_themes(self.qtile_combo, qtile_list)
+        themer.get_qtile_themes(self.qtile_combo, self.qtile_list)
 
     vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
