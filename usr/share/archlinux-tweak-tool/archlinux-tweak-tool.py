@@ -3,7 +3,7 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
-# pylint:disable=C0103,C0115,C0116,C0411,C0413,E1101,I1101,R0902,R0904,R1705,W0621,W0622
+# pylint:disable=C0103,C0115,C0116,C0411,C0413,E1101,E0213,I1101,R0902,R0904,R1705,W0621,W0622
 # pylint:disable=C0301 #line too long
 
 import zsh_theme
@@ -34,17 +34,12 @@ import functions as fn
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gdk, GdkPixbuf, GLib, Gtk, Pango
+from gi.repository import Gdk, GdkPixbuf, Gtk, Pango, GLib
 from os import readlink
 
 # from time import sleep
 # from subprocess import PIPE, STDOUT, call
-
-# import Gtk_Functions
-# import oblogout
 # import polybar
-# import skelapp
-# import slim
 
 
 base_dir = fn.path.dirname(fn.path.realpath(__file__))
@@ -1070,7 +1065,7 @@ class Main(Gtk.Window):
             # Remove the ListStore row referenced by iter
             value = model.get_value(iter, 1)
             model.remove(iter)
-            fn.unlink(fn.home + "/.config/autostart/" + value + ".desktop")  # noqa
+            fn.unlink(fn.home + "/.config/autostart/" + value + ".desktop")
             print("Item has been removed from autostart")
             fn.show_in_app_notification(self, "Item has been removed from autostart")
 
@@ -1202,15 +1197,12 @@ class Main(Gtk.Window):
     def on_d_combo_changed(self, widget):
         try:
             pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(
-                base_dir
-                + "/desktop_data/"
-                + self.d_combo.get_active_text()
-                + ".jpg",  # noqa
+                base_dir + "/desktop_data/" + self.d_combo.get_active_text() + ".jpg",
                 345,
                 345,
             )
             self.image_DE.set_from_pixbuf(pixbuf3)
-        except:  # noqa
+        except:
             self.image_DE.set_from_pixbuf(None)
         if desktopr.check_desktop(self.d_combo.get_active_text()):
             self.desktop_status.set_text("This desktop is installed")
@@ -1219,7 +1211,7 @@ class Main(Gtk.Window):
 
     def on_install_clicked(self, widget, state):
         fn.create_log(self)
-        print("installing {}".format(self.d_combo.get_active_text()))
+        print("installing " + self.d_combo.get_active_text())
         desktopr.check_lock(self, self.d_combo.get_active_text(), state)
 
     def on_default_clicked(self, widget):
@@ -1621,7 +1613,7 @@ class Main(Gtk.Window):
                 f.close()
 
             val = fn.get_position(listss, "desktop-image: ")
-            bg_image = listss[val].split(" ")[1].replace('"', "").strip()
+            # bg_image = listss[val].split(" ")[1].replace('"', "").strip()
 
             for x in self.fb.get_children():
                 self.fb.remove(x)
@@ -1629,7 +1621,7 @@ class Main(Gtk.Window):
             for x in lists:
                 pb = GdkPixbuf.Pixbuf().new_from_file_at_size(
                     "/boot/grub/themes/Vimix/" + x, 128, 128
-                )  # noqa
+                )
                 pimage = Gtk.Image()
                 pimage.set_name("/boot/grub/themes/Vimix/" + x)
                 pimage.set_from_pixbuf(pb)
@@ -1639,7 +1631,7 @@ class Main(Gtk.Window):
     def on_grub_theme_change(self, widget):
         try:
             pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(
-                "/boot/grub/themes/Vimix/" + widget.get_active_text(),  # noqa  # noqa
+                "/boot/grub/themes/Vimix/" + widget.get_active_text(),
                 645,
                 645,
             )
@@ -1654,6 +1646,9 @@ class Main(Gtk.Window):
             print(fn.path.basename(text))
             fn.shutil.copy(text, "/boot/grub/themes/Vimix/" + fn.path.basename(text))
             self.pop_themes_grub(self.grub_theme_combo, fn.get_grub_wallpapers(), False)
+        else:
+            print("First search for a wallpaper")
+            fn.show_in_app_notification(self, "First select an image")
 
     def on_remove_wallpaper(self, widget):
         widget.set_sensitive(False)
@@ -1699,6 +1694,9 @@ class Main(Gtk.Window):
                 fn.show_in_app_notification(self, "Wallpaper removed successfully")
             else:
                 fn.show_in_app_notification(self, "You can not remove that wallpaper")
+        else:
+            print("First select a wallpaper to remove")
+            fn.show_in_app_notification(self, "First select a wallpaper to remove")
         widget.set_sensitive(True)
 
     def on_choose_wallpaper(self, widget):
@@ -1808,7 +1806,7 @@ class Main(Gtk.Window):
                 target=lightdm.set_lightdm_value,
                 args=(
                     self,
-                    fn.get_lines(fn.lightdm_conf),  # noqa
+                    fn.get_lines(fn.lightdm_conf),
                     fn.sudo_username,
                     self.sessions_lightdm.get_active_text(),
                     self.autologin_lightdm.get_active(),
@@ -1881,7 +1879,7 @@ class Main(Gtk.Window):
 
         if "#" in lightdm.check_lightdm(
             fn.get_lines(fn.lightdm_conf), "autologin-user="
-        ):  # noqa
+        ):
             self.autologin_lightdm.set_active(False)
         else:
             self.autologin_lightdm.set_active(True)
@@ -2020,12 +2018,9 @@ class Main(Gtk.Window):
     def on_click_lxdm_reset(self, widget):
         if fn.path.isfile(fn.lxdm_conf_bak):
             fn.shutil.copy(fn.lxdm_conf_bak, fn.lxdm_conf)
-        fn.restart_program()
-
         print("Lxdm default settings applied")
         fn.show_in_app_notification(self, "Lxdm default settings applied")
-        lxdm.pop_lxdm_theme_greeter(self, self.lxdm_theme_greeter)
-        lxdm.pop_gtk_theme_names_lxdm(self, self.lxdm_gtk_theme)
+        fn.restart_program()
 
     def on_click_install_att_lxdm_minimalo(self, widget):
         fn.install_arco_package(self, "arcolinux-lxdm-theme-minimalo-git")
@@ -2052,7 +2047,7 @@ class Main(Gtk.Window):
                 target=lxdm.set_lxdm_value,
                 args=(
                     self,
-                    fn.get_lines(fn.lxdm_conf),  # noqa
+                    fn.get_lines(fn.lxdm_conf),
                     fn.sudo_username,
                     self.lxdm_gtk_theme.get_active_text(),
                     self.lxdm_theme_greeter.get_active_text(),
@@ -2089,9 +2084,7 @@ class Main(Gtk.Window):
                 if fn.distr == "manjaro":
                     small_ascii = "manjaro_small"
                 backend = "ascii"
-            elif (
-                not self.small_ascii.get_active() and not self.off.get_active()
-            ):  # noqa
+            elif not self.small_ascii.get_active() and not self.off.get_active():
                 backend = "ascii"
             else:
                 backend = "off"
@@ -2390,17 +2383,12 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "nemesis")
-            # print("Nemesis repo is active/inactive")
-            # GLib.idle_add(fn.show_in_app_notification, self, "Nemesis repo is now active/inactive")
 
     def on_xerolinux_clicked(self, widget):
         fn.install_xerolinux(self)
         print("XeroLinux mirrors added")
         print("Restart Att and select the repos")
         GLib.idle_add(fn.show_in_app_notification, self, "Xerolinux mirrors added")
-        GLib.idle_add(
-            fn.show_in_app_notification, self, "Select now all Xerolinux repos"
-        )
 
     def on_xero_toggle(self, widget, active):
         if not pmf.repo_exist("[xerolinux_repo]"):
@@ -2533,12 +2521,12 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib")
 
     def custom_repo_clicked(self, widget):
-        self.text = self.textbox1.get_buffer()
-        startiter, enditer = self.text.get_bounds()
+        custom_repo_text = self.textview_custom_repo.get_buffer()
+        startiter, enditer = custom_repo_text.get_bounds()
 
-        if not len(self.text.get_text(startiter, enditer, True)) < 5:
-            print(self.text.get_text(startiter, enditer, True))
-            pmf.append_repo(self, self.text.get_text(startiter, enditer, True))
+        if not len(custom_repo_text.get_text(startiter, enditer, True)) < 5:
+            print(custom_repo_text.get_text(startiter, enditer, True))
+            pmf.append_repo(self, custom_repo_text.get_text(startiter, enditer, True))
 
     def blank_pacman(source, target):
         fn.shutil.copy(fn.pacman, fn.pacman + ".bak")
@@ -2557,7 +2545,7 @@ class Main(Gtk.Window):
         )
         fn.restart_program()
 
-    def reset_pacman_local(self, widget):  # noqa
+    def reset_pacman_local(self, widget):
         if fn.path.isfile(fn.pacman + ".bak"):
             fn.shutil.copy(fn.pacman + ".bak", fn.pacman)
             print("We have used /etc/pacman.conf.bak to reset /etc/pacman.conf")
@@ -2565,7 +2553,7 @@ class Main(Gtk.Window):
                 self, "Default Settings Applied - check in a terminal"
             )
 
-    def reset_pacman_online(self, widget):  # noqa
+    def reset_pacman_online(self, widget):
         if fn.distr == "arch":
             fn.shutil.copy(fn.pacman_arch, fn.pacman)
         if fn.distr == "arcolinux":
@@ -2690,7 +2678,7 @@ class Main(Gtk.Window):
                     target=sddm.set_sddm_value,
                     args=(
                         self,
-                        sddm.get_sddm_lines(fn.sddm_default_d2),  # noqa
+                        sddm.get_sddm_lines(fn.sddm_default_d2),
                         fn.sudo_username,
                         self.sessions_sddm.get_active_text(),
                         self.autologin_sddm.get_active(),
@@ -2706,7 +2694,7 @@ class Main(Gtk.Window):
                     target=sddm.set_user_autologin_value,
                     args=(
                         self,
-                        sddm.get_sddm_lines(fn.sddm_default_d1),  # noqa
+                        sddm.get_sddm_lines(fn.sddm_default_d1),
                         fn.sudo_username,
                         self.sessions_sddm.get_active_text(),
                         self.autologin_sddm.get_active(),
@@ -2728,9 +2716,7 @@ class Main(Gtk.Window):
 
     def on_click_sddm_reset(self, widget):
         if fn.path.isfile(fn.sddm_default_d2):
-            if "#" in sddm.check_sddm(
-                sddm.get_sddm_lines(fn.sddm_default_d2), "User="
-            ):  # noqa
+            if "#" in sddm.check_sddm(sddm.get_sddm_lines(fn.sddm_default_d2), "User="):
                 self.autologin_sddm.set_active(False)
             else:
                 self.autologin_sddm.set_active(True)
@@ -2801,8 +2787,6 @@ class Main(Gtk.Window):
                 )
             except Exception as error:
                 print(error)
-
-            # print("We added the group autologin or checked that it exists")
             self.sessions_sddm.set_sensitive(True)
         else:
             self.sessions_sddm.set_sensitive(False)
@@ -2812,7 +2796,6 @@ class Main(Gtk.Window):
         sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_remove_sddm_themes(self, widget):
-        # TODO : if theme.conf.user present folder stays
         fn.remove_package_dep(self, "arcolinux-meta-sddm-themes")
         if self.keep_default_theme.get_active() is True:
             fn.install_arco_package(self, "arcolinux-sddm-simplicity-git")
@@ -3307,7 +3290,7 @@ class Main(Gtk.Window):
         for x in lists:
             pb = GdkPixbuf.Pixbuf().new_from_file_at_size(
                 fn.login_backgrounds + x, 128, 128
-            )  # noqa
+            )
             pimage = Gtk.Image()
             pimage.set_name(fn.login_backgrounds + x)
             pimage.set_from_pixbuf(pb)
@@ -3317,7 +3300,7 @@ class Main(Gtk.Window):
     def on_login_wallpaper_change(self, widget):
         try:
             pixbuf3 = GdkPixbuf.Pixbuf().new_from_file_at_size(
-                fn.login_backgrounds + widget.get_active_text(),  # noqa  # noqa
+                fn.login_backgrounds + widget.get_active_text(),
                 645,
                 645,
             )
@@ -3652,7 +3635,7 @@ class Main(Gtk.Window):
             tree_iter = self.awesome_combo.get_active_iter()
             if tree_iter is not None:
                 model = self.awesome_combo.get_model()
-                row_id, name = model[tree_iter][:2]
+                name = model[tree_iter][:2]
 
             sample_path = att_base + "/images/i3-sample.jpg"
             preview_path = att_base + "/themer_data/awesomewm/" + name + ".jpg"
@@ -3668,7 +3651,7 @@ class Main(Gtk.Window):
             print(
                 "Remember that the order for using this function is: self, widget, image, theme_type, att_base_path, image_width, image_height."
             )
-        source_pixbuf = image.get_pixbuf()
+        # source_pixbuf = image.get_pixbuf()
         if fn.path.isfile(preview_path) and not random_option:
             pixbuf = GdkPixbuf.Pixbuf().new_from_file_at_size(
                 preview_path, image_width, image_height
@@ -3772,8 +3755,9 @@ if __name__ == "__main__":
             )
             md.format_secondary_markup(
                 "The lock file has been found. This indicates there is already an instance of <b>ArchLinux Tweak Tool</b> running.\n\
-    click yes to remove the lock file and try running again"
-            )  # noqa
+Click yes to remove the lock file\n\
+and try running ATT again"
+            )
         else:
             md = Gtk.MessageDialog(
                 parent=Main(),
@@ -3783,8 +3767,9 @@ if __name__ == "__main__":
                 text="Kernel Not Supported",
             )
             md.format_secondary_markup(
-                "Your current kernel does not support basic os function calls. <b>ArchLinux Tweak Tool</b> requires these to work."
-            )  # noqa
+                "Your current kernel does not support basic os function calls. <b>ArchLinux Tweak Tool</b> \
+requires these to work."
+            )
 
         result = md.run()
         md.destroy()
@@ -3798,10 +3783,18 @@ if __name__ == "__main__":
 
             try:
                 if fn.check_if_process_is_running(int(pid)):
-                    fn.messagebox(
-                        "Application Running!",
-                        "You first need to close the existing application",
+                    md = Gtk.MessageDialog(
+                        parent=Main(),
+                        flags=0,
+                        message_type=Gtk.MessageType.INFO,
+                        buttons=Gtk.ButtonsType.CLOSE,
+                        text="You first need to close the existing application",
                     )
+                    md.format_secondary_markup(
+                        "You first need to close the existing application"
+                    )
+                    result = md.run()
+                    md.destroy()
                 else:
                     fn.unlink("/tmp/att.lock")
             except:

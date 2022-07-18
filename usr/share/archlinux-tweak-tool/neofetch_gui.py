@@ -1,6 +1,7 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
+# pylint:disable=C0103,
 
 
 def gui(self, Gtk, vboxstack8, neofetch, fn):

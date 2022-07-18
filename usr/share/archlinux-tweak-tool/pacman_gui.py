@@ -184,18 +184,18 @@ def gui(self, Gtk, vboxstack1, fn):
     label2 = Gtk.Label(xalign=0)
     label2.set_markup("<b>Add custom repo to pacman.conf</b>")
 
-    self.textbox1 = Gtk.TextView()
-    self.textbox1.set_wrap_mode(Gtk.WrapMode.WORD)
-    self.textbox1.set_editable(True)
-    self.textbox1.set_cursor_visible(True)
-    self.textbox1.set_border_window_size(Gtk.TextWindowType.LEFT, 1)
-    self.textbox1.set_border_window_size(Gtk.TextWindowType.RIGHT, 1)
-    self.textbox1.set_border_window_size(Gtk.TextWindowType.TOP, 1)
-    self.textbox1.set_border_window_size(Gtk.TextWindowType.BOTTOM, 1)
+    self.textview_custom_repo = Gtk.TextView()
+    self.textview_custom_repo.set_wrap_mode(Gtk.WrapMode.WORD)
+    self.textview_custom_repo.set_editable(True)
+    self.textview_custom_repo.set_cursor_visible(True)
+    self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.LEFT, 1)
+    self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.RIGHT, 1)
+    self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.TOP, 1)
+    self.textview_custom_repo.set_border_window_size(Gtk.TextWindowType.BOTTOM, 1)
 
     scrolled_window = Gtk.ScrolledWindow()
     scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-    scrolled_window.add(self.textbox1)
+    scrolled_window.add(self.textview_custom_repo)
 
     # ========================================================
     #               ARCO REPOS PACKING

@@ -1,7 +1,7 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
-# pylint:disable=C0103,C0116,C0411,C0413,R1705,W0621,W0622
+# pylint:disable=C0103,C0116,C0411,C0413,I1101,R1705,W0621,W0611,W0622
 import gi
 
 # from yaml import DirectiveToken
@@ -993,8 +993,7 @@ def set_grub_wallpaper(self, image):
             print("Grub wallpaper saved")
             print(image)
             show_in_app_notification(self, "Grub wallpaper saved")
-            # messagebox(self, "Success!!", "Settings Saved Successfully")
-        except:  # noqa
+        except:
             pass
 
 
@@ -1514,12 +1513,11 @@ def remove_att_lxdm_theme_minimalo(self):
 
 
 def messagebox(self, title, message):
-    md2 = Gtk.MessageDialog(
-        parent=self,
+    md2 = Gtk.MessageDialogNew(
         flags=0,
         message_type=Gtk.MessageType.INFO,
         buttons=Gtk.ButtonsType.OK,
-        text=title,
+        text=message,
     )
     md2.format_secondary_markup(message)
     md2.run()
@@ -2132,7 +2130,7 @@ def copy_samba(choice):
 #               SAMBA EDIT
 # =====================================================
 
-
+# samba advanced - TODO
 def save_samba_config(self):
     # create smb.conf if there is none?
     if path.isfile(samba_config):
