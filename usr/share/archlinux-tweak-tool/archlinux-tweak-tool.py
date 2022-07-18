@@ -3710,10 +3710,6 @@ class Main(Gtk.Window):
         # themes
         if fn.check_package_installed("arcolinux-leftwm-git"):
             terminals.get_themes(self.term_themes)
-        if fn.os.path.isfile(fn.qtile_config_theme) and fn.check_package_installed(
-            "arcolinux-qtile-git"
-        ):
-            themer.get_qtile_themes(self.qtile_combo, self.qtile_list)
         print("Reloaded")
 
     # ================================================================================

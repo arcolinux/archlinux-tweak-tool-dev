@@ -1,10 +1,10 @@
 # ============================================================
 # Authors: Brad Heffernan - Erik Dubois - Cameron Percival
 # ============================================================
-# pylint:disable=W0612
+# pylint:disable=C0103,W0612
 
 
-def gui(self, Gtk, GdkPixbuf, vboxstack10, themer, fn, base_dir):  # noqa
+def gui(self, Gtk, GdkPixbuf, vboxstack10, themer, fn, base_dir):
     """create a gui"""
     # Image Dimensions. Change once here - apply to ALL the items in this GUI.
     image_width = 645
@@ -29,7 +29,7 @@ def gui(self, Gtk, GdkPixbuf, vboxstack10, themer, fn, base_dir):  # noqa
     if fn.os.path.isfile(fn.qtile_config_theme) and fn.check_package_installed(
         "arcolinux-qtile-git"
     ):
-        self.qtile_list = themer.get_list(fn.qtile_config)
+        qtile_list = themer.get_list(fn.qtile_config)
 
     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
@@ -214,16 +214,16 @@ def gui(self, Gtk, GdkPixbuf, vboxstack10, themer, fn, base_dir):  # noqa
                 base_dir + "/themer_data/awesomewm/" + name + ".jpg",
                 image_width,
                 image_height,
-            )  # noqa
+            )
             self.image.set_from_pixbuf(pimage)
-        except:  # noqa
+        except:
             pass
     else:
         pimage = GdkPixbuf.Pixbuf().new_from_file_at_size(
             base_dir + "/themer_data/awesomewm/multicolor.jpg",
             image_width,
             image_height,
-        )  # noqa
+        )
         self.image.set_from_pixbuf(pimage)
 
     self.awesome_combo.connect(
@@ -276,7 +276,7 @@ def gui(self, Gtk, GdkPixbuf, vboxstack10, themer, fn, base_dir):  # noqa
     if fn.os.path.isfile(fn.qtile_config_theme) and fn.check_package_installed(
         "arcolinux-qtile-git"
     ):
-        themer.get_qtile_themes(self.qtile_combo, self.qtile_list)
+        themer.get_qtile_themes(self.qtile_combo, qtile_list)
 
     vbox4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
     hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
