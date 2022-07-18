@@ -1075,9 +1075,7 @@ class Main(Gtk.Window):
             fn.show_in_app_notification(self, "Item has been removed from autostart")
 
     def on_add_autostart(self, widget):
-        if (
-            len(self.txtbox1.get_text()) > 1 and len(self.txtbox2.get_text()) > 1
-        ):  # noqa
+        if len(self.txtbox1.get_text()) > 1 and len(self.txtbox2.get_text()) > 1:
             autostart.add_autostart(
                 self,
                 self.txtbox1.get_text(),
