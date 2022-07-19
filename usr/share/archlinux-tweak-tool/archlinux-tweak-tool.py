@@ -2148,13 +2148,9 @@ class Main(Gtk.Window):
         if fn.path.isfile(fn.neofetch_config + ".bak"):
             fn.shutil.copy(fn.neofetch_config + ".bak", fn.neofetch_config)
 
-            # neofetch.pop_neofetch_box(self.emblem)
             backend = neofetch.check_backend()
             if backend == "ascii":
                 self.asci.set_active(True)
-                # self.emblem.set_sensitive(False)
-            # else:
-            #     self.w3m.set_active(True)
 
             neofetch.get_checkboxes(self)
             print("Neofetch default settings applied")
