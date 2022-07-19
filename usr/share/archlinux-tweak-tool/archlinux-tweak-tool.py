@@ -3017,7 +3017,13 @@ class Main(Gtk.Window):
             themer.toggle_polybar(self, themer.get_list(fn.i3wm_config), True)
         else:
             themer.toggle_polybar(self, themer.get_list(fn.i3wm_config), False)
-            fn.subprocess.run(["killall", "-q", "polybar"], check=True, shell=False)
+            if fn.check_if_process_is_running("polybar"):
+                try:
+                    fn.subprocess.run(
+                        ["killall", "-q", "polybar"], check=True, shell=False
+                    )
+                except Exception as error:
+                    print(error)
 
     def awesome_apply_clicked(self, widget):
         if not fn.path.isfile(fn.awesome_config + ".bak"):
@@ -3547,9 +3553,9 @@ class Main(Gtk.Window):
             fn.shutil.copy(fn.zshrc_arco, fn.zsh_config)
             fn.permissions(fn.home + "/.zshrc")
 
-        if self.zsh_theme.get_active_text() is not None:
+        if self.zsh_themes.get_active_text() is not None:
             # widget.set_sensitive(False)
-            zsh_theme.set_config(self, self.zsh_theme.get_active_text())
+            zsh_theme.set_config(self, self.zsh_themes.get_active_text())
             widget.set_sensitive(True)
             print("Applying zsh theme")
 
@@ -3574,7 +3580,7 @@ class Main(Gtk.Window):
     def install_oh_my_zsh(self, widget):
         fn.install_arco_package(self, "oh-my-zsh-git")
         self.termset.set_sensitive(True)
-        self.zsh_theme.set_sensitive(True)
+        self.zsh_themes.set_sensitive(True)
         zsh_theme.get_themes(self.zsh_themes)
 
     # The intent behind this function is to be a centralised image changer for all portions of ATT that need it
@@ -3635,7 +3641,7 @@ class Main(Gtk.Window):
             tree_iter = self.awesome_combo.get_active_iter()
             if tree_iter is not None:
                 model = self.awesome_combo.get_model()
-                name = model[tree_iter][:2]
+                row_id, name = model[tree_iter][:2]
 
             sample_path = att_base + "/images/i3-sample.jpg"
             preview_path = att_base + "/themer_data/awesomewm/" + name + ".jpg"
