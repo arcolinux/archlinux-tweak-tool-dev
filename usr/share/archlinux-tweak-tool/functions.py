@@ -668,7 +668,27 @@ def remove_package(self, package):
         GLib.idle_add(show_in_app_notification, self, package + " is already removed")
 
 
-def remove_package_dep(self, package):
+def remove_package_dep_s(self, package):
+    command = "pacman -Rs " + package + " --noconfirm"
+    if check_package_installed(package):
+        print(command)
+        try:
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print(package + " is now removed")
+            GLib.idle_add(show_in_app_notification, self, package + " is now removed")
+        except Exception as error:
+            print(error)
+    else:
+        print(package + " is already removed")
+        GLib.idle_add(show_in_app_notification, self, package + " is already removed")
+
+
+def remove_package_dep_ss(self, package):
     command = "pacman -Rss " + package + " --noconfirm"
     if check_package_installed(package):
         print(command)

@@ -369,64 +369,69 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
 
     hbox40 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox40_label = Gtk.Label(xalign=0)
-    hbox40_label.set_text(
-        "You have two major choices: Pulseaudio or Pipewire. \n\
-There are packages that conflict with each other."
+    hbox40_label.set_markup(
+        "You have two major choices: \n\
+- <b>Pulseaudio</b>\n\
+- <b>Pipewire</b>\n\
+Reboot after installing pulseaudio or pipewire\n\
+With an 'inxi -A' in a terminal you can see what sound server is running\n\
+There are packages that conflict with each other.\n\
+Report them if that is the case"
     )
     hbox40.pack_start(hbox40_label, False, False, 10)
 
     hbox41 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox41_label = Gtk.Label(xalign=0)
     hbox41_label.set_text("Install pulseaudio")
-    btn_install_pulseaudio = Gtk.Button(label="Install pulseaudio")
-    btn_install_pulseaudio.connect("clicked", self.on_click_install_pulseaudio)
-    btn_remove_pulseaudio = Gtk.Button(label="Remove pulseaudio")
-    btn_remove_pulseaudio.connect("clicked", self.on_click_remove_pulseaudio)
+    btn_install_pulseaudio = Gtk.Button(label="Install and switch to Pulseaudio")
+    btn_install_pulseaudio.connect("clicked", self.on_click_switch_to_pulseaudio)
+    # btn_remove_pulseaudio = Gtk.Button(label="Remove pulseaudio")
+    # btn_remove_pulseaudio.connect("clicked", self.on_click_remove_pulseaudio)
     hbox41.pack_start(hbox41_label, False, False, 10)
-    hbox41.pack_end(btn_remove_pulseaudio, False, False, 10)
+    # hbox41.pack_end(btn_remove_pulseaudio, False, False, 10)
     hbox41.pack_end(btn_install_pulseaudio, False, False, 10)
 
     hbox42 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox42_label = Gtk.Label(xalign=0)
     hbox42_label.set_text("Install pipewire")
-    btn_install_pipewire = Gtk.Button(label="Install pipewire")
-    btn_install_pipewire.connect("clicked", self.on_click_install_pipewire)
-    btn_remove_pipewire = Gtk.Button(label="Remove pipewire")
-    btn_remove_pipewire.connect("clicked", self.on_click_remove_pipewire)
+    btn_install_pipewire = Gtk.Button(label="Install and switch to Pipewire")
+    btn_install_pipewire.connect("clicked", self.on_click_switch_to_pipewire)
+    # btn_remove_pipewire = Gtk.Button(label="Remove pipewire")
+    # btn_remove_pipewire.connect("clicked", self.on_click_remove_pipewire)
     hbox42.pack_start(hbox42_label, False, False, 10)
-    hbox42.pack_end(btn_remove_pipewire, False, False, 10)
+    # hbox42.pack_end(btn_remove_pipewire, False, False, 10)
     hbox42.pack_end(btn_install_pipewire, False, False, 10)
 
-    hbox43 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox43_label = Gtk.Label(xalign=0)
-    hbox43_label.set_text("Install drivers")
-    hbox43.pack_start(hbox43_label, False, False, 10)
+    # hbox43 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox43_label = Gtk.Label(xalign=0)
+    # hbox43_label.set_text("Install drivers")
+    # hbox43.pack_start(hbox43_label, False, False, 10)
 
-    hbox44 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox44_label = Gtk.Label(xalign=0)
-    hbox44_label.set_text(
-        "   Install common printer drivers (foomatic, gutenprint, ...)"
-    )
-    btn_install_printer_drivers = Gtk.Button(label="Install drivers")
-    btn_install_printer_drivers.connect(
-        "clicked", self.on_click_install_printer_drivers
-    )
-    btn_remove_printer_drivers = Gtk.Button(label="Remove drivers")
-    btn_remove_printer_drivers.connect("clicked", self.on_click_remove_printer_drivers)
-    hbox44.pack_start(hbox44_label, False, False, 10)
-    hbox44.pack_end(btn_remove_printer_drivers, False, False, 10)
-    hbox44.pack_end(btn_install_printer_drivers, False, False, 10)
+    # hbox44 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox44_label = Gtk.Label(xalign=0)
+    # hbox44_label.set_text(
+    #     "   Install common printer drivers (foomatic, gutenprint, ...)"
+    # )
+    # btn_install_printer_drivers = Gtk.Button(label="Install drivers")
+    # btn_install_printer_drivers.connect(
+    #     "clicked", self.on_click_install_printer_drivers
+    # )
+    # btn_remove_printer_drivers = Gtk.Button(label="Remove drivers")
+    # btn_remove_printer_drivers.connect("clicked", self.on_click_remove_printer_drivers)
+    # hbox44.pack_start(hbox44_label, False, False, 10)
+    # hbox44.pack_end(btn_remove_printer_drivers, False, False, 10)
+    # hbox44.pack_end(btn_install_printer_drivers, False, False, 10)
 
-    hbox45 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox45_label = Gtk.Label(xalign=0)
-    hbox45_label.set_text("   Install HP drivers")
-    btn_install_hplip = Gtk.Button(label="Install hplip")
-    btn_install_hplip.connect("clicked", self.on_click_install_hplip)
-    btn_remove_hplip = Gtk.Button(label="Uninstall hplip")
-    btn_remove_hplip.connect("clicked", self.on_click_remove_hplip)
-    hbox45.pack_start(hbox45_label, False, False, 10)
-    hbox45.pack_end(btn_remove_hplip, False, False, 10)
-    hbox45.pack_end(btn_install_hplip, False, False, 10)
+    # hbox45 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox45_label = Gtk.Label(xalign=0)
+    # hbox45_label.set_text("   Install HP drivers")
+    # btn_install_hplip = Gtk.Button(label="Install hplip")
+    # btn_install_hplip.connect("clicked", self.on_click_install_hplip)
+    # btn_remove_hplip = Gtk.Button(label="Uninstall hplip")
+    # btn_remove_hplip.connect("clicked", self.on_click_remove_hplip)
+    # hbox45.pack_start(hbox45_label, False, False, 10)
+    # hbox45.pack_end(btn_remove_hplip, False, False, 10)
+    # hbox45.pack_end(btn_install_hplip, False, False, 10)
 
     # hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     # btn_launch_system_config_printer = Gtk.Button(label="Launch system-config-printer")
@@ -435,36 +440,36 @@ There are packages that conflict with each other."
     # )
     # hbox23.pack_end(btn_launch_system_config_printer, True, True, 10)
 
-    hbox46 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox46_label = Gtk.Label(xalign=0)
-    hbox46_label.set_text(
-        "Install configuration tool for cups \n(launch the app and add your printer)"
-    )
-    btn_install_system_config_printer = Gtk.Button(
-        label="Install system-config-printer"
-    )
-    btn_install_system_config_printer.connect(
-        "clicked", self.on_click_install_system_config_printer
-    )
-    btn_remove_system_config_printer = Gtk.Button(label="Remove system-config-printer")
-    btn_remove_system_config_printer.connect(
-        "clicked", self.on_click_remove_system_config_printer
-    )
-    hbox46.pack_start(hbox46_label, False, False, 10)
-    hbox46.pack_end(btn_remove_system_config_printer, False, False, 10)
-    hbox46.pack_end(btn_install_system_config_printer, False, False, 10)
+    # hbox46 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox46_label = Gtk.Label(xalign=0)
+    # hbox46_label.set_text(
+    #     "Install configuration tool for cups \n(launch the app and add your printer)"
+    # )
+    # btn_install_system_config_printer = Gtk.Button(
+    #     label="Install system-config-printer"
+    # )
+    # btn_install_system_config_printer.connect(
+    #     "clicked", self.on_click_install_system_config_printer
+    # )
+    # btn_remove_system_config_printer = Gtk.Button(label="Remove system-config-printer")
+    # btn_remove_system_config_printer.connect(
+    #     "clicked", self.on_click_remove_system_config_printer
+    # )
+    # hbox46.pack_start(hbox46_label, False, False, 10)
+    # hbox46.pack_end(btn_remove_system_config_printer, False, False, 10)
+    # hbox46.pack_end(btn_install_system_config_printer, False, False, 10)
 
     # at bottom of page
-    hbox47 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    enable_cups = Gtk.Button(label="Enable cups")
-    enable_cups.connect("clicked", self.on_click_enable_cups)
-    disable_cups = Gtk.Button(label="Disable cups")
-    disable_cups.connect("clicked", self.on_click_disable_cups)
-    restart_cups = Gtk.Button(label="Start/Restart cups")
-    restart_cups.connect("clicked", self.on_click_restart_cups)
-    hbox47.pack_end(restart_cups, False, False, 10)
-    hbox47.pack_start(enable_cups, False, False, 10)
-    hbox47.pack_start(disable_cups, False, False, 10)
+    # hbox47 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # enable_cups = Gtk.Button(label="Enable cups")
+    # enable_cups.connect("clicked", self.on_click_enable_cups)
+    # disable_cups = Gtk.Button(label="Disable cups")
+    # disable_cups.connect("clicked", self.on_click_disable_cups)
+    # restart_cups = Gtk.Button(label="Start/Restart cups")
+    # restart_cups.connect("clicked", self.on_click_restart_cups)
+    # hbox47.pack_end(restart_cups, False, False, 10)
+    # hbox47.pack_start(enable_cups, False, False, 10)
+    # hbox47.pack_start(disable_cups, False, False, 10)
 
     hbox48 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox48_label = Gtk.Label(xalign=0)
@@ -481,7 +486,9 @@ There are packages that conflict with each other."
     else:
         status2 = "inactive"
 
-    hbox48_label.set_text("Cups service : " + status1 + "   Cups socket : " + status2)
+    hbox48_label.set_text(
+        "Pulseaudio service : " + status1 + "   Pipewire service : " + status2
+    )
     hbox48.pack_start(hbox48_label, False, False, 10)
 
     # ==================================================================
@@ -645,11 +652,11 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     vboxstack4.pack_start(hbox40, False, False, 10)
     vboxstack4.pack_start(hbox41, False, False, 0)
     vboxstack4.pack_start(hbox42, False, False, 0)
-    vboxstack4.pack_start(hbox43, False, False, 0)
-    vboxstack4.pack_start(hbox44, False, False, 0)
-    vboxstack4.pack_start(hbox45, False, False, 0)
-    vboxstack4.pack_start(hbox46, False, False, 10)
-    vboxstack4.pack_end(hbox47, False, False, 10)
+    # vboxstack4.pack_start(hbox43, False, False, 0)
+    # vboxstack4.pack_start(hbox44, False, False, 0)
+    # vboxstack4.pack_start(hbox45, False, False, 0)
+    # vboxstack4.pack_start(hbox46, False, False, 10)
+    # vboxstack4.pack_end(hbox47, False, False, 10)
     vboxstack4.pack_end(hbox48, False, False, 10)
 
     # bluetooth

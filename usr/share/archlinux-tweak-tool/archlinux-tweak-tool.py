@@ -6,6 +6,9 @@
 # pylint:disable=C0103,C0115,C0116,C0411,C0413,E1101,E0213,I1101,R0902,R0904,R0912,R0913,R0914,R0915,R0916,R1705,W0613,W0621,W0622,W0702,W0703
 # pylint:disable=C0301,C0302 #line too long
 
+from ast import Try
+from distutils.log import error
+from tabnanny import check
 import zsh_theme
 import utilities
 import user
@@ -2837,7 +2840,7 @@ class Main(Gtk.Window):
         sddm.pop_theme_box(self, self.theme_sddm)
 
     def on_click_remove_sddm_themes(self, widget):
-        fn.remove_package_dep(self, "arcolinux-meta-sddm-themes")
+        fn.remove_package_dep_s(self, "arcolinux-meta-sddm-themes")
         if self.keep_default_theme.get_active() is True:
             fn.install_arco_package(self, "arcolinux-sddm-simplicity-git")
         fn.remove_package_remnants("arcolinux-meta-sddm-themes")
@@ -3011,83 +3014,77 @@ class Main(Gtk.Window):
     #                       SERVICES - AUDIO
     # ====================================================================
 
-    def on_click_install_pulseaudio(self, widget):
+    def on_click_switch_to_pulseaudio(self, widget):
         print("Installing pulseaudio")
-        fn.install_package(self, "pulseaudio")
-        fn.install_package(self, "pulseaudio-bluetooth")
-        fn.install_package(self, "pulseaudio-alsa")
 
-        fn.install_package(self, "pavucontrol")
+        # check what is installed and remember
+        if fn.check_package_installed(self, "blueberry"):
+            blueberry_installed = True
+            fn.remove_package_dep_s(self, "blueberry")
 
-        fn.install_package(self, "alsa-utils")
-        fn.install_package(self, "alsa-plugins")
-        fn.install_package(self, "alsa-lib")
-        fn.install_package(self, "alsa-firmware")
-        fn.install_package(self, "gstreamer")
-        fn.install_package(self, "gst-plugins-good")
-        fn.install_package(self, "gst-plugins-bad")
-        fn.install_package(self, "gst-plugins-base")
-        fn.install_package(self, "gst-plugins-ugly")
+        if fn.check_package_installed(self, "pipewire-pulse"):
+            fn.remove_package_dep_s(self, "pipewire-pulse")
 
-    def on_click_remove_pulseaudio(self, widget):
-        print("Removing pulseaudio")
-        fn.remove_package(self, "pulseaudio")
-        fn.remove_package(self, "pulseaudio-bluetooth")
-        fn.remove_package(self, "pulseaudio-alsa")
+        try:
+            fn.install_package(self, "pulseaudio")
+            fn.install_package(self, "pulseaudio-bluetooth")
+            fn.install_package(self, "pulseaudio-alsa")
 
-        fn.remove_package(self, "pavucontrol")
+            fn.install_package(self, "pavucontrol")
 
-        fn.remove_package(self, "alsa-utils")
-        fn.remove_package(self, "alsa-plugins")
-        fn.remove_package(self, "alsa-lib")
-        fn.remove_package(self, "alsa-firmware")
-        fn.remove_package(self, "gstreamer")
-        fn.remove_package(self, "gst-plugins-good")
-        fn.remove_package(self, "gst-plugins-bad")
-        fn.remove_package(self, "gst-plugins-base")
-        fn.remove_package(self, "gst-plugins-ugly")
+            fn.install_package(self, "alsa-utils")
+            fn.install_package(self, "alsa-plugins")
+            fn.install_package(self, "alsa-lib")
+            fn.install_package(self, "alsa-firmware")
+            fn.install_package(self, "gstreamer")
+            fn.install_package(self, "gst-plugins-good")
+            fn.install_package(self, "gst-plugins-bad")
+            fn.install_package(self, "gst-plugins-base")
+            fn.install_package(self, "gst-plugins-ugly")
+        except Exception as error:
+            print(error)
 
-    def on_click_install_pipewire(self, widget):
+    def on_click_switch_to_pipewire(self, widget):
         print("Installing pipewire")
-        fn.install_package(self, "pipewire")
-        fn.install_package(self, "wireplumber")
-        fn.install_package(self, "pipewire-alsa")
-        fn.install_package(self, "pipewire-jack")
-        fn.install_package(self, "pipewire-zeroconf")
-        fn.install_package(self, "pipewire-alsa")
 
-        fn.install_package(self, "pavucontrol")
+        try:
+            # check what is installed and remember
+            if fn.check_package_installed(self, "blueberry"):
+                blueberry_installed = True
+                fn.remove_package_dep_s(self, "blueberry")
 
-        fn.install_package(self, "alsa-utils")
-        fn.install_package(self, "alsa-plugins")
-        fn.install_package(self, "alsa-lib")
-        fn.install_package(self, "alsa-firmware")
-        fn.install_package(self, "gstreamer")
-        fn.install_package(self, "gst-plugins-good")
-        fn.install_package(self, "gst-plugins-bad")
-        fn.install_package(self, "gst-plugins-base")
-        fn.install_package(self, "gst-plugins-ugly")
+            if fn.check_package_installed(self, "pulseaudio-bluetooth"):
+                fn.remove_package_dep_s(self, "pulseaudio-bluetooth")
 
-    def on_click_remove_pipewire(self, widget):
-        print("Removing pipewire")
-        fn.remove_package(self, "pipewire")
-        fn.remove_package(self, "wireplumber")
-        fn.remove_package(self, "pipewire-alsa")
-        fn.remove_package(self, "pipewire-jack")
-        fn.remove_package(self, "pipewire-zeroconf")
-        fn.remove_package(self, "pipewire-alsa")
+            if fn.check_package_installed(self, "pulseaudio-alsa"):
+                fn.remove_package(self, "pulseaudio-alsa")
 
-        fn.remove_package(self, "pavucontrol")
+            if fn.check_package_installed(self, "pulseaudio"):
+                fn.remove_package_dep(self, "pulseaudio")
 
-        fn.remove_package(self, "alsa-utils")
-        fn.remove_package(self, "alsa-plugins")
-        fn.remove_package(self, "alsa-lib")
-        fn.remove_package(self, "alsa-firmware")
-        fn.remove_package(self, "gstreamer")
-        fn.remove_package(self, "gst-plugins-good")
-        fn.remove_package(self, "gst-plugins-bad")
-        fn.remove_package(self, "gst-plugins-base")
-        fn.remove_package(self, "gst-plugins-ugly")
+            fn.install_package(self, "pipewire")
+            fn.install_package(self, "pipewire-pulse")  # contains wireplumber
+            fn.install_package(self, "pipewire-alsa")
+            # fn.install_package(self, "pipewire-jack")
+            fn.install_package(self, "pipewire-zeroconf")
+
+            fn.install_package(self, "pavucontrol")
+
+            fn.install_package(self, "alsa-utils")
+            fn.install_package(self, "alsa-plugins")
+            fn.install_package(self, "alsa-lib")
+            fn.install_package(self, "alsa-firmware")
+            fn.install_package(self, "gstreamer")
+            fn.install_package(self, "gst-plugins-good")
+            fn.install_package(self, "gst-plugins-bad")
+            fn.install_package(self, "gst-plugins-base")
+            fn.install_package(self, "gst-plugins-ugly")
+
+            if blueberry_installed:
+                fn.install_package(self, "blueberry")
+
+        except Exception as error:
+            print(error)
 
     # ====================================================================
     #                       SERVICES - CUPS
