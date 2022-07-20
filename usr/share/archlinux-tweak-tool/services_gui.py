@@ -182,7 +182,7 @@ Beware of firewalls"
     hbox94 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox94_label = Gtk.Label(xalign=0)
 
-    status1 = fn.check_service("cups")
+    status1 = fn.check_service("smb")
     if status1 is True:
         status1 = "active"
     else:
@@ -249,9 +249,9 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     hbox20_label = Gtk.Label(xalign=0)
     hbox20_label.set_text("Install cups-pdf printing")
     btn_install_cups = Gtk.Button(label="Install cups-pdf")
-    btn_install_cups.connect("clicked", self.on_click_install_cups)
+    btn_install_cups.connect("clicked", self.on_click_install_cups_pdf)
     btn_remove_cups = Gtk.Button(label="Remove cups-pdf")
-    btn_remove_cups.connect("clicked", self.on_click_remove_cups)
+    btn_remove_cups.connect("clicked", self.on_click_remove_cups_pdf)
     hbox20.pack_start(hbox20_label, False, False, 10)
     hbox20.pack_end(btn_remove_cups, False, False, 10)
     hbox20.pack_end(btn_install_cups, False, False, 10)

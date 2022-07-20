@@ -3044,6 +3044,8 @@ class Main(Gtk.Window):
         fn.install_package(self, "foomatic-db-nonfree-ppds")
         fn.install_package(self, "gutenprint")
         fn.install_package(self, "foomatic-db-gutenprint-ppds")
+        fn.install_package(self, "ghostscript")
+        fn.install_package(self, "gsfonts")
 
     def on_click_remove_printer_drivers(self, widget):
         print("Following printer drivers have been removed")
@@ -3054,6 +3056,8 @@ class Main(Gtk.Window):
         fn.remove_package(self, "foomatic-db-nonfree-ppds")
         fn.remove_package(self, "gutenprint")
         fn.remove_package(self, "foomatic-db-gutenprint-ppds")
+        fn.remove_package(self, "ghostscript")
+        fn.remove_package(self, "gsfonts")
 
     def on_click_install_hplip(self, widget):
         print("Installing Hplip")
