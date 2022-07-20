@@ -256,23 +256,6 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     hbox20.pack_end(btn_remove_cups, False, False, 10)
     hbox20.pack_end(btn_install_cups, False, False, 10)
 
-    hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox22_label = Gtk.Label(xalign=0)
-    hbox22_label.set_text("Install configuration tool for cups")
-    btn_install_system_config_printer = Gtk.Button(
-        label="Install system-config-printer"
-    )
-    btn_install_system_config_printer.connect(
-        "clicked", self.on_click_install_system_config_printer
-    )
-    btn_remove_system_config_printer = Gtk.Button(label="Remove system-config-printer")
-    btn_remove_system_config_printer.connect(
-        "clicked", self.on_click_remove_system_config_printer
-    )
-    hbox22.pack_start(hbox22_label, False, False, 10)
-    hbox22.pack_end(btn_remove_system_config_printer, False, False, 10)
-    hbox22.pack_end(btn_install_system_config_printer, False, False, 10)
-
     hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox26_label = Gtk.Label(xalign=0)
     hbox26_label.set_text("Install drivers")
@@ -281,7 +264,7 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox27_label = Gtk.Label(xalign=0)
     hbox27_label.set_text(
-        "   Install common printer drivers(foomatic, gutenprint, ...)"
+        "   Install common printer drivers (foomatic, gutenprint, ...)"
     )
     btn_install_printer_drivers = Gtk.Button(label="Install drivers")
     btn_install_printer_drivers.connect(
@@ -310,6 +293,25 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     #     "clicked", self.on_click_launch_system_config_printer
     # )
     # hbox23.pack_end(btn_launch_system_config_printer, True, True, 10)
+
+    hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox22_label = Gtk.Label(xalign=0)
+    hbox22_label.set_text(
+        "Install configuration tool for cups \n(launch the app and add your printer)"
+    )
+    btn_install_system_config_printer = Gtk.Button(
+        label="Install system-config-printer"
+    )
+    btn_install_system_config_printer.connect(
+        "clicked", self.on_click_install_system_config_printer
+    )
+    btn_remove_system_config_printer = Gtk.Button(label="Remove system-config-printer")
+    btn_remove_system_config_printer.connect(
+        "clicked", self.on_click_remove_system_config_printer
+    )
+    hbox22.pack_start(hbox22_label, False, False, 10)
+    hbox22.pack_end(btn_remove_system_config_printer, False, False, 10)
+    hbox22.pack_end(btn_install_system_config_printer, False, False, 10)
 
     # at bottom of page
     hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
@@ -389,12 +391,11 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     vboxstack3.pack_start(hbox15, False, False, 10)
     vboxstack3.pack_start(hbox8, False, False, 0)
     vboxstack3.pack_start(hbox20, False, False, 0)
-    vboxstack3.pack_start(hbox22, False, False, 10)
     vboxstack3.pack_start(hbox26, False, False, 0)
     vboxstack3.pack_start(hbox27, False, False, 0)
     vboxstack3.pack_start(hbox21, False, False, 0)
     # vboxstack3.pack_start(hbox23, False, False, 10)
-
+    vboxstack3.pack_start(hbox22, False, False, 10)
     vboxstack3.pack_end(hbox29, False, False, 10)
     vboxstack3.pack_end(hbox31, False, False, 10)
 
