@@ -3018,11 +3018,11 @@ class Main(Gtk.Window):
         print("Installing pulseaudio")
 
         # check what is installed and remember
-        if fn.check_package_installed(self, "blueberry"):
+        if fn.check_package_installed("blueberry"):
             blueberry_installed = True
             fn.remove_package_dep_s(self, "blueberry")
 
-        if fn.check_package_installed(self, "pipewire-pulse"):
+        if fn.check_package_installed("pipewire-pulse"):
             fn.remove_package_dep_s(self, "pipewire-pulse")
 
         try:
@@ -3041,25 +3041,29 @@ class Main(Gtk.Window):
             fn.install_package(self, "gst-plugins-bad")
             fn.install_package(self, "gst-plugins-base")
             fn.install_package(self, "gst-plugins-ugly")
+
         except Exception as error:
             print(error)
+
+        if blueberry_installed:
+            fn.install_package(self, "blueberry")
 
     def on_click_switch_to_pipewire(self, widget):
         print("Installing pipewire")
 
         try:
             # check what is installed and remember
-            if fn.check_package_installed(self, "blueberry"):
+            if fn.check_package_installed("blueberry"):
                 blueberry_installed = True
                 fn.remove_package_dep_s(self, "blueberry")
 
-            if fn.check_package_installed(self, "pulseaudio-bluetooth"):
+            if fn.check_package_installed("pulseaudio-bluetooth"):
                 fn.remove_package_dep_s(self, "pulseaudio-bluetooth")
 
-            if fn.check_package_installed(self, "pulseaudio-alsa"):
+            if fn.check_package_installed("pulseaudio-alsa"):
                 fn.remove_package(self, "pulseaudio-alsa")
 
-            if fn.check_package_installed(self, "pulseaudio"):
+            if fn.check_package_installed("pulseaudio"):
                 fn.remove_package_dep(self, "pulseaudio")
 
             fn.install_package(self, "pipewire")
@@ -3080,11 +3084,11 @@ class Main(Gtk.Window):
             fn.install_package(self, "gst-plugins-base")
             fn.install_package(self, "gst-plugins-ugly")
 
-            if blueberry_installed:
-                fn.install_package(self, "blueberry")
-
         except Exception as error:
             print(error)
+
+        if blueberry_installed:
+            fn.install_package(self, "blueberry")
 
     # ====================================================================
     #                       SERVICES - CUPS
