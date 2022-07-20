@@ -3023,6 +3023,9 @@ class Main(Gtk.Window):
             blueberry_installed = True
             fn.remove_package_dep_s(self, "blueberry")
 
+        if fn.check_package_installed("wireplumber"):
+            fn.remove_package_dep_s(self, "wireplumber")
+
         if fn.check_package_installed("pipewire-pulse"):
             fn.remove_package_dep_s(self, "pipewire-pulse")
 
@@ -3034,9 +3037,6 @@ class Main(Gtk.Window):
 
         if fn.check_package_installed("pipewire-zeroconf"):
             fn.remove_package_dep_s(self, "pipewire-zeroconf")
-
-        if fn.check_package_installed("wireplumber"):
-            fn.remove_package_dep_s(self, "wireplumber")
 
         # would break dependencies to telegram and others
         # if fn.check_package_installed("pipewire"):
