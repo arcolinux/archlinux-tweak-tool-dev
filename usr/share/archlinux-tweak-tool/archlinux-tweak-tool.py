@@ -3065,11 +3065,11 @@ class Main(Gtk.Window):
 
     def on_click_install_hplip(self, widget):
         print("Installing Hplip")
-        fn.install_package(self, "hp-lip")
+        fn.install_package(self, "hplip")
 
     def on_click_remove_hplip(self, widget):
         print("Removing Hplip")
-        fn.remove_package(self, "hp-lip")
+        fn.remove_package(self, "hplip")
 
     def on_click_install_system_config_printer(self, widget):
         print("Installing system_config_printer")

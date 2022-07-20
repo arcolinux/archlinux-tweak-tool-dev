@@ -1863,7 +1863,7 @@ def restart_program():
 
 
 # =====================================================
-#               SERVICES - GENERAL FUNCTIONS
+#               SERVICES - GENERAL FUNCTIONS CUPS
 # =====================================================
 
 
@@ -1890,7 +1890,7 @@ def restart_service(service):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("We restarted the following service : " + service)
+        print("We restarted the following service (if avalable) : " + service)
     except Exception as error:
         print(error)
 
