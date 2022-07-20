@@ -3011,7 +3011,7 @@ class Main(Gtk.Window):
     #                       SERVICES - AUDIO
     # ====================================================================
 
-    def on_click_install_pulsaudio(self, widget):
+    def on_click_install_pulseaudio(self, widget):
         print("Installing pulseaudio")
         fn.install_package(self, "pulseaudio")
         fn.install_package(self, "pulseaudio-bluetooth")
