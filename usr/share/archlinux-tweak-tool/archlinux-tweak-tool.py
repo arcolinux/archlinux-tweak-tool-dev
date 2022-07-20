@@ -35,7 +35,7 @@ import gi
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GdkPixbuf, Gtk, Pango, GLib
-from os import readlink
+from os import readlink, remove
 
 # from time import sleep
 # from subprocess import PIPE, STDOUT, call
@@ -2940,9 +2940,6 @@ class Main(Gtk.Window):
     def on_click_create_samba_user(self, widget):
         services.create_samba_user(self)
 
-    def on_click_delete_samba_user(self, widget):
-        services.delete_samba_user(self)
-
     # def on_click_delete_user(self, widget):
     #     services.delete_user(self)
 
@@ -3009,6 +3006,70 @@ class Main(Gtk.Window):
         fn.uninstall_samba(self)
         print("Samba has been successfully uninstalled")
         fn.show_in_app_notification(self, "Samba has been successfully uninstalled")
+
+    # ====================================================================
+    #                       SERVICES - CUPS
+    # ====================================================================
+
+    def on_click_install_cups(self, widget):
+        print("Installing cups")
+        fn.install_package(self, "cups")
+
+    def on_click_install_cups_pdf(self, widget):
+        print("Installing cups-pdf")
+        fn.install_package(self, "cups-pdf")
+
+    def on_click_remove_cups(self, widget):
+        print("Removing cups")
+        fn.remove_package(self, "cups")
+
+    def on_click_remove_cups_pdf(self, widget):
+        print("Removing cups-pdf")
+        fn.remove_package(self, "cups-pdf")
+
+    def on_click_enable_cups(self, widget):
+        print("Enabling cups service/socket")
+        fn.enable_service("cups")
+
+    def on_click_restart_cups(self, widget):
+        print("Restart cups")
+        fn.restart_service("cups")
+
+    def on_click_install_printer_drivers(self, widget):
+        print("Following printer drivers have been installed")
+        fn.install_package(self, "foomatic-db-engine")
+        fn.install_package(self, "foomatic-db")
+        fn.install_package(self, "foomatic-db-ppds")
+        fn.install_package(self, "foomatic-db-nonfree")
+        fn.install_package(self, "foomatic-db-nonfree-ppds")
+        fn.install_package(self, "gutenprint")
+        fn.install_package(self, "foomatic-db-gutenprint-ppds")
+
+    def on_click_remove_printer_drivers(self, widget):
+        print("Following printer drivers have been removed")
+        fn.remove_package(self, "foomatic-db-engine")
+        fn.remove_package(self, "foomatic-db")
+        fn.remove_package(self, "foomatic-db-ppds")
+        fn.remove_package(self, "foomatic-db-nonfree")
+        fn.remove_package(self, "foomatic-db-nonfree-ppds")
+        fn.remove_package(self, "gutenprint")
+        fn.remove_package(self, "foomatic-db-gutenprint-ppds")
+
+    def on_click_install_hplip(self, widget):
+        print("Installing Hplip")
+        fn.install_package(self, "hp-lip")
+
+    def on_click_remove_hplip(self, widget):
+        print("Removing Hplip")
+        fn.remove_package(self, "hp-lip")
+
+    def on_click_install_system_config_printer(self, widget):
+        print("Installing system_config_printer")
+        fn.install_package(self, "system-config-printer")
+
+    def on_click_remove_system_config_printer(self, widget):
+        print("Removing system_config_printer")
+        fn.remove_package(self, "system_config_printer")
 
     # ====================================================================
     #                       SHELLS EXTRA

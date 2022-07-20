@@ -20,7 +20,7 @@ def gui(self, Gtk, vboxstack14, fn):
     vboxstack1 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxstack2 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxstack3 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-    # vboxstack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack4 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     # vboxstack5 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     # vboxstack6 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
@@ -145,6 +145,13 @@ their plugins at the bottom"
     )
     hbox18.pack_start(hbox18_label, False, False, 10)
 
+    hbox92 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox92_label = Gtk.Label(xalign=0)
+    hbox92_label.set_markup(
+        '<span foreground="red" size="large">We found a firewall on your system</span>'
+    )
+    hbox92.pack_start(hbox92_label, False, False, 10)
+
     hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     install_arco_thunar_plugin = Gtk.Button(label="Install ArcoLinux Thunar plugin")
     install_arco_thunar_plugin.connect(
@@ -158,108 +165,6 @@ their plugins at the bottom"
     hbox19.pack_start(install_arco_nemo_plugin, False, False, 10)
     hbox19.pack_start(install_arco_caja_plugin, False, False, 10)
 
-    # ==================================================================
-    #                       SAMBA ADVANCED TAB
-    # ==================================================================
-
-    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox8_label = Gtk.Label(xalign=0)
-    hbox8_label.set_text("Remove the selected Samba user")
-    button_delete_samba_user = Gtk.Button(label="Remove the selected user from Samba")
-    button_delete_samba_user.connect("clicked", self.on_click_delete_samba_user)
-    button_delete_user = Gtk.Button(label="Remove the selected user completely")
-    button_delete_user.connect("clicked", self.on_click_delete_user)
-    self.samba_users = Gtk.ComboBoxText()
-    samba_users = []
-    samba_users = fn.list_users("/etc/passwd")
-    for user in samba_users:
-        self.samba_users.append_text(user)
-    self.samba_users.set_active(0)
-    hbox8.pack_start(hbox8_label, False, False, 10)
-    hbox8.pack_start(self.samba_users, False, False, 10)
-    hbox8.pack_end(button_delete_user, False, False, 10)
-    hbox8.pack_end(button_delete_samba_user, False, False, 10)
-
-    hbox6 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox6_label = Gtk.Label(xalign=0)
-    hbox6_label.set_text("Fill in the username and password")
-    self.entry_username = Gtk.Entry()
-    self.entry_password = Gtk.Entry()
-    self.entry_password.set_visibility(False)
-
-    hbox6.pack_start(hbox6_label, False, False, 10)
-    hbox6.pack_start(self.entry_username, False, False, 10)
-    hbox6.pack_start(self.entry_password, False, False, 10)
-    # hbox6.pack_end(button_create_samba_user, False, False, 10)
-
-    hbox7 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox7_label = Gtk.Label(xalign=0)
-    hbox7_label.set_text(
-        "A terminal will open upon creating a new Samba user\nNow type the password \
-the user will need to access Samba"
-    )
-    hbox7.pack_start(hbox7_label, False, False, 10)
-
-    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox15_label = Gtk.Label(xalign=0)
-    hbox15_label.set_text(
-        "4. Change the current inactive SAMBASHARE into your own share "
-    )
-    hbox15.pack_start(hbox15_label, False, False, 10)
-
-    hbox9 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox9_label = Gtk.Label(xalign=0)
-    hbox9_label.set_text(
-        "Fill in the path to an existing folder e.g. /home/joe/Shared   "
-    )
-    self.entry_path = Gtk.Entry()
-
-    hbox10 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox10_label = Gtk.Label(xalign=0)
-    hbox10_label.set_markup("Browseable yes/no")
-    self.samba_share_browseable = Gtk.Switch()
-
-    hbox11 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox11_label = Gtk.Label(xalign=0)
-    hbox11_label.set_markup("Guest ok yes/no")
-    self.samba_share_guest = Gtk.Switch()
-
-    hbox12 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox12_label = Gtk.Label(xalign=0)
-    hbox12_label.set_markup("Public yes/no")
-    self.samba_share_public = Gtk.Switch()
-
-    hbox13 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox13_label = Gtk.Label(xalign=0)
-    hbox13_label.set_markup("Writable yes/no")
-    self.samba_share_writable = Gtk.Switch()
-
-    btn_save_samba = Gtk.Button(label="Save settings")
-    btn_save_samba.connect("clicked", self.on_click_save_samba_share)
-
-    hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox17_label = Gtk.Label(xalign=0)
-    hbox17_label.set_text(
-        "IF you want to share the folder with a third party, you can create an account "
-    )
-    hbox17.pack_start(hbox17_label, False, False, 10)
-
-    hbox14 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    grid = Gtk.Grid()
-    grid.add(hbox9_label)
-    grid.attach_next_to(self.entry_path, hbox9_label, 1, 2, 1)
-    grid.attach_next_to(hbox10_label, hbox9_label, 3, 2, 1)
-    grid.attach_next_to(self.samba_share_browseable, hbox10_label, 1, 2, 1)
-    grid.attach_next_to(hbox11_label, hbox10_label, 3, 2, 1)
-    grid.attach_next_to(self.samba_share_guest, hbox11_label, 1, 2, 1)
-    grid.attach_next_to(hbox12_label, hbox11_label, 3, 2, 1)
-    grid.attach_next_to(self.samba_share_public, hbox12_label, 1, 2, 1)
-    grid.attach_next_to(hbox13_label, hbox12_label, 3, 2, 1)
-    grid.attach_next_to(self.samba_share_writable, hbox13_label, 1, 2, 1)
-    grid.attach_next_to(btn_save_samba, hbox13_label, 3, 1, 1)
-
-    hbox14.pack_start(grid, False, False, 10)
-
     hbox91 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox91_label = Gtk.Label(xalign=0)
     hbox91_label.set_text(
@@ -272,19 +177,12 @@ Beware of firewalls"
     hbox91.pack_start(hbox91_label, False, False, 10)
     hbox91.pack_end(restart_smb, False, False, 10)
 
-    hbox92 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox92_label = Gtk.Label(xalign=0)
-    hbox92_label.set_markup(
-        '<span foreground="red" size="large">We found a firewall on your system</span>'
-    )
-    hbox92.pack_start(hbox92_label, False, False, 10)
-
     hbox93 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox93_label = Gtk.Label(xalign=0)
     hbox94 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox94_label = Gtk.Label(xalign=0)
 
-    status1 = fn.check_service("smb")
+    status1 = fn.check_service("cups")
     if status1 is True:
         status1 = "active"
     else:
@@ -324,6 +222,139 @@ All computers in your network must have a unique name /etc/hostname"
     hbox95.pack_start(hbox95_label, False, False, 10)
     hbox95.pack_end(restart_smb, False, False, 10)
 
+    # ==================================================================
+    #                       CUPS TAB
+    # ==================================================================
+
+    hbox15 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox15_label = Gtk.Label(xalign=0)
+    hbox15_label.set_text(
+        "Printing can be a challenge. We recommend reading the Arch wiki cups page. Check before you buy.\n\
+There are also printer specific pages. Lastly the AUR might contain the driver you need."
+    )
+    hbox15.pack_start(hbox15_label, False, False, 10)
+
+    hbox8 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox8_label = Gtk.Label(xalign=0)
+    hbox8_label.set_text("Install cups printing")
+    btn_install_cups = Gtk.Button(label="Install cups")
+    btn_install_cups.connect("clicked", self.on_click_install_cups)
+    btn_remove_cups = Gtk.Button(label="Remove cups")
+    btn_remove_cups.connect("clicked", self.on_click_remove_cups)
+    hbox8.pack_start(hbox8_label, False, False, 10)
+    hbox8.pack_end(btn_remove_cups, False, False, 10)
+    hbox8.pack_end(btn_install_cups, False, False, 10)
+
+    hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox20_label = Gtk.Label(xalign=0)
+    hbox20_label.set_text("Install cups-pdf printing")
+    btn_install_cups = Gtk.Button(label="Install cups-pdf")
+    btn_install_cups.connect("clicked", self.on_click_install_cups)
+    btn_remove_cups = Gtk.Button(label="Remove cups-pdf")
+    btn_remove_cups.connect("clicked", self.on_click_remove_cups)
+    hbox20.pack_start(hbox20_label, False, False, 10)
+    hbox20.pack_end(btn_remove_cups, False, False, 10)
+    hbox20.pack_end(btn_install_cups, False, False, 10)
+
+    hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox22_label = Gtk.Label(xalign=0)
+    hbox22_label.set_text("Install configuration tool for cups")
+    btn_install_system_config_printer = Gtk.Button(
+        label="Install system-config-printer"
+    )
+    btn_install_system_config_printer.connect(
+        "clicked", self.on_click_install_system_config_printer
+    )
+    btn_remove_system_config_printer = Gtk.Button(label="Remove system-config-printer")
+    btn_remove_system_config_printer.connect(
+        "clicked", self.on_click_remove_system_config_printer
+    )
+    hbox22.pack_start(hbox22_label, False, False, 10)
+    hbox22.pack_end(btn_remove_system_config_printer, False, False, 10)
+    hbox22.pack_end(btn_install_system_config_printer, False, False, 10)
+
+    hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox21_label = Gtk.Label(xalign=0)
+    hbox21_label.set_text("   Install HP drivers")
+    btn_install_hplip = Gtk.Button(label="Install hp-lip")
+    btn_install_hplip.connect("clicked", self.on_click_install_hplip)
+    btn_remove_hplip = Gtk.Button(label="Uninstall hp-lip")
+    btn_remove_hplip.connect("clicked", self.on_click_remove_hplip)
+    hbox21.pack_start(hbox21_label, False, False, 10)
+    hbox21.pack_end(btn_remove_hplip, False, False, 10)
+    hbox21.pack_end(btn_install_hplip, False, False, 10)
+
+    hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox26_label = Gtk.Label(xalign=0)
+    hbox26_label.set_text("Install drivers")
+    hbox26.pack_start(hbox26_label, False, False, 10)
+
+    hbox27 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox27_label = Gtk.Label(xalign=0)
+    hbox27_label.set_text(
+        "   Install common printer drivers(foomatic, gutenprint, ...)"
+    )
+    btn_install_printer_drivers = Gtk.Button(label="Install drivers")
+    btn_install_printer_drivers.connect(
+        "clicked", self.on_click_install_printer_drivers
+    )
+    btn_remove_printer_drivers = Gtk.Button(label="Remove drivers")
+    btn_remove_printer_drivers.connect("clicked", self.on_click_remove_printer_drivers)
+    hbox27.pack_start(hbox27_label, False, False, 10)
+    hbox27.pack_end(btn_remove_printer_drivers, False, False, 10)
+    hbox27.pack_end(btn_install_printer_drivers, False, False, 10)
+
+    # at bottom of page
+    hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    enable_cups = Gtk.Button(label="Enable cups")
+    enable_cups.connect("clicked", self.on_click_enable_cups)
+    restart_cups = Gtk.Button(label="Start/Restart cups")
+    restart_cups.connect("clicked", self.on_click_restart_cups)
+    hbox29.pack_end(restart_cups, False, False, 10)
+    hbox29.pack_start(enable_cups, False, False, 10)
+
+    hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox31_label = Gtk.Label(xalign=0)
+
+    status1 = fn.check_service("cups")
+    if status1 is True:
+        status1 = "active"
+    else:
+        status1 = "inactive"
+
+    status2 = fn.check_socket("cups")
+    if status2 is True:
+        status2 = "active"
+    else:
+        status2 = "inactive"
+
+    hbox31_label.set_text("Cups service : " + status1 + "   Cups socket : " + status2)
+    hbox31.pack_start(hbox31_label, False, False, 10)
+
+    # hbox32 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # hbox32_label = Gtk.Label(xalign=0)
+    # hbox32_label.set_text(
+    #     "Samba : " + status1 + "   Nmb : " + status2 + "   Avahi : " + status3
+    # )
+    # hbox32.pack_start(hbox32_label, False, False, 10)
+
+    #     hbox95 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    #     hbox95_label = Gtk.Label(xalign=0)
+    #     hbox95_label.set_text(
+    #         "With the Avahi daemon (network discovery) running on both \
+    # the server and client,\n\
+    # the file manager on the client should automatically find the server- Beware of firewalls\n\
+    # All computers in your network must have a unique name /etc/hostname"
+    #     )
+    #     restart_smb = Gtk.Button(label="Restart Smb")
+    #     restart_smb.connect("clicked", self.on_click_restart_smb)
+    #     hbox95.pack_start(hbox95_label, False, False, 10)
+    #     hbox95.pack_end(restart_smb, False, False, 10)
+
+    # ====================================================================
+    #                       STACK
+    # ====================================================================
+
     # network
     vboxstack1.pack_start(hbox2, False, False, 10)
     vboxstack1.pack_start(hbox3, False, False, 0)
@@ -341,27 +372,27 @@ All computers in your network must have a unique name /etc/hostname"
     vboxstack2.pack_start(hbox16, False, False, 10)
     vboxstack2.pack_start(hbox18, False, False, 10)
     vboxstack2.pack_end(hbox19, False, False, 10)
-
-    # samba advanced
-    vboxstack3.pack_start(hbox15, False, False, 10)
-    vboxstack3.pack_start(hbox14, False, False, 10)
-    vboxstack3.pack_start(hbox17, False, False, 10)
-    vboxstack3.pack_start(hbox6, False, False, 0)
-    vboxstack3.pack_start(hbox7, False, False, 0)
-    vboxstack3.pack_start(hbox8, False, False, 0)
-    vboxstack3.pack_start(hbox9, False, False, 0)
-    vboxstack3.pack_start(hbox10, False, False, 0)
-    vboxstack3.pack_start(hbox11, False, False, 0)
-    vboxstack3.pack_start(hbox12, False, False, 0)
-    vboxstack3.pack_start(hbox13, False, False, 0)
-
-    # bottom
     vboxstack2.pack_end(hbox95, False, False, 10)
     vboxstack2.pack_end(hbox94, False, False, 10)
 
-    # ==================================================================
-    #                       PRINTING TAB
-    # ==================================================================
+    # cups
+    vboxstack3.pack_start(hbox15, False, False, 10)
+    vboxstack3.pack_start(hbox8, False, False, 0)
+    vboxstack3.pack_start(hbox20, False, False, 0)
+    vboxstack3.pack_start(hbox22, False, False, 10)
+    vboxstack3.pack_start(hbox26, False, False, 0)
+    vboxstack3.pack_start(hbox27, False, False, 0)
+    vboxstack3.pack_start(hbox21, False, False, 0)
+
+    # vboxstack3.pack_start(hbox17, False, False, 10)
+
+    # vboxstack3.pack_start(hbox9, False, False, 0)
+    # vboxstack3.pack_start(hbox10, False, False, 0)
+    # vboxstack3.pack_start(hbox11, False, False, 0)
+    # vboxstack3.pack_start(hbox12, False, False, 0)
+    # vboxstack3.pack_start(hbox13, False, False, 0)
+    vboxstack3.pack_end(hbox29, False, False, 10)
+    vboxstack3.pack_end(hbox31, False, False, 10)
 
     # ==================================================================
     #                       BLUETOOTH TAB
@@ -376,10 +407,9 @@ All computers in your network must have a unique name /etc/hostname"
     # ==================================================================
     stack.add_titled(vboxstack1, "stack1", "Network")
     stack.add_titled(vboxstack2, "stack2", "Samba")
-    # stack.add_titled(vboxstack3, "stack3", "Samba Advanced")
-    # stack.add_titled(vboxstack4, "stack4", "Printing")
-    # stack.add_titled(vboxstack5, "stack5", "Bluetooth")
-    # stack.add_titled(vboxstack6, "stack6", "Audio")
+    stack.add_titled(vboxstack3, "stack3", "Printing")
+    # stack.add_titled(vboxstack5, "stack4", "Bluetooth")
+    # stack.add_titled(vboxstack6, "stack5", "Audio")
 
     vbox.pack_start(stack_switcher, False, False, 0)
     vbox.pack_start(stack, True, True, 0)

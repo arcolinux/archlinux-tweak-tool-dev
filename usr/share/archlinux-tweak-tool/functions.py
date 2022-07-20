@@ -445,7 +445,28 @@ def check_package_installed(package):  # noqa
 
 def check_service(service):  # noqa
     try:
-        command = "systemctl is-active " + service
+        command = "systemctl is-active " + service + ".socket"
+        output = subprocess.run(
+            command.split(" "),
+            check=True,
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        status = output.stdout.decode().strip()
+        if status == "active":
+            # print("Service is active")
+            return True
+        else:
+            # print("Service is inactive")
+            return False
+    except Exception:
+        return False
+
+
+def check_socket(socket):  # noqa
+    try:
+        command = "systemctl is-active " + socket + ".socket"
         output = subprocess.run(
             command.split(" "),
             check=True,
@@ -1842,105 +1863,166 @@ def restart_program():
 
 
 # =====================================================
+#               SERVICES - GENERAL FUNCTIONS
+# =====================================================
+
+
+def enable_service(service):
+    try:
+        command = "systemctl enable " + service + ".service -f --now"
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("We enabled the following service : " + service)
+    except Exception as error:
+        print(error)
+
+
+def restart_service(service):
+    try:
+        command = "systemctl reload-or-restart " + service + ".service"
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("We enabled the following service : " + service)
+    except Exception as error:
+        print(error)
+
+
+def disable_service(service):
+    try:
+        command = "systemctl stop " + service
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+
+        command = "systemctl disable " + service
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("We stopped and disabled the following service " + service)
+    except Exception as error:
+        print(error)
+
+
+# =====================================================
 #               SERVICES - AVAHI
 # =====================================================
 
 
 def install_discovery(self):
-    install = "pacman -S avahi nss-mdns gvfs-smb --needed --noconfirm"
+    try:
+        install = "pacman -S avahi nss-mdns gvfs-smb --needed --noconfirm"
 
-    if (
-        check_package_installed("avahi")
-        and check_package_installed("nss-mdns")
-        and check_package_installed("gvfs-smb")
-    ):
-        pass
-    else:
+        if (
+            check_package_installed("avahi")
+            and check_package_installed("nss-mdns")
+            and check_package_installed("gvfs-smb")
+        ):
+            pass
+        else:
+            subprocess.call(
+                install.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print("Avahi, nss-mdns and gvfs-smb is now installed")
+
+        command = "systemctl enable avahi-daemon.service -f --now"
         subprocess.call(
-            install.split(" "),
+            command.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("Avahi, nss-mdns and gvfs-smb is now installed")
-
-    command = "systemctl enable avahi-daemon.service -f --now"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    print("We enabled avahi-daemon.service")
+        print("We enabled avahi-daemon.service")
+    except Exception as error:
+        print(error)
 
 
 def remove_discovery(self):
 
-    command = "systemctl stop avahi-daemon.service -f --now"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-
-    command = "systemctl disable avahi-daemon.service -f --now"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    print("We disabled avahi-daemon.service")
-
-    command = "systemctl stop avahi-daemon.socket -f"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-
-    command = "systemctl disable avahi-daemon.socket -f"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    print("We disabled avahi-daemon.socket")
-
-    command = "pacman -Rs avahi --noconfirm"
-    if check_package_installed("avahi"):
+    try:
+        command = "systemctl stop avahi-daemon.service -f --now"
         subprocess.call(
             command.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("Avahi was removed")
 
-    command = "pacman -Rs nss-mdns --noconfirm"
-    if check_package_installed("nss-mdns"):
+        command = "systemctl disable avahi-daemon.service -f --now"
         subprocess.call(
             command.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("nss-mdns was removed")
+        print("We disabled avahi-daemon.service")
 
-    command = "pacman -Rs gvfs-smb --noconfirm"
-    if check_package_installed("gvfs-smb"):
+        command = "systemctl stop avahi-daemon.socket -f"
         subprocess.call(
             command.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("gvfs-smb was removed")
-    else:
-        pass
+
+        command = "systemctl disable avahi-daemon.socket -f"
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("We disabled avahi-daemon.socket")
+
+        command = "pacman -Rs avahi --noconfirm"
+        if check_package_installed("avahi"):
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print("Avahi was removed")
+
+        command = "pacman -Rs nss-mdns --noconfirm"
+        if check_package_installed("nss-mdns"):
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print("nss-mdns was removed")
+
+        command = "pacman -Rs gvfs-smb --noconfirm"
+        if check_package_installed("gvfs-smb"):
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print("gvfs-smb was removed")
+        else:
+            pass
+    except Exception as error:
+        print(error)
 
 
 # =====================================================
@@ -1949,80 +2031,86 @@ def remove_discovery(self):
 
 
 def install_samba(self):
-    install = "pacman -S samba gvfs-smb --needed --noconfirm"
+    try:
+        install = "pacman -S samba gvfs-smb --needed --noconfirm"
 
-    if not path.isdir("/var/cache/samba"):
-        makedirs("/var/cache/samba", 0o755)
+        if not path.isdir("/var/cache/samba"):
+            makedirs("/var/cache/samba", 0o755)
 
-    if check_package_installed("samba") and check_package_installed("gvfs-smb"):
-        pass
-    else:
+        if check_package_installed("samba") and check_package_installed("gvfs-smb"):
+            pass
+        else:
+            subprocess.call(
+                install.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print("Samba and gvfs-smb are now installed")
+
+        command = "systemctl enable smb.service -f --now"
         subprocess.call(
-            install.split(" "),
+            command.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("Samba and gvfs-smb are now installed")
+        print("We enabled smb.service")
 
-    command = "systemctl enable smb.service -f --now"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    print("We enabled smb.service")
-
-    command = "systemctl enable nmb.service -f --now"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    print("We enabled nmb.service")
+        command = "systemctl enable nmb.service -f --now"
+        subprocess.call(
+            command.split(" "),
+            shell=False,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        print("We enabled nmb.service")
+    except Exception as error:
+        print(error)
 
 
 def uninstall_samba(self):
+    try:
 
-    command = "systemctl disable smb.service -f --now"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    print("We disabled smb.service")
-
-    command = "systemctl disable nmb.service -f --now"
-    subprocess.call(
-        command.split(" "),
-        shell=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    print("We disabled nmb.service")
-
-    command = "pacman -Rs samba --noconfirm"
-    if check_package_installed("samba"):
+        command = "systemctl disable smb.service -f --now"
         subprocess.call(
             command.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("Samba was removed if there were no dependencies")
+        print("We disabled smb.service")
 
-    command = "pacman -Rs gvfs-smb --noconfirm"
-    if check_package_installed("nss-mdns"):
+        command = "systemctl disable nmb.service -f --now"
         subprocess.call(
             command.split(" "),
             shell=False,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("gvfs-smb was removed")
+        print("We disabled nmb.service")
+
+        command = "pacman -Rs samba --noconfirm"
+        if check_package_installed("samba"):
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print("Samba was removed if there were no dependencies")
+
+        command = "pacman -Rs gvfs-smb --noconfirm"
+        if check_package_installed("nss-mdns"):
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print("gvfs-smb was removed")
+    except Exception as error:
+        print(error)
 
 
 # =====================================================
