@@ -273,17 +273,6 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     hbox22.pack_end(btn_remove_system_config_printer, False, False, 10)
     hbox22.pack_end(btn_install_system_config_printer, False, False, 10)
 
-    hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    hbox21_label = Gtk.Label(xalign=0)
-    hbox21_label.set_text("   Install HP drivers")
-    btn_install_hplip = Gtk.Button(label="Install hp-lip")
-    btn_install_hplip.connect("clicked", self.on_click_install_hplip)
-    btn_remove_hplip = Gtk.Button(label="Uninstall hp-lip")
-    btn_remove_hplip.connect("clicked", self.on_click_remove_hplip)
-    hbox21.pack_start(hbox21_label, False, False, 10)
-    hbox21.pack_end(btn_remove_hplip, False, False, 10)
-    hbox21.pack_end(btn_install_hplip, False, False, 10)
-
     hbox26 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox26_label = Gtk.Label(xalign=0)
     hbox26_label.set_text("Install drivers")
@@ -304,14 +293,35 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     hbox27.pack_end(btn_remove_printer_drivers, False, False, 10)
     hbox27.pack_end(btn_install_printer_drivers, False, False, 10)
 
+    hbox21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox21_label = Gtk.Label(xalign=0)
+    hbox21_label.set_text("   Install HP drivers")
+    btn_install_hplip = Gtk.Button(label="Install hp-lip")
+    btn_install_hplip.connect("clicked", self.on_click_install_hplip)
+    btn_remove_hplip = Gtk.Button(label="Uninstall hp-lip")
+    btn_remove_hplip.connect("clicked", self.on_click_remove_hplip)
+    hbox21.pack_start(hbox21_label, False, False, 10)
+    hbox21.pack_end(btn_remove_hplip, False, False, 10)
+    hbox21.pack_end(btn_install_hplip, False, False, 10)
+
+    # hbox23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    # btn_launch_system_config_printer = Gtk.Button(label="Launch system-config-printer")
+    # btn_launch_system_config_printer.connect(
+    #     "clicked", self.on_click_launch_system_config_printer
+    # )
+    # hbox23.pack_end(btn_launch_system_config_printer, True, True, 10)
+
     # at bottom of page
     hbox29 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     enable_cups = Gtk.Button(label="Enable cups")
     enable_cups.connect("clicked", self.on_click_enable_cups)
+    disable_cups = Gtk.Button(label="Disable cups")
+    disable_cups.connect("clicked", self.on_click_disable_cups)
     restart_cups = Gtk.Button(label="Start/Restart cups")
     restart_cups.connect("clicked", self.on_click_restart_cups)
     hbox29.pack_end(restart_cups, False, False, 10)
     hbox29.pack_start(enable_cups, False, False, 10)
+    hbox29.pack_start(disable_cups, False, False, 10)
 
     hbox31 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox31_label = Gtk.Label(xalign=0)
@@ -383,14 +393,8 @@ There are also printer specific pages. Lastly the AUR might contain the driver y
     vboxstack3.pack_start(hbox26, False, False, 0)
     vboxstack3.pack_start(hbox27, False, False, 0)
     vboxstack3.pack_start(hbox21, False, False, 0)
+    # vboxstack3.pack_start(hbox23, False, False, 10)
 
-    # vboxstack3.pack_start(hbox17, False, False, 10)
-
-    # vboxstack3.pack_start(hbox9, False, False, 0)
-    # vboxstack3.pack_start(hbox10, False, False, 0)
-    # vboxstack3.pack_start(hbox11, False, False, 0)
-    # vboxstack3.pack_start(hbox12, False, False, 0)
-    # vboxstack3.pack_start(hbox13, False, False, 0)
     vboxstack3.pack_end(hbox29, False, False, 10)
     vboxstack3.pack_end(hbox31, False, False, 10)
 

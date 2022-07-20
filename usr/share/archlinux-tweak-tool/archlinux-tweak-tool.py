@@ -3031,6 +3031,10 @@ class Main(Gtk.Window):
         print("Enabling cups service/socket")
         fn.enable_service("cups")
 
+    def on_click_disable_cups(self, widget):
+        print("Enabling cups service/socket")
+        fn.disable_service("cups")
+
     def on_click_restart_cups(self, widget):
         print("Restart cups")
         fn.restart_service("cups")
@@ -3074,6 +3078,23 @@ class Main(Gtk.Window):
     def on_click_remove_system_config_printer(self, widget):
         print("Removing system_config_printer")
         fn.remove_package(self, "system_config_printer")
+
+    # TODO : how to launch an app as the user
+    # def on_click_launch_system_config_printer(self, desktop):
+    #     if fn.check_package_installed("system-config-printer"):
+    #         try:
+    #             subprocess.Popen("/usr/bin/system-config-printer")
+    #             GLib.idle_add(
+    #                 fn.show_in_app_notification,
+    #                 self,
+    #                 "System config printer launched",
+    #             )
+    #             print("We started system-config-printer")
+    #         except:
+    #             pass
+    #     else:
+    #         print("First install system-config-printer package")
+    #         fn.show_in_app_notification(self, "First install system-config-printer")
 
     # ====================================================================
     #                       SHELLS EXTRA

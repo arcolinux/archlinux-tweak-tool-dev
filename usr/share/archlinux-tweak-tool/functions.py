@@ -1890,7 +1890,7 @@ def restart_service(service):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
-        print("We enabled the following service : " + service)
+        print("We restarted the following service : " + service)
     except Exception as error:
         print(error)
 
