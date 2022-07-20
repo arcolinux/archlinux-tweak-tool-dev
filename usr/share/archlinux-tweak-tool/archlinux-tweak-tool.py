@@ -3008,6 +3008,88 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(self, "Samba has been successfully uninstalled")
 
     # ====================================================================
+    #                       SERVICES - AUDIO
+    # ====================================================================
+
+    def on_click_install_pulsaudio(self, widget):
+        print("Installing pulseaudio")
+        fn.install_package(self, "pulseaudio")
+        fn.install_package(self, "pulseaudio-bluetooth")
+        fn.install_package(self, "pulseaudio-alsa")
+
+        fn.install_package(self, "pavucontrol")
+
+        fn.install_package(self, "alsa-utils")
+        fn.install_package(self, "alsa-plugins")
+        fn.install_package(self, "alsa-lib")
+        fn.install_package(self, "alsa-firmware")
+        fn.install_package(self, "gstreamer")
+        fn.install_package(self, "gst-plugins-good")
+        fn.install_package(self, "gst-plugins-bad")
+        fn.install_package(self, "gst-plugins-base")
+        fn.install_package(self, "gst-plugins-ugly")
+
+    def on_click_remove_pulseaudio(self, widget):
+        print("Removing pulseaudio")
+        fn.remove_package(self, "pulseaudio")
+        fn.remove_package(self, "pulseaudio-bluetooth")
+        fn.remove_package(self, "pulseaudio-alsa")
+
+        fn.remove_package(self, "pavucontrol")
+
+        fn.remove_package(self, "alsa-utils")
+        fn.remove_package(self, "alsa-plugins")
+        fn.remove_package(self, "alsa-lib")
+        fn.remove_package(self, "alsa-firmware")
+        fn.remove_package(self, "gstreamer")
+        fn.remove_package(self, "gst-plugins-good")
+        fn.remove_package(self, "gst-plugins-bad")
+        fn.remove_package(self, "gst-plugins-base")
+        fn.remove_package(self, "gst-plugins-ugly")
+
+    def on_click_install_pipewire(self, widget):
+        print("Installing pipewire")
+        fn.install_package(self, "pipewire")
+        fn.install_package(self, "wireplumber")
+        fn.install_package(self, "pipewire-alsa")
+        fn.install_package(self, "pipewire-jack")
+        fn.install_package(self, "pipewire-zeroconf")
+        fn.install_package(self, "pipewire-alsa")
+
+        fn.install_package(self, "pavucontrol")
+
+        fn.install_package(self, "alsa-utils")
+        fn.install_package(self, "alsa-plugins")
+        fn.install_package(self, "alsa-lib")
+        fn.install_package(self, "alsa-firmware")
+        fn.install_package(self, "gstreamer")
+        fn.install_package(self, "gst-plugins-good")
+        fn.install_package(self, "gst-plugins-bad")
+        fn.install_package(self, "gst-plugins-base")
+        fn.install_package(self, "gst-plugins-ugly")
+
+    def on_click_remove_pipewire(self, widget):
+        print("Removing pipewire")
+        fn.remove_package(self, "pipewire")
+        fn.remove_package(self, "wireplumber")
+        fn.remove_package(self, "pipewire-alsa")
+        fn.remove_package(self, "pipewire-jack")
+        fn.remove_package(self, "pipewire-zeroconf")
+        fn.remove_package(self, "pipewire-alsa")
+
+        fn.remove_package(self, "pavucontrol")
+
+        fn.remove_package(self, "alsa-utils")
+        fn.remove_package(self, "alsa-plugins")
+        fn.remove_package(self, "alsa-lib")
+        fn.remove_package(self, "alsa-firmware")
+        fn.remove_package(self, "gstreamer")
+        fn.remove_package(self, "gst-plugins-good")
+        fn.remove_package(self, "gst-plugins-bad")
+        fn.remove_package(self, "gst-plugins-base")
+        fn.remove_package(self, "gst-plugins-ugly")
+
+    # ====================================================================
     #                       SERVICES - CUPS
     # ====================================================================
 
