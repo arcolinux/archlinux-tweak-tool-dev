@@ -3016,6 +3016,7 @@ class Main(Gtk.Window):
 
     def on_click_switch_to_pulseaudio(self, widget):
         print("Installing pulseaudio")
+        blueberry_installed = False
 
         # check what is installed and remember
         if fn.check_package_installed("blueberry"):
@@ -3025,9 +3026,27 @@ class Main(Gtk.Window):
         if fn.check_package_installed("pipewire-pulse"):
             fn.remove_package_dep_s(self, "pipewire-pulse")
 
+        if fn.check_package_installed("pipewire-alsa"):
+            fn.remove_package_dep_s(self, "pipewire-alsa")
+
+        if fn.check_package_installed("pipewire-zeroconf"):
+            fn.remove_package_dep_s(self, "pipewire-zeroconf")
+
+        if fn.check_package_installed("pipewire-zeroconf"):
+            fn.remove_package_dep_s(self, "pipewire-zeroconf")
+
+        if fn.check_package_installed("wireplumber"):
+            fn.remove_package_dep_s(self, "wireplumber")
+
+        # would break dependencies to telegram and others
+        # if fn.check_package_installed("pipewire"):
+        #     fn.remove_package_dep_s(self, "pipewire")
+
         try:
-            fn.install_package(self, "pulseaudio")
-            fn.install_package(self, "pulseaudio-bluetooth")
+            fn.install_package(self, "pulseaudio")  # conflicts with pipewire-pulse
+            fn.install_package(
+                self, "pulseaudio-bluetooth"
+            )  # conflicts with pipewire-pulse
             fn.install_package(self, "pulseaudio-alsa")
 
             fn.install_package(self, "pavucontrol")
@@ -3042,14 +3061,15 @@ class Main(Gtk.Window):
             fn.install_package(self, "gst-plugins-base")
             fn.install_package(self, "gst-plugins-ugly")
 
+            if blueberry_installed:
+                fn.install_package(self, "blueberry")
+
         except Exception as error:
             print(error)
 
-        if blueberry_installed:
-            fn.install_package(self, "blueberry")
-
     def on_click_switch_to_pipewire(self, widget):
         print("Installing pipewire")
+        blueberry_installed = False
 
         try:
             # check what is installed and remember
@@ -3064,10 +3084,12 @@ class Main(Gtk.Window):
                 fn.remove_package(self, "pulseaudio-alsa")
 
             if fn.check_package_installed("pulseaudio"):
-                fn.remove_package_dep(self, "pulseaudio")
+                fn.remove_package_dep_s(self, "pulseaudio")
 
             fn.install_package(self, "pipewire")
-            fn.install_package(self, "pipewire-pulse")  # contains wireplumber
+            fn.install_package(
+                self, "pipewire-pulse"
+            )  # contains wireplumber - conflicts with pulseaudio and pulseaudio-bluetooth
             fn.install_package(self, "pipewire-alsa")
             # fn.install_package(self, "pipewire-jack")
             fn.install_package(self, "pipewire-zeroconf")
@@ -3084,11 +3106,11 @@ class Main(Gtk.Window):
             fn.install_package(self, "gst-plugins-base")
             fn.install_package(self, "gst-plugins-ugly")
 
+            if blueberry_installed:
+                fn.install_package(self, "blueberry")
+
         except Exception as error:
             print(error)
-
-        if blueberry_installed:
-            fn.install_package(self, "blueberry")
 
     # ====================================================================
     #                       SERVICES - CUPS
