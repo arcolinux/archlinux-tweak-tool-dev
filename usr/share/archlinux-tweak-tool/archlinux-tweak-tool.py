@@ -3054,11 +3054,7 @@ class Main(Gtk.Window):
         blueberry_installed = False
 
         try:
-            # if fn.distr == "manjaro":
-            #     if fn.check_package_installed("manjaro-pulse"):
-            #         fn.remove_package_dd(self, "manjaro-pulse")
-            #     if fn.check_package_installed("pipewire-media-session"):
-            #         fn.remove_package_dd(self, "pipewire-media-session")
+
 
             if fn.check_package_installed("pulseaudio"):
                 fn.remove_package_dd(self, "pulseaudio")
