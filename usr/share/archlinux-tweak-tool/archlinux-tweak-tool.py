@@ -3077,6 +3077,10 @@ class Main(Gtk.Window):
                 blueberry_installed = True
                 fn.remove_package_ss(self, "blueberry")
 
+            if fn.check_package_installed("pulseaudio-bluetooth"):
+                blueberry_installed = True
+                fn.remove_package_dd(self, "blueberry")
+
             if fn.check_package_installed("pulseaudio-alsa"):
                 fn.remove_package(self, "pulseaudio-alsa")
 
