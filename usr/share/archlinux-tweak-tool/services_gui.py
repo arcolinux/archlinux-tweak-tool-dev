@@ -497,7 +497,10 @@ Report them if that is the case"
 
     hbox51 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox51_label = Gtk.Label(xalign=0)
-    hbox51_label.set_text("Install bluetooth packages")
+    if fn.check_package_installed("bluez") == True:
+        hbox51_label.set_markup("Bluez packages are already <b>installed</b>")
+    else:
+        hbox51_label.set_markup("Install bluetooth packages")
     btn_install_bt = Gtk.Button(label="Install bluetooth")
     btn_install_bt.connect("clicked", self.on_click_install_bluetooth)
     btn_remove_bt = Gtk.Button(label="Remove bluetooth")
@@ -526,7 +529,10 @@ Report them if that is the case"
 
     hbox54 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox54_label = Gtk.Label(xalign=0)
-    hbox54_label.set_text("   Install blueberry")
+    if fn.check_package_installed("blueberry"):
+        hbox54_label.set_markup("   Blueberry is already <b>installed</b>")
+    else:
+        hbox54_label.set_markup("   Install blueberry")
     btn_install_blueberry = Gtk.Button(label="Install blueberry")
     btn_install_blueberry.connect("clicked", self.on_click_install_blueberry)
     btn_remove_blueberry = Gtk.Button(label="Remove blueberry")
@@ -537,7 +543,10 @@ Report them if that is the case"
 
     hbox55 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox55_label = Gtk.Label(xalign=0)
-    hbox55_label.set_text("   Install blueman")
+    if fn.check_package_installed("blueman"):
+        hbox55_label.set_markup("   Blueman is already <b>installed</b>")
+    else:
+        hbox55_label.set_markup("   Install blueman")
     btn_install_blueman = Gtk.Button(label="Install blueman")
     btn_install_blueman.connect("clicked", self.on_click_install_blueman)
     btn_remove_blueman = Gtk.Button(label="Remove blueman")
@@ -548,7 +557,10 @@ Report them if that is the case"
 
     hbox56 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox56_label = Gtk.Label(xalign=0)
-    hbox56_label.set_text("   Install bluedevil (Plasma dependencies)")
+    if fn.check_package_installed("bluedevil"):
+        hbox56_label.set_markup("   Bluedevil is already <b>installed</b>")
+    else:
+        hbox56_label.set_markup("   Install bluedevil (Plasma dependencies)")
     btn_install_bluedevil = Gtk.Button(label="Install bluedevil")
     btn_install_bluedevil.connect("clicked", self.on_click_install_bluedevil)
     btn_remove_bluedevil = Gtk.Button(label="Remove bluedevil")
