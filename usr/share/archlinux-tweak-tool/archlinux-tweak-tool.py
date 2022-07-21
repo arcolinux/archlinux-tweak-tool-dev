@@ -3027,7 +3027,7 @@ class Main(Gtk.Window):
             fn.remove_package_s(self, "wireplumber")
 
         if fn.check_package_installed("pipewire-pulse"):
-            fn.remove_package_s(self, "pipewire-pulse")
+            fn.remove_package_dd(self, "pipewire-pulse")
 
         if fn.check_package_installed("pipewire-alsa"):
             fn.remove_package_s(self, "pipewire-alsa")
