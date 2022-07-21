@@ -467,13 +467,13 @@ Report them if that is the case"
     hbox48 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox48_label = Gtk.Label(xalign=0)
 
-    status1 = fn.check_service("cups")
+    status1 = fn.check_if_process_is_running("pulseaudio")
     if status1 is True:
         status1 = "active"
     else:
         status1 = "inactive"
 
-    status2 = fn.check_socket("cups")
+    status2 = fn.check_if_process_is_running("pipewire")
     if status2 is True:
         status2 = "active"
     else:
