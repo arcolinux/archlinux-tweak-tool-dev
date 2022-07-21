@@ -6,9 +6,6 @@
 # pylint:disable=C0103,C0115,C0116,C0411,C0413,E1101,E0213,I1101,R0902,R0904,R0912,R0913,R0914,R0915,R0916,R1705,W0613,W0621,W0622,W0702,W0703
 # pylint:disable=C0301,C0302 #line too long
 
-from ast import Try
-from distutils.log import error
-from tabnanny import check
 import zsh_theme
 import utilities
 import user
@@ -38,7 +35,7 @@ import gi
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GdkPixbuf, Gtk, Pango, GLib
-from os import readlink, remove
+from os import readlink
 
 # from time import sleep
 # from subprocess import PIPE, STDOUT, call
