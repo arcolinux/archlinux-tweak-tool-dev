@@ -320,7 +320,7 @@ def check_if_process_is_running(processName):
     for proc in psutil.process_iter():
         try:
             pinfo = proc.as_dict(attrs=["pid", "name", "create_time"])
-            if processName == pinfo["pid"]:
+            if processName == pinfo["name"]:
                 return True
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass

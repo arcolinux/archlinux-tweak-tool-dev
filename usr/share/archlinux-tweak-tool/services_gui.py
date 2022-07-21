@@ -466,21 +466,22 @@ Report them if that is the case"
 
     hbox48 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox48_label = Gtk.Label(xalign=0)
-
+    text1 = ""
+    text2 = ""
     status1 = fn.check_if_process_is_running("pulseaudio")
     if status1 is True:
-        status1 = "active"
+        text1 = "active"
     else:
-        status1 = "inactive"
+        text1 = "inactive"
 
     status2 = fn.check_if_process_is_running("pipewire")
     if status2 is True:
-        status2 = "active"
+        text2 = "active"
     else:
-        status2 = "inactive"
+        text2 = "inactive"
 
     hbox48_label.set_text(
-        "Pulseaudio service : " + status1 + "   Pipewire service : " + status2
+        "Pulseaudio service : " + text1 + "   Pipewire service : " + text2
     )
     hbox48.pack_start(hbox48_label, False, False, 10)
 
