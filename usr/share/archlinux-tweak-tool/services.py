@@ -135,7 +135,7 @@ def add_autoconnect_pulseaudio(self):
                     lists = f.readlines()
                     f.close()
 
-                lists.append("load-module module-switch-on-connect\n")
+                lists.append("\nload-module module-switch-on-connect\n")
 
                 with open(fn.pulse_default, "w", encoding="utf-8") as f:
                     f.writelines(lists)
