@@ -661,7 +661,8 @@ Report them if that is the case"
     # ==================================================================
     #                       PACK TO STACK
     # ==================================================================
-    stack.add_titled(vboxstack4, "stack4", "Audio")
+    if not fn.distr == "garuda":
+        stack.add_titled(vboxstack4, "stack4", "Audio")
     stack.add_titled(vboxstack5, "stack5", "Bluetooth")
     stack.add_titled(vboxstack1, "stack1", "Network")
     stack.add_titled(vboxstack3, "stack3", "Printing")
