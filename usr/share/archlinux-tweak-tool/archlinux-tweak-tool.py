@@ -3035,9 +3035,6 @@ class Main(Gtk.Window):
         if fn.check_package_installed("pipewire-zeroconf"):
             fn.remove_package_s(self, "pipewire-zeroconf")
 
-        # add line for autoconnect
-        services.add_autoconnect_pulseaudio(self)
-
         try:
             fn.install_package(self, "pulseaudio")  # conflicts with pipewire-pulse
             fn.install_package(
@@ -3059,6 +3056,9 @@ class Main(Gtk.Window):
 
             if blueberry_installed:
                 fn.install_package(self, "blueberry")
+
+            # add line for autoconnect
+            services.add_autoconnect_pulseaudio(self)
 
         except Exception as error:
             print(error)

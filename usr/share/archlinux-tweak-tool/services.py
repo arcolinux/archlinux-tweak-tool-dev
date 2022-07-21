@@ -100,31 +100,6 @@ def create_samba_user(self):
         GLib.idle_add(fn.show_in_app_notification, self, "First fill in your username")
 
 
-def check_pa_content(value, file):
-    try:
-        with open(file, "r", encoding="utf-8") as myfile:
-            lines = myfile.readlines()
-            myfile.close()
-
-        for line in lines:
-            if value in line:
-                print("if " + value + " in " + line)
-                return True
-            else:
-                print("if " + value + " in " + line)
-                return False
-
-        # if lines.find(value) != -1:
-        #     print("wot")
-        #     return True
-        # else:
-        #     print("boe")
-        #     return False
-
-    except Exception as error:
-        print(error)
-
-
 def add_autoconnect_pulseaudio(self):
     if fn.file_check(fn.pulse_default):
         if fn.check_content("load-module module-switch-on-connect\n", fn.pulse_default):
