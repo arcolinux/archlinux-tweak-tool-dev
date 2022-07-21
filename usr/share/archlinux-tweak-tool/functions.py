@@ -445,7 +445,7 @@ def check_package_installed(package):  # noqa
 
 def check_service(service):  # noqa
     try:
-        command = "systemctl is-active " + service + ".socket"
+        command = "systemctl is-active " + service + ".service"
         output = subprocess.run(
             command.split(" "),
             check=True,
@@ -668,7 +668,7 @@ def remove_package(self, package):
         GLib.idle_add(show_in_app_notification, self, package + " is already removed")
 
 
-def remove_package_dep_s(self, package):
+def remove_package_s(self, package):
     command = "pacman -Rs " + package + " --noconfirm"
     if check_package_installed(package):
         print(command)
@@ -688,8 +688,28 @@ def remove_package_dep_s(self, package):
         GLib.idle_add(show_in_app_notification, self, package + " is already removed")
 
 
-def remove_package_dep_ss(self, package):
+def remove_package_ss(self, package):
     command = "pacman -Rss " + package + " --noconfirm"
+    if check_package_installed(package):
+        print(command)
+        try:
+            subprocess.call(
+                command.split(" "),
+                shell=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+            print(package + " is now removed")
+            GLib.idle_add(show_in_app_notification, self, package + " is now removed")
+        except Exception as error:
+            print(error)
+    else:
+        print(package + " is already removed")
+        GLib.idle_add(show_in_app_notification, self, package + " is already removed")
+
+
+def remove_package_dd(self, package):
+    command = "pacman -Rdd " + package + " --noconfirm"
     if check_package_installed(package):
         print(command)
         try:
@@ -1935,6 +1955,17 @@ def disable_service(service):
         print("We stopped and disabled the following service " + service)
     except Exception as error:
         print(error)
+
+
+def find_active_audio():
+    output = subprocess.run(["pactl", "info"], check=True, stdout=subprocess.PIPE)
+
+    pipewire_active = check_value(output, "pipewire")
+
+    if pipewire_active == True:
+        return pipewire_active
+    else:
+        return pipewire_active
 
 
 # =====================================================
