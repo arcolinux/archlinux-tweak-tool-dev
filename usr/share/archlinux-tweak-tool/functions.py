@@ -111,7 +111,7 @@ polybar = home + "/.config/polybar/"
 desktop = ""
 autostart = home + "/.config/autostart/"
 login_backgrounds = "/usr/share/backgrounds/archlinux-login-backgrounds/"
-
+pulse_default = "/etc/pulse/default.pa"
 bash_config = ""
 zsh_config = ""
 fish_config = ""
@@ -291,7 +291,7 @@ def _get_variable(lists, value):
     return data_clean
 
 
-# Check  value exists
+# Check  value exists remove data
 
 
 def check_value(list, value):
@@ -410,7 +410,7 @@ def is_empty_directory(path):
 # check if value is true or false in file
 
 
-def check_content(value, file):  # noqa
+def check_content(value, file):
     try:
         with open(file, "r", encoding="utf-8") as myfile:
             lines = myfile.readlines()

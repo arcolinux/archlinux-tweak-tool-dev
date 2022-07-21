@@ -3035,12 +3035,8 @@ class Main(Gtk.Window):
         if fn.check_package_installed("pipewire-zeroconf"):
             fn.remove_package_s(self, "pipewire-zeroconf")
 
-        if fn.check_package_installed("pipewire-zeroconf"):
-            fn.remove_package_s(self, "pipewire-zeroconf")
-
-        # would break dependencies to telegram and others
-        # if fn.check_package_installed("pipewire"):
-        #     fn.remove_package_s(self, "pipewire")
+        # add line for autoconnect
+        services.add_autoconnect_pulseaudio(self)
 
         try:
             fn.install_package(self, "pulseaudio")  # conflicts with pipewire-pulse
@@ -3093,7 +3089,7 @@ class Main(Gtk.Window):
             )  # contains wireplumber - conflicts with pulseaudio and pulseaudio-bluetooth
             fn.install_package(self, "pipewire-alsa")
             # fn.install_package(self, "pipewire-jack")
-            fn.install_package(self, "pipewire-zeroconf")
+            # fn.install_package(self, "pipewire-zeroconf")
 
             fn.install_package(self, "pavucontrol")
 
