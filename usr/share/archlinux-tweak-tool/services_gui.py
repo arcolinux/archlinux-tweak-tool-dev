@@ -569,23 +569,18 @@ Report them if that is the case"
     hbox56.pack_end(btn_remove_bluedevil, False, False, 10)
     hbox56.pack_end(btn_install_bluedevil, False, False, 10)
 
-    if not fn.check_package_installed("bluez"):
-        enable_bt.set_sensitive(False)
-        disable_bt.set_sensitive(False)
-        restart_bt.set_sensitive(False)
-
     # at bottom of page
 
     hbox57 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-    enable_bt = Gtk.Button(label="Enable bluetooth")
-    enable_bt.connect("clicked", self.on_click_enable_bluetooth)
-    disable_bt = Gtk.Button(label="Disable bluetooth")
-    disable_bt.connect("clicked", self.on_click_disable_bluetooth)
-    restart_bt = Gtk.Button(label="Start/Restart bluetooth")
-    restart_bt.connect("clicked", self.on_click_restart_bluetooth)
-    hbox57.pack_end(restart_bt, False, False, 10)
-    hbox57.pack_start(enable_bt, False, False, 10)
-    hbox57.pack_start(disable_bt, False, False, 10)
+    self.enable_bt = Gtk.Button(label="Enable bluetooth")
+    self.enable_bt.connect("clicked", self.on_click_enable_bluetooth)
+    self.disable_bt = Gtk.Button(label="Disable bluetooth")
+    self.disable_bt.connect("clicked", self.on_click_disable_bluetooth)
+    self.restart_bt = Gtk.Button(label="Start/Restart bluetooth")
+    self.restart_bt.connect("clicked", self.on_click_restart_bluetooth)
+    hbox57.pack_end(self.restart_bt, False, False, 10)
+    hbox57.pack_start(self.enable_bt, False, False, 10)
+    hbox57.pack_start(self.disable_bt, False, False, 10)
 
     hbox58 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
     hbox58_label = Gtk.Label(xalign=0)
@@ -598,6 +593,11 @@ Report them if that is the case"
 
     hbox58_label.set_text("bluetooth service : " + status1)
     hbox58.pack_start(hbox58_label, False, False, 10)
+
+    if not fn.check_package_installed("bluez"):
+        self.enable_bt.set_sensitive(False)
+        self.disable_bt.set_sensitive(False)
+        self.restart_bt.set_sensitive(False)
 
     # ====================================================================
     #                       STACK

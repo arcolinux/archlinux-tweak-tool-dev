@@ -3117,11 +3117,19 @@ class Main(Gtk.Window):
         print("Installing bluetooth")
         fn.install_package(self, "bluez")
         fn.install_package(self, "bluez-utils")
+        if fn.check_package_installed("bluez"):
+            self.enable_bt.set_sensitive(True)
+            self.disable_bt.set_sensitive(True)
+            self.restart_bt.set_sensitive(True)
 
     def on_click_remove_bluetooth(self, widget):
         print("Removing bluez")
         fn.remove_package_dd(self, "bluez")
         fn.remove_package_dd(self, "bluez-utils")
+        if not fn.check_package_installed("bluez"):
+            self.enable_bt.set_sensitive(False)
+            self.disable_bt.set_sensitive(False)
+            self.restart_bt.set_sensitive(False)
 
     # def on_click_install_gnome_bt(self, widget):
     #     print("Installing gnome-bluetooth")
