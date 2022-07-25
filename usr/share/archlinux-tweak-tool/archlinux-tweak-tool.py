@@ -10,6 +10,7 @@ import zsh_theme
 import utilities
 import user
 import themer
+import design
 import terminals
 import support
 import splash
@@ -23,6 +24,7 @@ import login
 import lightdm
 import fixes
 import gui
+import att
 import desktopr
 import autostart
 from subprocess import call
@@ -1184,6 +1186,223 @@ class Main(Gtk.Window):
         fn.restart_program()
 
     # ====================================================================
+    #                       ATT
+    # ====================================================================
+
+    # themes
+
+    def on_install_att_themes_clicked(self, widget):
+        print("We have installed all the selected themes")
+        fn.show_in_app_notification(self, "We have installed all the selected themes")
+        att.install_themes(self)
+
+    def on_remove_att_themes_clicked(self, widget):
+        print("We have removed all the selected themes")
+        fn.show_in_app_notification(self, "We have removed all the selected themes")
+        att.remove_themes(self)
+
+    def on_find_att_themes_clicked(self, widget):
+        print("ATT : We show the installed themes")
+        fn.show_in_app_notification(self, "We show the installed themes")
+        att.find_themes(self)
+
+    # ====================================================================
+    # Sardi
+
+    def on_install_att_sardi_icon_themes_clicked(self, widget):
+        print("ATT : We have installed all the selected sardi icon themes")
+        fn.show_in_app_notification(
+            self, "We have installed all the selected sardi icon themes"
+        )
+        att.install_sardi_icons(self)
+
+    def on_remove_att_sardi_icon_themes_clicked(self, widget):
+        print("ATT : We have removed all the selected sardi icon themes")
+        fn.show_in_app_notification(
+            self, "We have removed all the selected sardi icon themes"
+        )
+        att.remove_sardi_icons(self)
+
+    def on_find_att_sardi_icon_themes_clicked(self, widget):
+        print("ATT : We show the installed sardi icon themes")
+        fn.show_in_app_notification(self, "We show the installed sardi icon themes")
+        att.find_sardi_icons(self)
+
+    # ====================================================================
+    # surfn
+
+    def on_install_att_surfn_icon_themes_clicked(self, widget):
+        print("ATT : We have installed all the selected Surfn cursor themes")
+        fn.show_in_app_notification(
+            self, "We have installed all the selected Surfn cursor themes"
+        )
+        att.install_surfn_icons(self)
+
+    def on_remove_att_surfn_icon_themes_clicked(self, widget):
+        print("ATT : We have removed all the selected Surfn cursor themes")
+        fn.show_in_app_notification(
+            self, "We have removed all the selected Surfn cursor themes"
+        )
+        att.remove_surfn_icons(self)
+
+    def on_find_att_surfn_icon_themes_clicked(self, widget):
+        print("ATT : We show all the installed Surfn icon themes")
+        fn.show_in_app_notification(self, "We show all the installed Surfn icon themes")
+        att.find_surfn_icons(self)
+
+    # ====================================================================
+    # selection of theming
+
+    def on_click_att_theming_all_selection(self, widget):
+        print("ATT : We have selected all themes")
+        fn.show_in_app_notification(self, "We have selected all themes")
+        att.set_att_checkboxes_theming_all(self)
+
+    def on_click_att_theming_blue_selection(self, widget):
+        print("ATT : We have selected the normal selection - blue themes")
+        fn.show_in_app_notification(
+            self, "We have selected the normal selection - blue themes"
+        )
+        att.set_att_checkboxes_theming_blue(self)
+
+    def on_click_att_theming_dark_selection(self, widget):
+        print("ATT : We have selected the minimal selection - dark themes")
+        fn.show_in_app_notification(
+            self, "We have selected the minimal selection - dark themes"
+        )
+        att.set_att_checkboxes_theming_dark(self)
+
+    def on_click_att_theming_none_selection(self, widget):
+        print("ATT : We have selected no themes")
+        fn.show_in_app_notification(self, "We have selected no themes")
+        att.set_att_checkboxes_theming_none(self)
+
+    # selection of icon theming
+    def on_click_att_sardi_icon_theming_all_selection(self, widget):
+        print("ATT : We have selected all sardi icons")
+        fn.show_in_app_notification(self, "We have selected all sardi icons")
+        att.set_att_checkboxes_theming_sardi_icons_all(self)
+
+    def on_click_att_sardi_icon_theming_mint_selection(self, widget):
+        print("ATT : We have selected the mint selection - sardi icons")
+        fn.show_in_app_notification(
+            self, "We have selected the mint selection - sardi icons"
+        )
+        att.set_att_checkboxes_theming_sardi_mint_icons(self)
+
+    def on_click_att_sardi_icon_theming_mixing_selection(self, widget):
+        print("ATT : We have selected the mixing selection - sardi icons")
+        fn.show_in_app_notification(
+            self, "We have selected the mixing selection - sardi icons"
+        )
+        att.set_att_checkboxes_theming_sardi_mixing_icons(self)
+
+    def on_click_att_sardi_icon_theming_variations_selection(self, widget):
+        print("ATT : We have selected the variation selection - sardi icons")
+        fn.show_in_app_notification(
+            self, "We have selected the variation selection - sardi icons"
+        )
+        att.set_att_checkboxes_theming_sardi_icons_variations(self)
+
+    def on_click_att_sardi_icon_theming_none_selection(self, widget):
+        print("ATT : We have selected no sardi icons")
+        fn.show_in_app_notification(self, "We have selected no sardiicons")
+        att.set_att_checkboxes_theming_sardi_icons_none(self)
+
+    # different families of SARDI
+
+    def on_click_att_fam_sardi_icon_theming_sardi_selection(self, widget):
+        print("ATT : We have selected the Sardi family")
+        fn.show_in_app_notification(self, "We have selected the Sardi family themes")
+        att.set_att_fam_checkboxes_theming_sardi_icons(self)
+
+    def on_click_att_fam_sardi_icon_theming_sardi_flexible_selection(self, widget):
+        print("ATT : We have selected the Sardi flexible family")
+        fn.show_in_app_notification(
+            self, "We have selected the Sardi flexible family themes"
+        )
+        att.set_att_fam_checkboxes_theming_sardi_flexible(self)
+
+    def on_click_att_fam_sardi_icon_theming_sardi_mono_selection(self, widget):
+        print("ATT : We have selected the Sardi mono family")
+        fn.show_in_app_notification(
+            self, "We have selected the Sardi mono family themes"
+        )
+        att.set_att_fam_checkboxes_theming_sardi_mono(self)
+
+    def on_click_att_fam_sardi_icon_theming_sardi_flat_selection(self, widget):
+        print("ATT : We have selected the Sardi flat family")
+        fn.show_in_app_notification(
+            self, "We have selected the Sardi flat family themes"
+        )
+        att.set_att_fam_checkboxes_theming_sardi_flat(self)
+
+    def on_click_att_fam_sardi_icon_theming_sardi_ghost_selection(self, widget):
+        print("ATT : We have selected the Sardi ghost family")
+        fn.show_in_app_notification(
+            self, "We have selected the Sardi ghost family themes"
+        )
+        att.set_att_fam_checkboxes_theming_sardi_ghost(self)
+
+    def on_click_att_fam_sardi_icon_theming_sardi_orb_selection(self, widget):
+        print("ATT : We have selected the Sardi orb family")
+        fn.show_in_app_notification(
+            self, "We have selected the Sardi orb family themes"
+        )
+        att.set_att_fam_checkboxes_theming_sardi_orb(self)
+
+    # selection of Surfn icons theming
+    def on_click_att_surfn_theming_all_selection(self, widget):
+        print("ATT : We have selected all cursors")
+        fn.show_in_app_notification(self, "We have selected all cursors")
+        att.set_att_checkboxes_theming_surfn_icons_all(self)
+
+    def on_click_att_surfn_theming_normal_selection(self, widget):
+        print("ATT : We have selected the normal selection - cursors")
+        fn.show_in_app_notification(
+            self, "We have selected the normal selection - cursors"
+        )
+        att.set_att_checkboxes_theming_surfn_icons_normal(self)
+
+    def on_click_att_surfn_theming_minimal_selection(self, widget):
+        print("ATT : We have selected the minimal selection - cursors")
+        fn.show_in_app_notification(
+            self, "We have selected the minimal selection - cursors"
+        )
+        att.set_att_checkboxes_theming_surfn_icons_minimal(self)
+
+    def on_click_att_surfn_theming_none_selection(self, widget):
+        print("ATT : We have selected no cursors")
+        fn.show_in_app_notification(self, "We have selected no cursors")
+        att.set_att_checkboxes_theming_surfn_icons_none(self)
+
+    # selection of extras theming
+    def on_click_extras_theming_all_selection(self, widget):
+        print("ATT : We have selected all projects")
+        fn.show_in_app_notification(self, "We have selected all projects")
+        att.set_att_checkboxes_extras_all(self)
+
+    def on_click_extras_theming_none_selection(self, widget):
+        print("ATT : We have selected none of the projects")
+        fn.show_in_app_notification(self, "We have selected none of the projects")
+        att.set_att_checkboxes_extras_none(self)
+
+    def on_install_extras_clicked(self, widget):
+        print("ATT : We install the selected projects")
+        fn.show_in_app_notification(self, "We install the selected projects")
+        att.install_att_extras(self)
+
+    def on_remove_extras_clicked(self, widget):
+        print("ATT : We remove the selected projects")
+        fn.show_in_app_notification(self, "We remove the selected projects")
+        att.remove_att_extras(self)
+
+    def on_find_extras_clicked(self, widget):
+        print("ATT : We show the installed projects")
+        fn.show_in_app_notification(self, "We show the installed projects")
+        att.find_att_extras(self)
+
+    # ====================================================================
     #                       BASH
     # ====================================================================
 
@@ -1223,6 +1442,184 @@ class Main(Gtk.Window):
             self,
             "Your personal ~/.bashrc is applied again - logout",
         )
+
+    #    #====================================================================
+    #    #                       DESIGN
+    #    #====================================================================
+
+    # design
+    def on_install_themes_clicked(self, widget):
+        design.install_themes(self)
+        print("We have installed all the selected themes")
+        fn.show_in_app_notification(self, "We have installed all the selected themes")
+
+    def on_remove_themes_clicked(self, widget):
+        design.remove_themes(self)
+        print("We have removed all the selected themes")
+        fn.show_in_app_notification(self, "We have removed all the selected themes")
+
+    def on_find_themes_clicked(self, widget):
+        design.find_themes(self)
+        print("We show all the installed themes")
+        fn.show_in_app_notification(self, "We show all the installed themes")
+
+    # icons
+    def on_install_icon_themes_clicked(self, widget):
+        design.install_icon_themes(self)
+        print("We have installed all the selected icon themes")
+        fn.show_in_app_notification(
+            self, "We have installed all the selected icon themes"
+        )
+
+    def on_remove_icon_themes_clicked(self, widget):
+        design.remove_icon_themes(self)
+        print("We have removed all the selected icon themes")
+        fn.show_in_app_notification(
+            self, "We have removed all the selected icon themes"
+        )
+
+    def on_find_icon_themes_clicked(self, widget):
+        design.find_icon_themes(self)
+        print("We show all the installed icon themes")
+        fn.show_in_app_notification(self, "We show all the installed icon themes")
+
+    # cursors
+    def on_install_cursor_themes_clicked(self, widget):
+        design.install_cursor_themes(self)
+        print("We have installed all the selected cursor themes")
+        fn.show_in_app_notification(
+            self, "We have installed all the selected cursor themes"
+        )
+
+    def on_remove_cursor_themes_clicked(self, widget):
+        design.remove_cursor_themes(self)
+        print("We have removed all the selected cursor themes")
+        fn.show_in_app_notification(
+            self, "We have removed all the selected cursor themes"
+        )
+
+    def on_find_cursor_themes_clicked(self, widget):
+        design.find_cursor_themes(self)
+        print("We show all the installed cursor themes")
+        fn.show_in_app_notification(self, "We show all the installed cursor themes")
+
+    # fonts
+    def on_install_fonts_clicked(self, widget):
+        design.install_fonts(self)
+        print("We have installed all the selected fonts")
+        fn.show_in_app_notification(self, "We have installed all the selected fonts")
+
+    def on_remove_fonts_clicked(self, widget):
+        design.remove_fonts(self)
+        print("We have removed all the selected fonts")
+        fn.show_in_app_notification(self, "We have removed all the selected fonts")
+
+    def on_find_fonts_clicked(self, widget):
+        design.find_fonts(self)
+        print("We show all the installed fonts")
+        fn.show_in_app_notification(self, "We show all the installed fonts")
+
+    ############################################################################
+
+    # selection of theming
+    def on_click_theming_all_selection(self, widget):
+        print("We have selected all themes")
+        fn.show_in_app_notification(self, "We have selected all themes")
+        design.set_checkboxes_theming_all(self)
+
+    def on_click_theming_normal_selection(self, widget):
+        print("We have selected the normal selection - themes")
+        fn.show_in_app_notification(
+            self, "We have selected the normal selection - themes"
+        )
+        design.set_checkboxes_theming_normal(self)
+
+    def on_click_theming_minimal_selection(self, widget):
+        print("We have selected the minimal selection - themes")
+        fn.show_in_app_notification(
+            self, "We have selected the minimal selection - themes"
+        )
+        design.set_checkboxes_theming_minimal(self)
+
+    def on_click_theming_none_selection(self, widget):
+        print("We have selected no themes")
+        fn.show_in_app_notification(self, "We have selected no themes")
+        design.set_checkboxes_theming_none(self)
+
+    # selection of icon theming
+    def on_click_icon_theming_all_selection(self, widget):
+        print("We have selected all icons")
+        fn.show_in_app_notification(self, "We have selected all icons")
+        design.set_checkboxes_theming_icons_all(self)
+
+    def on_click_icon_theming_normal_selection(self, widget):
+        print("We have selected the normal selection - icons")
+        fn.show_in_app_notification(
+            self, "We have selected the normal selection - icons"
+        )
+        design.set_checkboxes_theming_icons_normal(self)
+
+    def on_click_icon_theming_minimal_selection(self, widget):
+        print("We have selected the minimal selection - icons")
+        fn.show_in_app_notification(
+            self, "We have selected the minimal selection - icons"
+        )
+        design.set_checkboxes_theming_icons_minimal(self)
+
+    def on_click_icon_theming_none_selection(self, widget):
+        print("We have selected no icons")
+        fn.show_in_app_notification(self, "We have selected no icons")
+        design.set_checkboxes_theming_icons_none(self)
+
+    # selection of cursor theming
+    def on_click_cursor_theming_all_selection(self, widget):
+        print("We have selected all cursors")
+        fn.show_in_app_notification(self, "We have selected all cursors")
+        design.set_checkboxes_theming_cursors_all(self)
+
+    def on_click_cursor_theming_normal_selection(self, widget):
+        print("We have selected the normal selection - cursors")
+        fn.show_in_app_notification(
+            self, "We have selected the normal selection - cursors"
+        )
+        design.set_checkboxes_theming_cursors_normal(self)
+
+    def on_click_cursor_theming_minimal_selection(self, widget):
+        print("We have selected the minimal selection - cursors")
+        fn.show_in_app_notification(
+            self, "We have selected the minimal selection - cursors"
+        )
+        design.set_checkboxes_theming_cursors_minimal(self)
+
+    def on_click_cursor_theming_none_selection(self, widget):
+        print("We have selected no cursors")
+        fn.show_in_app_notification(self, "We have selected no cursors")
+        design.set_checkboxes_theming_cursors_none(self)
+
+    # selection of font theming
+    def on_click_font_theming_all_selection(self, widget):
+        print("We have selected all fonts")
+        fn.show_in_app_notification(self, "We have selected all fonts")
+        design.set_checkboxes_fonts_all(self)
+
+    def on_click_font_theming_normal_selection(self, widget):
+        print("We have selected the normal selection - fonts")
+        fn.show_in_app_notification(
+            self, "We have selected the normal selection - fonts"
+        )
+        design.set_checkboxes_fonts_normal(self)
+
+    def on_click_font_theming_minimal_selection(self, widget):
+        print("We have selected the minimal selection - fonts")
+        fn.show_in_app_notification(
+            self, "We have selected the minimal selection - fonts"
+        )
+        design.set_checkboxes_fonts_minimal(self)
+
+    def on_click_font_theming_none_selection(self, widget):
+        print("We have selected no fonts")
+        fn.show_in_app_notification(self, "We have selected no fonts")
+        design.set_checkboxes_fonts_none(self)
 
     #    #====================================================================
     #    #                       DESKTOPR
@@ -2292,6 +2689,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "arco_testing")
+        fn.update_repos(self)
 
     def on_pacman_arepo_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo]"):
@@ -2314,6 +2712,7 @@ class Main(Gtk.Window):
                     self.button_reinstall.set_sensitive(False)
                     self.install_arco_vimix.set_sensitive(False)
         utilities.set_util_state_arco_switch(self)
+        fn.update_repos(self)
 
     def on_pacman_a3p_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_3party]"):
@@ -2333,6 +2732,7 @@ class Main(Gtk.Window):
                 else:
                     self.button_install.set_sensitive(False)
                     self.button_reinstall.set_sensitive(False)
+        fn.update_repos(self)
 
     def on_pacman_axl_toggle(self, widget, active):
         if not pmf.repo_exist("[arcolinux_repo_xlarge]"):
@@ -2346,6 +2746,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "arco_axl")
+        fn.update_repos(self)
 
     def on_chaotics_clicked(self, widget):
         fn.install_chaotics(self)
@@ -2363,6 +2764,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "chaotics")
+        fn.update_repos(self)
 
     def on_endeavouros_clicked(self, widget):
         fn.install_endeavouros(self)
@@ -2378,6 +2780,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "endeavouros")
+        fn.update_repos(self)
 
     def on_nemesis_toggle(self, widget, active):
         if not pmf.repo_exist("[nemesis_repo]"):
@@ -2387,6 +2790,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "nemesis")
+        fn.update_repos(self)
 
     def on_xerolinux_clicked(self, widget):
         fn.install_xerolinux(self)
@@ -2402,6 +2806,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero")
+        fn.update_repos(self)
 
     def on_xero_xl_toggle(self, widget, active):
         if not pmf.repo_exist("[xerolinux_repo_xl]"):
@@ -2411,6 +2816,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero_xl")
+        fn.update_repos(self)
 
     def on_xero_nv_toggle(self, widget, active):
         if not pmf.repo_exist("[xerolinux_nvidia_repo]"):
@@ -2420,6 +2826,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "xero_nv")
+        fn.update_repos(self)
 
     def on_pacman_toggle1(self, widget, active):
         if not pmf.repo_exist("[testing]"):
@@ -2429,6 +2836,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "testing")
+        fn.update_repos(self)
 
     def on_pacman_toggle2(self, widget, active):
         if not pmf.repo_exist("[core]"):
@@ -2438,6 +2846,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "core")
+        fn.update_repos(self)
 
     def on_pacman_toggle3(self, widget, active):
         if not pmf.repo_exist("[extra]"):
@@ -2447,6 +2856,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "extra")
+        fn.update_repos(self)
 
     def on_pacman_toggle4(self, widget, active):
         if not pmf.repo_exist("[community-testing]"):
@@ -2456,6 +2866,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "community-testing")
+        fn.update_repos(self)
 
     def on_pacman_toggle5(self, widget, active):
         if not pmf.repo_exist("[community]"):
@@ -2469,6 +2880,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "community")
+        fn.update_repos(self)
 
     def on_pacman_toggle6(self, widget, active):
         if not pmf.repo_exist("[multilib-testing]"):
@@ -2478,6 +2890,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib-testing")
+        fn.update_repos(self)
 
     def on_pacman_toggle7(self, widget, active):
         if not pmf.repo_exist("[multilib]"):
@@ -2487,6 +2900,7 @@ class Main(Gtk.Window):
         else:
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib")
+        fn.update_repos(self)
 
     def custom_repo_clicked(self, widget):
         custom_repo_text = self.textview_custom_repo.get_buffer()
@@ -2495,6 +2909,11 @@ class Main(Gtk.Window):
         if not len(custom_repo_text.get_text(startiter, enditer, True)) < 5:
             print(custom_repo_text.get_text(startiter, enditer, True))
             pmf.append_repo(self, custom_repo_text.get_text(startiter, enditer, True))
+        try:
+            fn.update_repos(self)
+        except Exception as error:
+            print(error)
+            print("Is the code correct? - check /etc/pacman.conf")
 
     def blank_pacman(source, target):
         fn.shutil.copy(fn.pacman, fn.pacman + ".bak")
