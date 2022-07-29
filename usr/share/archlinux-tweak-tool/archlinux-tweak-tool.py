@@ -3553,8 +3553,8 @@ class Main(Gtk.Window):
 
             if fn.check_package_installed("pipewire-media-session"):
                 fn.remove_package_dd(self, "pipewire-media-session")
-                fn.install_package_(self, "pipewire-pulse")
-                fn.install_package_(self, "wireplumber")
+                fn.install_package(self, "pipewire-pulse")
+                fn.install_package(self, "wireplumber")
 
         except Exception as error:
             print(error)
