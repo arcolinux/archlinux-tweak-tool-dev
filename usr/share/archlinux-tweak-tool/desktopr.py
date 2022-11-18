@@ -206,9 +206,6 @@ if fn.distr == "arcolinux":
     chadwm = [
         "alacritty",
         "arcolinux-chadwm-git",
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
         "arcolinux-local-xfce4-git",
         "archlinux-logout-git",
         "arcolinux-rofi-git",
