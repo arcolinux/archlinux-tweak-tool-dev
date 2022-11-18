@@ -1570,6 +1570,10 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
         twm = True
+    elif desktop == "hypr":
+        command = list(np.append(hypr, default_app))
+        src.append("/etc/skel/.config/hypr")
+        twm = True
     elif desktop == "i3":
         command = list(np.append(i3, default_app))
         src.append("/etc/skel/.config/i3")
