@@ -1486,6 +1486,7 @@ def install_desktop(self, desktop, state):
     elif desktop == "chadwm":
         command = list(np.append(chadwm, default_app))
         src.append("/etc/skel/.config/arco-chadwm")
+        src.append("/etc/skel/.config/eww")
         twm = True
     elif desktop == "cinnamon":
         command = cinnamon
