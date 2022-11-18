@@ -1484,7 +1484,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/cutefishos")
         twm = True
     elif desktop == "chadwm":
-        command = list(np.append(dwm, default_app))
+        command = list(np.append(chadwm, default_app))
         src.append("/etc/skel/.config/arco-chadwm")
         twm = True
     elif desktop == "cinnamon":
