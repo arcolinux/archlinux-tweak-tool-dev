@@ -26,6 +26,7 @@ desktops = [
     "bspwm",
     "budgie-desktop",
     "cinnamon",
+    "chadwm",
     "cutefish-xsession",
     "cwm",
     "deepin",
@@ -200,6 +201,40 @@ if fn.distr == "arcolinux":
         "iso-flag-png",
         "mintlocale",
         "nemo-fileroller",
+        "xfce4-terminal",
+    ]
+    chadwm = [
+        "alacritty",
+        "arcolinux-chadwm-git",
+        "arcolinux-config-all-desktops-git",
+        "arcolinux-dconf-all-desktops-git",
+        "arcolinux-gtk3-sardi-arc-git",
+        "arcolinux-local-xfce4-git",
+        "archlinux-logout-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-root-git",
+        "arcolinux-volumeicon-git",
+        "arcolinux-wallpapers-git",
+        "arcolinux-xfce-git",
+        "dmenu",
+        "feh",
+        "gvfs",
+        "picom",
+        "polkit-gnome",
+        "rofi",
+        "rxvt-unicode",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-hack",
+        "volumeicon",
+        "xfce4-notifyd",
+        "xfce4-power-manager",
+        "xfce4-screenshooter",
+        "xfce4-settings",
+        "xfce4-taskmanager",
         "xfce4-terminal",
     ]
     cutefish = [
@@ -976,6 +1011,18 @@ if fn.distr != "arcolinux":
         "mintlocale",
         "nemo-fileroller",
     ]
+    chadwm = [
+        "alacritty",
+        "arcolinux-chadwm-git",
+        "archlinux-logout-git",
+        "dmenu",
+        "picom",
+        "polkit-gnome",
+        "sxhkd",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+    ]
     cutefish = [
         "cutefish",
     ]
@@ -1438,6 +1485,10 @@ def install_desktop(self, desktop, state):
     elif desktop == "cutefish-xsession":
         command = cutefish
         src.append("/etc/skel/.config/cutefishos")
+        twm = True
+    elif desktop == "chadwm":
+        command = list(np.append(dwm, default_app))
+        src.append("/etc/skel/.config/arco-chadwm")
         twm = True
     elif desktop == "cinnamon":
         command = cinnamon
