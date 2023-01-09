@@ -37,7 +37,6 @@ desktops = [
     "gnome",
     "herbstluftwm",
     "hypr",
-    "hyprland",
     "i3",
     "icewm",
     "jwm",
@@ -49,7 +48,6 @@ desktops = [
     "plasma",
     "qtile",
     "spectrwm",
-    "sway",
     "ukui",
     "wmderland",
     "worm",
@@ -482,11 +480,6 @@ if fn.distr == "arcolinux":
         "volumeicon",
         "xfce4-terminal",
     ]
-    hyprland = [
-        "arcolinux-hyprland-git",
-        "arcolinux-wayland-profile-git",
-        "arcolinux-hyprland-profile-git",
-    ]
     i3 = [
         "alacritty",
         "arcolinux-config-all-desktops-git",
@@ -853,11 +846,6 @@ if fn.distr == "arcolinux":
         "xfce4-terminal",
         "xtitle-git",
     ]
-    sway = [
-        "arcolinux-sway-git",
-        "arcolinux-wayland-profile-git",
-        "arcolinux-sway-profile-git",
-    ]
     wmderland = [
         "alacritty",
         "arcolinux-config-all-desktops-git",
@@ -1195,11 +1183,6 @@ if fn.distr != "arcolinux":
         "sxhkd",
         "xfce4-terminal",
     ]
-    hyprland = [
-        "arcolinux-hyprland-git",
-        "arcolinux-wayland-profile-git",
-        "arcolinux-hyprland-profile-git",
-    ]
     i3 = [
         "alacritty",
         "arcolinux-i3wm-git",
@@ -1382,11 +1365,6 @@ if fn.distr != "arcolinux":
         "ttf-hack",
         "xdo",
         "xtitle-git",
-    ]
-    sway = [
-        "arcolinux-sway-git",
-        "arcolinux-wayland-profile-git",
-        "arcolinux-sway-profile-git",
     ]
     wmderland = [
         "alacritty",
@@ -1609,10 +1587,6 @@ def install_desktop(self, desktop, state):
         command = list(np.append(hypr, default_app))
         src.append("/etc/skel/.config/hypr")
         twm = True
-    elif desktop == "hyprland":
-        command = list(np.append(hyprland, default_app))
-        src.append("/etc/skel/.config/hypr")
-        twm = True
     elif desktop == "i3":
         command = list(np.append(i3, default_app))
         src.append("/etc/skel/.config/i3")
@@ -1666,10 +1640,6 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/spectrwm")
         src.append("/etc/skel/.spectrwm.conf")
         src.append("/etc/skel/.config/polybar")
-        twm = True
-    elif desktop == "sway":
-        command = list(np.append(sway, default_app))
-        src.append("/etc/skel/.config/sway")
         twm = True
     elif desktop == "ukui":
         command = list(np.append(ukui, default_app))
