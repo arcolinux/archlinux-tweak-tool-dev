@@ -521,7 +521,7 @@ def check_group(group):
             ["sh", "-c", "id " + sudo_username],
             shell=False,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
+            stderr=subprocess.STDOUT,
         )
         for x in groups.stdout.decode().split(" "):
             if group in x:
@@ -989,6 +989,8 @@ def change_distro_label(name):  # noqa
         name = "AmOs"
     if name == "archcraft":
         name = "Archcraft"
+    if name == "artix":
+        name = "Artix"
     if name == "Archman":
         name = "ArchMan"
     if name == "cachyos":
@@ -1318,6 +1320,15 @@ def set_default_grub_theme(self):
                 try:
                     val = get_position(
                         grubd, 'GRUB_THEME="/boot/grub/themes/archcraft/theme.txt"'
+                    )
+                    grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
+                except IndexError:
+                    pass
+
+            if distr == "artix":
+                try:
+                    val = get_position(
+                        grubd, 'GRUB_THEME="/boot/grub/themes/artix/theme.txt"'
                     )
                     grubd[val] = 'GRUB_THEME="/boot/grub/themes/Vimix/theme.txt"\n'
                 except IndexError:

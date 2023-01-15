@@ -70,15 +70,16 @@ class Main(Gtk.Window):
         print(" - Xerolinux     - https://xerolinux.xyz/")
         print(" - Axyl          - https://axyl-os.github.io/")
         print(" - RebornOS      - https://rebornos.org/")
-        print(" - Archcraft     - https://archcraft.io/")
+        print(" - Archcraft     - https://archcaaraft.io/")
         print(" - CachyOS       - https://cachyos.org/")
         print(" - Archman       - https://archman.org/")
+        print(" - Artix         - https://artixlinux.org/")
         print(
             "---------------------------------------------------------------------------"
         )
         print("Other Arch Linux based distros will be visited later")
         print("Adding repositories should be done with great care - they can conflict")
-        print("Any Wayland desktop is not supported")
+        print("Wayland desktops are not supported e.g. Sway/Hyprland/...")
         print(
             "---------------------------------------------------------------------------"
         )
