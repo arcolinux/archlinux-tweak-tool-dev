@@ -521,7 +521,7 @@ def check_group(group):
             ["sh", "-c", "id " + sudo_username],
             shell=False,
             stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
+            stderr=subprocess.STDOUT
         )
         for x in groups.stdout.decode().split(" "):
             if group in x:
