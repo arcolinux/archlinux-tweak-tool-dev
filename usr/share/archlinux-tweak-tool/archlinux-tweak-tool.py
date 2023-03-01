@@ -73,7 +73,6 @@ class Main(Gtk.Window):
         print(" - Archcraft     - https://archcraft.io/")
         print(" - CachyOS       - https://cachyos.org/")
         print(" - Archman       - https://archman.org/")
-        print(" - Artix         - https://artixlinux.org/")
         print(
             "---------------------------------------------------------------------------"
         )
@@ -257,6 +256,13 @@ class Main(Gtk.Window):
             try:
                 fn.makedirs(fn.home + "/.config/archlinux-tweak-tool", 0o766)
                 fn.permissions(fn.home + "/.config/archlinux-tweak-tool")
+            except Exception as error:
+                print(error)
+
+        # if there is a file called default remove it
+        if fn.path.isfile("/usr/share/icons/default"):
+            try:
+                fn.unlink("/usr/share/icons/default")
             except Exception as error:
                 print(error)
 
