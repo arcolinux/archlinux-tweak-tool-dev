@@ -1,2 +1,10 @@
 #!/usr/bin/env bash
+
+# ATT fails to startup on Hyprland, added a few tests to see if the Xauthority file is present
+
+# test whether DISPLAY env is set, terminate if isn't
+test -z $(echo "$DISPLAY") && echo "DISPLAY is not set, terminating." && exit 1
+# test there is an Xauthority to work with, else generate one
+test $(xauth list | grep -w "MIT-MAGIC-COOKIE" | wc -l) -gt 0 || xauth gen $DISPLAY > "$HOME/.Xauthority"
+
 pkexec '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
