@@ -52,7 +52,7 @@ desktops = [
     "wmderland",
     "worm",
     "xfce",
-    "xmonad"
+    "xmonad",
 ]
 pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm", "--ask=4"]
 pkexec_reinstall = ["pkexec", "pacman", "-S", "--noconfirm", "--ask=4"]
