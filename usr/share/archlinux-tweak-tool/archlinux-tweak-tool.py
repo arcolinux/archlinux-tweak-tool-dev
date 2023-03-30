@@ -4564,11 +4564,7 @@ if __name__ == "__main__":
         fn.getlogin()
     except:
         os_function_support = False
-    if not fn.path.isfile("/tmp/att.lock") and os_function_support:
-
-        # Call init function before using any other GTK+ functions in your GUI applications.
-        
-
+    if not fn.path.isfile("/tmp/att.lock") and os_function_support
         with open("/tmp/att.pid", "w", encoding="utf-8") as f:
             f.write(str(fn.getpid()))
             f.close()
