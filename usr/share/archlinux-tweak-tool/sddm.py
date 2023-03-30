@@ -3,7 +3,7 @@
 # ============================================================
 
 import functions as fn
-
+import os
 
 def check_sddmk_complete():
     """see all variabeles are there"""
@@ -200,12 +200,19 @@ def pop_box(self, combo):
     coms = []
     combo.get_model().clear()
 
-    for items in fn.listdir("/usr/share/xsessions/"):
-        coms.append(items.split(".")[0].lower())
-    lines = get_sddm_lines(fn.sddm_default_d2)
+    if os.path.exists("/usr/share/xsessions"):
+        for items in fn.listdir("/usr/share/xsessions/"):
+            coms.append(items.split(".")[0].lower())
+        lines = get_sddm_lines(fn.sddm_default_d2)
+    elif os.path.exists("/usr/share/wayland-sessions"):
+        for items in fn.listdir("/usr/share/wayland-sessions/"):
+            coms.append(items.split(".")[0].lower())
+        lines = get_sddm_lines(fn.sddm_default_d2)
+
 
     try:
-        name = check_sddm(lines, "Session=").split("=")[1]
+        if lines is not None:
+            name = check_sddm(lines, "Session=").split("=")[1]
     except IndexError:
         name = ""
 

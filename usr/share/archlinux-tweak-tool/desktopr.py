@@ -6,7 +6,7 @@ import datetime
 import numpy as np
 from gi.repository import GLib, Gtk  # noqa
 import functions as fn
-
+import os
 # import Settings
 # import gi
 # import distro
@@ -52,7 +52,7 @@ desktops = [
     "wmderland",
     "worm",
     "xfce",
-    "xmonad",
+    "xmonad"
 ]
 pkexec = ["pkexec", "pacman", "-S", "--needed", "--noconfirm", "--ask=4"]
 pkexec_reinstall = ["pkexec", "pacman", "-S", "--noconfirm", "--ask=4"]
@@ -1441,13 +1441,24 @@ if fn.distr != "arcolinux":
     ]
 
 
+
 def check_desktop(desktop):
+
     """check if desktop is installed"""
     # /usr/share/xsessions/xfce.desktop
-    lst = fn.listdir("/usr/share/xsessions/")
-    for xsession in lst:
-        if desktop + ".desktop" == xsession:
-            return True
+    if os.path.exists("/usr/share/xsession"):
+        lst = fn.listdir("/usr/share/xsessions/")
+        for xsession in lst:
+            if desktop + ".desktop" == xsession:
+                return True
+    elif os.path.exists("/usr/share/wayland-sessions"):
+        lst = fn.listdir("/usr/share/wayland-sessions/")
+        for xsession in lst:
+            if desktop + ".desktop" == xsession:
+                return True
+
+
+
     return False
 
 
