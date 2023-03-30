@@ -8,6 +8,4 @@ test -z $DISPLAY && echo "[ERROR] DISPLAY variable is not set." && exit 1
 
 xauth gen $DISPLAY &> /dev/null
 
-#pkexec '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
-
 pkexec '/mnt/hgfs/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
