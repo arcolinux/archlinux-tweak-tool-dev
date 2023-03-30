@@ -1,25 +1,13 @@
 #!/usr/bin/env sh
 
+# polkit agent should prompt for root password
+# this script should not be run as root or run in a tty session
+
 test $(whoami) == "root" && echo "[ERROR] Do not run this script as root." && exit 1
+test -z $DISPLAY && echo "[ERROR] DISPLAY variable is not set." && exit 1
 
-session=$(loginctl show-session $(loginctl|grep $(whoami) | awk '{print $1}') -p Type | awk -F= '{print $2}' | grep "x11\|wayland")
-
-case "$session" in
-    "wayland")
-        echo "[INFO] User $(whoami) is on $session"
-        xauth gen $DISPLAY &> /dev/null
-
-    ;;
-    "x11")
-        echo "[INFO] User $(whoami) is on $session"
-
-    ;;
-esac
-
-
-
-echo "DISPLAY = $DISPLAY"
+xauth gen $DISPLAY &> /dev/null
 
 #pkexec '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
 
-pkexec '/mnt/shared/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
+pkexec '/mnt/hgfs/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
