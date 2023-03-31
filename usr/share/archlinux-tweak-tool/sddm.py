@@ -200,6 +200,12 @@ def pop_box(self, combo):
     coms = []
     combo.get_model().clear()
 
+    """
+    On Sway:
+    - FileNotFoundError: [Errno 2] No such file or directory: '/usr/share/xsessions/'
+    - Check for path /usr/share/wayland-sessions, also see desktoptr.py in check_desktop()       
+    """
+
     if os.path.exists("/usr/share/xsessions"):
         for items in fn.listdir("/usr/share/xsessions/"):
             coms.append(items.split(".")[0].lower())
