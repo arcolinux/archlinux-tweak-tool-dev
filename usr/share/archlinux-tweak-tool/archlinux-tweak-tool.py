@@ -35,7 +35,6 @@ import datetime
 import functions as fn
 import gi
 
-
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GdkPixbuf, Gtk, Pango, GLib
 from os import readlink
