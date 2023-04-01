@@ -35,6 +35,7 @@ import datetime
 import functions as fn
 import gi
 
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GdkPixbuf, Gtk, Pango, GLib
 from os import readlink
@@ -4563,12 +4564,13 @@ if __name__ == "__main__":
         fn.getlogin()
     except:
         os_function_support = False
-    if not fn.path.isfile("/tmp/att.lock") and os_function_support:
+    if not fn.path.isfile("/tmp/att.lock") and os_function_support
         with open("/tmp/att.pid", "w", encoding="utf-8") as f:
             f.write(str(fn.getpid()))
             f.close()
         style_provider = Gtk.CssProvider()
         style_provider.load_from_path(base_dir + "/att.css")
+
 
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
