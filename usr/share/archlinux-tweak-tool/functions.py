@@ -134,7 +134,7 @@ i3wm_config = home + "/.config/i3/config"
 awesome_config = home + "/.config/awesome/rc.lua"
 qtile_config = home + "/.config/qtile/config.py"
 qtile_config_theme = home + "/.config/qtile/themes/arcolinux-default.theme"
-leftwm_config = home + "/.config/leftwm/config.toml"
+leftwm_config = home + "/.config/leftwm/config.ron"
 leftwm_config_theme = home + "/.config/leftwm/themes/"
 leftwm_config_theme_current = home + "/.config/leftwm/themes/current"
 
