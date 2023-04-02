@@ -74,8 +74,8 @@ class Main(Gtk.Window):
         print(" - Archcraft     - https://archcraft.io/")
         print(" - CachyOS       - https://cachyos.org/")
         print(" - Archman       - https://archman.org/")
-        print(" - Archman       - https://archman.org/")
         print(" - BigLinux      - https://www.biglinux.com.br/")
+        print(" - Artix         - https://artixlinux.org/")
         print(
             "---------------------------------------------------------------------------"
         )
