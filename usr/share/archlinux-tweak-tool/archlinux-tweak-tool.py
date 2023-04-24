@@ -315,8 +315,7 @@ class Main(Gtk.Window):
         if fn.path.isfile(fn.sddm_default_d1):
             if not fn.path.isfile(fn.sddm_default_d1_bak):
                 try:
-                    fn.shutil.copy(fn.sddm_default_d1,
-                     fn.sddm_default_d1_bak)
+                    fn.shutil.copy(fn.sddm_default_d1, fn.sddm_default_d1_bak)
                 except Exception as error:
                     print(error)
 
@@ -822,7 +821,6 @@ class Main(Gtk.Window):
         shell = fn.get_shell()
 
         if shell in ("zsh", "bash", "fish"):
-
             # ========================TERMINAL UTILITIES TOGGLES========================
             # screenfetch
             self.screenfetch_lolcat.set_active(
@@ -1170,7 +1168,6 @@ class Main(Gtk.Window):
         fn.show_in_app_notification(self, "Item has been added to autostart")
 
     def on_exec_browse(self, widget):
-
         dialog = Gtk.FileChooserDialog(
             title="Please choose a file", action=Gtk.FileChooserAction.OPEN
         )
@@ -2243,7 +2240,6 @@ class Main(Gtk.Window):
     def on_remove_wallpaper(self, widget):
         widget.set_sensitive(False)
         if fn.path.isfile(self.grub_image_path):
-
             # if fn.path.isfile('/boot/grub/themes/Vimix/' +
             #                   self.grub_theme_combo.get_active_text()):
             excludes = [
@@ -2380,7 +2376,6 @@ class Main(Gtk.Window):
     # ====================================================================
 
     def on_click_lightdm_apply(self, widget):
-
         # for autologin, user and session
         if (
             (
@@ -3234,7 +3229,6 @@ class Main(Gtk.Window):
             and self.theme_sddm.get_active_text() is not None
             and self.sddm_cursor_themes.get_active_text() is not None
         ):
-
             if fn.path.isfile(fn.sddm_default_d2):
                 t1 = fn.threading.Thread(
                     target=sddm.set_sddm_value,
@@ -3572,7 +3566,6 @@ class Main(Gtk.Window):
         blueberry_installed = False
 
         try:
-
             if fn.check_package_installed("pulseaudio"):
                 fn.remove_package_dd(self, "pulseaudio")
                 fn.remove_package_dd(self, "pulseaudio-bluetooth")
@@ -3814,7 +3807,6 @@ class Main(Gtk.Window):
             self.most.set_active(False)
 
     def on_select_all_toggle(self, widget, active):
-
         if self.select_all.get_active():
             self.expac.set_active(True)
             self.ripgrep.set_active(True)
