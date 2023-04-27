@@ -159,7 +159,7 @@ def pop_box_sessions_lightdm(self, combo):
         coms = []
         combo.get_model().clear()
 
-        if fn.os.path.isfile(fn.lightdm_conf) and fn.os.path.ispath(
+        if fn.os.path.isfile(fn.lightdm_conf) and fn.os.path.exists(
             "/usr/share/xsessions"
         ):
             for items in fn.os.listdir("/usr/share/xsessions/"):
