@@ -159,31 +159,32 @@ def pop_box_sessions_lightdm(self, combo):
         coms = []
         combo.get_model().clear()
 
-        if fn.os.path.isfile(fn.lightdm_conf):
-            if not fn.os.listdir("/usr/share/xsessions/") == 0:
-                for items in fn.os.listdir("/usr/share/xsessions/"):
-                    coms.append(items.split(".")[0].lower())
-                lines = fn.get_lines(fn.lightdm_conf)
+        if fn.os.path.isfile(fn.lightdm_conf) and fn.os.path.ispath(
+            "/usr/share/xsessions"
+        ):
+            for items in fn.os.listdir("/usr/share/xsessions/"):
+                coms.append(items.split(".")[0].lower())
+            lines = fn.get_lines(fn.lightdm_conf)
 
-                try:
-                    name = check_lightdm(lines, "autologin-session=").split("=")[1]
-                except IndexError:
-                    name = ""
+            try:
+                name = check_lightdm(lines, "autologin-session=").split("=")[1]
+            except IndexError:
+                name = ""
 
-                if "i3-with-shmlog" in coms:
-                    coms.remove("i3-with-shmlog")
-                if "openbox-kde" in coms:
-                    coms.remove("openbox-kde")
-                if "cinnamon2d" in coms:
-                    coms.remove("cinnamon2d")
-                if "icewm-session" in coms:
-                    coms.remove("icewm-session")
+            if "i3-with-shmlog" in coms:
+                coms.remove("i3-with-shmlog")
+            if "openbox-kde" in coms:
+                coms.remove("openbox-kde")
+            if "cinnamon2d" in coms:
+                coms.remove("cinnamon2d")
+            if "icewm-session" in coms:
+                coms.remove("icewm-session")
 
-                coms.sort()
-                for i, item in enumerate(coms):
-                    combo.append_text(item)
-                    if name.lower() == item.lower():
-                        combo.set_active(i)
+            coms.sort()
+            for i, item in enumerate(coms):
+                combo.append_text(item)
+                if name.lower() == item.lower():
+                    combo.set_active(i)
 
 
 def pop_gtk_theme_names_lightdm(self, combo):
