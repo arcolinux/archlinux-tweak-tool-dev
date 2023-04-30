@@ -1778,11 +1778,12 @@ def install_arcolinux(self):
 
             pos = get_position(lines, "#[testing]")
             lines.insert(pos - 2, text)
-        try:
-            with open(pacman, "w", encoding="utf-8") as f:
-                f.writelines(lines)
-        except Exception as error:
-            print(error)
+
+            try:
+                with open(pacman, "w", encoding="utf-8") as f:
+                    f.writelines(lines)
+            except Exception as error:
+                print(error)
 
 
 def install_xerolinux(self):
