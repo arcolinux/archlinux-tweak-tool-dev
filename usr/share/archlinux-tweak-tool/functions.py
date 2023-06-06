@@ -196,7 +196,7 @@ Include = /etc/pacman.d/mirrorlist"
 arch_multilib_testing_repo = "[multilib-testing]\n\
 Include = /etc/pacman.d/mirrorlist"
 
-rebornos_repo = "[Reborn-OS]\n\
+reborn_repo = "[Reborn-OS]\n\
 Include = /etc/pacman.d/reborn-mirrorlist"
 
 leftwm_themes_list = [

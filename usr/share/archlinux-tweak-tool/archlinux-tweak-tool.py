@@ -672,6 +672,7 @@ class Main(Gtk.Window):
 
         # ========================OTHER REPO=============================
 
+        reborn_repo = pmf.check_repo("[Reborn-OS]")
         chaotics_repo = pmf.check_repo("[chaotic-aur]")
         endeavouros_repo = pmf.check_repo("[endeavouros]")
         nemesis_repo = pmf.check_repo("[nemesis_repo]")
@@ -732,10 +733,12 @@ class Main(Gtk.Window):
         self.checkbutton7.set_active(arch_extra)
         self.checkbutton5.set_active(arch_community)
         self.checkbutton3.set_active(arch_multilib_testing)
-        self.checkbutton8.set_active(arch_multilib)
+        # self.checkbutton8.set_active(arch_multilib)
 
         # ========================OTHER REPO SET TOGGLE==================
 
+        self.reborn_switch.set_active(reborn_repo)
+        self.opened = False
         self.chaotics_switch.set_active(chaotics_repo)
         self.opened = False
         self.endeavouros_switch.set_active(endeavouros_repo)
@@ -3063,7 +3066,7 @@ class Main(Gtk.Window):
 
     def on_pacman_toggle7(self, widget, active):
         if not pmf.repo_exist("[Reborn-OS]"):
-            pmf.append_repo(self, fn.arch_multilib_repo)
+            pmf.append_repo(self, fn.reborn_repo)
             print("Repo has been added to /etc/pacman.conf")
             fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:

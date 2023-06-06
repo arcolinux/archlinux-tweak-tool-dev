@@ -63,6 +63,7 @@ def gui(self, Gtk, vboxstack1, fn):
     hboxstack20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxstack21 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
     hboxstack22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
+    hboxstack23 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
     # ========================================================
     #               ARCO REPOS
@@ -135,10 +136,10 @@ def gui(self, Gtk, vboxstack1, fn):
     label4 = Gtk.Label(xalign=0)
     label4.set_markup("# Enable Arch Linux multilib testing repo")
 
-    self.checkbutton8 = Gtk.Switch()
-    self.checkbutton8.connect("notify::active", self.on_pacman_toggle7)
-    label15 = Gtk.Label(xalign=0)
-    label15.set_markup("Enable Arch Linux multilib repo")
+    # self.checkbutton8 = Gtk.Switch()
+    # self.checkbutton8.connect("notify::active", self.on_pacman_toggle7)
+    # label15 = Gtk.Label(xalign=0)
+    # label15.set_markup("Enable Arch Linux multilib repo")
 
     # ========================================================
     #               OTHER REPOS
@@ -183,7 +184,7 @@ def gui(self, Gtk, vboxstack1, fn):
     self.reborn_switch = Gtk.Switch()
     self.reborn_switch.connect("notify::active", self.on_reborn_toggle)
     label20 = Gtk.Label(xalign=0)
-    label20.set_markup("Enable reborn repo")
+    label20.set_markup("Enable RebornOS repo")
 
     self.chaotics_button = Gtk.Button(label="Install keys and mirrors")
     self.chaotics_button.connect("clicked", self.on_chaotics_clicked)
@@ -248,8 +249,8 @@ def gui(self, Gtk, vboxstack1, fn):
     hboxstack12.pack_end(self.checkbutton4, False, False, 10)
     hboxstack6.pack_start(label4, False, True, 10)
     hboxstack6.pack_end(self.checkbutton3, False, False, 10)
-    hboxstack17.pack_start(label15, False, True, 10)
-    hboxstack17.pack_end(self.checkbutton8, False, False, 10)
+    # hboxstack17.pack_start(label15, False, True, 10)
+    # hboxstack17.pack_end(self.checkbutton8, False, False, 10)
 
     # ========================================================
     #               OTHER REPOS PACKING
@@ -281,12 +282,12 @@ def gui(self, Gtk, vboxstack1, fn):
         hboxstack22.pack_end(self.xerolinux_nv_switch, False, False, 10)
 
     if not fn.check_package_installed("rebornos-keyring"):
-        hboxstack11.pack_start(label20, False, True, 10)
-        hboxstack11.pack_end(self.reborn_button, False, False, 10)
+        hboxstack23.pack_start(label20, False, True, 10)
+        hboxstack23.pack_end(self.reborn_button, False, False, 10)
 
     if fn.check_package_installed("rebornos-keyring"):
-        hboxstack11.pack_start(label20, False, True, 10)
-        hboxstack11.pack_end(self.reborn_switch, False, False, 10)
+        hboxstack23.pack_start(label20, False, True, 10)
+        hboxstack23.pack_end(self.reborn_switch, False, False, 10)
 
     if not fn.check_package_installed("chaotic-keyring"):
         hboxstack11.pack_start(label9, False, True, 10)
@@ -303,6 +304,7 @@ def gui(self, Gtk, vboxstack1, fn):
     if fn.check_package_installed("xerolinux-mirrorlist"):
         vboxstack4.pack_start(hboxstack21, False, False, 10)
         vboxstack4.pack_start(hboxstack22, False, False, 10)
+    vboxstack4.pack_start(hboxstack23, False, False, 10)
     vboxstack4.pack_start(hboxstack11, False, False, 10)
 
     # ========================================================
