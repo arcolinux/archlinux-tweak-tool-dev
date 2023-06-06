@@ -136,10 +136,6 @@ def gui(self, Gtk, vboxstack1, fn):
     label4 = Gtk.Label(xalign=0)
     label4.set_markup("# Enable Arch Linux multilib testing repo")
 
-    # self.checkbutton8 = Gtk.Switch()
-    # self.checkbutton8.connect("notify::active", self.on_pacman_toggle7)
-    # label15 = Gtk.Label(xalign=0)
-    # label15.set_markup("Enable Arch Linux multilib repo")
 
     # ========================================================
     #               OTHER REPOS
@@ -249,8 +245,6 @@ def gui(self, Gtk, vboxstack1, fn):
     hboxstack12.pack_end(self.checkbutton4, False, False, 10)
     hboxstack6.pack_start(label4, False, True, 10)
     hboxstack6.pack_end(self.checkbutton3, False, False, 10)
-    # hboxstack17.pack_start(label15, False, True, 10)
-    # hboxstack17.pack_end(self.checkbutton8, False, False, 10)
 
     # ========================================================
     #               OTHER REPOS PACKING

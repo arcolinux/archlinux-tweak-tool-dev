@@ -733,7 +733,6 @@ class Main(Gtk.Window):
         self.checkbutton7.set_active(arch_extra)
         self.checkbutton5.set_active(arch_community)
         self.checkbutton3.set_active(arch_multilib_testing)
-        # self.checkbutton8.set_active(arch_multilib)
 
         # ========================OTHER REPO SET TOGGLE==================
 
