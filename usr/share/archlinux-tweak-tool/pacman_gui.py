@@ -178,6 +178,13 @@ def gui(self, Gtk, vboxstack1, fn):
     label19 = Gtk.Label(xalign=0)
     label19.set_markup("Enable Xerolinux Nvidia repo")
 
+    self.reborn_button = Gtk.Button(label="Install keys and mirrors")
+    self.reborn_button.connect("clicked", self.on_reborn_clicked)
+    self.reborn_switch = Gtk.Switch()
+    self.reborn_switch.connect("notify::active", self.on_reborn_toggle)
+    label20 = Gtk.Label(xalign=0)
+    label20.set_markup("Enable reborn repo")
+
     self.chaotics_button = Gtk.Button(label="Install keys and mirrors")
     self.chaotics_button.connect("clicked", self.on_chaotics_clicked)
     self.chaotics_switch = Gtk.Switch()
@@ -272,6 +279,14 @@ def gui(self, Gtk, vboxstack1, fn):
 
         hboxstack22.pack_start(label19, False, True, 10)
         hboxstack22.pack_end(self.xerolinux_nv_switch, False, False, 10)
+
+    if not fn.check_package_installed("rebornos-keyring"):
+        hboxstack11.pack_start(label20, False, True, 10)
+        hboxstack11.pack_end(self.reborn_button, False, False, 10)
+
+    if fn.check_package_installed("rebornos-keyring"):
+        hboxstack11.pack_start(label20, False, True, 10)
+        hboxstack11.pack_end(self.reborn_switch, False, False, 10)
 
     if not fn.check_package_installed("chaotic-keyring"):
         hboxstack11.pack_start(label9, False, True, 10)

@@ -2912,6 +2912,23 @@ class Main(Gtk.Window):
             if self.opened is False:
                 pmf.toggle_test_repos(self, widget.get_active(), "arco_axl")
 
+    def on_reborn_clicked(self, widget):
+        fn.install_reborn(self)
+        print("Reborn keyring and mirrors added")
+        print("Restart Att and select the repos")
+        GLib.idle_add(
+            fn.show_in_app_notification, self, "Reborn keyring and mirrors added"
+        )
+
+    def on_reborn_toggle(self, widget, active):
+        if not pmf.repo_exist("[Reborn-OS]"):
+            pmf.append_repo(self, fn.reborn_repo)
+            print("Repo has been added to /etc/pacman.conf")
+            fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
+        else:
+            if self.opened is False:
+                pmf.toggle_test_repos(self, widget.get_active(), "reborn")
+
     def on_chaotics_clicked(self, widget):
         fn.install_chaotics(self)
         print("Chaotics keyring and mirrors added")
@@ -3045,13 +3062,13 @@ class Main(Gtk.Window):
                 pmf.toggle_test_repos(self, widget.get_active(), "multilib-testing")
 
     def on_pacman_toggle7(self, widget, active):
-        if not pmf.repo_exist("[multilib]"):
+        if not pmf.repo_exist("[Reborn-OS]"):
             pmf.append_repo(self, fn.arch_multilib_repo)
             print("Repo has been added to /etc/pacman.conf")
             fn.show_in_app_notification(self, "Repo has been added to /etc/pacman.conf")
         else:
             if self.opened is False:
-                pmf.toggle_test_repos(self, widget.get_active(), "multilib")
+                pmf.toggle_test_repos(self, widget.get_active(), "Reborn-OS")
 
     def custom_repo_clicked(self, widget):
         custom_repo_text = self.textview_custom_repo.get_buffer()
