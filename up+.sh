@@ -36,10 +36,6 @@ git pull
 
 workdir=$(pwd)
 
-#remove content
-rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/*
-#get latest archlinux-keyring
-wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/
 
 #getting gitlab errors
 #echo "Get the original samba file from Manjaro github for BigLinux"
@@ -56,6 +52,14 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/
 
 
 ##############################
+
+########### Arch Linux
+rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/keyring/*
+rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/mirrorlist/*
+#get latest archlinux-keyring
+wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/keyring/
+wget https://archlinux.org/packages/core/any/archlinux-mirrorlist/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/mirrorlist/
+
 
 ########### ArcoLinux
 echo "Keyring and mirror from ArcoLinux"
