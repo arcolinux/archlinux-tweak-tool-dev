@@ -59,8 +59,8 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/
 
 ########### ArcoLinux
 echo "Keyring and mirror from ArcoLinux"
-rm -v /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/keyring/*
-rm -v /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/mirrorlist/*
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/keyring/*
+rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/mirrorlist/*
 
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/keyring
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/mirrorlist
@@ -68,11 +68,13 @@ cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar
 ########### xerolinux
 echo "Mirror from XeroLinux"
 rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/xero/packages/mirrorlist/*
+
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/xerolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/xero/packages/mirrorlist/
 
 ########### Garuda
 rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/keyring/*
 rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/mirrorlist/*
+
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-keyring*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/keyring/
 cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/chaotic-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/garuda/packages/mirrorlist/
 
