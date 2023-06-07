@@ -1820,11 +1820,11 @@ def install_arcolinux(self):
 
 def install_xerolinux(self):
     base_dir = path.dirname(path.realpath(__file__))
-    name1 = "xerolinux-mirrorlist-0.1.2-1-any.pkg.tar.zst"
+    pathway = base_dir + "/data/xero/packages/mirrorlist/"
+    file = listdir(pathway)
     try:
-        install = (
-            "pacman -U " + base_dir + "/data/xero/packages/" + name1 + " --noconfirm"
-        )
+        install = "pacman -U " + pathway + str(file).strip("[]'") + " --noconfirm"
+        print(install)
         subprocess.call(
             install.split(" "),
             shell=False,
