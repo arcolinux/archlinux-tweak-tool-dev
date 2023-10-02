@@ -20,6 +20,7 @@ import terminals
 import themer
 import user
 import zsh_theme
+import packages
 
 # =============GUI=================
 import att_gui
@@ -39,6 +40,7 @@ import shell_gui
 import themer_gui
 import design_gui
 import user_gui
+import packages_gui
 
 # import Template_GUI
 # import Polybar_GUI
@@ -112,6 +114,7 @@ def gui(self, Gtk, Gdk, GdkPixbuf, base_dir, os, Pango):
     vboxstack23 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxstack24 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
     vboxstack25 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vboxstack26 = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 
     # ==========================================================
     #                 ARCOLINUX MIRRORLIST
@@ -261,6 +264,11 @@ themes</i> you can customize <b>Neofetch</b>"
 
     user_gui.gui(self, Gtk, vboxstack18, user, fn)
 
+    # =====================================================
+    #                       PACKAGES - EXPORT/INSTALL
+    # =====================================================
+
+    packages_gui.gui(self, Gtk, vboxstack26, fn)
     # ==========================================================
     #                   ADD TO WINDOW
     # ==========================================================
@@ -302,6 +310,8 @@ themes</i> you can customize <b>Neofetch</b>"
     stack.add_titled(vboxstack10, "stack11", "Themer")  # Themer
 
     stack.add_titled(vboxstack18, "stack18", "User")  # user
+
+    stack.add_titled(vboxstack26, "packages", "Packages")  # Packages
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_name("sidebar")
@@ -393,8 +403,8 @@ themes</i> you can customize <b>Neofetch</b>"
     scrolledWindow.add(vbox1)
 
     hbox.pack_start(ivbox, False, True, 0)
-    #hbox.pack_start(vbox1, True, True, 0)
-    hbox.pack_start(scrolledWindow, True, True,0)
+    # hbox.pack_start(vbox1, True, True, 0)
+    hbox.pack_start(scrolledWindow, True, True, 0)
 
     stack.set_hhomogeneous(False)
     stack.set_vhomogeneous(False)
