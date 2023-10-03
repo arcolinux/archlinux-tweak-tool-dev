@@ -83,7 +83,7 @@ class PackagesPromptGui(Gtk.Dialog):
                     fn.datetime.datetime.now().strftime("%H:%M:%S"),
                 ),
             )
-
+            # fill the textview buffer with a list of packages to install
             for package in packages:
                 msg_buffer.insert(msg_buffer.get_end_iter(), "- %s\n" % package)
 

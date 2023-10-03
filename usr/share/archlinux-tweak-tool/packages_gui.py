@@ -18,17 +18,17 @@ def gui(self, Gtk, vbox_stack, fn):
 
         hbox_title_export = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         label_export_title = Gtk.Label(xalign=0)
-        label_export_title.set_markup("<b>Export Packages</b>")
+        label_export_title.set_markup("<b> Export Packages</b>")
 
         label_export_desc = Gtk.Label(xalign=0)
         label_export_desc.set_markup(
             f""
-            f"<b>No AUR packages are exported</b>\n"
-            f"- Option: All Installed Packages will export all packages currently installed on your system (lots of packages)\n"
-            f"- Option: Explicitly Installed Packages (recommended) will export installed packages only found in sync db (less packages)\n"
-            f"- Tip: To see packages installed from AUR in the terminal type: pacman -Qqem\n\n"
+            f" <b>No AUR packages are exported</b>\n"
+            f" - Option: All Installed Packages will export all packages currently installed on your system (lots of packages)\n"
+            f" - Option: Explicitly Installed Packages (recommended) will export installed packages only found in sync db (less packages)\n"
+            f" - Tip: To see packages installed from AUR in the terminal type: pacman -Qqem\n\n"
             f""
-            f"A list of installed packages will be exported to <b>{packages_obj.default_export_path}</b>"
+            f" A list of installed packages will be exported to <b>{packages_obj.default_export_path}</b>"
         )
 
         hbox_title_export.pack_start(label_export_title, False, False, 0)
@@ -41,7 +41,7 @@ def gui(self, Gtk, vbox_stack, fn):
 
         hbox_title_install = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         label_install_title = Gtk.Label(xalign=0)
-        label_install_title.set_markup("<b>Install Packages</b>")
+        label_install_title.set_markup("<b> Install Packages</b>")
 
         hbox_title_install.pack_start(label_install_title, False, False, 0)
 
@@ -49,22 +49,16 @@ def gui(self, Gtk, vbox_stack, fn):
         hsep = Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL)
         hbox_sep.pack_start(hsep, True, True, 0)
 
-        button_export_packages = Gtk.Button(label="Export Packages")
+        button_export_packages = Gtk.Button(label=" Export Packages")
 
         rb_export_all = Gtk.RadioButton.new_with_label_from_widget(
             None, "All Installed Packages"
         )
         rb_export_all.set_name("rb_packages_export_all")
 
-        rb_export_all.connect("toggled", self.on_rb_package_toggled)
-
         rb_export_explicit = Gtk.RadioButton.new_from_widget(rb_export_all)
         rb_export_explicit.set_label("Explicitly Installed Packages")
         rb_export_explicit.set_name("rb_packages_export_explicit")
-        rb_export_explicit.connect(
-            "toggled",
-            self.on_rb_package_toggled,
-        )
         rb_export_explicit.set_active(True)
 
         button_export_packages.connect(
@@ -79,28 +73,29 @@ def gui(self, Gtk, vbox_stack, fn):
         lbl_export_padding1 = Gtk.Label(xalign=0, yalign=0)
         lbl_export_padding1.set_text(" ")
         grid_export = Gtk.Grid()
-        grid_export.set_row_homogeneous(True)
-        grid_export.attach(rb_export_all, 0, 2, 1, 1)
+
+        grid_export.attach(rb_export_explicit, 0, 2, 1, 1)
         grid_export.attach_next_to(
-            lbl_export_padding1, rb_export_all, Gtk.PositionType.RIGHT, 1, 1
+            lbl_export_padding1, rb_export_explicit, Gtk.PositionType.RIGHT, 1, 1
         )
 
         grid_export.attach_next_to(
-            rb_export_explicit, lbl_export_padding1, Gtk.PositionType.RIGHT, 1, 1
+            rb_export_all, lbl_export_padding1, Gtk.PositionType.RIGHT, 1, 1
         )
 
-        grid_export.attach(button_export_packages, 0, 3, 1, 1)
+        hbox_export_button = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox_export_button.pack_start(button_export_packages, False, False, 10)
 
         hbox_install = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
         label_install_desc = Gtk.Label(xalign=0, yalign=0)
         label_install_desc.set_markup(
             f""
-            f"<b>WARNING: Proceed with caution this will install packages onto your system!</b>\n"
-            f"<b>Packages from the AUR are not supported </b>\n"
-            f"<b>This also performs a full system upgrade</b>\n\n"
+            f" <b>WARNING: Proceed with caution this will install packages onto your system!</b>\n"
+            f" <b>Packages from the AUR are not supported </b>\n"
+            f" <b>This also performs a full system upgrade</b>\n\n"
             f" - A list of packages are sourced from <b>{packages_obj.default_export_path}</b>\n"
             f" - To ignore a package, add a # in front of the package name\n"
-            f" - Package install status are logged to {packages_obj.logfile}\n"
+            f" - Log file: {packages_obj.logfile}\n"
             f" - A reboot is recommended when core Linux packages are installed"
         )
 
@@ -148,9 +143,8 @@ def gui(self, Gtk, vbox_stack, fn):
         )
         button_install_packages.set_size_request(100, 30)
 
-        grid_install_button = Gtk.Grid()
-        grid_install_button.set_row_homogeneous(True)
-        grid_install_button.attach(button_install_packages, 0, 1, 1, 1)
+        hbox_install_button = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        hbox_install_button.pack_start(button_install_packages, False, False, 10)
 
         vbox_pacmanlog.pack_start(pacmanlog_scrolledwindow, False, False, 0)
 
@@ -162,10 +156,11 @@ def gui(self, Gtk, vbox_stack, fn):
         vbox_stack.pack_start(hbox_desc_export, False, False, 0)
 
         vbox_stack.pack_start(grid_export, False, False, 0)
+        vbox_stack.pack_start(hbox_export_button, False, False, 0)
 
         vbox_stack.pack_start(hbox_title_install, False, False, 0)
         vbox_stack.pack_start(hbox_install, False, False, 0)
-        vbox_stack.pack_start(grid_install_button, False, False, 0)
+        vbox_stack.pack_start(hbox_install_button, False, False, 0)
 
     except Exception as e:
         fn.logger.error("Exception in packages_gui.gui(): %s" % e)

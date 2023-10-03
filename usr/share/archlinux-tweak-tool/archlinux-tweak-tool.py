@@ -4537,10 +4537,6 @@ class Main(Gtk.Window):
     #                            PACKAGES
     # ====================================================================#
 
-    def on_rb_package_toggled(self, rb):
-        if rb.get_active():
-            return rb.get_name()
-
     def on_click_export_packages(
         self, widget, packages_obj, rb_export_all, rb_export_explicit
     ):
@@ -4568,13 +4564,10 @@ class Main(Gtk.Window):
             fn.logger.error("Exception in on_click_export_packages(): %s" % e)
 
     def on_message_dialog_yes_response(self, widget):
-        # widget.hide()
         fn.logger.info("Ok to proceed to install")
         widget.destroy()
 
     def on_message_dialog_no_response(self, widget):
-        # widget.hide()
-
         fn.logger.info("Packages install skipped by user")
         widget.destroy()
 

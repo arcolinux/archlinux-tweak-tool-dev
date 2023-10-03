@@ -2703,6 +2703,9 @@ def add_pacmanlog_queue(self):
             while True:
                 line = f.readline()
                 if line:
+                    # encode in utf-8
+                    # this fixes Gtk-CRITICAL **: gtk_text_buffer_emit_insert:
+                    # assertion 'g_utf8_validate (text, len, NULL)' failed
                     lines.append(line.encode("utf-8"))
                     self.pacmanlog_queue.put(lines)
                 else:
@@ -2732,8 +2735,6 @@ def start_log_timer(self, textbuffer_pacmanlog, textview_pacmanlog):
 
 
 # update the textview component with new lines from the pacman log file
-
-
 # To fix: Gtk-CRITICAL **: gtk_text_buffer_emit_insert: assertion 'g_utf8_validate (text, len, NULL)' failed
 # Make sure the line read from the pacman log file is encoded in utf-8
 # Then decode the line when inserting inside the buffer
