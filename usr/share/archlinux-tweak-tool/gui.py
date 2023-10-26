@@ -292,6 +292,8 @@ themes</i> you can customize <b>Neofetch</b>"
     if fn.distr != "xerolinux":
         stack.add_titled(vboxstack8, "stack4", "Neofetch")  # Neofetch config
 
+    stack.add_titled(vboxstack26, "packages", "Packages")  # Packages
+
     stack.add_titled(vboxstack1, "stack6", "Pacman")  # Pacman config
 
     stack.add_titled(vboxstack3, "stack2", "Privacy")  # Privacy
@@ -310,8 +312,6 @@ themes</i> you can customize <b>Neofetch</b>"
     stack.add_titled(vboxstack10, "stack11", "Themer")  # Themer
 
     stack.add_titled(vboxstack18, "stack18", "User")  # user
-
-    stack.add_titled(vboxstack26, "packages", "Packages")  # Packages
 
     stack_switcher = Gtk.StackSidebar()
     stack_switcher.set_name("sidebar")
