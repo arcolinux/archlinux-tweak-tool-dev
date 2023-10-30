@@ -84,7 +84,7 @@ class PackagesPromptGui(Gtk.Dialog):
                 ),
             )
             # fill the textview buffer with a list of packages to install
-            for package in packages:
+            for package in sorted(packages):
                 msg_buffer.insert(msg_buffer.get_end_iter(), "- %s\n" % package)
 
             # move focus away from the textview, to hide the cursor at load
