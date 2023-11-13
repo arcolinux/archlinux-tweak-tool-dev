@@ -78,6 +78,8 @@ class Main(Gtk.Window):
         print(" - BigLinux      - https://www.biglinux.com.br/")
         print(" - Artix         - https://artixlinux.org/")
         print(" - ParchLinux    - https://parchlinux.ir/")
+        print(" - StormOS       - https://sourceforge.net/projects/hackman-linux/")
+        
         print(
             "---------------------------------------------------------------------------"
         )
