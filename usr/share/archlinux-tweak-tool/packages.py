@@ -215,6 +215,8 @@ class Packages:
                 % fn.datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
             )
 
+            fn.logger.info("Log file = %s" % self.logfile)
+
             self.messages_queue.put(event)
 
             self.textbuffer = gui_parts[4]
@@ -321,14 +323,6 @@ class Packages:
     # this is run inside another thread
     def pacman_install_packages(self):
         try:
-            fn.logger.info("Installing packages")
-            event = (
-                "%s [INFO]: Installing packages\n"
-                % fn.datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-            )
-
-            self.messages_queue.put(event)
-
             packages_status_list = []
             package_failed = False
             package_err = {}
