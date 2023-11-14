@@ -31,6 +31,8 @@ def gui(self, Gtk, vbox_stack, fn):
             f" A list of installed packages will be exported to <b>{packages_obj.default_export_path}</b>"
         )
 
+        label_export_desc.set_selectable(True)
+
         hbox_export = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
         hbox_title.pack_start(lbl_packages_title, False, False, 0)
@@ -98,8 +100,10 @@ def gui(self, Gtk, vbox_stack, fn):
             f" - A list of packages are sourced from <b>{packages_obj.default_export_path}</b>\n"
             f" - To ignore a package, add a # in front of the package name\n"
             f" - Log file: {packages_obj.logfile}\n"
-            f" - A reboot is recommended when core Linux packages are installed"
+            f" - <b>A reboot is recommended when core Linux packages are installed</b>"
         )
+
+        label_install_desc.set_selectable(True)
 
         grid_package_status = Gtk.Grid()
         grid_package_count = Gtk.Grid()
