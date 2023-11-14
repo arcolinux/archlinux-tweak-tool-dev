@@ -24,8 +24,8 @@ def gui(self, Gtk, vbox_stack, fn):
         label_export_desc.set_markup(
             f""
             f" <b>No AUR packages are exported</b>\n"
-            f" - Option: All Installed Packages will export all packages currently installed on your system (lots of packages)\n"
-            f" - Option: Explicitly Installed Packages (recommended) will export installed packages only found in sync db (less packages)\n"
+            f" - Option: <b>Explicitly Installed Packages</b> (recommended) will export installed packages only found in sync db (less packages)\n"
+            f" - Option: <b>All Installed Packages</b> will export all packages currently installed on your system (lots of packages)\n"
             f" - Tip: To see packages installed from AUR in the terminal type: pacman -Qqem\n\n"
             f""
             f" A list of installed packages will be exported to <b>{packages_obj.default_export_path}</b>"
