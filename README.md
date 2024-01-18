@@ -2,10 +2,6 @@
  <img src="https://github.com/erikdubois/arcolinux-nemesis/blob/master/Personal/settings/arcolinux.png">
 </h1>
 
-<a href="https://github.com/arcolinuxz?tab=followers">
-         <img alt="followers" title="Follow for Updates" src="https://custom-icon-badges.demolab.com/github/followers/arcolinuxz?color=236ad3&labelColor=1155ba&style=for-the-badge&logo=person-add&label=Follow&logoColor=white"/></a> 
-
-
 # ArchLinux Tweak Tool (ATT)
 
 A versatile and powerful tool for customizing Arch-based systems with ease!
