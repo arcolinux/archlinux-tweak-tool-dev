@@ -5,9 +5,6 @@
 <a href="https://github.com/arcolinuxz?tab=followers">
          <img alt="followers" title="Follow for Updates" src="https://custom-icon-badges.demolab.com/github/followers/arcolinuxz?color=236ad3&labelColor=1155ba&style=for-the-badge&logo=person-add&label=Follow&logoColor=white"/></a> 
 
-![Maintenance](https://img.shields.io/maintenance/yes/2024?style=for-the-badge)
-![Last-Commit](https://img.shields.io/github/last-commit/arcolinuxz/archlinux-tweak-tool-dev?style=for-the-badge)
-
 
 # ArchLinux Tweak Tool (ATT)
 
