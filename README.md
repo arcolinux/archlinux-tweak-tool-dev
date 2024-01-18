@@ -1,7 +1,5 @@
 <h1 align="center">
  <img src="https://github.com/erikdubois/arcolinux-nemesis/blob/master/Personal/settings/arcolinux.png">
-  <br />
-   ArcoLinux Nemesis
 </h1>
 
 <a href="https://github.com/erikdubois?tab=followers">
