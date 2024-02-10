@@ -740,6 +740,7 @@ if fn.distr == "arcolinux":
         "sxhkd",
         "ttf-jetbrains-mono-nerd",
         "xfce4-terminal",
+        "xorg-xsetroot",
     ]
     openbox = [
         "alacritty",
@@ -1398,6 +1399,7 @@ if fn.distr != "arcolinux":
         "sxhkd",
         "ttf-jetbrains-mono-nerd",
         "xfce4-terminal",
+        "xorg-xsetroot",
     ]
     openbox = [
         "alacritty",
