@@ -724,6 +724,8 @@ if fn.distr == "arcolinux":
         "arcolinux-config-all-desktops-git",
         "arcolinux-gtk3-surfn-arc-git",
         "arcolinux-nimdow-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
         "arcolinux-root-git",
         "arcolinux-powermenu-git",
         "arcolinux-wallpapers-git",
@@ -732,8 +734,10 @@ if fn.distr == "arcolinux":
         "dmenu",
         "nim",
         "nimdow-bin",
-        "ttf-jetbrains-mono-nerd",
+        "rofi",
+        "rofi-theme-fonts",
         "sxhkd",
+        "ttf-jetbrains-mono-nerd",
         "xfce4-terminal",
     ]
     openbox = [
