@@ -734,6 +734,7 @@ if fn.distr == "arcolinux":
         "dmenu",
         "nim",
         "nimdow-bin",
+        "picom",
         "rofi",
         "rofi-theme-fonts",
         "sxhkd",
