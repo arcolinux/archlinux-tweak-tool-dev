@@ -1390,10 +1390,14 @@ if fn.distr != "arcolinux":
     nimdow = [
         "arcolinux-nimdow-bin",
         "dmenu",
+        "nim",
         "nimdow-bin",
         "nim",
+        "picom",
+        "rofi",
         "sxhkd",
         "ttf-jetbrains-mono-nerd",
+        "xfce4-terminal",
     ]
     openbox = [
         "alacritty",
