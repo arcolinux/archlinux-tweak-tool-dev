@@ -45,6 +45,7 @@ desktops = [
     "leftwm",
     "lxqt",
     "mate",
+    "nimdow",
     "openbox",
     "pantheon",
     "plasma",
@@ -718,6 +719,23 @@ if fn.distr == "arcolinux":
         "mate-tweak",
         "xfce4-terminal",
     ]
+    nimdow = [
+        "archlinux-logout-git",
+        "arcolinux-config-all-desktops-git",
+        "arcolinux-gtk3-surfn-arc-git",
+        "arcolinux-nimdow-git",
+        "arcolinux-root-git",
+        "arcolinux-powermenu-git",
+        "arcolinux-wallpapers-git",
+        "arcolinux-xfce-git",
+        "gvfs",
+        "dmenu",
+        "nim",
+        "nimdow-bin",
+        "ttf-jetbrains-mono-nerd",
+        "sxhkd",
+        "xfce4-terminal",
+    ]
     openbox = [
         "alacritty",
         "arcolinux-common-git",
@@ -1364,6 +1382,14 @@ if fn.distr != "arcolinux":
         "mate-extra",
         "mate-tweak",
     ]
+    nimdow = [
+        "arcolinux-nimdow-bin",
+        "dmenu",
+        "nimdow-bin",
+        "nim",
+        "sxhkd",
+        "ttf-jetbrains-mono-nerd",
+    ]
     openbox = [
         "alacritty",
         "arcolinux-common-git",
@@ -1712,6 +1738,10 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "mate":
         command = mate
+    elif desktop == "nimdow":
+        command = list(np.append(nimdow, default_app))
+        src.append("/etc/skel/.config/nimdow")
+        twm = True
     elif desktop == "pantheon":
         command = pantheon
     elif desktop == "openbox":
