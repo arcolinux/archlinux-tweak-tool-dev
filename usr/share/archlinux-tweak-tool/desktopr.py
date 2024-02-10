@@ -1388,7 +1388,7 @@ if fn.distr != "arcolinux":
         "mate-tweak",
     ]
     nimdow = [
-        "arcolinux-nimdow-bin",
+        "arcolinux-nimdow-git",
         "dmenu",
         "nim",
         "nimdow-bin",
