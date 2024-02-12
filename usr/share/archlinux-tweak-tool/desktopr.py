@@ -721,6 +721,7 @@ if fn.distr == "arcolinux":
     ]
     nimdow = [
         "archlinux-logout-git",
+        "arcolinux-btop-git",
         "arcolinux-config-all-desktops-git",
         "arcolinux-gtk3-surfn-arc-git",
         "arcolinux-nimdow-git",
@@ -730,6 +731,7 @@ if fn.distr == "arcolinux":
         "arcolinux-powermenu-git",
         "arcolinux-wallpapers-git",
         "arcolinux-xfce-git",
+        "btop",
         "gvfs",
         "dex",
         "dmenu",
