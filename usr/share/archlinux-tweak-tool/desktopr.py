@@ -735,6 +735,7 @@ if fn.distr == "arcolinux":
         "gvfs",
         "dex",
         "dmenu",
+        "lxappearance",
         "nim",
         "nimdow-bin",
         "picom",
