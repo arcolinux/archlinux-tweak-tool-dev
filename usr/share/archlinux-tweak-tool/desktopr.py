@@ -731,6 +731,7 @@ if fn.distr == "arcolinux":
         "arcolinux-wallpapers-git",
         "arcolinux-xfce-git",
         "gvfs",
+        "dex",
         "dmenu",
         "nim",
         "nimdow-bin",
