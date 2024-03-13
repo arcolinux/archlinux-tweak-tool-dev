@@ -1599,6 +1599,8 @@ if fn.distr != "arcolinux":
 def check_desktop(desktop):
     """check if desktop is installed"""
     # /usr/share/xsessions/xfce.desktop
+    if desktop == "plasma":
+        desktop == "plasmax11"
     if os.path.exists("/usr/share/xsessions"):
         lst = fn.listdir("/usr/share/xsessions/")
         for xsession in lst:
