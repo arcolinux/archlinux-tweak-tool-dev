@@ -1727,6 +1727,8 @@ def check_lock(self, desktop, state):
 
 def check_package_and_remove(self, path, package):
     """remove a package if exists"""
+    if fn.check_package_installed("rofi-lbonn-wayland-only-git"):
+        fn.remove_package("rofi-lbonn-wayland-only-git")
     if fn.path.isfile(path + "/" + package):
         with fn.subprocess.Popen(
             ["sh", "-c", "yes | pkexec pacman -R " + package],
