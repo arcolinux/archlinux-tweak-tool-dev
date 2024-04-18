@@ -38,7 +38,7 @@ desktops = [
     "enlightenment",
     "gnome",
     "herbstluftwm",
-    "hypr",
+    # "hypr",
     "hyprland",
     "i3",
     "icewm",
@@ -499,39 +499,39 @@ if fn.distr == "arcolinux":
         "xfce4-terminal",
         "xtitle-git",
     ]
-    hypr = [
-        "alacritty",
-        "arcolinux-config-all-desktops-git",
-        "arcolinux-dconf-all-desktops-git",
-        "arcolinux-gtk3-sardi-arc-git",
-        "arcolinux-hypr-git",
-        "arcolinux-local-xfce4-git",
-        "archlinux-logout-git",
-        "arcolinux-nitrogen-git",
-        "arcolinux-polybar-git",
-        "arcolinux-rofi-git",
-        "arcolinux-rofi-themes-git",
-        "arcolinux-root-git",
-        "arcolinux-volumeicon-git",
-        "arcolinux-wallpapers-git",
-        "arconet-xfce",
-        "dmenu",
-        "feh",
-        "hypr-dev-git",
-        "lxappearance",
-        "nitrogen",
-        "picom",
-        "polkit-gnome",
-        "polybar",
-        "rofi",
-        "sxhkd",
-        "thunar",
-        "thunar-archive-plugin",
-        "thunar-volman",
-        "ttf-hack",
-        "volumeicon",
-        "xfce4-terminal",
-    ]
+    # hypr = [
+    #     "alacritty",
+    #     "arcolinux-config-all-desktops-git",
+    #     "arcolinux-dconf-all-desktops-git",
+    #     "arcolinux-gtk3-sardi-arc-git",
+    #     "arcolinux-hypr-git",
+    #     "arcolinux-local-xfce4-git",
+    #     "archlinux-logout-git",
+    #     "arcolinux-nitrogen-git",
+    #     "arcolinux-polybar-git",
+    #     "arcolinux-rofi-git",
+    #     "arcolinux-rofi-themes-git",
+    #     "arcolinux-root-git",
+    #     "arcolinux-volumeicon-git",
+    #     "arcolinux-wallpapers-git",
+    #     "arconet-xfce",
+    #     "dmenu",
+    #     "feh",
+    #     "hypr-dev-git",
+    #     "lxappearance",
+    #     "nitrogen",
+    #     "picom",
+    #     "polkit-gnome",
+    #     "polybar",
+    #     "rofi",
+    #     "sxhkd",
+    #     "thunar",
+    #     "thunar-archive-plugin",
+    #     "thunar-volman",
+    #     "ttf-hack",
+    #     "volumeicon",
+    #     "xfce4-terminal",
+    # ]
     hyprland = [
         "archlinux-logout-git",
         "arcolinux-alacritty-git",
@@ -1380,20 +1380,20 @@ if fn.distr != "arcolinux":
         "xtitle-git",
         "ttf-hack",
     ]
-    hypr = [
-        "alacritty",
-        "arcolinux-hypr-git",
-        "dmenu",
-        "hypr-dev-git",
-        "nitrogen",
-        "picom",
-        "polkit-gnome",
-        "polybar",
-        "rofi",
-        "thunar",
-        "sxhkd",
-        "xfce4-terminal",
-    ]
+    # hypr = [
+    #     "alacritty",
+    #     "arcolinux-hypr-git",
+    #     "dmenu",
+    #     "hypr-dev-git",
+    #     "nitrogen",
+    #     "picom",
+    #     "polkit-gnome",
+    #     "polybar",
+    #     "rofi",
+    #     "thunar",
+    #     "sxhkd",
+    #     "xfce4-terminal",
+    # ]
     i3 = [
         "alacritty",
         "arcolinux-i3wm-git",
@@ -1834,12 +1834,12 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
         twm = True
-    elif desktop == "hypr":
-        command = list(np.append(hypr, default_app))
-        src.append("/etc/skel/.config/hypr")
-        twm = True
+    # elif desktop == "hypr":
+    #     command = list(np.append(hypr, default_app))
+    #     src.append("/etc/skel/.config/hypr")
+    #     twm = True
     elif desktop == "hyprland":
-        command = list(np.append(hypr, default_app))
+        command = list(np.append(hyprland, default_app))
         src.append("/etc/skel/.bin")
         src.append("/etc/skel/.config/hypr")
         twm = True
