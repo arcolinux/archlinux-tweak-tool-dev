@@ -1725,19 +1725,10 @@ def check_lock(self, desktop, state):
     return False
 
 
-def check_package_and_remove(self, path, package):
+def check_package_and_remove(self, package):
     """remove a package if exists"""
-    if fn.check_package_installed("rofi-lbonn-wayland-only-git"):
-        fn.remove_package(self, "rofi-lbonn-wayland-only-git")
-    if fn.path.isfile(path + "/" + package):
-        with fn.subprocess.Popen(
-            ["sh", "-c", "yes | pkexec pacman -R " + package],
-            bufsize=1,
-            stdout=fn.subprocess.PIPE,
-            universal_newlines=True,
-        ) as p:
-            for line in p.stdout:
-                GLib.idle_add(self.desktopr_stat.set_text, line.strip())
+    if fn.check_package_installed(package):
+        fn.remove_package(self, package)
 
 
 def install_desktop(self, desktop, state):
@@ -1761,34 +1752,38 @@ def install_desktop(self, desktop, state):
         fn.home + "/.config-att/config-att-" + now.strftime("%Y-%m-%d-%H-%M-%S")
     )
     if desktop == "awesome":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(awesome, default_app))
         src.append("/etc/skel/.config/awesome")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "berry":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         ommand = list(np.append(berry, default_app))
         src.append("/etc/skel/.config/berry")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "bspwm":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(bspwm, default_app))
         src.append("/etc/skel/.config/bspwm")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "budgie-desktop":
-        check_package_and_remove(self, "/usr/bin", "catfish")
+        check_package_and_remove(self, "catfish")
         command = budgie
     elif desktop == "cutefish-xsession":
         command = cutefish
         src.append("/etc/skel/.config/cutefishos")
         twm = True
     elif desktop == "chadwm":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(chadwm, default_app))
         src.append("/etc/skel/.config/arco-chadwm")
         src.append("/etc/skel/.config/eww")
@@ -1804,10 +1799,11 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/polybar")
         twm = True
     elif desktop == "deepin":
-        check_package_and_remove(self, "/usr/bin", "qt5ct")
+        check_package_and_remove(self, "qt5ct")
         command = deepin
     elif desktop == "dk":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(dk, default_app))
         src.append("/etc/skel/.config/dk")
         src.append("/etc/skel/.config/powermenu")
@@ -1818,7 +1814,8 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "dwm":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(dwm, default_app))
         src.append("/etc/skel/.config/arco-dwm")
         src.append("/etc/skel/.config/powermenu")
@@ -1826,7 +1823,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "enlightenment":
         command = enlightenment
     elif desktop == "fvwm3":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(fvwm3, default_app))
         src.append("/etc/skel/.config/fvwm3")
         src.append("/etc/skel/.fvwm")
@@ -1835,7 +1833,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "gnome":
         command = gnome
     elif desktop == "herbstluftwm":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(hlwm, default_app))
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
@@ -1845,31 +1844,36 @@ def install_desktop(self, desktop, state):
     #     src.append("/etc/skel/.config/hypr")
     #     twm = True
     elif desktop == "hyprland":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(hyprland, default_app))
         src.append("/etc/skel/.bin")
         src.append("/etc/skel/.config/hypr")
         twm = True
     elif desktop == "i3":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(i3, default_app))
         src.append("/etc/skel/.config/i3")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "icewm":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(icewm, default_app))
         src.append("/etc/skel/.config/icewm")
         twm = True
     elif desktop == "jwm":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(jwm, default_app))
         src.append("/etc/skel/.config/jwm")
         src.append("/etc/skel/.jwmrc")
         twm = True
     elif desktop == "leftwm":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(leftwm, default_app))
         src.append("/etc/skel/.config/leftwm")
         src.append("/etc/skel/.config/powermenu")
@@ -1885,7 +1889,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "mate":
         command = mate
     elif desktop == "nimdow":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(nimdow, default_app))
         src.append("/etc/skel/.config/nimdow")
         src.append("/etc/skel/.config/powermenu")
@@ -1893,7 +1898,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "pantheon":
         command = pantheon
     elif desktop == "openbox":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(openbox, default_app))
         src.append("/etc/skel/.config/openbox")
         src.append("/etc/skel/.config/obmenu-generator")
@@ -1903,13 +1909,14 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "plasma":
-        check_package_and_remove(self, "/usr/bin", "qt5ct")
+        check_package_and_remove(self, "qt5ct")
         command = plasma
         src.append("/etc/skel/.config")
         src.append("/etc/skel/.local/share")
         twm = True
     elif desktop == "qtile":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(qtile, default_app))
         src.append("/etc/skel/.config/qtile")
         src.append("/etc/skel/.config/powermenu")
@@ -1933,14 +1940,16 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/wf-shell.ini")
         twm = True
     elif desktop == "wmderland":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(wmderland, default_app))
         src.append("/etc/skel/.config/wmderland")
         src.append("/etc/skel/.config/polybar")
         src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "worm":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(worm, default_app))
         src.append("/etc/skel/.config/worm")
         src.append("/etc/skel/.config/polybar")
@@ -1948,7 +1957,8 @@ def install_desktop(self, desktop, state):
     elif desktop == "xfce":
         command = list(np.append(xfce, default_app))
     elif desktop == "xmonad":
-        check_package_and_remove(self, "/usr/bin", "rofi")
+        check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(xmonad, default_app))
         src.append("/etc/skel/.xmonad")
         src.append("/etc/skel/.config/polybar")
