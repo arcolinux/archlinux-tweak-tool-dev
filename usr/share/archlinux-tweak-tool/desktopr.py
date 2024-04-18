@@ -38,7 +38,6 @@ desktops = [
     "enlightenment",
     "gnome",
     "herbstluftwm",
-    # "hypr",
     "hyprland",
     "i3",
     "icewm",
@@ -1378,19 +1377,6 @@ if fn.distr != "arcolinux":
         "xtitle-git",
         "ttf-hack",
     ]
-    # hypr = [
-    #     "alacritty",
-    #     "arcolinux-hypr-git",
-    #     "dmenu",
-    #     "hypr-dev-git",
-    #     "nitrogen",
-    #     "picom",
-    #     "polkit-gnome",
-    #     "polybar",
-    #     "thunar",
-    #     "sxhkd",
-    #     "xfce4-terminal",
-    # ]
     i3 = [
         "alacritty",
         "arcolinux-i3wm-git",
@@ -1839,10 +1825,6 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
         twm = True
-    # elif desktop == "hypr":
-    #     command = list(np.append(hypr, default_app))
-    #     src.append("/etc/skel/.config/hypr")
-    #     twm = True
     elif desktop == "hyprland":
         check_package_and_remove(self, "rofi")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
