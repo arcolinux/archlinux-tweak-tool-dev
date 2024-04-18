@@ -39,6 +39,7 @@ desktops = [
     "gnome",
     "herbstluftwm",
     "hypr",
+    "hyprland",
     "i3",
     "icewm",
     "jwm",
@@ -52,6 +53,7 @@ desktops = [
     "qtile",
     "spectrwm",
     "ukui",
+    "wayfire",
     "wmderland",
     "worm",
     "xfce",
@@ -530,6 +532,36 @@ if fn.distr == "arcolinux":
         "volumeicon",
         "xfce4-terminal",
     ]
+    hyprland = [
+        "archlinux-logout-git",
+        "arcolinux-alacritty-git",
+        "arcolinux-hyprland-git",
+        "arcolinux-kitty-git",
+        "arcolinux-powermenu-git",
+        "arcolinux-pywal-cache-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-wayland-app-hooks-git",
+        "arconet-xfce",
+        "grim",
+        "hyprland-git",
+        "kitty",
+        "lxappearance",
+        "mako",
+        "micro",
+        "pamixer",
+        "picom",
+        "pulsemixer",
+        "rofi-lbonn-wayland-only-git",
+        "swaybg",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-jetbrains-mono-nerd",
+        "waybar-git",
+        "wofi",
+        "xfce4-terminal",
+    ]
     i3 = [
         "alacritty",
         "arcolinux-config-all-desktops-git",
@@ -922,6 +954,53 @@ if fn.distr == "arcolinux":
         "xdo",
         "xfce4-terminal",
         "xtitle-git",
+    ]
+    wayfire = [
+        "a-candy-beauty-icon-theme-git",
+        "archlinux-logout-git",
+        "arcolinux-alacritty-git",
+        "arcolinux-foot-git",
+        "arcolinux-kitty-git",
+        "arcolinux-pywal-cache-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-wallpapers-wayfire-git",
+        "arcolinux-wayfire-git",
+        "arcolinux-wayland-app-hooks-git",
+        "arconet-xfce",
+        "feh",
+        "foot",
+        "grim",
+        "kitty",
+        "libdisplay-info",
+        "libliftoff",
+        "lxappearance",
+        "mako",
+        "micro",
+        "pamixer",
+        "picom",
+        "pulsemixer",
+        "polkit-gnome",
+        "rofi-lbonn-wayland-only-git",
+        "slurp",
+        "swaybg",
+        "swayidle",
+        "swaylock",
+        "swww",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-jetbrains-mono-nerd",
+        "waybar-git",
+        "wayfire-git",
+        "wayfire-plugins-extra-git",
+        "wcm-git",
+        "wf-kill-git",
+        "wf-shell-git",
+        "wl-clipboard",
+        "wofi",
+        "xdg-desktop-portal-wlr",
+        "xfce4-terminal",
     ]
     wmderland = [
         "alacritty",
@@ -1759,6 +1838,11 @@ def install_desktop(self, desktop, state):
         command = list(np.append(hypr, default_app))
         src.append("/etc/skel/.config/hypr")
         twm = True
+    elif desktop == "hyprland":
+        command = list(np.append(hypr, default_app))
+        src.append("/etc/skel/.bin")
+        src.append("/etc/skel/.config/hypr")
+        twm = True
     elif desktop == "i3":
         command = list(np.append(i3, default_app))
         src.append("/etc/skel/.config/i3")
@@ -1825,6 +1909,14 @@ def install_desktop(self, desktop, state):
     elif desktop == "ukui":
         command = list(np.append(ukui, default_app))
         src.append("/etc/skel/.config/")
+        twm = True
+    elif desktop == "wayfire":
+        command = list(np.append(wayfire, default_app))
+        src.append("/etc/skel/.bin")
+        src.append("/etc/skel/.config/wayfire")
+        src.append("/etc/skel/.config/wayfire.ini")
+        src.append("/etc/skel/.config/wayfire-azerty.ini")
+        src.append("/etc/skel/.config/wf-shell.ini")
         twm = True
     elif desktop == "wmderland":
         command = list(np.append(wmderland, default_app))
