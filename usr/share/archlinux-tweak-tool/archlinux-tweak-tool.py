@@ -2152,6 +2152,24 @@ class Main(Gtk.Window):
             "Cursor saved in /usr/share/icons/default",
         )
 
+    def on_click_remove_all_variety_packages(self, widget):
+        try:
+            fn.install_package(self, "alacritty")
+            fn.subprocess.call(
+                "alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-variety",
+                shell=True,
+                stdout=fn.subprocess.PIPE,
+                stderr=fn.subprocess.STDOUT,
+            )
+            print("Removing variety and any related packages")
+            GLib.idle_add(
+                fn.show_in_app_notification,
+                self,
+                "Removing variety and any related packages",
+            )
+        except:
+            print("Install alacritty")
+
     # ====================================================================
     #                       GRUB
     # ====================================================================

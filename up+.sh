@@ -36,6 +36,9 @@ git pull
 
 workdir=$(pwd)
 
+# get remove scripts
+echo "Get the original remove variety file"
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-variety  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-variety
 
 #getting gitlab errors
 #echo "Get the original samba file from Manjaro github for BigLinux"
