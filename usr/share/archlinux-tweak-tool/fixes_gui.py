@@ -204,6 +204,16 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     hbox15.pack_start(hbox15_label, False, False, 10)
     hbox15.pack_end(btn_apply_remove_all_variety_packages, False, False, 10)
 
+    hbox16 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox16_label = Gtk.Label(xalign=0)
+    hbox16_label.set_text("Remove all conky packages")
+    btn_apply_remove_all_conky_packages = Gtk.Button(label="Apply")
+    btn_apply_remove_all_conky_packages.connect(
+        "clicked", self.on_click_remove_all_conky_packages
+    )
+    hbox16.pack_start(hbox16_label, False, False, 10)
+    hbox16.pack_end(btn_apply_remove_all_conky_packages, False, False, 10)
+
     # ======================================================================
     #                       VBOX STACK
     # ======================================================================
@@ -230,3 +240,4 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     if fn.distr == "arcolinux":
         vboxstack19.pack_start(hbox9, False, False, 20)
         vboxstack19.pack_start(hbox15, False, False, 0)
+        vboxstack19.pack_start(hbox16, False, False, 0)

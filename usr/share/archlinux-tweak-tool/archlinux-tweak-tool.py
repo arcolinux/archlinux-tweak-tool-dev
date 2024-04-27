@@ -2170,6 +2170,24 @@ class Main(Gtk.Window):
         except:
             print("Install alacritty")
 
+    def on_click_remove_all_conky_packages(self, widget):
+        try:
+            fn.install_package(self, "alacritty")
+            fn.subprocess.call(
+                "alacritty --hold -e /usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-conky",
+                shell=True,
+                stdout=fn.subprocess.PIPE,
+                stderr=fn.subprocess.STDOUT,
+            )
+            print("Removing conky and any related packages")
+            GLib.idle_add(
+                fn.show_in_app_notification,
+                self,
+                "Removing conky and any related packages",
+            )
+        except:
+            print("Install alacritty")
+
     # ====================================================================
     #                       GRUB
     # ====================================================================
