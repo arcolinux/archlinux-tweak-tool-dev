@@ -214,6 +214,46 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
     hbox16.pack_start(hbox16_label, False, False, 10)
     hbox16.pack_end(btn_apply_remove_all_conky_packages, False, False, 10)
 
+    hbox17 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox17_label = Gtk.Label(xalign=0)
+    hbox17_label.set_text("Remove all kernel(s) and keep the Linux kernel")
+    btn_apply_remove_all_kernels_but_linux = Gtk.Button(label="Apply")
+    btn_apply_remove_all_kernels_but_linux.connect(
+        "clicked", self.on_click_remove_all_kernels_but_linux
+    )
+    hbox17.pack_start(hbox17_label, False, False, 10)
+    hbox17.pack_end(btn_apply_remove_all_kernels_but_linux, False, False, 10)
+
+    hbox18 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox18_label = Gtk.Label(xalign=0)
+    hbox18_label.set_text("Remove all kernel(s) and keep the Linux Cachyos kernel")
+    btn_apply_remove_all_kernels_but_linux_cachyos = Gtk.Button(label="Apply")
+    btn_apply_remove_all_kernels_but_linux_cachyos.connect(
+        "clicked", self.on_click_remove_all_kernels_but_linux_cachyos
+    )
+    hbox18.pack_start(hbox18_label, False, False, 10)
+    hbox18.pack_end(btn_apply_remove_all_kernels_but_linux_cachyos, False, False, 10)
+
+    hbox19 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox19_label = Gtk.Label(xalign=0)
+    hbox19_label.set_text("Remove all kernel(s) and keep the Linux LTS kernel")
+    btn_apply_remove_all_kernels_but_linux_lts = Gtk.Button(label="Apply")
+    btn_apply_remove_all_kernels_but_linux_lts.connect(
+        "clicked", self.on_click_remove_all_kernels_but_linux_lts
+    )
+    hbox19.pack_start(hbox19_label, False, False, 10)
+    hbox19.pack_end(btn_apply_remove_all_kernels_but_linux_lts, False, False, 10)
+
+    hbox20 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+    hbox20_label = Gtk.Label(xalign=0)
+    hbox20_label.set_text("Remove all kernel(s) and keep the Linux Zen kernel")
+    btn_apply_remove_all_kernels_but_linux_zen = Gtk.Button(label="Apply")
+    btn_apply_remove_all_kernels_but_linux_zen.connect(
+        "clicked", self.on_click_remove_all_kernels_but_linux_zen
+    )
+    hbox20.pack_start(hbox20_label, False, False, 10)
+    hbox20.pack_end(btn_apply_remove_all_kernels_but_linux_zen, False, False, 10)
+
     # ======================================================================
     #                       VBOX STACK
     # ======================================================================
@@ -241,3 +281,7 @@ def gui(self, Gtk, vboxstack19, fn, fixes):
         vboxstack19.pack_start(hbox9, False, False, 20)
         vboxstack19.pack_start(hbox15, False, False, 0)
         vboxstack19.pack_start(hbox16, False, False, 0)
+        vboxstack19.pack_start(hbox17, False, False, 0)
+        vboxstack19.pack_start(hbox18, False, False, 0)
+        vboxstack19.pack_start(hbox19, False, False, 0)
+        vboxstack19.pack_start(hbox20, False, False, 0)
