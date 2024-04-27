@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -e
+set -e
 ##################################################################################################################
 # Author    : Erik Dubois
 # Website   : https://www.erikdubois.be
@@ -67,10 +67,10 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/
 
 ########### Arch Linux
 rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/keyring/*
-rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/mirrorlist/*
+#rm $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/mirrorlist/*
 #get latest archlinux-keyring
 wget https://archlinux.org/packages/core/any/archlinux-keyring/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/keyring/
-wget https://archlinux.org/packages/core/any/archlinux-mirrorlist/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/mirrorlist/
+#wget https://archlinux.org/packages/core/any/archlinux-mirrorlist/download --content-disposition -P $workdir/usr/share/archlinux-tweak-tool/data/arch/packages/mirrorlist/
 
 
 ########### ArcoLinux
@@ -83,8 +83,8 @@ cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo/x86_64/arcolinux-mirror*pkg.tar
 rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/arco/packages/mirrorlist/arcolinux-mirrorlist-nemesis*
 
 ########### xerolinux
-echo "Mirror from XeroLinux"
-rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/xero/packages/mirrorlist/*
+#echo "Mirror from XeroLinux"
+#rm /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/xero/packages/mirrorlist/*
 
 #cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/xerolinux-mirror*pkg.tar.zst /home/erik/ARCO/ARCOLINUX/archlinux-tweak-tool-dev/usr/share/archlinux-tweak-tool/data/xero/packages/mirrorlist/
 
@@ -118,7 +118,7 @@ cp /home/erik/ARCO/ARCOLINUX-REPO/arcolinux_repo_3party/x86_64/rebornos-keyring*
 
 
 echo "alacritty.yml from ArcoLinux"
-wget https://raw.githubusercontent.com/arcolinux/arcolinux-alacritty/master/etc/skel/.config/alacritty/alacritty.yml -O $workdir/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.yml
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-alacritty/master/etc/skel/.config/alacritty/alacritty.toml -O $workdir/usr/share/archlinux-tweak-tool/data/arco/alacritty/alacritty.toml
 
 echo "getting default osbeck servers"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-osbeck-as-mirror -O $workdir/usr/share/archlinux-tweak-tool/data/any/set-mainstream-servers
