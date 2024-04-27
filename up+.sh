@@ -42,7 +42,12 @@ wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/
 echo "Get the original remove conky file"
 wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-conky  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-conky
 
-
+# get remove kernel scripts
+echo "Get the original remove the kernels"
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-all-kernels-but-linux  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-all-kernels-but-linux
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-all-kernels-but-linux-cachyos  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-all-kernels-but-linux-cachyos
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-all-kernels-but-linux-lts  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-all-kernels-but-linux-lts
+wget https://raw.githubusercontent.com/arcolinux/arcolinux-system-config/master/usr/local/bin/arcolinux-remove-all-kernels-but-linux-zen  -O $workdir/usr/share/archlinux-tweak-tool/data/arco/bin/arcolinux-remove-all-kernels-but-linux-zen
 
 #getting gitlab errors
 #echo "Get the original samba file from Manjaro github for BigLinux"
