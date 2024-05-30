@@ -31,7 +31,7 @@ function start_in_wayland() {
 
 function start_in_x11() {
   echo "[INFO]: Starting in X11 session"
-  pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS GTK_A11Y=none '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
+  pkexec '/usr/share/archlinux-tweak-tool/archlinux-tweak-tool.py'
 }
 
 function start_in_tty() {
