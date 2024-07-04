@@ -50,7 +50,8 @@ using something else, you are unable to use these tools from ATT."
 
     # Every util needs to have a util switch, and a lolcat switch.
     utils = [
-        "fastfetch" "neofetch",
+        "fastfetch",
+		"neofetch",
         "screenfetch",
         "alsi",
         "paleofetch",

@@ -270,7 +270,7 @@ def get_lolcat_state(self, util):
     if util == "neofetch":
         return self.neofetch_lolcat.get_active()
     elif util == "fastfetch":
-        return self.screenfetch_lolcat.get_active()
+        return self.fastfetch_lolcat.get_active()
     elif util == "screenfetch":
         return self.screenfetch_lolcat.get_active()
     elif util == "ufetch":
@@ -313,7 +313,10 @@ def install_util(util):
         else:
             command = "pacman -S neofetch --noconfirm --needed"
     elif util == "fastfetch":
-        command = "pacman -S fastfetch --noconfirm --needed"
+        if fn.check_arco_repos_active():
+            command = "pacman -S fastfetch arcolinux-fastfetch-git --noconfirm --needed"
+        else:
+            command = "pacman -S fastfetch --noconfirm --needed"
     elif util == "screenfetch":
         command = "pacman -S screenfetch --noconfirm --needed"
     elif util == "ufetch":
