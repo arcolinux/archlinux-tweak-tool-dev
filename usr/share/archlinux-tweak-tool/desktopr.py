@@ -1793,6 +1793,7 @@ def install_desktop(self, desktop, state):
     )
     if desktop == "awesome":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(awesome, default_app))
         src.append("/etc/skel/.config/awesome")
@@ -1800,6 +1801,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "berry":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(berry, default_app))
         src.append("/etc/skel/.config/berry")
@@ -1808,6 +1810,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "bspwm":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(bspwm, default_app))
         src.append("/etc/skel/.config/bspwm")
@@ -1822,7 +1825,23 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/cutefishos")
         twm = True
     elif desktop == "chadwm":
+        if fn.distr == "archcraft":
+            # Specify the path to the file you want to remove
+            file_path = "/etc/skel/.config/rofi/config.rasi"
+
+            # Check if the file exists before trying to remove it
+            if os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+                    print(
+                        f"File '{file_path}' has been removed successfully on ArchCraft"
+                    )
+                except OSError as e:
+                    print(f"Error: {e.strerror}")
+            else:
+                print(f"File '{file_path}' does not exist.")
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(chadwm, default_app))
         src.append("/etc/skel/.config/arco-chadwm")
@@ -1843,6 +1862,7 @@ def install_desktop(self, desktop, state):
         command = deepin
     elif desktop == "dk":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(dk, default_app))
         src.append("/etc/skel/.config/dk")
@@ -1855,6 +1875,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "dwm":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(dwm, default_app))
         src.append("/etc/skel/.config/arco-dwm")
@@ -1864,6 +1885,7 @@ def install_desktop(self, desktop, state):
         command = enlightenment
     elif desktop == "fvwm3":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(fvwm3, default_app))
         src.append("/etc/skel/.config/fvwm3")
@@ -1874,6 +1896,7 @@ def install_desktop(self, desktop, state):
         command = gnome
     elif desktop == "herbstluftwm":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(hlwm, default_app))
         src.append("/etc/skel/.config/herbstluftwm")
@@ -1881,6 +1904,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "hyprland":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(hyprland, default_app))
         src.append("/etc/skel/.config/alacritty")
@@ -1889,6 +1913,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "i3":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(i3, default_app))
         src.append("/etc/skel/.config/i3")
@@ -1897,12 +1922,14 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "icewm":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(icewm, default_app))
         src.append("/etc/skel/.config/icewm")
         twm = True
     elif desktop == "jwm":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(jwm, default_app))
         src.append("/etc/skel/.config/jwm")
@@ -1910,6 +1937,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "leftwm":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(leftwm, default_app))
         src.append("/etc/skel/.config/leftwm")
@@ -1927,6 +1955,7 @@ def install_desktop(self, desktop, state):
         command = mate
     elif desktop == "nimdow":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(nimdow, default_app))
         src.append("/etc/skel/.config/nimdow")
@@ -1936,6 +1965,7 @@ def install_desktop(self, desktop, state):
         command = pantheon
     elif desktop == "openbox":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(openbox, default_app))
         src.append("/etc/skel/.config/openbox")
@@ -1953,6 +1983,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "qtile":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(qtile, default_app))
         src.append("/etc/skel/.config/qtile")
@@ -1979,6 +2010,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "wmderland":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(wmderland, default_app))
         src.append("/etc/skel/.config/wmderland")
@@ -1987,6 +2019,7 @@ def install_desktop(self, desktop, state):
         twm = True
     elif desktop == "worm":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(worm, default_app))
         src.append("/etc/skel/.config/worm")
@@ -1996,6 +2029,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(xfce, default_app))
     elif desktop == "xmonad":
         check_package_and_remove(self, "rofi")
+        check_package_and_remove(self, "rofi-lbonn-wayland-git")
         check_package_and_remove(self, "rofi-lbonn-wayland-only-git")
         command = list(np.append(xmonad, default_app))
         src.append("/etc/skel/.xmonad")
