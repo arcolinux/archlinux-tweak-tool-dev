@@ -734,7 +734,7 @@ def install_edu_package(self, package):
 
 
 def remove_file(file_path):
-     if os.path.exists(file_path):
+    if os.path.exists(file_path):
         try:
             os.remove(file_path)
             return f"File '{file_path}' has been removed successfully."
