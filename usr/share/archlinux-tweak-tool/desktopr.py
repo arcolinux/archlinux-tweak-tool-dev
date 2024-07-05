@@ -2026,35 +2026,61 @@ def install_desktop(self, desktop, state):
             for output_line in stdout.splitlines():
                 GLib.idle_add(self.desktopr_stat.set_text, output_line.strip())
 
-            # Check the return code for success or failure
-            if process_return_code == 0:
-                if fn.check_package_installed(package_name):
-                    print(f"{package_name} is installed")
-                    GLib.idle_add(
-                        self.desktopr_stat.set_text,
-                        f"Successfully installed {package_name}.",
-                    )
+            # List of group packages
+            group_packages = [
+                "budgie-desktop",
+                "budgie-extras",
+                "cinnamon",
+                "cutefish",
+                "deepin-extra",
+                "deepin",
+                "enlightenment",
+                "gnome-extra",
+                "gnome",
+                "mate-extra",
+                "mate",
+                "pantheon",
+                "plasma",
+                "ukui",
+                "xfce4-goodies",
+                "xfce4",
+            ]
+
+            try:
+                # Check the return code for success or failure
+                if process_return_code == 0:
+                    if package_name in group_packages:
+                        print("There is no way to check if a group package is installed")
+                        GLib.idle_add(
+                            self.desktopr_stat.set_text,
+                            "There is no way to check if a group package is installed.",
+                        )
+                    elif fn.check_package_installed(package_name):
+                        print(f"{package_name} is installed")
+                        GLib.idle_add(
+                            self.desktopr_stat.set_text,
+                            f"Successfully installed {package_name}.",
+                        )
+                    else:
+                        print(f"{package_name} IS NOT INSTALLED - REMOVE CONFLICTING PACKAGE(S)")
+                        GLib.idle_add(
+                            self.desktopr_stat.set_text,
+                            f"Failed to install {package_name}. Possible conflicts detected.",
+                        )
                 else:
-                    print(
-                        f"{package_name} IS NOT INSTALLED - REMOVE CONFLICTING PACKAGE(S)"
-                    )
+                    print(f"Failed to install {package_name}: {stderr}")
                     GLib.idle_add(
                         self.desktopr_stat.set_text,
-                        f"Failed to install {package_name}. Possible conflicts detected.",
+                        f"Failed to install {package_name}. Error: {stderr}",
                     )
-            else:
-                print(f"Failed to install {package_name}: {stderr}")
+
+            except Exception as e:
+                print(f"An error occurred while installing {package_name}: {str(e)}")
                 GLib.idle_add(
                     self.desktopr_stat.set_text,
-                    f"Failed to install {package_name}. Error: {stderr}",
+                    f"An error occurred: {str(e)}",
                 )
 
-        except Exception as e:
-            print(f"An error occurred while installing {package_name}: {str(e)}")
-            GLib.idle_add(
-                self.desktopr_stat.set_text,
-                f"An error occurred: {str(e)}",
-            )
 
     # with fn.subprocess.Popen(
     #     list(np.append(com1, command)),
