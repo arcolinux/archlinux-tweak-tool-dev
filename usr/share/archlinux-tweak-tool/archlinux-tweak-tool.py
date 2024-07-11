@@ -54,7 +54,7 @@ class Main(Gtk.Window):
         print(
             "---------------------------------------------------------------------------"
         )
-        print("Wayland desktops are now supported e.g. Sway/Hyprland/...")
+        print("Wayland desktops are now supported e.g. Wayfire and Hyprland")
         print("If you have errors, report it on the discord channel of ArcoLinux")
         print("https://discord.gg/stBhS4taje")
         print(
@@ -878,10 +878,12 @@ class Main(Gtk.Window):
             self.neo_util.set_active(utilities.get_term_rc("neofetch"))
 
             # fastfetch
-            #self.neo_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
-            self.fastfetch_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
+            # self.neo_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
+            self.fastfetch_lolcat.set_active(
+                utilities.get_term_rc("fastfetch | lolcat")
+            )
             self.fastfetch_util.set_active(utilities.get_term_rc("fastfetch"))
-            #self.neo_util.set_active(utilities.get_term_rc("fastfetch"))
+            # self.neo_util.set_active(utilities.get_term_rc("fastfetch"))
 
         # =====================================================
         #                     LIGHTDM
@@ -2785,7 +2787,6 @@ class Main(Gtk.Window):
 
     def on_install_neo(self, widget):
         fn.install_package(self, "neofetch")
-
 
     # ====================================================================
     #                        FASTFETCH CONFIG
