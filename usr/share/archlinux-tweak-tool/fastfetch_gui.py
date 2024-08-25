@@ -48,12 +48,12 @@ def gui(self, Gtk, vboxstack8, fastfetch, fn):
 
     applyfastfetch = Gtk.Button(label="Apply Fastfetch configuration")
     resetnormalfastfetch = Gtk.Button(label="Reset Fastfetch")
-    useattfastfetch = Gtk.Button(label="Use Default config")
+    #useattfastfetch = Gtk.Button(label="Use Default config")
     installfastfetch = Gtk.Button(label="Install Fastfetch")
 
     applyfastfetch.connect("clicked", self.on_apply_fast)
     resetnormalfastfetch.connect("clicked", self.on_reset_fast)
-    useattfastfetch.connect("clicked", self.on_reset_fast_att)
+    #useattfastfetch.connect("clicked", self.on_reset_fast_att)
     installfastfetch.connect("clicked", self.on_install_fast)
 
     hbox22 = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
@@ -194,7 +194,7 @@ Switch to the default fastfetch to use this tab - delete the ~/.config/fastfetch
     hbox27.pack_start(self.fast_lolcat, False, False, 30)
 
     hbox24.pack_start(installfastfetch, False, False, 0)
-    hbox24.pack_start(useattfastfetch, False, False, 0)
+    #hbox24.pack_start(useattfastfetch, False, False, 0)
     hbox24.pack_end(applyfastfetch, False, False, 0)
     hbox24.pack_end(resetnormalfastfetch, False, False, 0)
 
