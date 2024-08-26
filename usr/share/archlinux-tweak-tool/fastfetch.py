@@ -18,17 +18,6 @@ def get_fastfetch():
     if fn.path.isfile(fn.fastfetch_config):
         with open(fn.fastfetch_config, "r", encoding="utf-8") as f:
             jsonc_content = f.read()
-            print("Original JSONC Content:\n", jsonc_content)
-            
-            if not jsonc_content.strip():
-                print("Error: Content is empty or invalid.")
-                return data
-            
-            try:
-                data = json.loads(jsonc_content)
-            except json.JSONDecodeError as e:
-                print(f"Invalid JSON detected: {e}")
-                print("Error: The configuration file is not valid JSON.")
     
     return data
 
