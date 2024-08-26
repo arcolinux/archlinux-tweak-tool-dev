@@ -134,7 +134,7 @@ class Main(Gtk.Window):
 
         while Gtk.events_pending():
             Gtk.main_iteration()
-
+        
         # t = fn.threading.Thread(target=fn.get_desktop,
         #                                args=(self,))
         # t.daemon = True
@@ -879,7 +879,7 @@ class Main(Gtk.Window):
 
             self.fastfetch_util.set_active(utilities.get_term_rc("fastfetch"))
             self.fast_util.set_active(utilities.get_term_rc("fastfetch"))
-
+    
         # =====================================================
         #                     LIGHTDM
         # =====================================================
@@ -2796,32 +2796,31 @@ class Main(Gtk.Window):
     def on_apply_fast(self, widget):
         small_ascii = "auto"
         backend = "off"
+    #    if self.asci.get_active():
+    #        backend = "ascii"
+    #        if not self.big_ascii.get_active() and not self.off.get_active():
+    #            small_ascii = "arch_small"
+    #            if fn.distr == "arcolinux":
+    #                small_ascii = "arcolinux_small"
+    #            if fn.distr == "archlinux":
+    #               small_ascii = "arch_small"
+    #           if fn.distr == "manjaro":
+    #               small_ascii = "manjaro_small"
+    #            backend = "ascii"
+    #        elif not self.small_ascii.get_active() and not self.off.get_active():
+    #            backend = "ascii"
+    #        else:
+    #            backend = "off"
 
-        if self.asci.get_active():
-            backend = "ascii"
-            if not self.big_ascii.get_active() and not self.off.get_active():
-                small_ascii = "arch_small"
-                if fn.distr == "arcolinux":
-                    small_ascii = "arcolinux_small"
-                if fn.distr == "archlinux":
-                    small_ascii = "arch_small"
-                if fn.distr == "manjaro":
-                    small_ascii = "manjaro_small"
-                backend = "ascii"
-            elif not self.small_ascii.get_active() and not self.off.get_active():
-                backend = "ascii"
-            else:
-                backend = "off"
-
-        if self.distro_ascii.get_active_text() != "auto" and not self.off.get_active():
-            small_ascii = self.distro_ascii.get_active_text()
-            if self.small_ascii.get_active():
-                if self.distro_ascii.get_active_text() == "ArcoLinux":
-                    small_ascii = "arcolinux_small"
-                if self.distro_ascii.get_active_text() == "Arch":
-                    small_ascii = "arch_small"
-                if self.distro_ascii.get_active_text() == "Manjaro":
-                    small_ascii = "manjaro_small"
+    #    if self.distro_ascii.get_active_text() != "auto" and not self.off.get_active():
+    #        small_ascii = self.distro_ascii.get_active_text()
+    #        if self.small_ascii.get_active():
+    #            if self.distro_ascii.get_active_text() == "ArcoLinux":
+    #                small_ascii = "arcolinux_small"
+    #            if self.distro_ascii.get_active_text() == "Arch":
+    #                small_ascii = "arch_small"
+    #            if self.distro_ascii.get_active_text() == "Manjaro":
+    #               small_ascii = "manjaro_small"
 
         fastfetch.apply_config(self, backend, small_ascii)
 
@@ -2837,21 +2836,21 @@ class Main(Gtk.Window):
         if fn.path.isfile(fn.fastfetch_config + ".bak"):
             fn.shutil.copy(fn.fastfetch_config + ".bak", fn.fastfetch_config)
 
-            backend = fastfetch.check_backend()
-            if backend == "ascii":
-                self.asci.set_active(True)
+    #        backend = fastfetch.check_backend()
+    #        if backend == "ascii":
+    #            self.asci.set_active(True)
 
             fastfetch.get_checkboxes(self)
             print("fastfetch default settings applied")
             fn.show_in_app_notification(self, "Default settings applied")
 
-    def radio_toggled(self, widget):
-        if self.asci.get_active():
-            self.big_ascii.set_sensitive(True)
-            self.small_ascii.set_sensitive(True)
-        else:
-            self.big_ascii.set_sensitive(False)
-            self.small_ascii.set_sensitive(False)
+    #def radio_toggled(self, widget):
+    #    if self.asci.get_active():
+    #        self.big_ascii.set_sensitive(True)
+    #        self.small_ascii.set_sensitive(True)
+    #    else:
+    #        self.big_ascii.set_sensitive(False)
+    #        self.small_ascii.set_sensitive(False)
     
     # When using this function to toggle a lolcat: utility = name of tool, e.g. fastfetch
     def lolcat_toggle(self, widget, active, utility):
@@ -2870,6 +2869,13 @@ class Main(Gtk.Window):
         elif widget.get_active() is False and utility == "fastfetch":
             utilities.set_util_state(self, utility, True, False)
         utilities.write_configs(utility, util_str)
+    
+    def on_fast_util_toggled(self, switch, gparam):
+        if not switch.get_active():
+            self.fast_lolcat.set_active(False) 
+
+            self.fast_util.connect("notify::active", self.on_fast_util_toggled)
+
 
     def util_toggle(self, widget, active, utility):
         util_str = utility

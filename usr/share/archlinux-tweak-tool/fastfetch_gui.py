@@ -26,25 +26,25 @@ def gui(self, Gtk, vboxstack8, fastfetch, fn):
     )
     hbox23.pack_start(warning_label, False, False, 10)
 
-    self.asci = Gtk.RadioButton(label="Enable ascii backend")
-    self.asci.connect("toggled", self.radio_toggled)
+    #self.asci = Gtk.RadioButton(label="Enable ascii backend")
+    #self.asci.connect("toggled", self.radio_toggled)
 
-    self.off = Gtk.RadioButton.new_from_widget(self.asci)
-    self.off.set_label("No backend")
-    self.off.connect("toggled", self.radio_toggled)
+    #self.off = Gtk.RadioButton.new_from_widget(self.asci)
+    #self.off.set_label("No backend")
+    #self.off.connect("toggled", self.radio_toggled)
 
-    self.distro_ascii = Gtk.ComboBoxText()
-    fastfetch.pop_distro_combobox(self, self.distro_ascii)
+    #self.distro_ascii = Gtk.ComboBoxText()
+    #fastfetch.pop_distro_combobox(self, self.distro_ascii)
     # self.distro_ascii.connect("changed", self.on_distro_ascii_changed)
-    self.distro_ascii.set_active(0)
+    #self.distro_ascii.set_active(0)
 
-    self.big_ascii = Gtk.RadioButton(label="Use normal ascii")
+    #self.big_ascii = Gtk.RadioButton(label="Use normal ascii")
 
-    self.small_ascii = Gtk.RadioButton.new_from_widget(self.big_ascii)
-    self.small_ascii.set_label("Use small ascii")
+    #self.small_ascii = Gtk.RadioButton.new_from_widget(self.big_ascii)
+    #self.small_ascii.set_label("Use small ascii")
 
-    backend = fastfetch.check_backend()
-    asci = fastfetch.check_ascii()
+    #backend = fastfetch.check_backend()
+    #asci = fastfetch.check_ascii()
 
     applyfastfetch = Gtk.Button(label="Apply Fastfetch configuration")
     resetnormalfastfetch = Gtk.Button(label="Reset Fastfetch")
@@ -99,7 +99,8 @@ def gui(self, Gtk, vboxstack8, fastfetch, fn):
     lolcat_label = Gtk.Label(xalign=0)
     lolcat_label.set_markup("Use lolcat")
     self.fast_util = Gtk.Switch()
-    self.fast_util.connect("notify::active", self.util_toggle, "fastfetch")
+    #self.fast_util.connect("notify::active", self.util_toggle, "fastfetch")
+    self.fast_util.connect("notify::active", self.on_fast_util_toggled)
     fast_util_label = Gtk.Label(xalign=0)
     fast_util_label.set_markup("Fastfetch enabled")
 
@@ -179,12 +180,12 @@ Switch to the default fastfetch to use this tab - delete the ~/.config/fastfetch
     hbox29.pack_start(label29, False, False, 10)
 
     # hbox22.pack_start(self.w3m, True, False, 10)
-    hbox22.pack_end(self.off, True, False, 10)
-    hbox22.pack_end(self.asci, True, False, 10)
+    #hbox22.pack_end(self.off, True, False, 10)
+    #hbox22.pack_end(self.asci, True, False, 10)
 
-    self.hbox26.pack_start(self.distro_ascii, True, False, 10)
-    self.hbox26.pack_start(self.big_ascii, True, False, 10)
-    self.hbox26.pack_start(self.small_ascii, True, False, 10)
+    #self.hbox26.pack_start(self.distro_ascii, True, False, 10)
+    #self.hbox26.pack_start(self.big_ascii, True, False, 10)
+    #self.hbox26.pack_start(self.small_ascii, True, False, 10)
 
     hbox25.pack_start(flowbox, True, True, 10)
 
@@ -217,18 +218,23 @@ Switch to the default fastfetch to use this tab - delete the ~/.config/fastfetch
 
     vboxstack8.pack_end(hbox24, False, False, 0)
 
-    if backend == "ascii":
-        self.asci.set_active(True)
-        self.big_ascii.set_sensitive(True)
-        self.small_ascii.set_sensitive(True)
-    elif backend == "off":
-        self.off.set_active(True)
-        self.big_ascii.set_sensitive(False)
-        self.small_ascii.set_sensitive(False)
-    else:
-        # self.w3m.set_active(True)
-        self.big_ascii.set_sensitive(False)
-        self.small_ascii.set_sensitive(False)
+    #if backend == "ascii":
+    #    self.asci.set_active(True)
+    #    self.big_ascii.set_sensitive(True)
+    #    self.small_ascii.set_sensitive(True)
+    #elif backend == "off":
+    #    self.off.set_active(True)
+    #    self.big_ascii.set_sensitive(False)
+    #    self.small_ascii.set_sensitive(False)
+    #else:
+    #    # self.w3m.set_active(True)
+    #    self.big_ascii.set_sensitive(False)
+    #    self.small_ascii.set_sensitive(False)
 
-    if asci == "auto":
-        self.big_ascii.set_active(True)
+    #if asci == "auto":
+    #    self.big_ascii.set_active(True)
+
+def on_fast_util_toggled(self, switch, gparam):
+    if not switch.get_active():
+        self.fast_lolcat.set_active(False)
+
