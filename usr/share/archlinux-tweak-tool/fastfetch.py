@@ -7,6 +7,7 @@ import subprocess
 import functions as fn
 import re
 import json
+import utilities
 
 # ====================================================================
 #                       Fastfetch
@@ -20,6 +21,82 @@ def get_fastfetch():
             jsonc_content = f.read()
     
     return data
+   
+def toggle_fastfetch(enable):
+    """Toggle fastfetch in shell config file"""
+    print(f"toggle_fastfetch called with enable={enable}")
+    shell_config = fn.get_shell_config()
+    if not shell_config:
+        print("Shell config file not found")
+        return False  # Indicate that the operation failed
+
+    try:
+        with open(shell_config, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        
+        # Find the reporting tools section
+        reporting_section = next((i for i, line in enumerate(lines) if "# reporting tools" in line.lower()), None)
+        if reporting_section is None:
+            return False
+
+        # Find the fastfetch line in the reporting tools section
+        fastfetch_line = next((i for i in range(reporting_section, len(lines)) 
+                               if lines[i].strip() in ["fastfetch", "#fastfetch"]), None)
+        
+        if fastfetch_line is None:
+            return False
+
+        current_line = lines[fastfetch_line].strip()
+        if enable:
+            if current_line.startswith("#"):
+                lines[fastfetch_line] = "fastfetch\n"
+                print(f"Uncommented fastfetch line. Before: {current_line}, After: {lines[fastfetch_line].strip()}")
+            else:
+                print("Fastfetch is already enabled")
+                return True
+        else:
+            if not current_line.startswith("#"):
+                lines[fastfetch_line] = "#fastfetch\n"
+                print(f"Commented out fastfetch line. Before: {current_line}, After: {lines[fastfetch_line].strip()}")
+            else:
+                print("Fastfetch is already disabled")
+                return True
+
+        with open(shell_config, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+        
+        # Double-check the change
+        with open(shell_config, "r", encoding="utf-8") as f:
+            check_lines = f.readlines()
+        check_line = check_lines[fastfetch_line].strip()
+        expected_line = "fastfetch" if enable else "#fastfetch"
+        if check_line == expected_line:
+            print(f"Fastfetch successfully {'enabled' if enable else 'disabled'} in {shell_config}")
+            return True
+        else:
+           print(f"Failed to {'enable' if enable else 'disable'} fastfetch. Current line: {check_line}")
+           return False
+
+    except Exception as e:
+#        print(f"Error in toggle_fastfetch: {str(e)}")
+        return False  # Indicate that the operation failed
+
+def print_bashrc_contents():
+    """Print the contents of the .bashrc file"""
+    shell_config = fn.get_shell_config()
+    if not shell_config:
+        return
+
+    try:
+        with open(shell_config, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        
+        print(f"Contents of {shell_config}:")
+        for i, line in enumerate(lines, 1):
+            print(f"{i}: {line.rstrip()}")
+    
+    except Exception as e:
+        print(f"Error reading {shell_config}: {str(e)}")
 
 def check_backend():
     """See if image backend is active."""

@@ -22,6 +22,7 @@ import subprocess
 import logging
 import time
 from queue import Queue
+import pwd
 
 # =====================================================
 #              BEGIN DECLARATION OF VARIABLES
@@ -1723,6 +1724,25 @@ def fastfetch_set_backend_value(lists, pos, text, value):
     if text in lists[pos] and "#" not in lists[pos]:
         lists[pos] = text + value + '"\n'
 
+def get_shell_config():
+    # Get the actual user's home directory
+    user_name = os.getlogin()
+    user_home = pwd.getpwnam(user_name).pw_dir
+    print(f"User: {user_name}, Home: {user_home}")
+
+    possible_configs = [
+        os.path.join(user_home, '.bashrc'),
+        os.path.join(user_home, '.zshrc'),
+        os.path.join(user_home, '.config', 'fish', 'config.fish')
+    ]
+    
+    for config in possible_configs:
+        print(f"Checking for: {config}")
+        if os.path.isfile(config):
+            return config
+    
+    print("No shell config file found")
+    return None
 
 # =====================================================
 #               NOTIFICATIONS

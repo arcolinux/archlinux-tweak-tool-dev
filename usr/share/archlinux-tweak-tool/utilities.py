@@ -173,12 +173,9 @@ def set_util_state_arco_switch(self):
 
 def set_util_state(self, util, util_state, lolcat_state):
     """set utility state"""
-    if util == "neofetch":
-        self.neofetch_lolcat.set_state(lolcat_state)
-        self.neofetch_util.set_state(util_state)
-        self.neo_lolcat.set_state(lolcat_state)
-        self.neo_util.set_state(util_state)
-    elif util == "fastfetch":
+    print(f"Setting {util} state: util_state={util_state}, lolcat_state={lolcat_state}")
+    
+    if util == "fastfetch":
         self.fastfetch_lolcat.set_state(lolcat_state)
         self.fastfetch_util.set_state(util_state)
     elif util == "screenfetch":
@@ -221,9 +218,16 @@ def set_util_state(self, util, util_state, lolcat_state):
         self.hyfetch_lolcat.set_state(lolcat_state)
         self.hyfetch_util.set_state(util_state)
     elif util == "colorscript random":
-        self.colorscript.setstate(util_state)
+        self.colorscript.set_state(util_state)
     else:
         print("You should not be here. Something has been input incorrectly.")
+        return
+
+    # Write configs for all utilities except colorscript
+    if util != "colorscript random":
+        write_configs(util, util_state, lolcat_state)
+    
+    print(f"{util} state set")
 
 
 def get_util_state(self, util):
@@ -379,31 +383,55 @@ def get_position(lists, value):
     else:
         return -1
 
-
-def write_configs(utility, util_str):
+def write_configs(utility, util_enabled, lolcat_enabled):
     """write config"""
-    config = ""
-    try:
-        config = get_config_file()
-    except:
-        config = ""
+    config = get_config_file()
+    if not config:
+        return
 
-    if config != "":
-        with open(config, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-            f.close()
-            try:
-                pos = get_position(lines, utility)
-                if pos >= 0:
-                    lines[pos] = util_str + "\n"
-                else:
-                    lines.append(util_str + "\n")
-            # this will cover use cases where the util is not in the rc files
-            except:
-                lines.append("\n" + util_str)
+    with open(config, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    # Find the reporting tools section
+    reporting_section_start = -1
+    for i, line in enumerate(lines):
+        if "# reporting tools" in line.lower():
+            reporting_section_start = i
+            break
+
+    if reporting_section_start == -1:
+        return
+
+    # Find the fastfetch line within the reporting tools section
+    fastfetch_line = -1
+    for i in range(reporting_section_start, len(lines)):
+        if lines[i].strip().startswith(("fastfetch", "#fastfetch")):
+            fastfetch_line = i
+            break
+
+    if fastfetch_line == -1:
+        return
+
+    # Determine the new state of the fastfetch line
+    current_line = lines[fastfetch_line].strip()
+    if util_enabled:
+        new_state = "fastfetch | lolcat" if lolcat_enabled else "fastfetch"
+    else:
+        new_state = "#fastfetch"
+
+    # Update the line if necessary
+    if current_line != new_state:
+        lines[fastfetch_line] = new_state + "\n"
+
+        # Write the changes back to the file
         with open(config, "w", encoding="utf-8") as f:
             f.writelines(lines)
-            f.close()
+
+
+    # Verify the change
+    with open(config, "r", encoding="utf-8") as f:
+        updated_content = f.read()
+        print(f"Updated fastfetch lines: {[line for line in updated_content.split('\n') if 'fastfetch' in line]}")
 
 
 # We only read the bashrc here,as this is used to turn on/off the lolcat option.
@@ -440,3 +468,15 @@ def get_config_file():
         return fn.zsh_config
     else:
         return fn.fish_config
+
+def comment_out_command_in_file(file_path, command):
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    with open(file_path, 'w') as file:
+        for line in lines:
+            if command in line and not line.strip().startswith('#'):
+                # Comment out the line if it contains the command
+                file.write('#' + line)
+            else:
+                file.write(line)

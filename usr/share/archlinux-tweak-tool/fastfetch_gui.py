@@ -26,6 +26,17 @@ def gui(self, Gtk, vboxstack8, fastfetch, fn):
     )
     hbox23.pack_start(warning_label, False, False, 10)
 
+    self.fast_util = Gtk.Switch()
+    self.fast_util.connect("notify::active", self.on_fast_util_toggled)
+    fast_util_label = Gtk.Label(xalign=0)
+    fast_util_label.set_markup("Fastfetch enabled")
+
+    self.fast_lolcat = Gtk.Switch()
+    self.fast_lolcat.connect("notify::active", self.on_fast_lolcat_toggled)
+    fast_lolcat_label = Gtk.Label(xalign=0)
+    fast_lolcat_label.set_markup("Lolcat enabled")
+
+
     #self.asci = Gtk.RadioButton(label="Enable ascii backend")
     #self.asci.connect("toggled", self.radio_toggled)
 
@@ -235,6 +246,9 @@ Switch to the default fastfetch to use this tab - delete the ~/.config/fastfetch
     #    self.big_ascii.set_active(True)
 
 def on_fast_util_toggled(self, switch, gparam):
+    fastfetch.toggle_fastfetch(switch.get_active())
     if not switch.get_active():
         self.fast_lolcat.set_active(False)
 
+def on_fast_lolcat_toggled(self, switch, gparam):
+    fastfetch.toggle_lolcat(switch.get_active())
