@@ -289,9 +289,7 @@ def get_lines(files):
             return lines
     except Exception as error:
         print(error)
-
-
-# get position in list
+    # get position in list
 
 
 def get_position(lists, value):
@@ -1728,7 +1726,6 @@ def get_shell_config():
     # Get the actual user's home directory
     user_name = os.getlogin()
     user_home = pwd.getpwnam(user_name).pw_dir
-    print(f"User: {user_name}, Home: {user_home}")
 
     possible_configs = [
         os.path.join(user_home, '.bashrc'),
@@ -1737,11 +1734,9 @@ def get_shell_config():
     ]
     
     for config in possible_configs:
-        print(f"Checking for: {config}")
         if os.path.isfile(config):
             return config
     
-    print("No shell config file found")
     return None
 
 # =====================================================

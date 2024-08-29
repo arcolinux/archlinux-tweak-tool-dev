@@ -21,83 +21,37 @@ def get_fastfetch():
             jsonc_content = f.read()
     
     return data
-   
+
 def toggle_fastfetch(enable):
     """Toggle fastfetch in shell config file"""
-    print(f"toggle_fastfetch called with enable={enable}")
     shell_config = fn.get_shell_config()
     if not shell_config:
-        print("Shell config file not found")
-        return False  # Indicate that the operation failed
+        return False
 
     try:
         with open(shell_config, "r", encoding="utf-8") as f:
             lines = f.readlines()
         
-        # Find the reporting tools section
         reporting_section = next((i for i, line in enumerate(lines) if "# reporting tools" in line.lower()), None)
         if reporting_section is None:
             return False
 
-        # Find the fastfetch line in the reporting tools section
-        fastfetch_line = next((i for i in range(reporting_section, len(lines)) 
-                               if lines[i].strip() in ["fastfetch", "#fastfetch"]), None)
+        fastfetch_lines = [i for i in range(reporting_section, len(lines)) 
+                           if any(keyword in lines[i].lower() for keyword in ["fastfetch", "alias ff=", "alias nfastfetch="])]
         
-        if fastfetch_line is None:
+        if not fastfetch_lines:
             return False
-
-        current_line = lines[fastfetch_line].strip()
-        if enable:
-            if current_line.startswith("#"):
-                lines[fastfetch_line] = "fastfetch\n"
-                print(f"Uncommented fastfetch line. Before: {current_line}, After: {lines[fastfetch_line].strip()}")
+        for line in fastfetch_lines:
+            if enable:
+                lines[line] = lines[line].lstrip('#')
             else:
-                print("Fastfetch is already enabled")
-                return True
-        else:
-            if not current_line.startswith("#"):
-                lines[fastfetch_line] = "#fastfetch\n"
-                print(f"Commented out fastfetch line. Before: {current_line}, After: {lines[fastfetch_line].strip()}")
-            else:
-                print("Fastfetch is already disabled")
-                return True
-
+                if not lines[line].strip().startswith('#'):
+                    lines[line] = '#' + lines[line]
         with open(shell_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
-        
-        # Double-check the change
-        with open(shell_config, "r", encoding="utf-8") as f:
-            check_lines = f.readlines()
-        check_line = check_lines[fastfetch_line].strip()
-        expected_line = "fastfetch" if enable else "#fastfetch"
-        if check_line == expected_line:
-            print(f"Fastfetch successfully {'enabled' if enable else 'disabled'} in {shell_config}")
-            return True
-        else:
-           print(f"Failed to {'enable' if enable else 'disable'} fastfetch. Current line: {check_line}")
-           return False
-
-    except Exception as e:
-#        print(f"Error in toggle_fastfetch: {str(e)}")
-        return False  # Indicate that the operation failed
-
-def print_bashrc_contents():
-    """Print the contents of the .bashrc file"""
-    shell_config = fn.get_shell_config()
-    if not shell_config:
-        return
-
-    try:
-        with open(shell_config, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-        
-        print(f"Contents of {shell_config}:")
-        for i, line in enumerate(lines, 1):
-            print(f"{i}: {line.rstrip()}")
-    
-    except Exception as e:
-        print(f"Error reading {shell_config}: {str(e)}")
-
+        return True
+    except Exception:
+        return False
 def check_backend():
     """See if image backend is active."""
     if fn.path.isfile(fn.fastfetch_config):
@@ -169,7 +123,6 @@ def apply_config(self, backend, ascii_size):
         with open(fn.fastfetch_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
 
-        print("fastfetch settings saved successfully")
         fn.show_in_app_notification(self, "fastfetch settings saved successfully")
 
 def get_checkbox_state(self, key):
@@ -369,104 +322,104 @@ def set_checkboxes_none(self):
     self.local.set_active(False)
     self.cblocks.set_active(False)
 
-def pop_distro_combobox(self, combo):
-    """Populate the distro combo box with available options."""
+#def pop_distro_combobox(self, combo):
+#    """Populate the distro combo box with available options."""
     
     # Clear the existing items in the combo box
-    combo.get_model().clear()
+#    combo.get_model().clear()
     
     # List of available distributions and operating systems
-    list_distros = [
-        "auto",
-        "Antergos",
-        "Anarchy",
-        "Android",
-        "Antergos",
-        "antiX",
-        "ArcoLinux",
-        "ArchBox",
-        "ARCHlabs",
-        "ArchStrike",
-        "Arch",
-        "Artix",
-        "Arya",
-        "Bedrock",
-        "BlackArch",
-        "BSD",
-        "BunsenLabs",
-        "CentOS",
-        "Chakra",
-        "ClearOS",
-        "Debian",
-        "Deepin",
-        "Elementary",
-        "EndeavourOS",
-        "Fedora",
-        "Feren",
-        "FreeBSD",
-        "Frugalware",
-        "Funtoo",
-        "Garuda",
-        "Gentoo",
-        "GNOME",
-        "GNU",
-        "Kali",
-        "KaOS",
-        "KDE_neon",
-        "Kubuntu",
-        "LMDE",
-        "Lubuntu",
-        "macos",
-        "Mageia",
-        "MagpieOS",
-        "Mandriva",
-        "Manjaro",
-        "Maui",
-        "LinuxMint",
-        "MX_Linux",
-        "Namib",
-        "NetBSD",
-        "Netrunner",
-        "Nitrux",
-        "NixOS",
-        "OBRevenge",
-        "OpenBSD",
-        "OpenMandriva",
-        "Oracle",
-        "PCLinuxOS",
-        "Peppermint",
-        "popos",
-        "Puppy",
-        "PureOS",
-        "Raspbian",
-        "Reborn_OS",
-        "Redcore",
-        "Redhat",
-        "SalentOS",
-        "Slackware",
-        "Solus",
-        "SteamOS",
-        "SunOS",
-        "openSUSE_Leap",
-        "openSUSE_Tumbleweed",
-        "openSUSE",
-        "SwagArch",
-        "Ubuntu-Budgie",
-        "Ubuntu-GNOME",
-        "Ubuntu-MATE",
-        "Ubuntu-Studio",
-        "Ubuntu",
-        "Venom",
-        "Void",
-        "windows10",
-        "Windows7",
-        "Xubuntu",
-        "Zorin",
-    ]
+#    list_distros = [
+#        "auto",
+#         "Antergos",
+#        "Anarchy",
+#        "Android",
+#        "Antergos",
+#        "antiX",
+#        "ArcoLinux",
+#        "ArchBox",
+#        "ARCHlabs",
+#        "ArchStrike",
+#        "Arch",
+#        "Artix",
+#        "Arya",
+#        "Bedrock",
+#        "BlackArch",
+#        "BSD",
+#        "BunsenLabs",
+#        "CentOS",
+#        "Chakra",
+#        "ClearOS",
+#        "Debian",
+#        "Deepin",
+#        "Elementary",
+#        "EndeavourOS",
+#        "Fedora",
+#        "Feren",
+#        "FreeBSD",
+#        "Frugalware",
+#        "Funtoo",
+#        "Garuda",
+#       "Gentoo",
+#        "GNOME",
+#        "GNU",
+#        "Kali",
+#        "KaOS",
+#        "KDE_neon",
+#        "Kubuntu",
+#        "LMDE",
+#        "Lubuntu",
+#        "macos",
+#        "Mageia",
+#        "MagpieOS",
+#        "Mandriva",
+#        "Manjaro",
+#        "Maui",
+#        "LinuxMint",
+#        "MX_Linux",
+#        "Namib",
+#        "NetBSD",
+#        "Netrunner",
+#        "Nitrux",
+#        "NixOS",
+#        "OBRevenge",
+#        "OpenBSD",
+#        "OpenMandriva",
+#        "Oracle",
+#        "PCLinuxOS",
+#        "Peppermint",
+#        "popos",
+#        "Puppy",
+#        "PureOS",
+#        "Raspbian",
+#        "Reborn_OS",
+#        "Redcore",
+#        "Redhat",
+#        "SalentOS",
+#       "Slackware",
+#        "Solus",
+#        "SteamOS",
+#        "SunOS",
+#        "openSUSE_Leap",
+#        "openSUSE_Tumbleweed",
+#        "openSUSE",
+#       "SwagArch",
+#        "Ubuntu-Budgie",
+#        "Ubuntu-GNOME",
+#        "Ubuntu-MATE",
+#        "Ubuntu-Studio",
+#        "Ubuntu",
+#        "Venom",
+#        "Void",
+#        "windows10",
+#        "Windows7",
+#        "Xubuntu",
+#        "Zorin",
+#    ]
 
     # Add each distro to the combo box
-    for item in list_distros:
-        combo.append_text(item)
+    #for item in list_distros:
+    #    combo.append_text(item)
 
     # Optional: Automatically set the active item based on a config value
     # Uncomment and adjust the following code if you want to pre-select an item

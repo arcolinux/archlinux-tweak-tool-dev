@@ -173,8 +173,7 @@ def set_util_state_arco_switch(self):
 
 def set_util_state(self, util, util_state, lolcat_state):
     """set utility state"""
-    print(f"Setting {util} state: util_state={util_state}, lolcat_state={lolcat_state}")
-    
+     
     if util == "fastfetch":
         self.fastfetch_lolcat.set_state(lolcat_state)
         self.fastfetch_util.set_state(util_state)
@@ -220,14 +219,12 @@ def set_util_state(self, util, util_state, lolcat_state):
     elif util == "colorscript random":
         self.colorscript.set_state(util_state)
     else:
-        print("You should not be here. Something has been input incorrectly.")
         return
 
     # Write configs for all utilities except colorscript
     if util != "colorscript random":
         write_configs(util, util_state, lolcat_state)
-    
-    print(f"{util} state set")
+
 
 
 def get_util_state(self, util):
@@ -265,7 +262,6 @@ def get_util_state(self, util):
     elif util == "colorscript random":
         return self.colorscripts.get_active()
     else:
-        print("Get Util State error. Something has been input incorrectly.")
         return False
 
 
@@ -304,7 +300,6 @@ def get_lolcat_state(self, util):
     elif util == "colorscript random":  # no lolcat for colorscripts
         return False
     else:
-        print("Get lolcat state error. Something has been input incorrectly.")
         return False
 
 
@@ -427,15 +422,10 @@ def write_configs(utility, util_enabled, lolcat_enabled):
         with open(config, "w", encoding="utf-8") as f:
             f.writelines(lines)
 
-
-    # Verify the change
-    with open(config, "r", encoding="utf-8") as f:
-        updated_content = f.read()
-        print(f"Updated fastfetch lines: {[line for line in updated_content.split('\n') if 'fastfetch' in line]}")
-
-
-# We only read the bashrc here,as this is used to turn on/off the lolcat option.
-# Assumption; both .bashrc and .zshrc are set identically.
+    # Remove or comment out the following lines to stop the debug output
+    # with open(config, "r", encoding="utf-8") as f:
+    #     updated_content = f.read()
+    #     print(f"Updated fastfetch lines: {[line for line in updated_content.split('\n') if 'fastfetch' in line]}")
 
 
 def get_term_rc(value):
