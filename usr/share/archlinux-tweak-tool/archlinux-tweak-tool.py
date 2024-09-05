@@ -35,6 +35,10 @@ import signal
 import datetime
 import functions as fn
 import gi
+import fastfetch_gui
+import utilities
+
+
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gdk, GdkPixbuf, Gtk, Pango, GLib
@@ -873,12 +877,13 @@ class Main(Gtk.Window):
             self.colorscript.set_active(utilities.get_term_rc("colorscript random"))
 
                      # fastfetch
-            self.fast_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
-            self.fastfetch_lolcat.set_active(
-                utilities.get_term_rc("fastfetch | lolcat"))
-
-            self.fastfetch_util.set_active(utilities.get_term_rc("fastfetch"))
-            self.fast_util.set_active(utilities.get_term_rc("fastfetch"))
+  # Initialize fastfetch and lolcat switches
+        self.fast_util.set_active(utilities.get_term_rc("fastfetch"))
+        self.fast_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
+        
+        # Connect toggle handlers
+        self.fast_util.connect("notify::active", self.on_fast_util_toggled)
+        self.fast_lolcat.connect("notify::active", self.on_fast_lolcat_toggled)
     
         # =====================================================
         #                     LIGHTDM
@@ -2854,17 +2859,17 @@ class Main(Gtk.Window):
     
     # When using this function to toggle a lolcat: utility = name of tool, e.g. fastfetch
 
+
+
     def lolcat_toggle(self, widget, active, utility):
         lolcat_state = widget.get_active()
         util_state = utilities.get_util_state(self, utility)
 
         if lolcat_state:
             utilities.install_util("lolcat")
-            # If the utility is currently not active, activate it
             if not util_state or utility == "fastfetch":
                 util_state = True
                 utilities.set_util_state(self, utility, True, True)
-        # The below is to ensure that the check box on Fastfetch always toggles to match correctly
         elif not lolcat_state and utility == "fastfetch":
             utilities.set_util_state(self, utility, True, False)
         
@@ -2874,23 +2879,22 @@ class Main(Gtk.Window):
         util_state = switch.get_active()
         lolcat_state = self.fast_lolcat.get_active()
         
-        try:
-            fastfetch.toggle_fastfetch(util_state)
-        except Exception as e:
-            print(f"Error calling fastfetch.toggle_fastfetch: {str(e)}")
+        fastfetch.toggle_fastfetch(util_state)
         
         if not util_state:
             self.fast_lolcat.set_active(False)
             lolcat_state = False
         
         utilities.write_configs("fastfetch", util_state, lolcat_state)
+        self.fast_lolcat.set_sensitive(util_state)
 
     def on_fast_lolcat_toggled(self, switch, gparam):
         lolcat_state = switch.get_active()
         util_state = self.fast_util.get_active()
         
-        fastfetch.toggle_lolcat(lolcat_state)
-        utilities.write_configs("fastfetch", util_state, lolcat_state)
+        if util_state:
+            fastfetch.toggle_lolcat(lolcat_state)
+            utilities.write_configs("fastfetch", util_state, lolcat_state)
 
     def util_toggle(self, widget, active, utility):
         util_state = widget.get_active()
@@ -2901,14 +2905,24 @@ class Main(Gtk.Window):
             if utility == "fastfetch":
                 utilities.set_util_state(self, utility, True, lolcat_state)
         else:
-            # If the lolcat for the utility is on; best turn it off too.
             if lolcat_state:
                 lolcat_state = False
-                utilities.set_util_state(self, utility, False, False)
+            utilities.set_util_state(self, utility, False, False)
             if utility == "fastfetch":
                 utilities.set_util_state(self, utility, False, False)
-        
-        utilities.write_configs(utility, util_state, lolcat_state)
+    
+            utilities.write_configs(utility, util_state, lolcat_state)
+
+
+
+
+
+
+
+
+
+
+
 
     def on_click_fastfetch_all_selection(self, widget):
         print("You have selected all Fastfetch switches")
