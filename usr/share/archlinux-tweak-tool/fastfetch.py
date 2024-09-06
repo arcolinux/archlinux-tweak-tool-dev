@@ -22,6 +22,7 @@ def get_fastfetch():
     
     return data
 
+
 def toggle_fastfetch(enable):
     """Toggle fastfetch in shell config file"""
     shell_config = fn.get_shell_config()
@@ -32,16 +33,39 @@ def toggle_fastfetch(enable):
         with open(shell_config, "r", encoding="utf-8") as f:
             lines = f.readlines()
         
-        fastfetch_lines = [i for i, line in enumerate(lines) 
-                           if any(keyword in line.lower() for keyword in ["fastfetch", "alias ff="])]
-        
-        for line in fastfetch_lines:
+        # Find the reporting tools section
+        reporting_section_start = -1
+        for i, line in enumerate(lines):
+            if "# reporting tools" in line.lower():
+                reporting_section_start = i
+                break
+
+        if reporting_section_start == -1:
+            return False  # Exit if the reporting tools section is not found
+
+        # Find the fastfetch line within the reporting tools section
+        fastfetch_line = -1
+        for i in range(reporting_section_start, len(lines)):
+            if lines[i].strip().startswith(("fastfetch", "#fastfetch")):
+                fastfetch_line = i
+                break
+
+        if fastfetch_line == -1:
+            return False  # Exit if fastfetch line is not found
+
+        # Check if the line is commented out
+        if lines[fastfetch_line].strip().startswith("#"):
             if enable:
-                lines[line] = lines[line].lstrip('#')
-            else:
-                if not lines[line].strip().startswith('#'):
-                    lines[line] = '#' + lines[line]
-        
+                return False  # Do not enable if it's commented out
+            # If disabling, we can proceed to comment it out
+
+        # Toggle only the fastfetch line
+        if enable:
+            lines[fastfetch_line] = lines[fastfetch_line].lstrip('#')  # Uncomment
+        else:
+            if not lines[fastfetch_line].strip().startswith('#'):
+                lines[fastfetch_line] = '#' + lines[fastfetch_line]  # Comment out
+
         with open(shell_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
         return True
@@ -62,10 +86,9 @@ def toggle_lolcat(enable):
                         if "| lolcat" in line.lower()]
         
         for line in lolcat_lines:
-            if enable:
-                lines[line] = lines[line].replace("# alias ff='fastfetch", "alias ff='fastfetch")
-            else:
-                lines[line] = lines[line].replace("alias ff='fastfetch", "# alias ff='fastfetch")
+            # Skip updating the alias line and the line above it
+            if "| lolcat" in lines[line] or line > 0 and "| lolcat" in lines[line - 1]:
+                continue
         
         with open(shell_config, "w", encoding="utf-8") as f:
             f.writelines(lines)
