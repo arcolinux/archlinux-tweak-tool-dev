@@ -395,9 +395,9 @@ def write_configs(utility, util_enabled, lolcat_enabled):
             break
 
     if reporting_section_start == -1:
-        return
+        return  # Exit if the reporting tools section is not found
 
-    # Find the fastfetch line within the reporting tools section
+    # Check if the fastfetch line exists within the reporting tools section
     fastfetch_line = -1
     for i in range(reporting_section_start, len(lines)):
         if lines[i].strip().startswith(("fastfetch", "#fastfetch")):
@@ -405,7 +405,7 @@ def write_configs(utility, util_enabled, lolcat_enabled):
             break
 
     if fastfetch_line == -1:
-        return
+        return  # Exit if fastfetch line is not found
 
     # Determine the new state of the fastfetch line
     current_line = lines[fastfetch_line].strip()
@@ -414,13 +414,15 @@ def write_configs(utility, util_enabled, lolcat_enabled):
     else:
         new_state = "#fastfetch"
 
-    # Update the line if necessary
-    if current_line != new_state:
+    # Update the line if necessary, but do not update any lines above the reporting tools section
+    if current_line != new_state and fastfetch_line >= reporting_section_start:
         lines[fastfetch_line] = new_state + "\n"
 
         # Write the changes back to the file
         with open(config, "w", encoding="utf-8") as f:
             f.writelines(lines)
+ 
+
 
     # Remove or comment out the following lines to stop the debug output
     # with open(config, "r", encoding="utf-8") as f:
