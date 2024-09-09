@@ -192,31 +192,30 @@ Switch to the default fastfetch to use this tab - delete the ~/.config/fastfetch
     self.fast_lolcat.set_sensitive(self.fast_util.get_active())
 
 def on_fast_util_toggled(self, switch, gparam):
-    util_state = switch.get_active()
-    lolcat_state = self.fast_lolcat.get_active()
+    """Handler for fastfetch toggle switch."""
+    fastfetch_enabled = switch.get_active()
     
-    try:
-        fastfetch.toggle_fastfetch(util_state)
-    except Exception as e:
-        print(f"Error calling fastfetch.toggle_fastfetch: {str(e)}")
-    
-    if not util_state:
+    # Enable or disable lolcat based on fastfetch state
+    if not fastfetch_enabled:
+        # If fastfetch is turned off, lolcat must also be turned off
         self.fast_lolcat.set_active(False)
-        lolcat_state = False
-        fastfetch.toggle_lolcat(False)
-    
-    utilities.write_configs("fastfetch", util_state, lolcat_state)
-    self.fast_lolcat.set_sensitive(util_state)
+        self.fast_lolcat.set_sensitive(False)  # Disable lolcat toggle
+    else:
+        # If fastfetch is enabled, lolcat can be toggled independently
+        self.fast_lolcat.set_sensitive(True)
+
+    # Write to shellrc only when fastfetch is toggled
+    utilities.write_configs("fastfetch", fastfetch_enabled, self.fast_lolcat.get_active())
+
 
 def on_fast_lolcat_toggled(self, switch, gparam):
-    lolcat_state = switch.get_active()
-    util_state = self.fast_util.get_active()
+    """Handler for lolcat toggle switch."""
+    lolcat_enabled = switch.get_active()
     
-    if util_state:
-        fastfetch.toggle_lolcat(lolcat_state)
-        utilities.write_configs("fastfetch", util_state, lolcat_state)
-    else:
-        switch.set_active(False)  # Ensure lolcat stays off if fastfetch is off
+    # Write to shellrc only when lolcat is toggled
+    # Note: This is only relevant if fastfetch is enabled, hence no further checks needed
+    utilities.write_configs("fastfetch", self.fast_util.get_active(), lolcat_enabled)
+
 
 def update_gui(self):
     # Your code to update the GUI goes here

@@ -877,13 +877,27 @@ class Main(Gtk.Window):
             self.colorscript.set_active(utilities.get_term_rc("colorscript random"))
 
                      # fastfetch
-  # Initialize fastfetch and lolcat switches
-        self.fast_util.set_active(utilities.get_term_rc("fastfetch"))
-        self.fast_lolcat.set_active(utilities.get_term_rc("fastfetch | lolcat"))
-        
-        # Connect toggle handlers
-        self.fast_util.connect("notify::active", self.on_fast_util_toggled)
-        self.fast_lolcat.connect("notify::active", self.on_fast_lolcat_toggled)
+            # Disable signals temporarily to prevent triggering on initialization
+            self.fast_util.handler_block_by_func(self.on_fast_util_toggled)
+            self.fast_lolcat.handler_block_by_func(self.on_fast_lolcat_toggled)
+
+            # Initialize fastfetch and lolcat switches
+            fastfetch_enabled = utilities.get_term_rc("fastfetch")
+            lolcat_enabled = utilities.get_term_rc("fastfetch | lolcat")
+
+            self.fast_util.set_active(fastfetch_enabled)
+            self.fast_lolcat.set_active(lolcat_enabled)
+
+            # Set sensitivity: lolcat should only be sensitive if fastfetch is active
+            self.fast_lolcat.set_sensitive(fastfetch_enabled)
+
+            # Re-enable signals after initialization
+            self.fast_util.handler_unblock_by_func(self.on_fast_util_toggled)
+            self.fast_lolcat.handler_unblock_by_func(self.on_fast_lolcat_toggled)
+
+            # Connect toggle handlers
+            self.fast_util.connect("notify::active", self.on_fast_util_toggled)
+            self.fast_lolcat.connect("notify::active", self.on_fast_lolcat_toggled)
     
         # =====================================================
         #                     LIGHTDM
