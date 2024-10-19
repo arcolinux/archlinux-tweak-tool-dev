@@ -1,15 +1,15 @@
 #!/bin/bash
 #set -e
 ##################################################################################################################
-# Author 	: Erik Dubois
+# Author    : Erik Dubois
 # Website   : https://www.erikdubois.be
 # Website   : https://www.alci.online
-# Website	: https://www.arcolinux.info
-# Website	: https://www.arcolinux.com
-# Website	: https://www.arcolinuxd.com
-# Website	: https://www.arcolinuxb.com
-# Website	: https://www.arcolinuxiso.com
-# Website	: https://www.arcolinuxforum.com
+# Website   : https://www.arcolinux.info
+# Website   : https://www.arcolinux.com
+# Website   : https://www.arcolinuxd.com
+# Website   : https://www.arcolinuxb.com
+# Website   : https://www.arcolinuxiso.com
+# Website   : https://www.arcolinuxforum.com
 ##################################################################################################################
 #
 #   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
@@ -26,22 +26,28 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-echo "Deleting current /etc/pacman.d/mirrorlist and replacing with"
-echo
-echo "Server = http://mirror.rackspace.com/archlinux/\$repo/os/\$arch
-Server = https://mirror.rackspace.com/archlinux/\$repo/os/\$arch
-Server = https://mirrors.kernel.org/archlinux/\$repo/os/\$arch
-Server = https://mirror.osbeck.com/archlinux/\$repo/os/\$arch
-Server = http://mirror.osbeck.com/archlinux/\$repo/os/\$arch
-Server = https://geo.mirror.pkgbuild.com/\$repo/os/\$arch" | sudo tee /etc/pacman.d/mirrorlist
-
-echo
-tput setaf 2
-echo "########################################################################"
-echo "Arch Linux Servers have been written to /etc/pacman.d/mirrorlist"
-echo "Use nmirrorlist to inspect"
-echo "########################################################################"
+tput setaf 1;
+echo "###############################################################################"
+echo "###                REMOVE BOTH NETWORK CARD DKMS PACKAGES                  ####"
+echo "###                ONLY RUN THIS IF YOU DO NOT NEED THOSE                  ####"
+echo "###############################################################################"
 tput sgr0
+
+echo "This script will remove broadcom-wl-dkms rtl8821cu-morrownr-dkms-git"
+read -p "Are you sure you want to proceed? (Y/y) " response
+
+if [[ $response =~ ^[Yy]$ ]]; then
+
+echo "Removing broadcom-wl-dkms rtl8821cu-morrownr-dkms-git"
+sudo pacman -Rs broadcom-wl-dkms rtl8821cu-morrownr-dkms-git --noconfirm
+
+else
+    echo "####################################"
+    echo "Operation canceled by user."
+    echo "####################################"
+
+fi
+
 echo
 echo "###############################################################################"
 echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"

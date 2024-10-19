@@ -26,17 +26,11 @@
 #tput setaf 8 = light blue
 ##################################################################################################################
 
-#Automount shared folders for virtualbox
-user=$( who | cut -d ' ' -f1 | uniq)
-sudo gpasswd -a $user vboxsf
-sudo systemctl enable vboxservice.service
-sudo systemctl start vboxservice.service
-echo "##############################################"
-echo "Now log out and log back in"
-echo "If you have set virtualbox to share a folder"
-echo "with automount, it will appear in the"
-echo "filemanager at next login"
-echo "##############################################"
+sudo pacman -Sy
+sudo pacman -S sublime-text-4 --noconfirm --needed
+sudo pacman -S the_platinum_searcher-bin --noconfirm --needed
+sudo pacman -S ripgrep --noconfirm --needed
+sudo pacman -S meld --noconfirm --needed
 
 echo "###############################################################################"
 echo "###                DONE - YOU CAN CLOSE THIS WINDOW                        ####"
