@@ -1494,6 +1494,7 @@ if fn.distr != "arcolinux":
         "archlinux-logout-git",
         "arcolinux-alacritty-git",
         "arcolinux-niri-git",
+        "arcolinux-pywal-cache-git",
         "arconet-xfce",
         "grim",
         "niri",
@@ -1883,6 +1884,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/alacritty")
         src.append("/etc/skel/.bin")
         src.append("/etc/skel/.config/hypr")
+        src.append("/etc/skel/.cache/wal")
         twm = True
     elif desktop == "i3":
         command = list(np.append(i3, default_app))
@@ -1924,6 +1926,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/alacritty")
         src.append("/etc/skel/.bin")
         src.append("/etc/skel/.config/niri")
+        src.append("/etc/skel/.cache/wal")
         twm = True
     elif desktop == "pantheon":
         command = pantheon
@@ -1965,6 +1968,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/wayfire.ini")
         src.append("/etc/skel/.config/wayfire-azerty.ini")
         src.append("/etc/skel/.config/wf-shell.ini")
+        src.append("/etc/skel/.cache/wal")
         twm = True
     elif desktop == "wmderland":
         command = list(np.append(wmderland, default_app))
