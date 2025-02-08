@@ -45,6 +45,7 @@ desktops = [
     "lxqt",
     "mate",
     "nimdow",
+    "niri",
     "openbox",
     "pantheon",
     "plasma",
@@ -738,6 +739,32 @@ if fn.distr == "arcolinux":
         "ttf-jetbrains-mono-nerd",
         "xfce4-terminal",
         "xorg-xsetroot",
+    ]
+    niri = [
+        "archlinux-logout-git",
+        "arcolinux-alacritty-git",
+        "arcolinux-niri-git",
+        "arcolinux-powermenu-git",
+        "arcolinux-pywal-cache-git",
+        "arcolinux-rofi-git",
+        "arcolinux-rofi-themes-git",
+        "arcolinux-wayland-app-hooks-git",
+        "arconet-xfce",
+        "grim",
+        "niri",
+        "lxappearance",
+        "mako",
+        "micro",
+        "pamixer",
+        "pulsemixer",
+        "rofi-lbonn-wayland",
+        "swaybg",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-jetbrains-mono-nerd",
+        "waybar-git",
+        "wofi",
     ]
     openbox = [
         "alacritty",
@@ -1463,6 +1490,24 @@ if fn.distr != "arcolinux":
         "xfce4-terminal",
         "xorg-xsetroot",
     ]
+    niri = [
+        "archlinux-logout-git",
+        "arcolinux-alacritty-git",
+        "arcolinux-niri-git",
+        "arconet-xfce",
+        "grim",
+        "niri",
+        "lxappearance",
+        "mako",
+        "rofi-lbonn-wayland",
+        "swaybg",
+        "thunar",
+        "thunar-archive-plugin",
+        "thunar-volman",
+        "ttf-jetbrains-mono-nerd",
+        "waybar-git",
+        "wofi",
+    ]
     openbox = [
         "alacritty",
         "arcolinux-common-git",
@@ -1873,6 +1918,12 @@ def install_desktop(self, desktop, state):
         command = list(np.append(nimdow, default_app))
         src.append("/etc/skel/.config/nimdow")
         src.append("/etc/skel/.config/powermenu")
+        twm = True
+    elif desktop == "niri":
+        command = list(np.append(niri, default_app))
+        src.append("/etc/skel/.config/alacritty")
+        src.append("/etc/skel/.bin")
+        src.append("/etc/skel/.config/niri")
         twm = True
     elif desktop == "pantheon":
         command = pantheon
