@@ -752,6 +752,7 @@ if fn.distr == "arcolinux":
         "arcolinux-wayland-app-hooks-git",
         "arconet-xfce",
         "btop",
+        "dex",
         "grim",
         "niri",
         "lxappearance",
@@ -768,6 +769,8 @@ if fn.distr == "arcolinux":
         "ttf-jetbrains-mono-nerd",
         "waybar-git",
         "wofi",
+        "xwayland-satellite",
+        "yad",
     ]
     openbox = [
         "alacritty",
@@ -937,6 +940,7 @@ if fn.distr == "arcolinux":
         "arcolinux-alacritty-git",
         "arcolinux-foot-git",
         "arcolinux-kitty-git",
+        "arcolinux-powermenu-git",
         "arcolinux-pywal-cache-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
@@ -1499,13 +1503,16 @@ if fn.distr != "arcolinux":
         "archlinux-logout-git",
         "arcolinux-alacritty-git",
         "arcolinux-niri-git",
+        "arcolinux-powermenu-git",
         "arcolinux-pywal-cache-git",
         "arconet-xfce",
         "btop",
+        "dex",
         "grim",
         "niri",
         "lxappearance",
         "mako",
+        "micro",
         "python-pywal",
         "rofi-lbonn-wayland",
         "swaybg",
@@ -1515,6 +1522,8 @@ if fn.distr != "arcolinux":
         "ttf-jetbrains-mono-nerd",
         "waybar-git",
         "wofi",
+        "xwayland-satellite",
+        "yad",
     ]
     openbox = [
         "alacritty",
@@ -1613,6 +1622,7 @@ if fn.distr != "arcolinux":
         "arcolinux-alacritty-git",
         "arcolinux-foot-git",
         "arcolinux-kitty-git",
+        "arcolinux-powermenu-git",
         "arcolinux-pywal-cache-git",
         "arcolinux-rofi-git",
         "arcolinux-rofi-themes-git",
@@ -1886,6 +1896,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(hlwm, default_app))
         src.append("/etc/skel/.config/herbstluftwm")
         src.append("/etc/skel/.config/polybar")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "hyprland":
         command = list(np.append(hyprland, default_app))
@@ -1893,6 +1904,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.bin")
         src.append("/etc/skel/.config/hypr")
         src.append("/etc/skel/.cache/wal")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "i3":
         command = list(np.append(i3, default_app))
@@ -1933,6 +1945,7 @@ def install_desktop(self, desktop, state):
         command = list(np.append(niri, default_app))
         src.append("/etc/skel/.config/alacritty")
         src.append("/etc/skel/.bin")
+        src.append("/etc/skel/.config/powermenu")
         src.append("/etc/skel/.config/niri")
         src.append("/etc/skel/.cache/wal")
         twm = True
@@ -1977,6 +1990,7 @@ def install_desktop(self, desktop, state):
         src.append("/etc/skel/.config/wayfire-azerty.ini")
         src.append("/etc/skel/.config/wf-shell.ini")
         src.append("/etc/skel/.cache/wal")
+        src.append("/etc/skel/.config/powermenu")
         twm = True
     elif desktop == "wmderland":
         command = list(np.append(wmderland, default_app))
