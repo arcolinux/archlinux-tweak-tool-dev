@@ -2110,11 +2110,25 @@ def install_desktop(self, desktop, state):
                             f"Failed to install {package_name}. Possible conflicts detected.",
                         )
                 else:
-                    print(f"Failed to install {package_name}: {stderr}")
-                    GLib.idle_add(
-                        self.desktopr_stat.set_text,
-                        f"Failed to install {package_name}. Error: {stderr}",
-                    )
+                    # Check for package conflicts in stderr
+                    conflict_message = None
+                    for line in stderr.splitlines():
+                        if "conflicting dependencies" in line or "in conflict" in line:
+                            conflict_message = line
+                            break  # Stop searching once we find a conflict message
+
+                    if conflict_message:
+                        print(f"Installation failed due to package conflict: {conflict_message}")
+                        GLib.idle_add(
+                            self.desktopr_stat.set_text,
+                            f"Installation failed: {conflict_message}",
+                        )
+                    else:
+                        print(f"Failed to install {package_name}: {stderr}")
+                        GLib.idle_add(
+                            self.desktopr_stat.set_text,
+                            f"Failed to install {package_name}. Error: {stderr}",
+                        )
 
             except Exception as e:
                 print(f"An error occurred while installing {package_name}: {str(e)}")
