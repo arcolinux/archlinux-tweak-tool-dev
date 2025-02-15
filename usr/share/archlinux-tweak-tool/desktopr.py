@@ -1753,8 +1753,8 @@ def check_desktop(desktop):
                 return True
     if os.path.exists("/usr/share/wayland-sessions"):
         lst = fn.listdir("/usr/share/wayland-sessions/")
-        for xsession in lst:
-            if desktop + ".desktop" == xsession:
+        for wsession in lst:
+            if desktop + ".desktop" == wsession:
                 return True
 
     return False
